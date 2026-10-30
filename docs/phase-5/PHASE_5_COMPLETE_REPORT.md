@@ -59,19 +59,38 @@ Untuk menjamin reproducibility build dan menghindari version drift, konfigurasi 
   - ESM module: `./dist/modules/index.js`
   - UMD browser bundle: `./dist/bundles/anime.umd.min.js`
 
-### 2. `atlas-skill/.gitignore`
-Menjamin artefak build dan node_modules tidak mengotori repositori git:
+### 2. `atlas-skill/.gitignore` & `package-lock.json`
+Menjamin dependency tree 100% reproducible tanpa version drift:
+- Aturan `package-lock.json` **dihapus dari `.gitignore`** sehingga file lockfile resmi ter-commit ke version control.
+- File `package-lock.json` (lockfileVersion 3) mengunci `animejs@4.5.0` beserta checksum SHA-512 `sha512-NQimYX+lz8WaXonGS9zVVoviCIAjONeJayxacUditaivYLqyXgGjFKjuyl0aUUhFKm5MriX9ty1TGovNzoJQWA==`.
+- `.gitignore` mempertahankan aturan penting lainnya:
 ```
+# Dependencies
 node_modules/
-package-lock.json
+
+# Python cache & test artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs & temp
 *.log
+tmp/
+.temp/
 ```
 
-### 3. Perintah Instalasi & Uji Mandiri:
+### 3. Perintah Instalasi Bersih, Validasi Lockfile & Uji Mandiri:
 ```powershell
-npm --prefix atlas-skill install
+# Validasi instalasi bersih dan reproducible dari lockfile
+npm --prefix atlas-skill ci
+
+# Uji integrasi mandiri
 npm --prefix atlas-skill test
 ```
+*Bukti Eksekusi `npm ci`:* `added 1 package, and audited 2 packages in 6s. found 0 vulnerabilities`.
 
 ---
 
@@ -96,13 +115,15 @@ npm --prefix atlas-skill test
    - Menetapkan `"engineCompatibility": "Anime.js v4.x official runtime target; native CSS fallback when library is not loaded"`.
 3. `atlas-skill/package.json` *(Dibuat)*:
    - Mendefinisikan dependency exact pinned `animejs: "4.5.0"`.
-4. `atlas-skill/.gitignore` *(Dibuat)*:
-   - Mengabaikan `node_modules/`, `package-lock.json`, dan file log.
-5. `atlas-skill/tests/test_animejs_adapter.py` *(Dimodifikasi)*:
+4. `atlas-skill/.gitignore` *(Dimodifikasi)*:
+   - Menghapus aturan ignore `package-lock.json` agar lockfile masuk version control; mempertahankan ignore untuk `node_modules/`, cache Python, dan file log.
+5. `atlas-skill/package-lock.json` *(Dibuat & Divalidasi)*:
+   - Lockfile v3 reproducible yang mengunci `animejs@4.5.0` dan diverifikasi dengan `npm ci`.
+6. `atlas-skill/tests/test_animejs_adapter.py` *(Dimodifikasi)*:
    - Terdiri dari 5 unit test komprehensif: 4 unit tests (mock v4, parameter mapping, CSS fallback, reduced motion, lifecycle idempotence) dan 1 integration test dengan biner npm `animejs@4.5.0` fisik.
-6. `atlas-skill/tests/test_animejs_v4_integration.mjs` *(Dibuat)*:
+7. `atlas-skill/tests/test_animejs_v4_integration.mjs` *(Dibuat)*:
    - Test script Node.js standalone murni untuk memverifikasi eksekusi API v4 secara mandiri (`npm test`).
-7. `atlas-skill/docs/phase-5/PHASE_5_COMPLETE_REPORT.md` *(Diperbarui)*:
+8. `atlas-skill/docs/phase-5/PHASE_5_COMPLETE_REPORT.md` *(Diperbarui)*:
    - Laporan konsolidasi master tunggal dengan metrik terverifikasi dan status gate PASS.
 
 ---
