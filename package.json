@@ -3,6 +3,11 @@
   "version": "2.0.0",
   "private": true,
   "description": "Atlas Skill - Runtime, Motion Adapter & Taste Knowledge Integration",
+  "homepage": "https://github.com/Crelami-Dev/atlas-skill",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crelami-Dev/atlas-skill.git"
+  },
   "scripts": {
     "test": "node tests/test_animejs_v4_integration.mjs"
   },

@@ -11,7 +11,7 @@
       "version": "1.0.0",
       "source": "./",
       "skills": ["./skills/atlas-skill"],
-      "homepage": "https://github.com/atlas-skill/atlas-skill",
+      "homepage": "https://github.com/Crelami-Dev/atlas-skill",
       "license": "MIT",
       "keywords": ["skills", "frontend", "design", "atlas", "ui", "dashboard"]
     }
