@@ -1,0 +1,410 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceRoot": "taste-skill/skills/taste-skill",
+  "licenseSource": "taste-skill/LICENSE",
+  "auditDate": "2026-10-30",
+  "totalSourceFiles": 39,
+  "totalSourceBytes": 2461323,
+  "files": [
+    {
+      "path": "../LICENSE",
+      "size": 1086,
+      "sha256": "3c9f63518df3378772203cc64d38d9e381d2a4723b93d2c3849b2bf3d464de0c",
+      "category": "license",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "copied",
+      "destination": "knowledge/taste/LICENSE.taste-skill",
+      "rationale": "Parent repository MIT license verifying license terms for all 39 source files."
+    },
+    {
+      "path": "README.md",
+      "size": 5426,
+      "sha256": "5b07bb1b40ee965223864d0bce2a8f7f891a8f54c52c083d02e8f8bf3a836c57",
+      "category": "instruction",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/README.md",
+      "rationale": "Adapted Taste Skill overview and design philosophy documentation for Atlas."
+    },
+    {
+      "path": "SKILL.md",
+      "size": 40079,
+      "sha256": "a2adda18568ae014f602e42b0727fb2e4b852f109d722b9f1e3067069d5c46ea",
+      "category": "instruction",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "skills/atlas-skill/SKILL.md",
+      "rationale": "Core 10-step run, laws, and heuristics adapted into Atlas Skill prompt."
+    },
+    {
+      "path": "assets/app.css",
+      "size": 16134,
+      "sha256": "a7ae6a5f4efb53f0eaf944d05b85cace394d4c985cc37d919d609776d8660a52",
+      "category": "runtime",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "Application CSS styles referenced during CSS generation; not bundled directly."
+    },
+    {
+      "path": "assets/base.css",
+      "size": 6625,
+      "sha256": "d4f2e1681832fd8184d58717ac95c1e0b004705f4661f096ddf90143865ec373",
+      "category": "runtime",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/motion.md",
+      "rationale": "Motion tokens and CSS variable conventions adapted into Atlas CSS generator and reference."
+    },
+    {
+      "path": "assets/base.js",
+      "size": 2199,
+      "sha256": "d91500dacc88b093a35d54c6e1d55113c63be7664f64a3f75f1b50706b2dda13",
+      "category": "runtime",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "adapters/motion/animejs-adapter.js",
+      "rationale": "Vanilla reveal logic adapted into Atlas Anime.js and native CSS motion adapter."
+    },
+    {
+      "path": "assets/charts.js",
+      "size": 59635,
+      "sha256": "5291a21a1bf993a5938c12637a8fb72f8b2541166caac226cfaf2589b124d758",
+      "category": "runtime",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "Third-party chart helper referenced for data dashboard rendering; not bundled."
+    },
+    {
+      "path": "assets/scenes/stage.css",
+      "size": 1169,
+      "sha256": "018f3ef9c960373519ed7e715be4991739fe50667d3dd48f0a12718c34a166c7",
+      "category": "runtime",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "GSAP stage container styling retained as reference; superseded by Atlas generator."
+    },
+    {
+      "path": "assets/scenes/stage.js",
+      "size": 7825,
+      "sha256": "1a2f534e1c5ae684ce534f58842fa00369609dac250e33d85b777bb62d94dcd2",
+      "category": "runtime",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "excluded",
+      "destination": null,
+      "rationale": "GSAP+Lenis CDN harness excluded to preserve zero external CDN dependency in Atlas."
+    },
+    {
+      "path": "evals/evals.json",
+      "size": 8274,
+      "sha256": "526d900bc60d043b6d96462d43f6139746402cd8fb010d98a890cc89e81d088b",
+      "category": "evaluation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "Taste evaluation scenarios retained for reference during Atlas quality testing."
+    },
+    {
+      "path": "library/app.json",
+      "size": 75556,
+      "sha256": "63e44887c523683973d3b59b25a39b7c6a7fa3794fb850f78ecb1fa7b5c58f62",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/app.json",
+      "rationale": "App shell and component blueprints adapted for app mode layouts."
+    },
+    {
+      "path": "library/directions.json",
+      "size": 62543,
+      "sha256": "535163a2341d38a2372981a3634ca33f43ce80ee10da7eda259bc646f82f3f95",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/directions.json",
+      "rationale": "12 aesthetic directions incorporated into Atlas composite library and scoring."
+    },
+    {
+      "path": "library/heroes.json",
+      "size": 109326,
+      "sha256": "fc8f810dbf3bcf20f232903e3e973261a38929c6e7e689291181352b8210ac07",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/heroes.json",
+      "rationale": "Hero section architectures adapted to Atlas layout composition schemas."
+    },
+    {
+      "path": "library/motions.json",
+      "size": 9125,
+      "sha256": "2f1b6750397a4081620b92d354c20b556b5062d0ef32f1013929537e6dba7bfd",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/motions.json",
+      "rationale": "18 motion patterns fully adapted with Atlas schema, timing, and anime configs."
+    },
+    {
+      "path": "library/palettes.json",
+      "size": 36237,
+      "sha256": "74c88b35340234c56f21954be5b54592f374963936613052fa0579cf14266d84",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/palettes.json",
+      "rationale": "Color palettes and contrast guidelines harmonized with Atlas semantic palette system."
+    },
+    {
+      "path": "library/photos.json",
+      "size": 167871,
+      "sha256": "62faa2263a02d02b0dac2fa54829aa7290e80a286d32b75d1831a111a46e6486",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/photos.json",
+      "rationale": "Curated museum/public domain photos adapted with full provenance and licensing attributes."
+    },
+    {
+      "path": "library/sections.json",
+      "size": 280575,
+      "sha256": "6d15b05951d022598dcef68263d9cbb1c969658794c8c20fbcbceb5a7201e685",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/sections.json",
+      "rationale": "Section component blueprints adapted for composition slots."
+    },
+    {
+      "path": "library/sites.json",
+      "size": 877423,
+      "sha256": "cfc5d68a8e3c06ca65f042c376f844ea5b0c1810809da2589779774a94e7f525",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/sites.json",
+      "rationale": "Awwwards reference dataset adapted for benchmarking and layout retrieval."
+    },
+    {
+      "path": "library/type.json",
+      "size": 84349,
+      "sha256": "6eb96a60a1c85ce02e7bfe71b61d6a9881c84e85014bd28a1d927bfbc0f3fc7c",
+      "category": "catalog",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/library/type.json",
+      "rationale": "Typography pairing systems adapted to Atlas typography schema."
+    },
+    {
+      "path": "references/app-screens.md",
+      "size": 86557,
+      "sha256": "84b4bd52e47e3f2b6a6e90767866e9a9059a99589e43544f5344d54bf5ae8b0c",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/app-screens.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/colour.md",
+      "size": 6994,
+      "sha256": "fa634ab3a4e0f9159b12c1d5450f708e1baec2d4285dd05999c758da9d70bbc1",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/colour.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/copy.md",
+      "size": 9613,
+      "sha256": "6de6cef4451a98660b4a4641d2c5f79f5281c18cd11016ef321d4a56e6c9cee2",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/copy.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/critique.md",
+      "size": 11339,
+      "sha256": "8fd1487c3ea43ba9877ab508db2833cc8dff7b59a2f962eb298ef0534598ed76",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/critique.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/imagery.md",
+      "size": 51816,
+      "sha256": "997e995bbd8e2d1b98b0c5b6c39baa992beb60abc33a8267585f15f70f1d6c15",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/imagery.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/layout.md",
+      "size": 18607,
+      "sha256": "f14a8a9c1c58d98be971c803ffb8ef91cfc4e5a873ee888d9c7fceefa547e664",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/layout.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/motion.md",
+      "size": 56380,
+      "sha256": "52149b254d400513bf27d21e681e9c18bda806cbb04bbd0ace659bf1c454d213",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/motion.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/research.md",
+      "size": 24618,
+      "sha256": "b52b2939a2196c201b4e4b6811728c2a6e0c54c79b0a603db72456debc62b12a",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/research.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/scenes.md",
+      "size": 9991,
+      "sha256": "765f1cc2b1e79e16a171737f8bdd47636d01c7d74ecd5a4b29cc5dedea3f6605",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/scenes.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/tells.md",
+      "size": 7535,
+      "sha256": "a591b54f3a75722910f4c3dda5a420966f8b49a359628f30281929a8a91fe732",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/tells.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "references/type.md",
+      "size": 8665,
+      "sha256": "2419a8fb73ba97ae2ea81aa361a6ec6b95da64641fe1830e6937bb5b73f54168",
+      "category": "reference",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "knowledge/taste/references/type.md",
+      "rationale": "Adapted reference documentation preserving design rationale, laws, and provenance."
+    },
+    {
+      "path": "scripts/assets.mjs",
+      "size": 65387,
+      "sha256": "27b8c99be3a6ef7e66b7fcefa5abeceabc0ae20535975e67e079f5ff384c4b39",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "Curated asset discovery logic referenced in asset resolver; Node script excluded."
+    },
+    {
+      "path": "scripts/draw.mjs",
+      "size": 54724,
+      "sha256": "5dda04dc79b790972be0b3b5c11f1663e0ab1d2f27ff36c70be5cc2f7deb6932",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "SVG diagram drawing logic referenced; native Python generator used in Atlas."
+    },
+    {
+      "path": "scripts/inspect.mjs",
+      "size": 29161,
+      "sha256": "89f778805f33c81059a7158a5e06aee72699f0711a8ebe71ca84379f6cf37008",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "runtime/browser_qa.py",
+      "rationale": "CDP inspection principles adapted into Atlas browser QA pipeline."
+    },
+    {
+      "path": "scripts/lib/app-draw.mjs",
+      "size": 14918,
+      "sha256": "952a381279c89bffb4c541844725e21a88ee6a9620a878d9c8b6c7fdb97ef5f7",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "Internal SVG drawing helper referenced; not required in Atlas runtime."
+    },
+    {
+      "path": "scripts/lib/cdp.mjs",
+      "size": 12168,
+      "sha256": "33fd60f0efe967d25643cfe6920ff2543da285b6bf85f3d991f65d753a06d655",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "runtime/browser_qa.py",
+      "rationale": "Zero-dependency CDP WebSocket architecture adapted into Atlas browser inspector."
+    },
+    {
+      "path": "scripts/lib/inspection-files.mjs",
+      "size": 487,
+      "sha256": "4b1861006d1bacd015bd105ebf51ab47ecd7ae3b529c7179d8dd0da2209b7cb4",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "reference-only",
+      "destination": null,
+      "rationale": "Target resolver helper referenced; Atlas uses internal path management."
+    },
+    {
+      "path": "scripts/lib/probe.mjs",
+      "size": 83481,
+      "sha256": "b022ff56f74fa1f0e004b9f0ba58d3f4ad4254cf65cf3ca50fee08fd5f27215a",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "runtime/anti_slop.py",
+      "rationale": "DOM metric probing adapted into Atlas anti-slop and visual QA engine."
+    },
+    {
+      "path": "scripts/lib/rules.mjs",
+      "size": 37541,
+      "sha256": "d1c54989b55b433533693eb72f5f72bf100b0f873c728e251d4ad750d602694e",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "runtime/anti_slop.py",
+      "rationale": "Anti-slop rules adapted with contextual exceptions and rationale."
+    },
+    {
+      "path": "scripts/lint.mjs",
+      "size": 11866,
+      "sha256": "5ea16dac38742505ddea95d65f7d8029e6f9590718ad07a0343426e99250af4e",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "adapted",
+      "destination": "runtime/anti_slop.py",
+      "rationale": "Static HTML linter adapted into Atlas automated QA pipeline."
+    },
+    {
+      "path": "scripts/scenes.mjs",
+      "size": 9104,
+      "sha256": "fcba8308b18e1c57471dfd0e95432f9c865c84493110be2b1e1a15e14c47f206",
+      "category": "automation",
+      "license": "MIT (Leonxlnx, 2026)",
+      "action": "excluded",
+      "destination": null,
+      "rationale": "GSAP scene scaffolding excluded; replaced by Atlas Anime.js adapter."
+    }
+  ]
+}

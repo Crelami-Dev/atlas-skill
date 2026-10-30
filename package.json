@@ -1,0 +1,13 @@
+{
+  "name": "atlas-skill",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Atlas Skill - Runtime, Motion Adapter & Taste Knowledge Integration",
+  "scripts": {
+    "test": "node tests/test_animejs_v4_integration.mjs"
+  },
+  "dependencies": {
+    "animejs": "4.5.0"
+  }
+}
+

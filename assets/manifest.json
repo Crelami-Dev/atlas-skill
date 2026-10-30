@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "description": "Atlas-Skill Asset Tracking & Provenance Manifest (adhering to DEC-003 priority hierarchy: Native-First AI → Licensed Archive → Semantic CSS/SVG).",
+  "schema": {
+    "required_fields": ["asset_id", "tier", "source_type", "license", "target_slot", "dimensions"],
+    "tier_definitions": {
+      "tier_1_native": "Direct AI generation via host subagent or configured environment API",
+      "tier_2_archive": "Open museum and public domain imagery via atlas_assets.mjs (Wikimedia, Met, AIC, Openverse)",
+      "tier_3_fallback": "Semantic SVG geometry, CSS gradients with scrims, or pure typographic layout"
+    }
+  },
+  "assets": []
+}
+

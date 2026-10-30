@@ -1,0 +1,11 @@
+source_dataset,source_project,source_count,target_dataset,normalized_count,status,delta_reason_and_evidence
+library/directions.json,taste-skill,20,art-directions.json,20,RECONCILED,Direct 1:1 migration; all 20 records retain taste-skill provenance and attribution
+compositions/library.json,atlas-frontend-design,50,compositions.json,50,RECONCILED,All 50 layout patterns migrated into compositions layer with atlas: namespace
+library/heroes.json,taste-skill,58,compositions.json,58,RECONCILED,All 58 hero blueprints migrated into compositions layer with taste:hero: namespace
+library/sections.json,taste-skill,185,compositions.json,185,RECONCILED,All 185 section blueprints migrated into compositions layer with taste:section: namespace
+library/palettes.json,taste-skill,56,palettes.json,56,RECONCILED,Direct 1:1 migration; all 56 semantic palettes retain taste-skill provenance and attribution
+library/type.json,taste-skill,44,typography.json,44,RECONCILED,Direct 1:1 migration; all 44 typography systems retain taste-skill provenance and attribution
+library/sites.json,taste-skill,202,sites.json,202,RECONCILED,Direct 1:1 migration; all 202 studied gallery sites retain taste-skill provenance and attribution
+library/app.json (shells),taste-skill,5,app-shells.json,5,RECONCILED,5 app shells migrated with app:shell: namespace; styles/kinds preserved in metadata
+skills/atlas-design/references/composition-library.json,project-atlas-v0.2.0-alpha,20,EXCLUDED (DROPPED),0,CONFIRMED EXCLUDED,Scaffold patterns excluded: obsolete schema lacking context-scoring metadata; fully superseded by 50 Atlas patterns and 243 Taste blueprints
+TOTAL ACTIVE RECORDS,ACTIVE SOURCES,620,UNIFIED LIBRARY,620,RECONCILED,Actual record sum = 20 + 293 + 56 + 44 + 202 + 5 = 620 exact records

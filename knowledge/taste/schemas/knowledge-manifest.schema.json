@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atlas-skill.local/schemas/knowledge-manifest.schema.json",
+  "title": "TasteKnowledgeManifest",
+  "description": "Schema for validating the Taste Skill to Atlas Skill adaptation manifest.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceRoot",
+    "licenseSource",
+    "auditDate",
+    "totalSourceFiles",
+    "totalSourceBytes",
+    "files"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "sourceRoot": { "type": "string" },
+    "licenseSource": { "type": "string" },
+    "auditDate": { "type": "string" },
+    "totalSourceFiles": { "type": "integer" },
+    "totalSourceBytes": { "type": "integer" },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "size",
+          "sha256",
+          "category",
+          "license",
+          "action",
+          "rationale"
+        ],
+        "properties": {
+          "path": { "type": "string" },
+          "size": { "type": "integer" },
+          "sha256": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["instruction", "catalog", "reference", "automation", "runtime", "evaluation", "license"]
+          },
+          "license": { "type": "string" },
+          "action": {
+            "type": "string",
+            "enum": ["copied", "adapted", "reference-only", "excluded"]
+          },
+          "destination": { "type": ["string", "null"] },
+          "rationale": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

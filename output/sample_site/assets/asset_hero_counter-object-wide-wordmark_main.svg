@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="auto" role="img" aria-label="Institutional Treasury Ledger Interface">
+  <defs>
+    <linearGradient id="bg_asset:hero:counter-object-wide-wordmark:main" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d" />
+      <stop offset="100%" stop-color="#141c33" />
+    </linearGradient>
+    <linearGradient id="chart_grad_asset:hero:counter-object-wide-wordmark:main" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00e5a3" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#00e5a3" stop-opacity="0.0" />
+    </linearGradient>
+    <linearGradient id="line_grad_asset:hero:counter-object-wide-wordmark:main" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#00e5a3" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <pattern id="grid_asset:hero:counter-object-wide-wordmark:main" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Frame Background -->
+  <rect width="800" height="450" fill="url(#bg_asset:hero:counter-object-wide-wordmark:main)" rx="16" />
+  <rect width="800" height="450" fill="url(#grid_asset:hero:counter-object-wide-wordmark:main)" rx="16" />
+  <rect x="1" y="1" width="798" height="448" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2" rx="15" />
+
+  <!-- Ledger Header -->
+  <g transform="translate(40, 36)">
+    <circle cx="8" cy="8" r="4" fill="#00e5a3" />
+    <circle cx="8" cy="8" r="8" fill="none" stroke="#00e5a3" stroke-width="1" opacity="0.4" />
+    <text x="24" y="12" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#889bb5" letter-spacing="0.08em">INSTITUTIONAL TREASURY LEDGER</text>
+    
+    <!-- Security Verification Badge -->
+    <rect x="560" y="-4" width="160" height="26" rx="13" fill="rgba(0, 229, 163, 0.08)" stroke="rgba(0, 229, 163, 0.25)" stroke-width="1" />
+    <text x="640" y="13" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#00e5a3" letter-spacing="0.04em">MULTI-SIG VERIFIED</text>
+  </g>
+
+  <!-- Balance Hero Display -->
+  <g transform="translate(40, 92)">
+    <text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" fill="#ffffff" letter-spacing="-0.02em">$2,485,920.00 USD</text>
+    <rect x="360" y="8" width="115" height="26" rx="13" fill="rgba(0, 229, 163, 0.12)" />
+    <text x="417" y="25" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#00e5a3">+14.8% APY</text>
+    <text x="0" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#889bb5">Automated Yield Protocol • Block Height #21,849,204</text>
+  </g>
+
+  <!-- Interactive Grid Guidelines -->
+  <g stroke="rgba(255, 255, 255, 0.06)" stroke-dasharray="4,4" stroke-width="1">
+    <line x1="40" y1="180" x2="760" y2="180" />
+    <line x1="40" y1="230" x2="760" y2="230" />
+    <line x1="40" y1="280" x2="760" y2="280" />
+  </g>
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#556987">
+    <text x="40" y="174">$2.50M</text>
+    <text x="40" y="224">$2.00M</text>
+    <text x="40" y="274">$1.50M</text>
+  </g>
+
+  <!-- Trend Area Fill -->
+  <path d="M 40 300 L 40 280 Q 140 270 240 240 T 440 200 T 640 170 L 760 160 L 760 300 Z" fill="url(#chart_grad_asset:hero:counter-object-wide-wordmark:main)" />
+  <!-- Trend Stroke Line -->
+  <path d="M 40 280 Q 140 270 240 240 T 440 200 T 640 170 L 760 160" fill="none" stroke="url(#line_grad_asset:hero:counter-object-wide-wordmark:main)" stroke-width="3.5" stroke-linecap="round" />
+
+  <!-- Active Marker Point -->
+  <circle cx="440" cy="200" r="6" fill="#00e5a3" />
+  <circle cx="440" cy="200" r="12" fill="none" stroke="#00e5a3" stroke-width="2" opacity="0.4" />
+  <!-- Tooltip Card -->
+  <g transform="translate(390, 145)">
+    <rect width="100" height="34" rx="6" fill="#1e293b" stroke="rgba(0, 229, 163, 0.4)" stroke-width="1" />
+    <text x="50" y="21" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Peak: $2.51M</text>
+  </g>
+
+  <!-- Asset Allocation Footer Cards -->
+  <g transform="translate(40, 370)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="230" height="54" rx="10" fill="#141c30" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+    <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">USD Reserves</text>
+    <text x="16" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">$1,441,833 (58%)</text>
+
+    <!-- Card 2 -->
+    <rect x="245" y="0" width="230" height="54" rx="10" fill="#141c30" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+    <text x="261" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Digital Assets</text>
+    <text x="261" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">$671,200 (27%)</text>
+
+    <!-- Card 3 -->
+    <rect x="490" y="0" width="230" height="54" rx="10" fill="#141c30" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+    <text x="506" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Yield Staking</text>
+    <text x="506" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">$372,887 (15%)</text>
+  </g>
+</svg>

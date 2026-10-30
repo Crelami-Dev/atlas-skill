@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "schema_type": "compositions",
+  "item_count": 999,
+  "items": [
+    {
+      "id": "atlas:item-count-test",
+      "layer": "composition",
+      "name": "Single item with bad count",
+      "provenance": {
+        "source_project": "atlas-frontend-design",
+        "source_file": "compositions/library.json",
+        "source_id": "test",
+        "license": "MIT",
+        "attribution": "Attribution test"
+      }
+    }
+  ]
+}
+

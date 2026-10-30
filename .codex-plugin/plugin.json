@@ -1,0 +1,30 @@
+{
+  "name": "atlas-skill",
+  "version": "1.0.0",
+  "description": "Atlas Skill: Art direction and context-aware frontend design for coding agents.",
+  "author": {
+    "name": "Project ATLAS contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "frontend",
+    "design",
+    "ui",
+    "dashboard"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Atlas Skill",
+    "shortDescription": "Adaptive Taste & Layout Architecture System for frontends.",
+    "longDescription": "Atlas Skill: researched art directions, deterministic pattern selection, and browser quality verification.",
+    "category": "Design",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Design a distinctive frontend without generic AI patterns using Atlas.",
+      "Select a context-aware composition for this brief.",
+      "Review and verify this webpage against the Atlas quality gate."
+    ]
+  }
+}
+

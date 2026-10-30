@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atlas-skill.local/schemas/motion-pattern.schema.json",
+  "title": "AtlasMotionPattern",
+  "description": "Schema for validating motion patterns adapted from Taste Skill into Atlas Skill.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "intent",
+    "useCase",
+    "trigger",
+    "targets",
+    "timing",
+    "easing",
+    "reducedMotionFallback",
+    "performanceConsiderations",
+    "lifecycle",
+    "responsiveBehavior",
+    "sourceProvenance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "intent": {
+      "type": "string",
+      "description": "The communication purpose or user experience reason for the motion."
+    },
+    "useCase": {
+      "type": "string",
+      "description": "Specific UI contexts or layouts where this pattern is appropriate."
+    },
+    "trigger": {
+      "type": "string",
+      "enum": ["load", "scroll", "hover", "press", "click", "state-change", "none"]
+    },
+    "targets": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "CSS selector targets or semantic slot identifiers."
+    },
+    "timing": {
+      "type": "object",
+      "required": ["durationMs"],
+      "properties": {
+        "durationMs": { "type": "integer", "minimum": 0 },
+        "delayMs": { "type": "integer", "minimum": 0 },
+        "staggerMs": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "easing": {
+      "type": "object",
+      "required": ["token", "bezier"],
+      "properties": {
+        "token": { "type": "string" },
+        "bezier": { "type": "string" },
+        "animeName": { "type": "string" }
+      }
+    },
+    "stagger": {
+      "type": ["object", "null"],
+      "properties": {
+        "intervalMs": { "type": "integer", "minimum": 0 },
+        "startMs": { "type": "integer", "minimum": 0 },
+        "from": { "type": "string" }
+      }
+    },
+    "reducedMotionFallback": {
+      "type": "object",
+      "required": ["behavior"],
+      "properties": {
+        "behavior": {
+          "type": "string",
+          "enum": ["instant", "fade-only", "static-crop", "stillness", "none"]
+        },
+        "description": { "type": "string" }
+      }
+    },
+    "performanceConsiderations": {
+      "type": "string",
+      "description": "GPU acceleration constraints, will-change, composite properties."
+    },
+    "lifecycle": {
+      "type": "object",
+      "required": ["cleanupRequirements"],
+      "properties": {
+        "cleanupRequirements": { "type": "string" },
+        "removesListeners": { "type": "boolean" },
+        "resetsTransform": { "type": "boolean" }
+      }
+    },
+    "responsiveBehavior": {
+      "type": "string",
+      "description": "Adaptation rules for mobile/touch screens."
+    },
+    "sourceProvenance": {
+      "type": "object",
+      "required": ["sourceFile", "originalId", "license"],
+      "properties": {
+        "sourceFile": { "type": "string" },
+        "originalId": { "type": "string" },
+        "license": { "type": "string" }
+      }
+    },
+    "adapterConfig": {
+      "type": "object",
+      "properties": {
+        "anime": { "type": "object" },
+        "css": { "type": "object" }
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

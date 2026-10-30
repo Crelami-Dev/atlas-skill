@@ -1,0 +1,10 @@
+source_dataset,source_project,source_count,target_dataset,normalized_count,delta_reason
+library/directions.json,taste-skill,20,art-directions.json,20,Direct 1:1 mapping with provenance
+compositions/library.json,atlas-frontend-design,50,compositions.json,50,Atlas layout patterns preserved
+library/heroes.json,taste-skill,58,compositions.json,58,Taste hero blueprints mapped into compositions layer
+library/sections.json,taste-skill,185,compositions.json,185,Taste section blueprints mapped into compositions layer
+library/palettes.json,taste-skill,56,palettes.json,56,Direct 1:1 semantic palette tokens
+library/type.json,taste-skill,44,typography.json,44,Direct 1:1 typography scales and pairings
+library/sites.json,taste-skill,202,sites.json,202,Direct 1:1 studied gallery sites
+library/app.json (shells),taste-skill,5,app-shells.json,5,Taste app shells list extracted with metadata
+TOTAL MIGRATED RECORDS,ALL,620,ALL,620,100% reconciled across both source repositories

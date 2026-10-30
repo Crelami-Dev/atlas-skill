@@ -1,0 +1,21 @@
+{
+  "name": "atlas-skill",
+  "interface": {
+    "displayName": "Atlas Skill"
+  },
+  "plugins": [
+    {
+      "name": "atlas-skill",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
+    }
+  ]
+}
+

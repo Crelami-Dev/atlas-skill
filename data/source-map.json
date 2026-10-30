@@ -1,0 +1,4962 @@
+[
+  {
+    "normalized_id": "art-dir:name-as-monument",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "name-as-monument",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:sentence-as-layout",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "sentence-as-layout",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:pinned-poster",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "pinned-poster",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:colour-chapters",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "colour-chapters",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:place-carries-it",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "place-carries-it",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:page-is-the-object",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "page-is-the-object",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:one-motif",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "one-motif",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:product-performs",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "product-performs",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:quiet-instrument",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "quiet-instrument",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:hero-object",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "hero-object",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:specimen-catalogue",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "specimen-catalogue",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:borrowed-category",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "borrowed-category",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:contact-sheet",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "contact-sheet",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:editorial-report",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "editorial-report",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:loud-flat-poster",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "loud-flat-poster",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:split-stage",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "split-stage",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:dense-tiles",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "dense-tiles",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:uneven-photographs",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "uneven-photographs",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:dark-room",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "dark-room",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "art-dir:type-only-statement",
+    "layer": "art_direction",
+    "source_project": "taste-skill",
+    "source_file": "library/directions.json",
+    "source_id": "type-only-statement",
+    "target_dataset": "art-directions.json"
+  },
+  {
+    "normalized_id": "atlas:nav-minimal-bar",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "nav-minimal-bar",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:nav-transparent-overlay",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "nav-transparent-overlay",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:nav-editorial-masthead",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "nav-editorial-masthead",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:nav-app-sidebar",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "nav-app-sidebar",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:nav-bottom-tabs-mobile",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "nav-bottom-tabs-mobile",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-type-led-centered",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-type-led-centered",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-split-media",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-split-media",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-fullbleed-overlay",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-fullbleed-overlay",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-product-shot",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-product-shot",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-layered-mockup",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-layered-mockup",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-editorial-masthead",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-editorial-masthead",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-interactive-preview",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-interactive-preview",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-data-led",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-data-led",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-asymmetric-offset",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-asymmetric-offset",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:hero-fact-panel",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "hero-fact-panel",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:metrics-numeral-band",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "metrics-numeral-band",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:metrics-contextual-chart",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "metrics-contextual-chart",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:metrics-fact-strip",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "metrics-fact-strip",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:features-bento",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "features-bento",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:features-spotlight-alternating",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "features-spotlight-alternating",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:features-feature-bands",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "features-feature-bands",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:features-comparison",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "features-comparison",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:features-diagram",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "features-diagram",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:features-tabbed",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "features-tabbed",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:showcase-annotated-screenshot",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "showcase-annotated-screenshot",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:showcase-device-frame",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "showcase-device-frame",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:story-editorial-longform",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "story-editorial-longform",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:story-timeline-scroll",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "story-timeline-scroll",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:proof-attributed-quote",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "proof-attributed-quote",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:proof-case-study",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "proof-case-study",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:proof-logo-strip",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "proof-logo-strip",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:proof-outcomes",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "proof-outcomes",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:pricing-comparison-table",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "pricing-comparison-table",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:pricing-tiers",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "pricing-tiers",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:pricing-single-plan",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "pricing-single-plan",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:pricing-usage-calculator",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "pricing-usage-calculator",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:process-numbered-steps",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "process-numbered-steps",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:process-timeline",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "process-timeline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:process-workflow-diagram",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "process-workflow-diagram",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:faq-accordion",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "faq-accordion",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:faq-grouped-search",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "faq-grouped-search",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:cta-contextual-band",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "cta-contextual-band",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:cta-form-inline",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "cta-form-inline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:cta-minimal-line",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "cta-minimal-line",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:footer-compact",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "footer-compact",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:footer-ia-columns",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "footer-ia-columns",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:app-shell-sidebar",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "app-shell-sidebar",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:app-kpi-grid",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "app-kpi-grid",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:app-data-table",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "app-data-table",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "atlas:app-settings-form",
+    "layer": "composition",
+    "source_project": "atlas-frontend-design",
+    "source_file": "compositions/library.json",
+    "source_id": "app-settings-form",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:name-under-photograph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "name-under-photograph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:stacked-name-two-inks",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "stacked-name-two-inks",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:photograph-for-a-letter",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "photograph-for-a-letter",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:name-split-to-corners",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "name-split-to-corners",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:pinned-title-over-portraits",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "pinned-title-over-portraits",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:sentence-with-photo-strip",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "sentence-with-photo-strip",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:sentence-split-by-frame",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "sentence-split-by-frame",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:headline-across-two-fields",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "headline-across-two-fields",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:swatch-column-beside-view",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "swatch-column-beside-view",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:film-title-on-bottom-edge",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "film-title-on-bottom-edge",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:small-name-open-sky",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "small-name-open-sky",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:invitation-card-cropped",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "invitation-card-cropped",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:card-over-dim-room",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "card-over-dim-room",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:tabbed-folder-stack",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "tabbed-folder-stack",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:striped-card-beside-room",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "striped-card-beside-room",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:giant-cropped-shape",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "giant-cropped-shape",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:fragment-on-shaped-stage",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "fragment-on-shaped-stage",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:control-reads-the-page",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "control-reads-the-page",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:controls-on-the-sentence",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "controls-on-the-sentence",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:column-on-one-line",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "column-on-one-line",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:single-object-on-plinth",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "single-object-on-plinth",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:object-crops-three-edges",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "object-crops-three-edges",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:object-splits-the-headline",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "object-splits-the-headline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:object-on-the-seam",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "object-on-the-seam",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:statement-beside-specimen-mosaic",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "statement-beside-specimen-mosaic",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:specimen-wall-docked-panel",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "specimen-wall-docked-panel",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:single-specimen-name-list",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "single-specimen-name-list",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:shouted-headline-rising-photo",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "shouted-headline-rising-photo",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:counter-object-wide-wordmark",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "counter-object-wide-wordmark",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:text-band-then-sheet",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "text-band-then-sheet",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:sheet-with-text-cell",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "sheet-with-text-cell",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:lit-strip-four-corners",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "lit-strip-four-corners",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:mosaic-masthead-title-on-axis",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "mosaic-masthead-title-on-axis",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:narrow-talk-wide-headline",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "narrow-talk-wide-headline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:waterline-headline",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "waterline-headline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:flush-left-shout-seam-photo",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "flush-left-shout-seam-photo",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:menu-column-sticky-photo",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "menu-column-sticky-photo",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:inset-photo-wordmark-crossing",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "inset-photo-wordmark-crossing",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:anchored-text-specimen-half",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "anchored-text-specimen-half",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:two-by-two-board",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "two-by-two-board",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:name-band-and-rails",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "name-band-and-rails",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:stepped-title-two-photos",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "stepped-title-two-photos",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:three-prints-one-line",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "three-prints-one-line",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:two-prints-in-darkness",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "two-prints-in-darkness",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:two-line-statement-full-width",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "two-line-statement-full-width",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:void-then-statement-on-axis",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "void-then-statement-on-axis",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:colour-field-two-ink-statement",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "colour-field-two-ink-statement",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:one-word-cropped",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "one-word-cropped",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:window-opens-to-the-edges",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "window-opens-to-the-edges",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:ring-of-frames-around-the-headline",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "ring-of-frames-around-the-headline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:navigation-on-the-midline",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "navigation-on-the-midline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:title-in-the-sky-line-on-the-horizon",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "title-in-the-sky-line-on-the-horizon",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:name-across-the-middle",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "name-across-the-middle",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:square-over-a-moving-line",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "square-over-a-moving-line",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:two-doors-on-a-dark-wall",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "two-doors-on-a-dark-wall",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:title-from-top-to-bottom-edge",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "title-from-top-to-bottom-edge",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:line-up-on-an-arc",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "line-up-on-an-arc",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:hero:view-with-two-cards-in-the-corner",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/heroes.json",
+    "source_id": "view-with-two-cards-in-the-corner",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-capabilities-at-poster-scale",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-capabilities-at-poster-scale",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-pinned-heading-passing-rows",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-pinned-heading-passing-rows",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-one-scene-stepping-statements",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-one-scene-stepping-statements",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-stacking-colour-sheets",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-stacking-colour-sheets",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-mosaic-of-unlike-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-mosaic-of-unlike-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-statement-cell-dark-rows",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-statement-cell-dark-rows",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-staggered-fragment-cells",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-staggered-fragment-cells",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-small-proof-beside-text",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-small-proof-beside-text",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-comparison-set-as-text",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-comparison-set-as-text",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-one-size-name-columns",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-one-size-name-columns",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-specimens-on-colour-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-specimens-on-colour-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-statements-on-colour-fields",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-statements-on-colour-fields",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-rows-with-margin-photographs",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-rows-with-margin-photographs",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-paragraph-with-picture-words",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-paragraph-with-picture-words",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-capabilities-as-a-menu",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-capabilities-as-a-menu",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-shape-marked-small-points",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-shape-marked-small-points",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-two-giant-words-compared",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-two-giant-words-compared",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-two-objects-two-fields",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-two-objects-two-fields",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-object-in-front-of-type",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-object-in-front-of-type",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-band-of-unequal-panels",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-band-of-unequal-panels",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-close-up-with-column-card",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-close-up-with-column-card",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-live-demo-with-controls",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-live-demo-with-controls",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-one-frame-three-distances",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-one-frame-three-distances",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-one-image-across-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-one-image-across-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-frame-run-one-lifted",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-frame-run-one-lifted",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-output-slips-along-the-edge",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-output-slips-along-the-edge",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-object-on-a-disc",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-object-on-a-disc",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-square-plate-spare-text",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-square-plate-spare-text",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-lines-that-step-across",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-lines-that-step-across",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-photographs-down-a-diagonal",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-photographs-down-a-diagonal",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-drag-row-of-moments",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-drag-row-of-moments",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-pinned-fragment-changing-state",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-pinned-fragment-changing-state",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-itinerary-on-a-slip",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-itinerary-on-a-slip",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-accordion-of-tinted-panels",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-accordion-of-tinted-panels",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-tiles-that-grow",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-tiles-that-grow",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-run-in-column",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-run-in-column",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-many-into-one",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-many-into-one",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-one-verb-at-a-time",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-one-verb-at-a-time",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-one-figure-owns-the-screen",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-one-figure-owns-the-screen",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-figures-inside-a-sentence",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-figures-inside-a-sentence",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-column-aligned-on-the-decimal",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-column-aligned-on-the-decimal",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-photograph-with-figure-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-photograph-with-figure-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-stepped-figure-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-stepped-figure-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-total-and-its-receipt",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-total-and-its-receipt",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-figure-on-the-photographs-edge",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-figure-on-the-photographs-edge",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-quiet-figure-lines",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-quiet-figure-lines",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-name-block-quote-block",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-name-block-quote-block",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-lead-quote-corner-quotes",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-lead-quote-corner-quotes",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-paper-slips",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-paper-slips",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-quote-over-photograph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-quote-over-photograph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-gutter-quotes-pinned",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-gutter-quotes-pinned",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-portrait-offset-quote",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-portrait-offset-quote",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-words-spread-wide",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-words-spread-wide",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-letter-reading-column",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-letter-reading-column",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-shallow-portrait-bands",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-shallow-portrait-bands",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-names-run-on-sentence",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-names-run-on-sentence",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-plain-columns",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-plain-columns",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-single-logo-row",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-single-logo-row",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-recognition-table",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-recognition-table",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-large-marks-on-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-large-marks-on-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-printed-guest-list",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-printed-guest-list",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:proof-names-off-both-edges",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "proof-names-off-both-edges",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-price-as-display-figure",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-price-as-display-figure",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-large-typographic-table",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-large-typographic-table",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-one-sentence-price",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-one-sentence-price",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-two-plans-two-fields",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-two-plans-two-fields",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-menu-list",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-menu-list",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-ticket-with-stub",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-ticket-with-stub",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-itemised-receipt",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-itemised-receipt",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-plan-index-live-figure",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-plan-index-live-figure",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:pricing-stepped-colour-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "pricing-stepped-colour-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-large-questions-answers-beside",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-large-questions-answers-beside",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-alternating-tone-bands",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-alternating-tone-bands",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-filled-tile-accordion",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-filled-tile-accordion",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-open-two-column-reading",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-open-two-column-reading",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-accordion-beside-tall-photo",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-accordion-beside-tall-photo",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-wide-heading-indented-list",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-wide-heading-indented-list",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-question-index-answer-pane",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-question-index-answer-pane",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:faq-tabbed-index-cards",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "faq-tabbed-index-cards",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-idea-restated-inverted",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-idea-restated-inverted",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-giant-word-is-the-button",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-giant-word-is-the-button",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-object-returns",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-object-returns",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-plain-sentence-one-action",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-plain-sentence-one-action",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-photograph-text-one-half",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-photograph-text-one-half",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-photo-strip-then-field",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-photo-strip-then-field",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-reply-card",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-reply-card",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-blank-in-the-sentence",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-blank-in-the-sentence",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-action-tile-row",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-action-tile-row",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-columns-then-wordmark",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-columns-then-wordmark",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-wordmark-first-places-below",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-wordmark-first-places-below",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-invitation-over-cropped-wordmark",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-invitation-over-cropped-wordmark",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-wordmark-on-last-photograph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-wordmark-on-last-photograph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-mark-built-from-shapes",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-mark-built-from-shapes",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-single-quiet-line",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-single-quiet-line",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-contact-set-large",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-contact-set-large",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-back-of-the-card",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-back-of-the-card",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-row-of-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-row-of-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:footer-photograph-and-large-menu",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "footer-photograph-and-large-menu",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-right-half-paragraph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-right-half-paragraph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-edge-to-edge-paragraph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-edge-to-edge-paragraph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-inline-thumbnails",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-inline-thumbnails",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-narrow-column",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-narrow-column",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-title-note-facts",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-title-note-facts",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-staircase-statement",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-staircase-statement",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-heading-captions-panorama",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-heading-captions-panorama",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-statement-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-statement-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-lead-over-four-columns",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-lead-over-four-columns",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-pinned-sentence-photos-pass",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-pinned-sentence-photos-pass",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-portrait-drop-cap",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-portrait-drop-cap",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-side-facts-wide-paragraph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-side-facts-wide-paragraph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-team-colour-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-team-colour-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-highlighted-columns",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-highlighted-columns",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-founders-letter",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-founders-letter",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-pinned-title-portraits",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-pinned-title-portraits",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-photo-tile-facts",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-photo-tile-facts",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:about-shaped-portrait-panel",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "about-shaped-portrait-panel",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-big-names-fixed-preview",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-big-names-fixed-preview",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-one-strip-per-project",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-one-strip-per-project",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-giant-title-uneven-wall",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-giant-title-uneven-wall",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-loose-scatter",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-loose-scatter",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-panels-midline-row",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-panels-midline-row",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-stacked-folders-tabs",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-stacked-folders-tabs",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-book-spine-index",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-book-spine-index",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-staggered-tiles-empty-cells",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-staggered-tiles-empty-cells",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-quiet-ledger-preview",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-quiet-ledger-preview",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-oversized-visual-small-cluster",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-oversized-visual-small-cluster",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-names-as-paragraph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-names-as-paragraph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-staggered-pairs",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-staggered-pairs",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-drag-row-mixed-modules",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-drag-row-mixed-modules",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-full-bleed-sequence",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-full-bleed-sequence",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-small-frames-wide-space",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-small-frames-wide-space",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-prints-over-headline",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-prints-over-headline",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-dense-masonry-sheet",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-dense-masonry-sheet",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-wall-of-word-tiles",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-wall-of-word-tiles",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-one-frame-changing",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-one-frame-changing",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-tiles-with-label-strips",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-tiles-with-label-strips",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-lineup-one-size",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-lineup-one-size",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-menu-photo-bullets",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-menu-photo-bullets",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-giant-word-bar-rows",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-giant-word-bar-rows",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-day-tabs-banded-agenda",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-day-tabs-banded-agenda",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-poster-lines",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-poster-lines",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-sticky-photo-active-list",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-sticky-photo-active-list",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-two-ended-rows",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-two-ended-rows",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-printed-menu-sheet",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-printed-menu-sheet",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-statement-table-pushed-right",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-statement-table-pushed-right",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-address-display-rows",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-address-display-rows",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-email-display",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-email-display",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-photo-strip-three-cell-bar",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-photo-strip-three-cell-bar",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-clip-out-coupon",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-clip-out-coupon",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-single-field",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-single-field",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-visit-card-on-photograph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-visit-card-on-photograph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:contact-sentence-portrait-links",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "contact-sentence-portrait-links",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-one-control-blown-up",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-one-control-blown-up",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-output-index-live-sheet",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-output-index-live-sheet",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-one-row-three-states",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-one-row-three-states",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-headline-you-can-type",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-headline-you-can-type",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-input-half-output-half",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-input-half-output-half",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-rows-as-a-board",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-rows-as-a-board",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-lit-panel-drag-row",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-lit-panel-drag-row",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-giant-command-list",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-giant-command-list",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-sentences-with-switches",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-sentences-with-switches",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-panel-with-margin-notes",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-panel-with-margin-notes",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-fixed-output-controls-in-text",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-fixed-output-controls-in-text",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-close-ups-on-a-board",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-close-ups-on-a-board",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-one-card-four-fields",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-one-card-four-fields",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-call-and-response-column",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-call-and-response-column",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-drag-through-the-stages",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-drag-through-the-stages",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:how-it-works-stages-as-one-bar",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "how-it-works-stages-as-one-bar",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-figure-set-by-a-slider",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-figure-set-by-a-slider",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:stats-bars-standing-on-the-edge",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "stats-bars-standing-on-the-edge",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:testimonial-quote-as-comment-thread",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "testimonial-quote-as-comment-thread",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-first-step-already-open",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-first-step-already-open",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-names-pass-a-held-square",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-names-pass-a-held-square",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-title-torn-at-the-seam",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-title-torn-at-the-seam",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-one-slide-two-neighbours",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-one-slide-two-neighbours",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-cards-cross-a-held-photograph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-cards-cross-a-held-photograph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-object-rides-the-schedule",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-object-rides-the-schedule",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-rising-triptych",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-rising-triptych",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:showcase-portrait-on-its-own-ground",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "showcase-portrait-on-its-own-ground",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:cta-question-at-both-edges",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "cta-question-at-both-edges",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:intro-headline-crossing-onto-a-photograph",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "intro-headline-crossing-onto-a-photograph",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:features-four-cards-dealt-into-a-fan",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "features-four-cards-dealt-into-a-fan",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:work-small-index-large-picture",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "work-small-index-large-picture",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:list-cards-fold-into-spines",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "list-cards-fold-into-spines",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "taste:section:gallery-photographs-around-a-heading",
+    "layer": "composition",
+    "source_project": "taste-skill",
+    "source_file": "library/sections.json",
+    "source_id": "gallery-photographs-around-a-heading",
+    "target_dataset": "compositions.json"
+  },
+  {
+    "normalized_id": "palette:white-link-blue",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "white-link-blue",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:cool-white-slate",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "cool-white-slate",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:rose-grey-green",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "rose-grey-green",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:paper-grey-brass",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "paper-grey-brass",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:stone-blueprint",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "stone-blueprint",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:white-navy-tab",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "white-navy-tab",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:three-stones",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "three-stones",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:putty-black-teal",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "putty-black-teal",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:moss-sand",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "moss-sand",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:green-mat-chocolate",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "green-mat-chocolate",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:lunar-grey-bronze",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "lunar-grey-bronze",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:blue-black-cornflower",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "blue-black-cornflower",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:green-black-bone",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "green-black-bone",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:black-crimson",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "black-crimson",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:forest-pale-lime",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "forest-pale-lime",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:charcoal-room-sage",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "charcoal-room-sage",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:warm-black-gold",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "warm-black-gold",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:graphite-safety-orange",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "graphite-safety-orange",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:soot-pale-lime",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "soot-pale-lime",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:plum-black-pink",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "plum-black-pink",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:white-signal-red",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "white-signal-red",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:white-mint-tiles",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "white-mint-tiles",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:cool-grey-cobalt",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "cool-grey-cobalt",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:offwhite-bottle-yellow",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "offwhite-bottle-yellow",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:teal-on-paper",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "teal-on-paper",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:navy-pink",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "navy-pink",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:blush-aubergine",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "blush-aubergine",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:cobalt-on-sand",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "cobalt-on-sand",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:oxblood-grey",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "oxblood-grey",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:olive-on-bone",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "olive-on-bone",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:burgundy-bubblegum",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "burgundy-bubblegum",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:bottle-green-gold",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "bottle-green-gold",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:cobalt-field",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "cobalt-field",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:mustard-field",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "mustard-field",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:carmine-field",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "carmine-field",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:pink-field-lime",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "pink-field-lime",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:sky-field-navy",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "sky-field-navy",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:orange-field-black",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "orange-field-black",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:tobacco-olive",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "tobacco-olive",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:poster-chapters",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "poster-chapters",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:blue-red-black",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "blue-red-black",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:charcoal-primaries",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "charcoal-primaries",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:ultramarine-yellow",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "ultramarine-yellow",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:candy-chapters",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "candy-chapters",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:orange-sky-lime",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "orange-sky-lime",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:post-red-mustard",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "post-red-mustard",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:mint-orange-grey",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "mint-orange-grey",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:report-blocks",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "report-blocks",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:card-pastels",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "card-pastels",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:mint-pink-accounts",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "mint-pink-accounts",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:swap-pastels",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "swap-pastels",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:blush-sage-slate",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "blush-sage-slate",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:candy-on-black",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "candy-on-black",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:sky-sand",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "sky-sand",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:studio-grey",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "studio-grey",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "palette:walnut-tan",
+    "layer": "palette",
+    "source_project": "taste-skill",
+    "source_file": "library/palettes.json",
+    "source_id": "walnut-tan",
+    "target_dataset": "palettes.json"
+  },
+  {
+    "normalized_id": "type:switzer-semibold",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "switzer-semibold",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:general-sans-bold",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "general-sans-bold",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:schibsted-heavy",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "schibsted-heavy",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:hanken-medium",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "hanken-medium",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:bricolage-contrast",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "bricolage-contrast",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:franklin-source",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "franklin-source",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:switzer-roman",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "switzer-roman",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:archivo-regular",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "archivo-regular",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:clash-grotesk-regular",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "clash-grotesk-regular",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:work-sans-light",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "work-sans-light",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:anton-work",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "anton-work",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:big-shoulders-public",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "big-shoulders-public",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:archivo-compressed",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "archivo-compressed",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:bebas-garamond",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "bebas-garamond",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:barlow-condensed",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "barlow-condensed",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:panchang-switzer",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "panchang-switzer",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:tiktok-sans-wide",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "tiktok-sans-wide",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:unbounded-onest",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "unbounded-onest",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:chivo-black",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "chivo-black",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:cabinet-grotesk-black",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "cabinet-grotesk-black",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:epilogue-black",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "epilogue-black",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:red-hat-black",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "red-hat-black",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:jost-caps",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "jost-caps",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:stack-sans-light",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "stack-sans-light",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:albert-sans-semibold",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "albert-sans-semibold",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:spartan-figtree",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "spartan-figtree",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:pilcrow-rounded",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "pilcrow-rounded",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:roundo-soft",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "roundo-soft",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:chillax-semibold",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "chillax-semibold",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:gambarino-general",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "gambarino-general",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:bodoni-jost",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "bodoni-jost",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:imbue-albert",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "imbue-albert",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:erode-sharp",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "erode-sharp",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:boska-roman-italic",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "boska-roman-italic",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:newsreader-light",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "newsreader-light",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:zodiak-hairline",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "zodiak-hairline",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:sentient-light",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "sentient-light",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:eb-garamond-quiet",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "eb-garamond-quiet",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:literata-book",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "literata-book",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:stix-plain-roman",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "stix-plain-roman",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:young-source",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "young-source",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:zilla-slab-even",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "zilla-slab-even",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:besley-franklin",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "besley-franklin",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "type:rokkitt-literata",
+    "layer": "typography",
+    "source_project": "taste-skill",
+    "source_file": "library/type.json",
+    "source_id": "rokkitt-literata",
+    "target_dataset": "typography.json"
+  },
+  {
+    "normalized_id": "site:aww-pp-neue-montreal",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-pp-neue-montreal",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-seasats",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-seasats",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-ai-in-design-report-2026",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-ai-in-design-report-2026",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-house-of-honey-1",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-house-of-honey-1",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-white-desert",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-white-desert",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-applied-imagination",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-applied-imagination",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-compile",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-compile",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-the-new-industrials",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-the-new-industrials",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-wild-as",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-wild-as",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-hilden-kaira",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-hilden-kaira",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-px-push",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-px-push",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-illoca",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-illoca",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-aspen-search",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-aspen-search",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-dragonfly-redux",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-dragonfly-redux",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-monolog",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-monolog",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-the-queue",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-the-queue",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-paul-kalkbrenner",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-paul-kalkbrenner",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-vero-new-york",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-vero-new-york",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-depo-luxe",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-depo-luxe",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-longbow",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-longbow",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-mosbys-files",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-mosbys-files",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-sarah-matt-wedding",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-sarah-matt-wedding",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-zara-webb",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-zara-webb",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-noho",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-noho",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-juggle",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-juggle",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-serotoninn",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-serotoninn",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-alethia",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-alethia",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-made-with-gsap-1",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-made-with-gsap-1",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-dialkit",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-dialkit",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-heyclicky",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-heyclicky",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-the-content-architecture",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-the-content-architecture",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-trevor-noah",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-trevor-noah",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-select26",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-select26",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-le-petit-bleu",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-le-petit-bleu",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-dabbit",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-dabbit",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-decathlon-yestalgia",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-decathlon-yestalgia",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-vessa",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-vessa",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-poetry-camera",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-poetry-camera",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-sstr-friction-reduction",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-sstr-friction-reduction",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-no-art",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-no-art",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-cerebrium",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-cerebrium",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-spatial",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-spatial",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-aardvark-book-club",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-aardvark-book-club",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-rendez-vous-franceclat",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-rendez-vous-franceclat",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-when-you-wish-upon-a-starboy",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-when-you-wish-upon-a-starboy",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-warm-fuzzy",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-warm-fuzzy",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-the-sapphic-bar-index",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-the-sapphic-bar-index",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-textmode-overlay",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-textmode-overlay",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-hebbia",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-hebbia",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-revelatio-studio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-revelatio-studio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-haoqi-design",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-haoqi-design",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-pensatori-irrazionali",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-pensatori-irrazionali",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-belgrade-architecture",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-belgrade-architecture",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-tengile-malamala-collection",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-tengile-malamala-collection",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-boc-studio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-boc-studio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-gil-huybrecht",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-gil-huybrecht",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-city-of-angels",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-city-of-angels",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-era-residence",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-era-residence",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-sharplink",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-sharplink",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-leo-parpeix-portfolio-2026",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-leo-parpeix-portfolio-2026",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-anidachi",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-anidachi",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-butter",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-butter",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-lxl-creative",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-lxl-creative",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-screentune",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-screentune",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-adam-ho",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-adam-ho",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-postaway",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-postaway",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-samuel-raikkonen-portfolio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-samuel-raikkonen-portfolio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-lovably",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-lovably",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-marina-rachello",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-marina-rachello",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-21-hrs-on-the-moon",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-21-hrs-on-the-moon",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-transport",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-transport",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-the-deep-end",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-the-deep-end",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-jesper-landberg-4",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-jesper-landberg-4",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-eagles-nest",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-eagles-nest",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-glitch-grit",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-glitch-grit",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-bleibtgleich26",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-bleibtgleich26",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-lorenzo-bocchi-photography",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-lorenzo-bocchi-photography",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-obys-r-experiment-space",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-obys-r-experiment-space",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-squarespace-foundations",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-squarespace-foundations",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-milledollars",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-milledollars",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-2xa-studio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-2xa-studio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-locker-land",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-locker-land",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-rows",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-rows",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-shawn-golden",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-shawn-golden",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-medium-rare",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-medium-rare",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-berd",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-berd",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-davesocozy",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-davesocozy",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-nodeck",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-nodeck",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-vestris",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-vestris",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-rsquad",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-rsquad",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-nia-creative",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-nia-creative",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-uglycash",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-uglycash",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-united-carriers",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-united-carriers",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-l-i-s-a",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-l-i-s-a",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-risk",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-risk",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-proooof",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-proooof",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-artem-shcherbakov",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-artem-shcherbakov",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-builders-table",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-builders-table",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-nothin",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-nothin",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-superlocal-2026",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-superlocal-2026",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-produx-design",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-produx-design",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-kononenko-architectural-bureau",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-kononenko-architectural-bureau",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-studio-k95-3",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-studio-k95-3",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-julien-calot",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-julien-calot",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-cominvi",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-cominvi",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-kereliott",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-kereliott",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-normal-is-boring",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-normal-is-boring",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-rafael-derolez-2026",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-rafael-derolez-2026",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-moto-finance",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-moto-finance",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-the-state-of-the-gallery",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-the-state-of-the-gallery",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-aevion",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-aevion",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-hiroto-sato",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-hiroto-sato",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-specia1ne",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-specia1ne",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-fynza",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-fynza",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-colonia-zacamil",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-colonia-zacamil",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-zeroz-brand-site",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-zeroz-brand-site",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-elva",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-elva",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-tara",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-tara",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-realevate",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-realevate",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-typewave",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-typewave",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-humanoid-index",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-humanoid-index",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-uni",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-uni",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-smallbits",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-smallbits",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-madie",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-madie",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-archiv",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-archiv",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-beige-force",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-beige-force",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-mat",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-mat",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-ohhmydesign",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-ohhmydesign",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-glide-typeface",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-glide-typeface",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-belen-jones",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-belen-jones",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-tiny-computer-co",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-tiny-computer-co",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-weeksync",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-weeksync",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-the-tuscan-journey-begins",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-the-tuscan-journey-begins",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-oimachi",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-oimachi",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-artem-taradash",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-artem-taradash",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-sobha-privy-collection",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-sobha-privy-collection",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-coffeetech-r",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-coffeetech-r",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-shelf",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-shelf",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-midnight-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-midnight-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-plastic",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-plastic",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-brikkenco",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-brikkenco",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-the-state-of-software-delivery-in-health",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-the-state-of-software-delivery-in-health",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-michael-pumo",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-michael-pumo",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-neuropelvic-surgery",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-neuropelvic-surgery",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-mammut-studios",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-mammut-studios",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-atlas-by-workos",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-atlas-by-workos",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-cipher",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-cipher",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-viewport-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-viewport-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-uncle-rudy",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-uncle-rudy",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-april-leihuanani-evangelista",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-april-leihuanani-evangelista",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-izanami",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-izanami",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-deeo-studio-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-deeo-studio-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-estacion-venenta",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-estacion-venenta",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-leedlime",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-leedlime",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-is-that-pigeon-a-fed",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-is-that-pigeon-a-fed",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-alterg-resources",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-alterg-resources",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-amanda-guo-design",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-amanda-guo-design",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-sand-studio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-sand-studio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-desktop-fm",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-desktop-fm",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-depo-budget-app",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-depo-budget-app",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-spotify-wrapped-party",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-spotify-wrapped-party",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-lama-lama-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-lama-lama-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-likova",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-likova",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-britt-taylor",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-britt-taylor",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-billow",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-billow",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-ayush-halder-portfolio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-ayush-halder-portfolio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-digital-original-xr",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-digital-original-xr",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-woblo",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-woblo",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-protip-marketing",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-protip-marketing",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-goodgoodgreat",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-goodgoodgreat",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-george-wood",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-george-wood",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-near",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-near",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-trionn-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-trionn-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-flowjam-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-flowjam-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-the-watch",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-the-watch",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-justin-lerner",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-justin-lerner",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-monte",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-monte",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-tab-kitchen-bakery",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-tab-kitchen-bakery",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-lacoste-ace-breaker",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-lacoste-ace-breaker",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-the-tie-break",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-the-tie-break",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:opl-lennys-newsletter-product-pass",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "opl-lennys-newsletter-product-pass",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-heron-ai",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-heron-ai",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-huy-phan-vol-2",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-huy-phan-vol-2",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-ciao-energy-launch-website",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-ciao-energy-launch-website",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-neutomni",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-neutomni",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-belgrade-arbor",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-belgrade-arbor",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-nick-ho",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-nick-ho",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-odyssee",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-odyssee",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-usavionix",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-usavionix",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-maria-vasilyeva-portfolio",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-maria-vasilyeva-portfolio",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-michael-gatt",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-michael-gatt",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-miu-miu-a-house-that-we-shaped",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-miu-miu-a-house-that-we-shaped",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-twks-1",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-twks-1",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-vectr",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-vectr",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-lpas",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-lpas",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-lacoste-polo-factory",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-lacoste-polo-factory",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-offfforum",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-offfforum",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-20-years-inspired-by-people",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-20-years-inspired-by-people",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-hearst-exhibit-2026",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-hearst-exhibit-2026",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-meer-mohsin",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-meer-mohsin",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-gionatan-nese-26",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-gionatan-nese-26",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "site:aww-noomo-showcase",
+    "layer": "site",
+    "source_project": "taste-skill",
+    "source_file": "library/sites.json",
+    "source_id": "aww-noomo-showcase",
+    "target_dataset": "sites.json"
+  },
+  {
+    "normalized_id": "app:shell:open-plane",
+    "layer": "app_shell",
+    "source_project": "taste-skill",
+    "source_file": "library/app.json",
+    "source_id": "open-plane",
+    "target_dataset": "app-shells.json"
+  },
+  {
+    "normalized_id": "app:shell:framed-sheet",
+    "layer": "app_shell",
+    "source_project": "taste-skill",
+    "source_file": "library/app.json",
+    "source_id": "framed-sheet",
+    "target_dataset": "app-shells.json"
+  },
+  {
+    "normalized_id": "app:shell:ruled-t-frame",
+    "layer": "app_shell",
+    "source_project": "taste-skill",
+    "source_file": "library/app.json",
+    "source_id": "ruled-t-frame",
+    "target_dataset": "app-shells.json"
+  },
+  {
+    "normalized_id": "app:shell:icon-rail",
+    "layer": "app_shell",
+    "source_project": "taste-skill",
+    "source_file": "library/app.json",
+    "source_id": "icon-rail",
+    "target_dataset": "app-shells.json"
+  },
+  {
+    "normalized_id": "app:shell:no-sidebar",
+    "layer": "app_shell",
+    "source_project": "taste-skill",
+    "source_file": "library/app.json",
+    "source_id": "no-sidebar",
+    "target_dataset": "app-shells.json"
+  }
+]

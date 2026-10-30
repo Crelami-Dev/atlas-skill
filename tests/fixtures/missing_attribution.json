@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "schema_type": "compositions",
+  "item_count": 1,
+  "items": [
+    {
+      "id": "atlas:item-missing-attr",
+      "layer": "composition",
+      "name": "Missing attribution item",
+      "provenance": {
+        "source_project": "atlas-frontend-design",
+        "source_file": "compositions/library.json",
+        "source_id": "item1",
+        "license": "MIT"
+      }
+    }
+  ]
+}
+

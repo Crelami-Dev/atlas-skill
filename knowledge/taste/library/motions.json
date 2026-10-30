@@ -1,0 +1,867 @@
+[
+  {
+    "id": "masked-headline",
+    "name": "Masked Headline",
+    "intent": "Establish immediate typographic hierarchy on load by revealing headlines line-by-line from baseline without full-page layout shift.",
+    "useCase": "Hero section display typography (h1) capped at two lines.",
+    "trigger": "load",
+    "targets": [
+      ".hero h1 [data-line]",
+      ".lines [data-line]"
+    ],
+    "timing": {
+      "durationMs": 900,
+      "delayMs": 150,
+      "staggerMs": 110
+    },
+    "easing": {
+      "token": "--ease-expo",
+      "bezier": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "animeName": "easeOutExpo"
+    },
+    "stagger": {
+      "intervalMs": 110,
+      "startMs": 150,
+      "from": "first"
+    },
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Headlines render instantly in place without transform or delay."
+    },
+    "performanceConsiderations": "Uses transform: translateY and overflow: hidden parent; GPU accelerated, zero layout reflow.",
+    "lifecycle": {
+      "cleanupRequirements": "Reset will-change and clear inline transforms upon animation completion.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Preserved across desktop and mobile viewports with responsive font size clamp.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "masked-headline",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "translateY": [
+          "105%",
+          "0%"
+        ],
+        "opacity": [
+          1,
+          1
+        ],
+        "duration": 900,
+        "easing": "cubicBezier(0.16, 1, 0.3, 1)",
+        "delay": 150
+      }
+    }
+  },
+  {
+    "id": "shutter-image",
+    "name": "Shutter Image",
+    "intent": "Draw focus to the single hero or showcase image by opening an aperture clip-path while settling scale.",
+    "useCase": "Single focal hero image or primary product showcase.",
+    "trigger": "load",
+    "targets": [
+      ".hero [data-shutter]",
+      ".showcase [data-shutter]"
+    ],
+    "timing": {
+      "durationMs": 1100,
+      "delayMs": 100,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-expo",
+      "bezier": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "animeName": "easeOutExpo"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Clip-path set to inset(0) and scale(1) immediately."
+    },
+    "performanceConsiderations": "Requires composited clip-path and transform scale; fetchpriority=high on image.",
+    "lifecycle": {
+      "cleanupRequirements": "Remove clip-path once fully opened to allow natural image overlays or tooltips.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Maintains aspect ratio; clip-path opens vertically on narrow screens.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "shutter-image",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "clipPath": [
+          "inset(0 100% 0 0)",
+          "inset(0 0% 0 0)"
+        ],
+        "scale": [
+          1.12,
+          1
+        ],
+        "duration": 1100,
+        "easing": "cubicBezier(0.16, 1, 0.3, 1)"
+      }
+    }
+  },
+  {
+    "id": "scaling-wordmark",
+    "name": "Scaling Wordmark",
+    "intent": "Communicate weight and architectural presence by subtly scaling the brand mark on initial scroll.",
+    "useCase": "Monumental headers or footers in editorial or branding sites.",
+    "trigger": "scroll",
+    "targets": [
+      ".brand-monument",
+      ".hero-wordmark"
+    ],
+    "timing": {
+      "durationMs": 600,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-soft",
+      "bezier": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "animeName": "easeOutCubic"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Wordmark stays at fixed 1.0 scale without scroll translation."
+    },
+    "performanceConsiderations": "Transform scale only; travel kept strictly under 8% to avoid blurring.",
+    "lifecycle": {
+      "cleanupRequirements": "Disconnect scroll listener or ViewTimeline on component unmount.",
+      "removesListeners": true,
+      "resetsTransform": true
+    },
+    "responsiveBehavior": "Disabled on screens < 600px width; wordmark scales with clamp() instead.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "scaling-wordmark",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "scale": [
+          1,
+          0.94
+        ],
+        "duration": 600,
+        "easing": "cubicBezier(0.33, 1, 0.68, 1)"
+      }
+    }
+  },
+  {
+    "id": "pinned-story",
+    "name": "Pinned Story",
+    "intent": "Enable focused linear reading by holding context sticky while items or narrative steps scroll alongside.",
+    "useCase": "Case studies, product walkthroughs, stepped explanations (max 3 steps).",
+    "trigger": "scroll",
+    "targets": [
+      ".pinned-story-stage",
+      ".sticky-column"
+    ],
+    "timing": {
+      "durationMs": 800,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-in-out",
+      "bezier": "cubic-bezier(0.76, 0, 0.24, 1)",
+      "animeName": "easeInOutQuart"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Sticky positioning converts to static block layout with standard spacing."
+    },
+    "performanceConsiderations": "Pure CSS position: sticky with minimal layout disruption; no scroll hijacking.",
+    "lifecycle": {
+      "cleanupRequirements": "Reset sticky offsets if parent container dimensions change.",
+      "removesListeners": true,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Unpins on mobile devices (<768px); displays as sequential vertical cards.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "pinned-story",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "opacity": [
+          0.3,
+          1
+        ],
+        "duration": 400,
+        "easing": "linear"
+      }
+    }
+  },
+  {
+    "id": "index-preview",
+    "name": "Index with Preview",
+    "intent": "Provide instant visual feedback on table/list hover without navigating away.",
+    "useCase": "Work galleries, archives, case study indexes, portfolio rows.",
+    "trigger": "hover",
+    "targets": [
+      ".index-row",
+      ".floating-preview"
+    ],
+    "timing": {
+      "durationMs": 240,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-out",
+      "bezier": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "animeName": "easeOutQuint"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "fade-only",
+      "description": "Preview shows inline statically without pointer-following momentum."
+    },
+    "performanceConsiderations": "Uses requestAnimationFrame for pointer tracking; GPU accelerated opacity & transform.",
+    "lifecycle": {
+      "cleanupRequirements": "Remove mousemove listeners on pointerleave and destroy.",
+      "removesListeners": true,
+      "resetsTransform": true
+    },
+    "responsiveBehavior": "Converts to static inline thumbnails on touch/mobile devices.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "index-preview",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "opacity": [
+          0,
+          1
+        ],
+        "scale": [
+          0.96,
+          1
+        ],
+        "duration": 240,
+        "easing": "cubicBezier(0.22, 1, 0.36, 1)"
+      }
+    }
+  },
+  {
+    "id": "curtain-footer",
+    "name": "Curtain Footer",
+    "intent": "Unveil final call-to-action or footer naturally as the page content slides up like an architectural curtain.",
+    "useCase": "Editorial and marketing landing pages closing screen.",
+    "trigger": "scroll",
+    "targets": [
+      "main.curtain-body",
+      "footer.curtain-footer"
+    ],
+    "timing": {
+      "durationMs": 0,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-out",
+      "bezier": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "animeName": "easeOutQuint"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Footer is static block element below main content without layering."
+    },
+    "performanceConsiderations": "Zero JavaScript required; CSS sticky + z-index stacking context.",
+    "lifecycle": {
+      "cleanupRequirements": "Ensure z-index and background opacity are maintained.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Preserved on all screen sizes; background of main must remain 100% opaque.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "curtain-footer",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "css": {
+        "position": "sticky",
+        "bottom": 0,
+        "zIndex": -1
+      }
+    }
+  },
+  {
+    "id": "slow-crossfade",
+    "name": "Slow Crossfade",
+    "intent": "Evoke quiet editorial atmosphere through subtle photographic transition resembling changing room light.",
+    "useCase": "Ambient heroes, art museum showcases, hospitality hero backgrounds.",
+    "trigger": "load",
+    "targets": [
+      ".ambient-slideshow img",
+      ".crossfade-frame img"
+    ],
+    "timing": {
+      "durationMs": 1600,
+      "delayMs": 4000,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-soft",
+      "bezier": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "animeName": "easeOutCubic"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "stillness",
+      "description": "Display only the primary photo statically with no cycle or crossfade."
+    },
+    "performanceConsiderations": "Pause timer when document.hidden is true (visibilitychange API); low CPU overhead.",
+    "lifecycle": {
+      "cleanupRequirements": "Clear crossfade setInterval and visibility listeners on teardown.",
+      "removesListeners": true,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Functional across all breakpoints.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "slow-crossfade",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "opacity": [
+          0,
+          1
+        ],
+        "duration": 1600,
+        "easing": "cubicBezier(0.33, 1, 0.68, 1)"
+      }
+    }
+  },
+  {
+    "id": "edge-marquee",
+    "name": "Edge-to-Edge Marquee",
+    "intent": "Provide subtle kinetic rhythm between distinct sections using slow linear typography travel.",
+    "useCase": "Section dividers, client/partner lists, single brand statements.",
+    "trigger": "scroll",
+    "targets": [
+      ".marquee-track",
+      ".marquee-content"
+    ],
+    "timing": {
+      "durationMs": 25000,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "linear",
+      "bezier": "linear",
+      "animeName": "linear"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Marquee freezes in place; content renders as static horizontal flex list."
+    },
+    "performanceConsiderations": "Transform: translateX with will-change; duplicated items for gapless looping.",
+    "lifecycle": {
+      "cleanupRequirements": "Pause on hover and disconnect requestAnimationFrame on component unmount.",
+      "removesListeners": true,
+      "resetsTransform": true
+    },
+    "responsiveBehavior": "Adjust speed slightly on smaller viewports to prevent excessive velocity.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "edge-marquee",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "translateX": [
+          "0%",
+          "-50%"
+        ],
+        "duration": 25000,
+        "easing": "linear",
+        "loop": true
+      }
+    }
+  },
+  {
+    "id": "drag-row",
+    "name": "Drag Row",
+    "intent": "Enable intuitive, native touch and drag exploration of wide content collections.",
+    "useCase": "Card carousels, horizontal image galleries, multi-item showcases.",
+    "trigger": "hover",
+    "targets": [
+      ".drag-row-container"
+    ],
+    "timing": {
+      "durationMs": 300,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-out",
+      "bezier": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "animeName": "easeOutQuint"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Native scroll-snap-type: x mandatory with scrollbar visible."
+    },
+    "performanceConsiderations": "Uses native CSS scroll-snap; zero third-party carousel JS overhead.",
+    "lifecycle": {
+      "cleanupRequirements": "No complex lifecycle; native browser scroll container.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Natural mobile touch swipe; snap align start.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "drag-row",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "css": {
+        "overflowX": "auto",
+        "scrollSnapType": "x mandatory"
+      }
+    }
+  },
+  {
+    "id": "colour-on-scroll",
+    "name": "Colour by Chapter",
+    "intent": "Signal narrative chapter transitions by transitioning section background and fixed navigation ink.",
+    "useCase": "Long-form editorial, product chapters, case studies.",
+    "trigger": "scroll",
+    "targets": [
+      "header.nav-fixed",
+      "section[data-theme]"
+    ],
+    "timing": {
+      "durationMs": 300,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-in-out",
+      "bezier": "cubic-bezier(0.76, 0, 0.24, 1)",
+      "animeName": "easeInOutQuart"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Colors switch immediately on section threshold without smooth transition."
+    },
+    "performanceConsiderations": "Color and background-color transitions on fixed elements only; no full-body repaints.",
+    "lifecycle": {
+      "cleanupRequirements": "Disconnect IntersectionObserver on page unload.",
+      "removesListeners": true,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Full functionality on both mobile and desktop viewports.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "colour-on-scroll",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "duration": 300,
+        "easing": "cubicBezier(0.76, 0, 0.24, 1)"
+      }
+    }
+  },
+  {
+    "id": "stillness",
+    "name": "Stillness (Intentional Restraint)",
+    "intent": "Maximize clarity, respect reader attention, and communicate rigorous authority by deliberately abstaining from ambient or entrance animations.",
+    "useCase": "Financial platforms, dense data applications, technical documentation, minimal luxury.",
+    "trigger": "none",
+    "targets": [
+      "body",
+      "main",
+      ".app-shell"
+    ],
+    "timing": {
+      "durationMs": 0,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-out",
+      "bezier": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "animeName": "easeOutQuint"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "stillness",
+      "description": "Native stillness matches reduced motion perfectly."
+    },
+    "performanceConsiderations": "Maximum performance: zero RAF loops, zero animation overhead, instant LCP.",
+    "lifecycle": {
+      "cleanupRequirements": "None; clean static render.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Consistently static across all form factors.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "stillness",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "css": {
+        "transition": "none",
+        "animation": "none"
+      }
+    }
+  },
+  {
+    "id": "opening-window",
+    "name": "Opening Window",
+    "intent": "Dramatize handoff between typographic thesis and primary photographic evidence as window expands to full bleed.",
+    "useCase": "Hero handoffs, key product reveals, architectural portfolio entries.",
+    "trigger": "scroll",
+    "targets": [
+      ".window-stage",
+      ".window-frame img"
+    ],
+    "timing": {
+      "durationMs": 1200,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-expo",
+      "bezier": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "animeName": "easeOutExpo"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "static-crop",
+      "description": "Image renders directly as full-width element without scroll expansion."
+    },
+    "performanceConsiderations": "Bound to scroll progression; clip-path and scale transformations.",
+    "lifecycle": {
+      "cleanupRequirements": "Reset transforms and unobserve scroll thresholds upon teardown.",
+      "removesListeners": true,
+      "resetsTransform": true
+    },
+    "responsiveBehavior": "Simplified to static full-bleed figure on screens < 768px.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "opening-window",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "width": [
+          "45%",
+          "100%"
+        ],
+        "scale": [
+          1.15,
+          1
+        ],
+        "duration": 1200,
+        "easing": "cubicBezier(0.16, 1, 0.3, 1)"
+      }
+    }
+  },
+  {
+    "id": "ink-fill",
+    "name": "Ink Fill Statement",
+    "intent": "Establish deliberate reading cadence for core thesis statements by increasing text ink opacity on scroll.",
+    "useCase": "Single manifesto statements, mission paragraphs, key quote moments.",
+    "trigger": "scroll",
+    "targets": [
+      ".ink-fill-statement span"
+    ],
+    "timing": {
+      "durationMs": 800,
+      "delayMs": 0,
+      "staggerMs": 80
+    },
+    "easing": {
+      "token": "--ease-soft",
+      "bezier": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "animeName": "easeOutCubic"
+    },
+    "stagger": {
+      "intervalMs": 80,
+      "startMs": 0,
+      "from": "first"
+    },
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "All text renders at 100% ink opacity immediately."
+    },
+    "performanceConsiderations": "Opacity transition only; words remain legible even at baseline 45% ink.",
+    "lifecycle": {
+      "cleanupRequirements": "Disconnect scroll-bound timeline once all text reaches 1.0 opacity.",
+      "removesListeners": true,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Fully accessible and legible on mobile; no layout disruption.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "ink-fill",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "opacity": [
+          0.45,
+          1
+        ],
+        "duration": 800,
+        "easing": "cubicBezier(0.33, 1, 0.68, 1)"
+      }
+    }
+  },
+  {
+    "id": "sheet-over",
+    "name": "Sheet Over a Held Picture",
+    "intent": "Turn chapters like physical pages by sliding an opaque content sheet over a held background figure.",
+    "useCase": "Editorial essays, visual monographs, full-bleed transition sections.",
+    "trigger": "scroll",
+    "targets": [
+      ".held-picture",
+      ".sheet-section"
+    ],
+    "timing": {
+      "durationMs": 0,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-in-out",
+      "bezier": "cubic-bezier(0.76, 0, 0.24, 1)",
+      "animeName": "easeInOutQuart"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Picture unpins and scrolls as standard block element."
+    },
+    "performanceConsiderations": "Sticky positioning on 100svh figure; zero layout thrashing.",
+    "lifecycle": {
+      "cleanupRequirements": "Maintain relative stacking context in CSS.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Height clamped to mobile svh; caption remains visible at all times.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "sheet-over",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "css": {
+        "position": "sticky",
+        "top": 0,
+        "zIndex": 1
+      }
+    }
+  },
+  {
+    "id": "sideways-gallery",
+    "name": "Sideways Gallery",
+    "intent": "Present horizontal collections (<= 8 items) without losing vertical scroll momentum.",
+    "useCase": "Curated architectural rooms, product finishes, team leadership showcases.",
+    "trigger": "scroll",
+    "targets": [
+      ".sideways-gallery-track"
+    ],
+    "timing": {
+      "durationMs": 1000,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "linear",
+      "bezier": "linear",
+      "animeName": "linear"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Switches to native drag-row with snapping."
+    },
+    "performanceConsiderations": "Restricted to <=8 items; hardware accelerated translateX.",
+    "lifecycle": {
+      "cleanupRequirements": "Remove wheel/scroll bindings on mobile resize or destroy.",
+      "removesListeners": true,
+      "resetsTransform": true
+    },
+    "responsiveBehavior": "Strictly transforms into touch drag-row on viewports < 1024px.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "sideways-gallery",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "translateX": [
+          "0px",
+          "-100%"
+        ],
+        "duration": 1000,
+        "easing": "linear"
+      }
+    }
+  },
+  {
+    "id": "pushed-line",
+    "name": "Pushed Line",
+    "intent": "Add physical inertia to a single monumental line of text locked to the scrollbar.",
+    "useCase": "Single large brand claim (max 1 per page) between sections.",
+    "trigger": "scroll",
+    "targets": [
+      ".pushed-line-text"
+    ],
+    "timing": {
+      "durationMs": 800,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "linear",
+      "bezier": "linear",
+      "animeName": "linear"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Text sits centered at translateX(0) statically."
+    },
+    "performanceConsiderations": "Locked between -12% and +12% translation; words must never be cropped.",
+    "lifecycle": {
+      "cleanupRequirements": "Reset translation when out of view.",
+      "removesListeners": true,
+      "resetsTransform": true
+    },
+    "responsiveBehavior": "Travel reduced to +-5% on mobile to maintain viewport bounds.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "pushed-line",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "translateX": [
+          "12%",
+          "-12%"
+        ],
+        "duration": 800,
+        "easing": "linear"
+      }
+    }
+  },
+  {
+    "id": "rolling-figures",
+    "name": "Rolling Figures",
+    "intent": "Emphasize quantitative achievements by rolling metric digits up to target value on scroll into view.",
+    "useCase": "Key metrics, founding years, performance figures, financial statistics.",
+    "trigger": "scroll",
+    "targets": [
+      ".stat-number[data-value]",
+      ".metric-figure"
+    ],
+    "timing": {
+      "durationMs": 1100,
+      "delayMs": 100,
+      "staggerMs": 70
+    },
+    "easing": {
+      "token": "--ease-expo",
+      "bezier": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "animeName": "easeOutExpo"
+    },
+    "stagger": {
+      "intervalMs": 70,
+      "startMs": 100,
+      "from": "first"
+    },
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Numbers render target numerical value statically."
+    },
+    "performanceConsiderations": "Runs once per page load via IntersectionObserver; font-variant-numeric: tabular-nums.",
+    "lifecycle": {
+      "cleanupRequirements": "Unobserve target once rolled; never continuously animate numbers.",
+      "removesListeners": true,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Functional across all breakpoints.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "rolling-figures",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "anime": {
+        "round": 1,
+        "duration": 1100,
+        "easing": "cubicBezier(0.16, 1, 0.3, 1)"
+      }
+    }
+  },
+  {
+    "id": "carried-picture",
+    "name": "Carried Picture",
+    "intent": "Provide seamless spatial continuity between index lists and detail pages using view transitions.",
+    "useCase": "Index-to-detail navigation, work portfolio items, product cards.",
+    "trigger": "click",
+    "targets": [
+      ".card-image",
+      ".hero-image"
+    ],
+    "timing": {
+      "durationMs": 480,
+      "delayMs": 0,
+      "staggerMs": 0
+    },
+    "easing": {
+      "token": "--ease-in-out",
+      "bezier": "cubic-bezier(0.76, 0, 0.24, 1)",
+      "animeName": "easeInOutQuart"
+    },
+    "stagger": null,
+    "reducedMotionFallback": {
+      "behavior": "instant",
+      "description": "Standard instant page navigation without morph transition."
+    },
+    "performanceConsiderations": "Native browser document.startViewTransition API; zero library dependency.",
+    "lifecycle": {
+      "cleanupRequirements": "Ensure view-transition-name is unique and cleared after navigation.",
+      "removesListeners": false,
+      "resetsTransform": false
+    },
+    "responsiveBehavior": "Supported across all browsers that implement View Transitions.",
+    "sourceProvenance": {
+      "sourceFile": "library/motions.json",
+      "originalId": "carried-picture",
+      "license": "MIT (Leonxlnx, 2026)"
+    },
+    "adapterConfig": {
+      "css": {
+        "viewTransitionName": "carried-hero"
+      }
+    }
+  }
+]

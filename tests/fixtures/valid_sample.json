@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  "schema_type": "compositions",
+  "item_count": 2,
+  "items": [
+    {
+      "id": "atlas:nav-minimal-bar",
+      "layer": "composition",
+      "family": "nav",
+      "name": "Minimal bar",
+      "page_types": [
+        "marketing",
+        "app"
+      ],
+      "categories": [
+        "*"
+      ],
+      "tones": [
+        "modern",
+        "precise"
+      ],
+      "density": "low",
+      "requires": {
+        "assets": []
+      },
+      "visual_tags": [
+        "horizontal",
+        "clean"
+      ],
+      "composition": "Single horizontal flex row",
+      "blueprint": null,
+      "provenance": {
+        "source_project": "atlas-frontend-design",
+        "source_file": "compositions/library.json",
+        "source_id": "nav-minimal-bar",
+        "license": "MIT",
+        "attribution": "ATLAS frontend design pattern library v1.0.0"
+      }
+    },
+    {
+      "id": "taste:hero:field-headline-date",
+      "layer": "composition",
+      "family": "hero",
+      "name": "Field headline with date",
+      "page_types": [
+        "marketing",
+        "editorial"
+      ],
+      "categories": [
+        "event",
+        "culture"
+      ],
+      "tones": [
+        "editorial",
+        "bold"
+      ],
+      "density": "med",
+      "requires": {
+        "assets": [
+          "photo"
+        ]
+      },
+      "visual_tags": [
+        "field",
+        "typography-led"
+      ],
+      "composition": "Full viewport field with large display type",
+      "blueprint": [
+        {
+          "tag": "div",
+          "class": "hero-field"
+        }
+      ],
+      "provenance": {
+        "source_project": "taste-skill",
+        "source_file": "library/heroes.json",
+        "source_id": "field-headline-date",
+        "license": "MIT",
+        "attribution": "Curated from 247 gallery websites (Leonxlnx/taste-skill)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "atlas-skill",
+  "description": "atlas-skill: unified art direction and context-aware frontend design for coding agents, verified in real browsers.",
+  "owner": {
+    "name": "atlas-contributors"
+  },
+  "plugins": [
+    {
+      "name": "atlas-skill",
+      "description": "Atlas Skill: Adaptive Taste & Layout Architecture System. Researched art direction, context scoring, and honest quality verification.",
+      "version": "1.0.0",
+      "source": "./",
+      "skills": ["./skills/atlas-skill"],
+      "homepage": "https://github.com/atlas-skill/atlas-skill",
+      "license": "MIT",
+      "keywords": ["skills", "frontend", "design", "atlas", "ui", "dashboard"]
+    }
+  ]
+}
+

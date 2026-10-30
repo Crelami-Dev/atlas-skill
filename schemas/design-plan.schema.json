@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Atlas Design Plan Schema",
+  "description": "Machine-readable specification for an explainable, deterministic design plan produced by the Atlas-Skill runtime engine.",
+  "version": "2.0.0",
+  "type": "object",
+  "required": [
+    "runtime_version",
+    "library_version",
+    "plan_id",
+    "normalized_brief",
+    "art_direction",
+    "composition",
+    "palette",
+    "typography",
+    "assets",
+    "warnings",
+    "diagnostics"
+  ],
+  "properties": {
+    "runtime_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the Atlas-Skill runtime engine"
+    },
+    "library_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the underlying canonical composite library"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{16,64}$",
+      "description": "Deterministic hex fingerprint computed from normalized brief and library version"
+    },
+    "generated_at": {
+      "type": "string",
+      "description": "ISO 8601 UTC timestamp of plan generation"
+    },
+    "normalized_brief": {
+      "type": "object",
+      "required": ["page_type", "category", "density", "tones", "assets", "goals"],
+      "properties": {
+        "project_name": { "type": "string" },
+        "page_type": { "type": "string", "enum": ["marketing", "editorial", "app"] },
+        "category": { "type": "string" },
+        "audience": { "type": ["string", "null"] },
+        "primary_task": { "type": ["string", "null"] },
+        "goals": { "type": "array", "items": { "type": "string" } },
+        "tones": { "type": "array", "items": { "type": "string" } },
+        "density": { "type": "string", "enum": ["low", "med", "high"] },
+        "assets": { "type": "array", "items": { "type": "string" } },
+        "slots": { "type": "array", "items": { "type": "string" } },
+        "exclude": { "type": "array", "items": { "type": "string" } },
+        "prefer_conventional": { "type": "boolean" },
+        "explicit_constraints": { "type": "object" },
+        "scoring_weights": { "type": "object" }
+      }
+    },
+    "art_direction": {
+      "type": "object",
+      "required": ["id", "name", "score", "rationale"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string" },
+        "score": { "type": "number" },
+        "rationale": { "type": "array", "items": { "type": "string" } },
+        "idea": { "type": "string" },
+        "composition_rules": { "type": "string" },
+        "imagery_rules": { "type": "string" },
+        "color_rules": { "type": "string" },
+        "typography_rules": { "type": "string" },
+        "richness": { "type": "string" }
+      }
+    },
+    "composition": {
+      "type": "object",
+      "required": ["total_score", "slots", "skipped_slots"],
+      "properties": {
+        "total_score": { "type": "number" },
+        "slots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["slot", "pattern_id", "pattern_name", "score", "rationale"],
+            "properties": {
+              "slot": { "type": "string" },
+              "pattern_id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+              "pattern_name": { "type": "string" },
+              "score": { "type": "number" },
+              "rationale": { "type": "array", "items": { "type": "string" } },
+              "density": { "type": ["string", "null"] },
+              "visual_tags": { "type": "array", "items": { "type": "string" } },
+              "blueprint": { "type": ["string", "object"] },
+              "alternatives": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "name", "score"],
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "score": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "skipped_slots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["slot", "reason"],
+            "properties": {
+              "slot": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "palette": {
+      "type": "object",
+      "required": ["id", "name", "score", "rationale", "tokens"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string" },
+        "score": { "type": "number" },
+        "rationale": { "type": "array", "items": { "type": "string" } },
+        "tokens": {
+          "type": "object",
+          "required": ["bg", "surface", "ink", "muted", "accent", "accent_ink"],
+          "properties": {
+            "bg": { "type": "string" },
+            "surface": { "type": "string" },
+            "ink": { "type": "string" },
+            "muted": { "type": "string" },
+            "accent": { "type": "string" },
+            "accent_ink": { "type": "string" }
+          }
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": ["id", "name", "score", "rationale", "fonts"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string" },
+        "score": { "type": "number" },
+        "rationale": { "type": "array", "items": { "type": "string" } },
+        "type_class": { "type": "string" },
+        "fonts": {
+          "type": "object",
+          "required": ["display", "text"],
+          "properties": {
+            "display": { "type": "string" },
+            "text": { "type": "string" }
+          }
+        },
+        "scale": { "type": ["string", "object"] }
+      }
+    },
+    "app_shell": {
+      "type": ["object", "null"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string" },
+        "score": { "type": "number" },
+        "rationale": { "type": "array", "items": { "type": "string" } },
+        "blueprint": { "type": ["string", "object"] },
+        "phone_adaptation": { "type": "string" }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "required": ["requirements", "summary"],
+      "properties": {
+        "summary": {
+          "type": "object",
+          "required": ["total_required", "tier_1_native", "tier_2_archive", "tier_3_css_svg"],
+          "properties": {
+            "total_required": { "type": "integer" },
+            "tier_1_native": { "type": "integer" },
+            "tier_2_archive": { "type": "integer" },
+            "tier_3_css_svg": { "type": "integer" }
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "asset_id",
+              "slot",
+              "role",
+              "asset_type",
+              "aspect_ratio",
+              "prompt_brief",
+              "resolution_tier",
+              "status",
+              "fallback_descriptor"
+            ],
+            "properties": {
+              "asset_id": { "type": "string" },
+              "slot": { "type": "string" },
+              "role": { "type": "string" },
+              "asset_type": { "type": "string" },
+              "aspect_ratio": { "type": "string" },
+              "prompt_brief": { "type": "string" },
+              "resolution_tier": {
+                "type": "string",
+                "enum": ["tier_1_native", "tier_2_archive", "tier_3_css_svg"]
+              },
+              "status": {
+                "type": "string",
+                "enum": ["pending_generation", "fallback_ready", "resolved"]
+              },
+              "fallback_descriptor": { "type": "object" },
+              "licensing": { "type": ["object", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "severity", "message"],
+        "properties": {
+          "code": { "type": "string" },
+          "severity": { "type": "string", "enum": ["INFO", "WARNING", "ERROR"] },
+          "message": { "type": "string" },
+          "target": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}
+
