@@ -15,8 +15,16 @@ from typing import Any, Dict, List, Optional, Tuple
 
 VIEWPORTS = {
     "desktop": {"width": 1440, "height": 900, "label": "Desktop (1440x900)"},
-    "tablet": {"width": 768, "height": 1024, "label": "Tablet (768x1024)"},
+    "tablet": {"width": 768, "height": 1024, "label": "Tablet Portrait (768x1024)"},
     "mobile": {"width": 390, "height": 844, "label": "Mobile (390x844)"}
+}
+
+STANDARD_5_VIEWPORTS = {
+    "desktop": {"width": 1440, "height": 900, "label": "Desktop (1440x900)"},
+    "tablet_landscape": {"width": 1024, "height": 768, "label": "Tablet Landscape (1024x768)"},
+    "tablet": {"width": 768, "height": 1024, "label": "Tablet Portrait (768x1024)"},
+    "mobile": {"width": 390, "height": 844, "label": "Modern Mobile (390x844)"},
+    "mobile_small": {"width": 320, "height": 568, "label": "Small Mobile (320x568)"}
 }
 
 STANDARD_BROWSER_PATHS = [
@@ -78,7 +86,7 @@ def evaluate_runtime_health(site_dir: str, index_html: str) -> Dict[str, Any]:
 
     broken_assets = []
     for ref in sorted(set(asset_refs)):
-        clean_ref = ref.split("?")[0].split("#")[0]
+        clean_ref = ref.split("?")[0].split("#")[0].lstrip("/\\")
         full_path = os.path.normpath(os.path.join(site_dir, clean_ref))
         if not os.path.isfile(full_path):
             err = f"Missing referenced asset: {ref} (resolved to {full_path})"
@@ -170,7 +178,6 @@ class BrowserQAHarness:
             self.browser_path,
             "--headless=new",
             "--disable-gpu",
-            "--hide-scrollbars",
             f"--window-size={width},{height}",
             f"--screenshot={abs_png}",
             file_url
@@ -186,6 +193,54 @@ class BrowserQAHarness:
             return False, "Browser process timed out after 15 seconds"
         except Exception as e:
             return False, f"Screenshot capture error: {e}"
+
+    def run_cdp_layout_qa(
+        self,
+        site_dir_or_url: str,
+        screenshots_dir: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Runs headless browser CDP layout audit using native Node 22+ runner."""
+        node_bin = shutil.which("node")
+        if not node_bin:
+            return {
+                "status": "SKIPPED",
+                "error": "Node.js binary not found on host",
+                "viewports": {}
+            }
+
+        runner_script = os.path.join(os.path.dirname(__file__), "browser_cdp.mjs")
+        if not os.path.isfile(runner_script):
+            return {
+                "status": "FAIL",
+                "error": f"browser_cdp.mjs not found at {runner_script}",
+                "viewports": {}
+            }
+
+        cmd = [node_bin, runner_script, site_dir_or_url]
+        if screenshots_dir:
+            cmd.extend(["--shots", screenshots_dir])
+
+        try:
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+            if res.stdout.strip():
+                try:
+                    return json.loads(res.stdout)
+                except Exception as e:
+                    return {
+                        "status": "FAIL",
+                        "error": f"Failed to parse CDP JSON: {e}",
+                        "raw_output": res.stdout[:500],
+                        "viewports": {}
+                    }
+            return {
+                "status": "FAIL",
+                "error": f"CDP runner returned empty output (exit {res.returncode}): {res.stderr}",
+                "viewports": {}
+            }
+        except subprocess.TimeoutExpired:
+            return {"status": "FAIL", "error": "CDP audit timed out", "viewports": {}}
+        except Exception as e:
+            return {"status": "FAIL", "error": str(e), "viewports": {}}
 
     def run_visual_qa(
         self,

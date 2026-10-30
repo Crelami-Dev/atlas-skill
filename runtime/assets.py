@@ -76,20 +76,15 @@ class AssetRequirement:
 
 
 def _generate_fintech_svg(w: int, h: int, asset_id: str) -> str:
-    """Generate high-fidelity institutional fintech treasury ledger graphic."""
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="100%" height="auto" role="img" aria-label="Institutional Treasury Ledger Interface">
+    """Generate high-fidelity institutional fintech architectural graphic (non-quantitative)."""
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="100%" height="auto" role="img" aria-label="Institutional Treasury Architecture">
   <defs>
     <linearGradient id="bg_{asset_id}" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0a0f1d" />
       <stop offset="100%" stop-color="#141c33" />
     </linearGradient>
-    <linearGradient id="chart_grad_{asset_id}" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#00e5a3" stop-opacity="0.35" />
-      <stop offset="100%" stop-color="#00e5a3" stop-opacity="0.0" />
-    </linearGradient>
-    <linearGradient id="line_grad_{asset_id}" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3b82f6" />
-      <stop offset="50%" stop-color="#00e5a3" />
+    <linearGradient id="accent_{asset_id}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5a3" />
       <stop offset="100%" stop-color="#38bdf8" />
     </linearGradient>
     <pattern id="grid_{asset_id}" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -102,74 +97,65 @@ def _generate_fintech_svg(w: int, h: int, asset_id: str) -> str:
   <rect width="{w}" height="{h}" fill="url(#grid_{asset_id})" rx="16" />
   <rect x="1" y="1" width="{w - 2}" height="{h - 2}" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2" rx="15" />
 
-  <!-- Ledger Header -->
+  <!-- Architectural Header -->
   <g transform="translate(40, 36)">
     <circle cx="8" cy="8" r="4" fill="#00e5a3" />
     <circle cx="8" cy="8" r="8" fill="none" stroke="#00e5a3" stroke-width="1" opacity="0.4" />
-    <text x="24" y="12" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#889bb5" letter-spacing="0.08em">INSTITUTIONAL TREASURY LEDGER</text>
+    <text x="24" y="12" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#889bb5" letter-spacing="0.08em">INSTITUTIONAL TREASURY ARCHITECTURE</text>
     
-    <!-- Security Verification Badge -->
+    <!-- Security Protocol Badge -->
     <rect x="{w - 240}" y="-4" width="160" height="26" rx="13" fill="rgba(0, 229, 163, 0.08)" stroke="rgba(0, 229, 163, 0.25)" stroke-width="1" />
     <text x="{w - 160}" y="13" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#00e5a3" letter-spacing="0.04em">MULTI-SIG VERIFIED</text>
   </g>
 
-  <!-- Balance Hero Display -->
-  <g transform="translate(40, 92)">
-    <text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" fill="#ffffff" letter-spacing="-0.02em">$2,485,920.00 USD</text>
-    <rect x="360" y="8" width="115" height="26" rx="13" fill="rgba(0, 229, 163, 0.12)" />
-    <text x="417" y="25" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#00e5a3">+14.8% APY</text>
-    <text x="0" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#889bb5">Automated Yield Protocol • Block Height #21,849,204</text>
+  <!-- Central Vault & Structural Lattice Motif (Non-Quantitative Visual) -->
+  <g transform="translate(40, 90)">
+    <!-- Primary Repository Frame -->
+    <rect width="{w - 80}" height="190" rx="12" fill="#111827" stroke="rgba(255, 255, 255, 0.06)" />
+    
+    <!-- Geometric Intersecting Vault Rings -->
+    <circle cx="160" cy="95" r="70" fill="none" stroke="rgba(0, 229, 163, 0.15)" stroke-width="2" />
+    <circle cx="160" cy="95" r="45" fill="none" stroke="url(#accent_{asset_id})" stroke-width="1.5" stroke-dasharray="4,4" />
+    <circle cx="160" cy="95" r="20" fill="rgba(0, 229, 163, 0.08)" stroke="#00e5a3" stroke-width="1" />
+    
+    <!-- Structural Architecture Alignment (No Fabricated Numerical Metrics) -->
+    <g transform="translate(260, 30)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="-0.01em">Automated Asset Repository</text>
+      <text x="0" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Cryptographic Liquidity Protocol • Node Cluster Core</text>
+      
+      <!-- Architectural Division Line -->
+      <line x1="0" y1="58" x2="{w - 380}" y2="58" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+      
+      <!-- Abstract Structural Capacity Indicators (Tone Blocks, No Invented Numbers) -->
+      <rect x="0" y="74" width="{int((w - 400) * 0.7)}" height="8" rx="4" fill="url(#accent_{asset_id})" />
+      <rect x="0" y="94" width="{int((w - 400) * 0.45)}" height="8" rx="4" fill="rgba(255, 255, 255, 0.12)" />
+      <rect x="0" y="114" width="{int((w - 400) * 0.6)}" height="8" rx="4" fill="rgba(255, 255, 255, 0.06)" />
+    </g>
   </g>
 
-  <!-- Interactive Grid Guidelines -->
-  <g stroke="rgba(255, 255, 255, 0.06)" stroke-dasharray="4,4" stroke-width="1">
-    <line x1="40" y1="180" x2="{w - 40}" y2="180" />
-    <line x1="40" y1="230" x2="{w - 40}" y2="230" />
-    <line x1="40" y1="280" x2="{w - 40}" y2="280" />
-  </g>
-  <g font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#556987">
-    <text x="40" y="174">$2.50M</text>
-    <text x="40" y="224">$2.00M</text>
-    <text x="40" y="274">$1.50M</text>
-  </g>
-
-  <!-- Trend Area Fill -->
-  <path d="M 40 300 L 40 280 Q 140 270 240 240 T 440 200 T 640 170 L {w - 40} 160 L {w - 40} 300 Z" fill="url(#chart_grad_{asset_id})" />
-  <!-- Trend Stroke Line -->
-  <path d="M 40 280 Q 140 270 240 240 T 440 200 T 640 170 L {w - 40} 160" fill="none" stroke="url(#line_grad_{asset_id})" stroke-width="3.5" stroke-linecap="round" />
-
-  <!-- Active Marker Point -->
-  <circle cx="440" cy="200" r="6" fill="#00e5a3" />
-  <circle cx="440" cy="200" r="12" fill="none" stroke="#00e5a3" stroke-width="2" opacity="0.4" />
-  <!-- Tooltip Card -->
-  <g transform="translate(390, 145)">
-    <rect width="100" height="34" rx="6" fill="#1e293b" stroke="rgba(0, 229, 163, 0.4)" stroke-width="1" />
-    <text x="50" y="21" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Peak: $2.51M</text>
-  </g>
-
-  <!-- Asset Allocation Footer Cards -->
+  <!-- Asset Allocation Division Footers (Categorical Roles, Zero Invented Balances/Percentages) -->
   <g transform="translate(40, {h - 80})">
     <!-- Card 1 -->
     <rect x="0" y="0" width="{int((w - 110) / 3)}" height="54" rx="10" fill="#141c30" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-    <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">USD Reserves</text>
-    <text x="16" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">$1,441,833 (58%)</text>
+    <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Reserve Allocation</text>
+    <text x="16" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Core Treasury Layer</text>
 
     <!-- Card 2 -->
     <rect x="{int((w - 110) / 3) + 15}" y="0" width="{int((w - 110) / 3)}" height="54" rx="10" fill="#141c30" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-    <text x="{int((w - 110) / 3) + 31}" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Digital Assets</text>
-    <text x="{int((w - 110) / 3) + 31}" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">$671,200 (27%)</text>
+    <text x="{int((w - 110) / 3) + 31}" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Digital Custody</text>
+    <text x="{int((w - 110) / 3) + 31}" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Liquidity Protocol</text>
 
     <!-- Card 3 -->
     <rect x="{int((w - 110) / 3) * 2 + 30}" y="0" width="{int((w - 110) / 3)}" height="54" rx="10" fill="#141c30" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-    <text x="{int((w - 110) / 3) * 2 + 46}" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Yield Staking</text>
-    <text x="{int((w - 110) / 3) * 2 + 46}" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">$372,887 (15%)</text>
+    <text x="{int((w - 110) / 3) * 2 + 46}" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#889bb5">Settlement Layer</text>
+    <text x="{int((w - 110) / 3) * 2 + 46}" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Automated Clearing</text>
   </g>
 </svg>'''
 
 
 def _generate_saas_svg(w: int, h: int, asset_id: str) -> str:
-    """Generate high-fidelity cloud runtime orchestrator graphic."""
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="100%" height="auto" role="img" aria-label="Cloud Runtime Orchestrator Console">
+    """Generate high-fidelity cloud runtime architecture console graphic (non-quantitative)."""
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="100%" height="auto" role="img" aria-label="Cloud Runtime Architecture Console">
   <defs>
     <linearGradient id="bg_saas_{asset_id}" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0f172a" />
@@ -192,29 +178,41 @@ def _generate_saas_svg(w: int, h: int, asset_id: str) -> str:
     <text x="70" y="15" font-family="monospace" font-size="12" fill="#94a3b8">atlas-runtime --cluster us-east-prod</text>
   </g>
 
-  <!-- Metrics Grid -->
+  <!-- Architectural Status Mesh (Categorical State, Zero Fabricated Metrics) -->
   <g transform="translate(40, 80)">
-    <rect x="0" y="0" width="220" height="90" rx="12" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
-    <text x="20" y="32" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Active Microservices</text>
-    <text x="20" y="66" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#38bdf8">148 / 148</text>
+    <rect x="0" y="0" width="220" height="80" rx="12" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
+    <text x="20" y="30" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Microservice Mesh</text>
+    <text x="20" y="58" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#38bdf8">SYNCHRONIZED</text>
 
-    <rect x="240" y="0" width="220" height="90" rx="12" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
-    <text x="260" y="32" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Throughput</text>
-    <text x="260" y="66" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#10b981">84,200 req/s</text>
+    <rect x="240" y="0" width="220" height="80" rx="12" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
+    <text x="260" y="30" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Ingress Routing</text>
+    <text x="260" y="58" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#10b981">NOMINAL</text>
 
-    <rect x="480" y="0" width="{w - 560}" height="90" rx="12" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
-    <text x="500" y="32" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">P99 Latency</text>
-    <text x="500" y="66" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#818cf8">4.2 ms</text>
+    <rect x="480" y="0" width="{w - 560}" height="80" rx="12" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
+    <text x="500" y="30" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Cluster Telemetry</text>
+    <text x="500" y="58" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#818cf8">OPERATIONAL</text>
   </g>
 
-  <!-- Network Visual Topology -->
-  <g transform="translate(40, 200)">
-    <rect width="{w - 80}" height="190" rx="12" fill="#141e33" stroke="rgba(255,255,255,0.06)" />
-    <text x="24" y="36" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Verified Ingress Flow</text>
-    <path d="M 60 110 C 180 40, 300 160, 420 90 C 540 20, 620 140, 700 80" fill="none" stroke="url(#pulse_{asset_id})" stroke-width="3" stroke-linecap="round" />
-    <circle cx="60" cy="110" r="6" fill="#38bdf8" />
-    <circle cx="420" cy="90" r="6" fill="#818cf8" />
-    <circle cx="700" cy="80" r="6" fill="#10b981" />
+  <!-- System Topology & Service Bus Architecture (Geometric Node Bus, Zero Fake Waveforms) -->
+  <g transform="translate(40, 190)">
+    <rect width="{w - 80}" height="200" rx="12" fill="#141e33" stroke="rgba(255,255,255,0.06)" />
+    <text x="24" y="34" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">System Bus Architecture</text>
+    
+    <!-- Architectural Interconnect Lines -->
+    <path d="M 80 120 L 220 120 L 320 70 L 480 70 L 560 140 L {w - 160} 140" fill="none" stroke="url(#pulse_{asset_id})" stroke-width="2" stroke-dasharray="6,4" />
+    <line x1="220" y1="120" x2="320" y2="160" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
+    <line x1="320" y1="160" x2="480" y2="160" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
+    <line x1="480" y1="160" x2="560" y2="140" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
+
+    <!-- Node Endpoints -->
+    <circle cx="80" cy="120" r="7" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
+    <circle cx="220" cy="120" r="5" fill="#38bdf8" />
+    <circle cx="320" cy="70" r="6" fill="#0f172a" stroke="#818cf8" stroke-width="2" />
+    <circle cx="320" cy="160" r="5" fill="#94a3b8" />
+    <circle cx="480" cy="70" r="5" fill="#818cf8" />
+    <circle cx="480" cy="160" r="5" fill="#94a3b8" />
+    <circle cx="560" cy="140" r="6" fill="#0f172a" stroke="#10b981" stroke-width="2" />
+    <circle cx="{w - 160}" cy="140" r="7" fill="#10b981" />
   </g>
 </svg>'''
 
@@ -274,10 +272,10 @@ def generate_svg_fallback(
     cat_lower = (category or "").lower()
     if cat_lower in ("fintech", "finance", "crypto", "banking", "treasury", "wallet"):
         svg_content = _generate_fintech_svg(w, h, asset_id)
-        alt_text = f"Institutional digital treasury ledger and real-time portfolio interface for {category}"
+        alt_text = f"Institutional digital treasury architecture interface for {category}"
     elif cat_lower in ("saas", "developer-tools", "dev-tool", "tech", "cloud"):
         svg_content = _generate_saas_svg(w, h, asset_id)
-        alt_text = f"Cloud runtime telemetry orchestrator console for {category}"
+        alt_text = f"Cloud runtime architecture console for {category}"
     else:
         svg_content = _generate_generic_svg(w, h, asset_id, category, art_direction_name)
         alt_text = f"Visual product interface architecture for {category}"

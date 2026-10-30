@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixture 1: Genuine Text Overlap</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 20px; }
+    .table-row {
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: #1e293b;
+      padding: 12px;
+      width: 400px;
+    }
+    /* Simulated flex blowout: service name has fixed width overlapping the category badge */
+    .service-name {
+      width: 250px;
+      white-space: nowrap;
+      color: #38bdf8;
+      font-weight: bold;
+    }
+    .badge-category {
+      margin-left: -50px; /* Forced collision overlapping service name by 50px */
+      background: #334155;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-row">
+    <span class="service-name">GitHub Copilot Enterprise Platform</span>
+    <span class="badge-category">Developer Tools</span>
+  </div>
+</body>
+</html>
+

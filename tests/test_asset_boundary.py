@@ -61,7 +61,14 @@ class TestAssetBoundary(unittest.TestCase):
             self.assertEqual(req.resolution_tier, TIER_3_CSS_SVG)
             self.assertEqual(req.status, STATUS_FALLBACK_READY)
             self.assertIn("svg_snippet", req.fallback_descriptor)
-            self.assertIn("INSTITUTIONAL TREASURY LEDGER", req.fallback_descriptor["svg_snippet"])
+            self.assertIn("<svg", req.fallback_descriptor["svg_snippet"])
+            self.assertIn("INSTITUTIONAL TREASURY ARCHITECTURE", req.fallback_descriptor["svg_snippet"])
+            self.assertIn("MULTI-SIG VERIFIED", req.fallback_descriptor["svg_snippet"])
+            # Must NOT contain fabricated quantitative metrics or fake chart curves
+            self.assertNotIn("$2,485,920.00 USD", req.fallback_descriptor["svg_snippet"])
+            self.assertNotIn("+14.8% APY", req.fallback_descriptor["svg_snippet"])
+            self.assertNotIn("$2.50M", req.fallback_descriptor["svg_snippet"])
+            self.assertNotIn("Peak: $2.51M", req.fallback_descriptor["svg_snippet"])
             self.assertIn("alt_text", req.fallback_descriptor)
             # Must NOT expose placeholder brackets or internal prompt text
             self.assertNotIn("[photo | 16:9]", req.fallback_descriptor["svg_snippet"])

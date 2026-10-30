@@ -110,10 +110,52 @@ class TestWebsiteGenerator(unittest.TestCase):
                 self.assertNotIn("Dressed as something else", svg_content)
                 self.assertNotIn("[photo | 16:9]", svg_content)
                 self.assertNotIn("[hero_graphic | 16:9]", svg_content)
-                # Must contain institutional treasury ledger elements
-                self.assertIn("INSTITUTIONAL TREASURY LEDGER", svg_content)
+                # Must contain institutional treasury architectural elements without fabricated metrics
+                self.assertIn("<svg", svg_content)
+                self.assertIn("</svg>", svg_content)
+                self.assertIn('role="img"', svg_content)
+                self.assertIn("INSTITUTIONAL TREASURY ARCHITECTURE", svg_content)
                 self.assertIn("MULTI-SIG VERIFIED", svg_content)
-                self.assertIn("$2,485,920.00 USD", svg_content)
+                # Must NOT contain fabricated quantitative metrics or fake chart curves
+                self.assertNotIn("$2,485,920.00 USD", svg_content)
+                self.assertNotIn("+14.8% APY", svg_content)
+                self.assertNotIn("$2.50M", svg_content)
+                self.assertNotIn("Peak: $2.51M", svg_content)
+
+    def test_zero_asset_plan_omits_hero_image_reference(self):
+        # Case A1: When composition has 0 asset requirements, no broken hero img is emitted
+        app_brief = normalize_brief({
+            "project_name": "Cloud Monitor",
+            "category": "saas",
+            "page_type": "app",
+            "density": "high",
+            "tones": ["minimal", "precise"]
+        })
+        app_plan = compose_design_plan(app_brief, self.lib)
+        self.assertEqual(app_plan["assets"]["summary"]["total_required"], 0)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            res = generate_website(app_plan, tmpdir)
+            self.assertEqual(res["status"], "SUCCESS")
+            with open(os.path.join(tmpdir, "index.html"), "r", encoding="utf-8") as f:
+                html = f.read()
+
+            self.assertNotIn("assets/hero.svg", html)
+            self.assertNotIn('<div class="hero-media">', html)
+            self.assertIn("hero-grid-single", html)
+
+    def test_asset_required_plan_preserves_hero_image_reference(self):
+        # Case A2: When composition requires visual asset, image reference is preserved
+        with tempfile.TemporaryDirectory() as tmpdir:
+            res = generate_website(self.plan, tmpdir)
+            self.assertEqual(res["status"], "SUCCESS")
+            with open(os.path.join(tmpdir, "index.html"), "r", encoding="utf-8") as f:
+                html = f.read()
+
+            self.assertIn('<div class="hero-media">', html)
+            self.assertIn('<img src="assets/', html)
+            svg_files = [f for f in os.listdir(os.path.join(tmpdir, "assets")) if f.endswith(".svg")]
+            self.assertGreaterEqual(len(svg_files), 1)
 
 
 if __name__ == "__main__":

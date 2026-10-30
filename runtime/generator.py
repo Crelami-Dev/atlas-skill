@@ -126,6 +126,16 @@ img, svg, video, canvas, audio, iframe, embed, object {{
   height: auto;
 }}
 
+/* Content-Aware Layout & Flex Constraints */
+.container, main, section, [class*="layout"] {{
+  max-width: 100%;
+}}
+
+/* Prevent uncontained flex child blowout */
+[style*="display: flex"] > *, [class*="flex"] > *, .row > *, .grid > * {{
+  min-width: 0;
+}}
+
 html {{
   scroll-behavior: smooth;
   font-size: 16px;
@@ -293,6 +303,11 @@ a:hover {{
   grid-template-columns: 1.1fr 0.9fr;
   gap: var(--space-xl);
   align-items: center;
+}}
+
+.hero-grid-single {{
+  grid-template-columns: 1fr;
+  max-width: 800px;
 }}
 
 .hero-lead {{
@@ -566,9 +581,15 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
     for a in asset_manifest.get("assets", []):
         asset_map[a["slot"]] = a
 
-    hero_asset = asset_map.get("hero", {})
-    hero_img_src = hero_asset.get("relative_url", "assets/hero.svg")
-    hero_alt = _escape_html(hero_asset.get("alt_text", f"{project_name} Showcase Visual"))
+    hero_asset = asset_map.get("hero")
+    if hero_asset and hero_asset.get("relative_url"):
+        hero_img_src = hero_asset["relative_url"]
+        hero_alt = _escape_html(hero_asset.get("alt_text", f"{project_name} Showcase Visual"))
+        hero_media_html = f"""<div class="hero-media">
+          <img src="{hero_img_src}" alt="{hero_alt}" width="800" height="450" loading="eager">
+        </div>"""
+    else:
+        hero_media_html = ""
 
     # Render sections according to selected composition slots
     slots_chosen = comp.get("slots", [])
@@ -612,7 +633,7 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
   <main>
     <!-- Hero Section -->
     <section class="section hero-section" id="hero">
-      <div class="container hero-grid">
+      <div class="container hero-grid{'' if hero_media_html else ' hero-grid-single'}">
         <div class="hero-content">
           <h1>Engineered for Clarity, Speed, and Depth.</h1>
           <p class="hero-lead">
@@ -624,9 +645,7 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
             <a href="#features" class="btn btn-secondary">Explore Capabilities</a>
           </div>
         </div>
-        <div class="hero-media">
-          <img src="{hero_img_src}" alt="{hero_alt}" width="800" height="450" loading="eager">
-        </div>
+        {hero_media_html}
       </div>
     </section>
 

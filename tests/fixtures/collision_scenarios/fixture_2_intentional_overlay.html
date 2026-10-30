@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixture 2: Intentional Overlay</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 20px; }
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .metric-card {
+      background: #1e293b;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    /* Fixed modal dialog sitting above the metric cards */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 24px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-content">
+    <div class="metric-card">
+      <span class="metric-title">Monthly Spend (MRR)</span>
+      <h2 class="metric-val">$676.50</h2>
+    </div>
+    <div class="metric-card">
+      <span class="metric-title">Annual Run Rate</span>
+      <h2 class="metric-val">$8,118.00</h2>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 class="modal-title">Add Subscription</h3>
+      <p class="modal-desc">Enter provider details below.</p>
+      <button class="btn-primary">Confirm</button>
+    </div>
+  </div>
+</body>
+</html>
+
