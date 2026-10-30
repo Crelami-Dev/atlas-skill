@@ -374,6 +374,90 @@ a:hover {{
   border-color: var(--color-accent);
 }}
 
+/* Asymmetric Bento Grid (atlas:features-bento) */
+.bento-grid {{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(180px, auto);
+  grid-auto-flow: dense;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  max-width: 100%;
+}}
+
+.bento-tile {{
+  padding: var(--space-lg);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-xs);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition);
+}}
+
+.bento-tile:hover {{
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+}}
+
+.bento-tile-lead {{
+  grid-column: span 2;
+  grid-row: span 2;
+  border-color: var(--color-accent);
+  min-height: 410px;
+  justify-content: space-between;
+}}
+
+.bento-tile-wide {{
+  grid-column: span 2;
+  grid-row: span 1;
+}}
+
+.bento-tile-standard {{
+  grid-column: span 1;
+  grid-row: span 1;
+}}
+
+.bento-kicker {{
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}}
+
+.bento-tile h3 {{
+  font-size: clamp(1.1rem, 1.5vw + 0.25rem, 1.4rem);
+  line-height: 1.25;
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+}}
+
+.bento-tile-lead h3 {{
+  font-size: clamp(1.45rem, 2.2vw + 0.35rem, 2rem);
+}}
+
+.bento-tile p {{
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}}
+
+.bento-lead-diagram {{
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}}
+
 /* Steps & Workflow */
 .steps-grid {{
   display: grid;
@@ -467,6 +551,7 @@ a:hover {{
 .faq-answer {{
   max-height: 0;
   overflow: hidden;
+  visibility: hidden;
   transition: max-height 0.3s ease-out;
 }}
 
@@ -476,6 +561,7 @@ a:hover {{
 
 .faq-item.active .faq-answer {{
   max-height: 300px;
+  visibility: visible;
 }}
 
 /* CTA Banner */
@@ -521,6 +607,29 @@ a:hover {{
 }}
 
 /* Responsive Breakpoints */
+@media (max-width: 1024px) {{
+  .bento-grid {{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }}
+
+  .bento-tile-lead {{
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 0;
+  }}
+
+  .bento-tile-wide {{
+    grid-column: span 2;
+    grid-row: span 1;
+  }}
+
+  .bento-tile-standard {{
+    grid-column: span 1;
+    grid-row: span 1;
+  }}
+}}
+
 @media (max-width: 900px) {{
   .hero-grid {{
     grid-template-columns: 1fr;
@@ -558,11 +667,142 @@ a:hover {{
     transform: translateY(0);
   }}
 
+  .bento-grid {{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+  }}
+
+  .bento-tile {{
+    padding: var(--space-md);
+  }}
+
+  .bento-tile-lead,
+  .bento-tile-wide {{
+    grid-column: span 2;
+    grid-row: span 1;
+  }}
+
+  .bento-tile-standard {{
+    grid-column: span 1;
+    grid-row: span 1;
+  }}
+
+  .bento-tile h3 {{
+    font-size: 1rem;
+  }}
+
+  .bento-tile-lead h3 {{
+    font-size: 1.25rem;
+  }}
+
+  .bento-tile p {{
+    font-size: 0.85rem;
+  }}
+
   .footer-grid {{
     grid-template-columns: 1fr;
   }}
 }}
 """
+
+
+DEFAULT_BENTO_ITEMS: List[Dict[str, str]] = [
+    {
+        "kicker": "Primary Architecture",
+        "title": "Modular Component Composition",
+        "description": (
+            "Hierarchical layout architecture organizing varied functional capabilities "
+            "through proportional card geometry and explicit design tokens."
+        ),
+    },
+    {
+        "kicker": "Document Outline",
+        "title": "Semantic HTML5 Landmarks",
+        "description": (
+            "Structured navigation, main, and section regions supporting assistive "
+            "technologies and clear document hierarchy."
+        ),
+    },
+    {
+        "kicker": "Design Tokens",
+        "title": "Cohesive Token Pacing",
+        "description": (
+            "Unified spatial increments, fluid typographic scale, and balanced "
+            "surface contrast across components."
+        ),
+    },
+    {
+        "kicker": "Responsive Systems",
+        "title": "Fluid Viewport Adaptation",
+        "description": (
+            "Multi-viewport grid rules maintaining structured presentation across "
+            "desktop, tablet, and two-column mobile displays."
+        ),
+    },
+    {
+        "kicker": "Visual Verification",
+        "title": "Automated Layout Inspection",
+        "description": (
+            "Headless browser verification checking bounding-box containment, "
+            "responsive breakpoints, and DOM structure."
+        ),
+    },
+]
+
+
+def _render_bento_features_grid(plan: Dict[str, Any]) -> str:
+    """Render an asymmetric Bento Grid for the atlas:features-bento composition pattern."""
+    raw_items = plan.get("bento_items")
+    if isinstance(raw_items, (list, tuple)) and len(raw_items) >= 4:
+        items = list(raw_items)
+    else:
+        items = list(DEFAULT_BENTO_ITEMS)
+
+    lead_svg = (
+        '<svg role="img" aria-label="Modular component composition blueprint" '
+        'class="bento-lead-diagram" viewBox="0 0 480 160" width="480" height="160" '
+        'xmlns="http://www.w3.org/2000/svg">'
+        '<rect x="12" y="12" width="210" height="136" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>'
+        '<rect x="28" y="28" width="110" height="12" rx="4" fill="currentColor" opacity="0.45"/>'
+        '<rect x="28" y="50" width="178" height="8" rx="4" fill="currentColor" opacity="0.2"/>'
+        '<rect x="28" y="66" width="150" height="8" rx="4" fill="currentColor" opacity="0.2"/>'
+        '<rect x="28" y="96" width="178" height="36" rx="6" fill="currentColor" opacity="0.1"/>'
+        '<rect x="238" y="12" width="230" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>'
+        '<rect x="254" y="28" width="96" height="10" rx="4" fill="currentColor" opacity="0.35"/>'
+        '<rect x="254" y="46" width="180" height="8" rx="4" fill="currentColor" opacity="0.18"/>'
+        '<rect x="238" y="86" width="109" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>'
+        '<rect x="359" y="86" width="109" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>'
+        '</svg>'
+    )
+
+    tile_html_parts: List[str] = []
+    for idx, item in enumerate(items):
+        kicker = _escape_html(item.get("kicker", f"Capability 0{idx + 1}"))
+        title = _escape_html(item.get("title", f"Capability {idx + 1}"))
+        desc = _escape_html(item.get("description", "Structured architectural capability."))
+
+        if idx == 0:
+            role_cls = "bento-tile bento-tile-lead"
+            extra_visual = f"\n            {lead_svg}"
+        elif idx == 3:
+            role_cls = "bento-tile bento-tile-wide"
+            extra_visual = ""
+        else:
+            role_cls = "bento-tile bento-tile-standard"
+            extra_visual = ""
+
+        tile_html_parts.append(
+            f"""          <div class="{role_cls}">
+            <span class="bento-kicker">{kicker}</span>
+            <h3>{title}</h3>
+            <p>{desc}</p>{extra_visual}
+          </div>"""
+        )
+
+    tiles_joined = "\n".join(tile_html_parts)
+    return f"""        <div class="bento-grid">
+{tiles_joined}
+        </div>"""
 
 
 def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
@@ -594,6 +834,40 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
     # Render sections according to selected composition slots
     slots_chosen = comp.get("slots", [])
     slot_names = [s["slot"] for s in slots_chosen]
+    features_slot = next((s for s in slots_chosen if s.get("slot") == "features"), None)
+    is_bento_features = bool(
+        features_slot and features_slot.get("pattern_id") == "atlas:features-bento"
+    )
+
+    if is_bento_features:
+        features_body_html = _render_bento_features_grid(plan)
+    else:
+        features_body_html = """        <div class="features-grid">
+          <article class="feature-card">
+            <h3>Deterministic Execution</h3>
+            <p>Every brief compiles into verifiable, reproducible design structures with zero random drift across cycles.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Deep Immutability</h3>
+            <p>Canonical design assets and memory records are recursively frozen, guaranteeing complete data purity.</p>
+          </article>
+          <article class="feature-card">
+            <h3>3-Tier Visual Asset Pipeline</h3>
+            <p>Seamlessly integrates native AI imagery with local semantic vector fallbacks when offline or uncredentialed.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Browser Verification</h3>
+            <p>Automated headless browser rendering validates responsiveness, typography scale, and layout integrity across all viewports.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Accessible By Default</h3>
+            <p>Semantic HTML5 landmarks, visible focus rings, high contrast ratios, and complete keyboard navigation compliance.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Standards-Compliant Output</h3>
+            <p>Lightweight, standard-compliant vanilla HTML, CSS, and JS that serves cleanly from static hosts.</p>
+          </article>
+        </div>"""
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -681,32 +955,7 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
           <p>Every layer has been tuned for rigorous performance, explicit validation, and visual distinction.</p>
         </div>
 
-        <div class="features-grid">
-          <article class="feature-card">
-            <h3>Deterministic Execution</h3>
-            <p>Every brief compiles into verifiable, reproducible design structures with zero random drift across cycles.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Deep Immutability</h3>
-            <p>Canonical design assets and memory records are recursively frozen, guaranteeing complete data purity.</p>
-          </article>
-          <article class="feature-card">
-            <h3>3-Tier Visual Asset Pipeline</h3>
-            <p>Seamlessly integrates native AI imagery with local semantic vector fallbacks when offline or uncredentialed.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Browser Verification</h3>
-            <p>Automated headless browser rendering validates responsiveness, typography scale, and layout integrity across all viewports.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Accessible By Default</h3>
-            <p>Semantic HTML5 landmarks, visible focus rings, high contrast ratios, and complete keyboard navigation compliance.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Zero Framework Overhead</h3>
-            <p>Lightweight, standard-compliant vanilla HTML, CSS, and JS that loads instantaneously without bundle bloat.</p>
-          </article>
-        </div>
+{features_body_html}
       </div>
     </section>
 
