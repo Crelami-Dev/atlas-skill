@@ -12,6 +12,64 @@ from runtime.contracts import ProductBrief
 
 DENSITY_NUMERIC = {"low": 0, "med": 1, "high": 2}
 
+TONE_SYNONYMS: Dict[str, str] = {
+    # Luxury / High-end
+    "refined": "luxury",
+    "exclusive": "luxury",
+    "bespoke": "luxury",
+    "haute": "luxury",
+    "elevated": "luxury",
+    "prestigious": "luxury",
+    "opulent": "luxury",
+    "artisan": "luxury",
+    # Quiet / Minimal
+    "calm": "quiet",
+    "minimal": "quiet",
+    "restrained": "quiet",
+    "serene": "quiet",
+    "subdued": "quiet",
+    "understated": "quiet",
+    "zen": "quiet",
+    "austere": "quiet",
+    # Technical / Analytical
+    "precise": "technical",
+    "functional": "technical",
+    "systematic": "technical",
+    "analytical": "technical",
+    "scientific": "technical",
+    "engineered": "technical",
+    "rigorous": "technical",
+    # Bold / Expressive
+    "confident": "bold",
+    "expressive": "bold",
+    "dramatic": "bold",
+    "dynamic": "bold",
+    "impactful": "bold",
+    "assertive": "bold",
+    "striking": "bold",
+    # Editorial / Curated
+    "curated": "editorial",
+    "literary": "editorial",
+    "journalistic": "editorial",
+    "narrative": "editorial",
+    "magazine": "editorial",
+    # Warm / Approachable
+    "inviting": "warm",
+    "human": "warm",
+    "welcoming": "warm",
+    "tactile": "warm",
+    "friendly": "warm",
+    "approachable": "warm",
+    "cozy": "warm",
+    # Playful / Vibrant
+    "whimsical": "playful",
+    "lively": "playful",
+    "energetic": "playful",
+    "fun": "playful",
+    "vibrant": "playful",
+    "quirky": "playful",
+}
+
 
 def score_art_direction(art_dir: Dict[str, Any], brief: ProductBrief) -> Tuple[float, List[str]]:
     """Score an Art Direction against the ProductBrief.
@@ -26,6 +84,8 @@ def score_art_direction(art_dir: Dict[str, Any], brief: ProductBrief) -> Tuple[f
     sectors = art_dir.get("sectors", [])
     if brief.category in sectors:
         pts = 3.0 * w.get("category", 1.0)
+        if sectors and sectors[0] == brief.category:
+            pts += 0.5 * w.get("category", 1.0)
         score += pts
         rationale.append(f"sector match (+{pts:.1f}): '{brief.category}'")
     elif brief.category == "*":
@@ -37,10 +97,16 @@ def score_art_direction(art_dir: Dict[str, Any], brief: ProductBrief) -> Tuple[f
         score += pts
         rationale.append(f"sector mismatch ({pts:.1f})")
 
-    # 2. Tone overlap
+    # 2. Tone overlap with semantic synonym expansion
     dir_tones = set(art_dir.get("tones", []))
-    brief_tones = set(brief.tones)
-    tone_overlap = dir_tones & brief_tones
+    expanded_brief_tones: Set[str] = set()
+    for t in brief.tones:
+        t_clean = t.strip().lower()
+        expanded_brief_tones.add(t_clean)
+        if t_clean in TONE_SYNONYMS:
+            expanded_brief_tones.add(TONE_SYNONYMS[t_clean])
+
+    tone_overlap = dir_tones & expanded_brief_tones
     if tone_overlap:
         pts = 1.5 * w.get("tones", 1.0) * len(tone_overlap)
         score += pts
@@ -58,7 +124,54 @@ def score_art_direction(art_dir: Dict[str, Any], brief: ProductBrief) -> Tuple[f
             score += pts
             rationale.append(f"density/richness tension ({pts:.1f})")
 
-    # 4. Explicit constraint bonus
+    # 4. Audience semantic alignment
+    if brief.audience:
+        aud_lower = brief.audience.lower()
+        tech_aud_signals = {"engineer", "engineers", "developer", "developers", "scientist", "scientists", "architect", "sysadmin"}
+        luxury_aud_signals = {"connoisseur", "connoisseurs", "luxury", "collector", "collectors", "high-net-worth", "clientele"}
+        creative_aud_signals = {"director", "directors", "designer", "designers", "brand", "creative"}
+
+        if any(sig in aud_lower for sig in tech_aud_signals):
+            if "technical" in dir_tones or "quiet" in dir_tones:
+                pts = 0.8 * w.get("audience", 1.0)
+                score += pts
+                rationale.append(f"technical audience fit (+{pts:.1f}): '{brief.audience}'")
+        elif any(sig in aud_lower for sig in luxury_aud_signals):
+            if "luxury" in dir_tones or "quiet" in dir_tones or "editorial" in dir_tones:
+                pts = 0.8 * w.get("audience", 1.0)
+                score += pts
+                rationale.append(f"luxury audience fit (+{pts:.1f}): '{brief.audience}'")
+        elif any(sig in aud_lower for sig in creative_aud_signals):
+            if "bold" in dir_tones or "editorial" in dir_tones:
+                pts = 0.8 * w.get("audience", 1.0)
+                score += pts
+                rationale.append(f"creative audience fit (+{pts:.1f}): '{brief.audience}'")
+
+    # 5. Primary task semantic alignment
+    if brief.primary_task:
+        task_lower = brief.primary_task.lower()
+        tech_task_signals = {"benchmark", "benchmarks", "performance", "metric", "metrics", "inspect", "system", "code", "debug"}
+        luxury_task_signals = {"bespoke", "collection", "haute", "craftsmanship", "craft", "exclusive", "horlogerie"}
+        eval_task_signals = {"case studies", "portfolio", "evaluate", "identity", "campaign"}
+        ad_id = art_dir.get("id", "")
+
+        if any(sig in task_lower for sig in tech_task_signals):
+            if "technical" in dir_tones or ad_id in {"art-dir:product-performs", "art-dir:quiet-instrument", "art-dir:dense-tiles"}:
+                pts = 0.7 * w.get("primary_task", 1.0)
+                score += pts
+                rationale.append(f"technical task alignment (+{pts:.1f}): '{brief.primary_task}'")
+        elif any(sig in task_lower for sig in luxury_task_signals):
+            if "luxury" in dir_tones or "editorial" in dir_tones or "quiet" in dir_tones:
+                pts = 0.7 * w.get("primary_task", 1.0)
+                score += pts
+                rationale.append(f"luxury task alignment (+{pts:.1f}): '{brief.primary_task}'")
+        elif any(sig in task_lower for sig in eval_task_signals):
+            if "bold" in dir_tones or "editorial" in dir_tones:
+                pts = 0.7 * w.get("primary_task", 1.0)
+                score += pts
+                rationale.append(f"evaluative task alignment (+{pts:.1f}): '{brief.primary_task}'")
+
+    # 6. Explicit constraint bonus
     forced_id = brief.explicit_constraints.get("art_direction_id")
     if forced_id and art_dir.get("id") == forced_id:
         score += 100.0

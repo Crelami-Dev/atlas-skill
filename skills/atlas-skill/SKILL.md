@@ -1,7 +1,7 @@
 ---
 name: atlas-skill
 description: Adaptive Taste & Layout Architecture System (ATLAS). Research-driven art direction, motion intelligence, and context-aware frontend design for coding agents. Selects compositions and motion patterns from project context, builds truthful interfaces, and verifies visual quality using browser inspection and anti-slop intelligence.
-version: 2.1.0
+version: 2.2.0
 ---
 
 # ATLAS Skill (Agent Edition)
@@ -24,6 +24,12 @@ Before finalizing any interface, anticipate responsive layout stresses across vi
 4. **Progressive Adaptation Hierarchy:** Constrained horizontal space must adapt in order:
    Wrap Text → Reflow Elements to Stack → Shorten Secondary Text → Progressively Disclose → Clip with Ellipsis. Truncation must never silently discard unique data without access to full content.
 5. **Asymmetric Bento Grid Contract (P6):** When `atlas:features-bento` is selected ($\ge 4$ items), render mixed-size tiles where one lead tile (`2x2` on desktop) carries the main idea and supporting diagram alongside wide (`2x1`) and standard (`1x1`) tiles. On phones ($\le 768\text{px}$), maintain a 2-column Bento grid (`repeat(2, minmax(0, 1fr))`) with at most two full-width tiles (`grid-column: span 2`), using `<div class="bento-tile">` so peer tiles remain actively scoped under anti-slop radius and accent checks.
+6. **Art Direction & Visual Identity Intelligence (P7):**
+   - *Tone Synonym Expansion:* Map descriptive brief tones (`calm`, `refined`, `precise`, `austere`, `minimal`, `dynamic`, `curated`, `human`, etc.) to canonical macro art direction tokens (`quiet`, `luxury`, `technical`, `bold`, `editorial`, `warm`, `playful`), eliminating fallback collapse.
+   - *Audience & Primary Task Alignment:* Target audience profiles and primary tasks actively weight art direction fit scores.
+   - *Explicit Slot & Exclude Priority:* Explicit `slots` and `exclude` directives from the brief strictly override defaults. When `pricing` is explicitly requested, preserve it regardless of domain.
+   - *Authentic Contextual Copy Generation:* Headlines, lead paragraphs, feature cards, and CTAs synthesize dynamically based on brand identity, industry category, and value propositions, eliminating hardcoded internal generator boilerplate.
+   - *Density-Adaptive Spacing & Fluid Scale:* Spacing tokens (`--space-xl`, `--space-2xl`, `--max-width`) and typography heading clamps dynamically scale with brief density (`low`, `med`, `high`).
 
 ## 3. Context-Aware Anti-AI-Slop Rules (P1 Foundations)
 1. **Hard Failures:** Broken DOM contracts, missing viewport tags, empty headlines, contrast < 3:1, unresolved template placeholders.

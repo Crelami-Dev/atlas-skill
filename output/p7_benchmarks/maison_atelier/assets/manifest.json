@@ -1,0 +1,25 @@
+{
+  "generated_for_plan": "dd4fa11f896ade31",
+  "total_assets": 1,
+  "native_ai_count": 0,
+  "svg_fallback_count": 1,
+  "assets": [
+    {
+      "asset_id": "asset:hero:small-name-open-sky:main",
+      "slot": "hero",
+      "role": "hero_media",
+      "aspect_ratio": "16:9",
+      "dimensions": "1200x675",
+      "lifecycle_state": "integrated",
+      "provider_attempted": "none",
+      "tier_selected": "tier_3_css_svg",
+      "relative_url": "assets/asset_hero_small-name-open-sky_main.svg",
+      "disk_path": "D:\\tes\\skills-staging\\atlas-skill\\output\\p7_benchmarks\\maison_atelier\\assets\\asset_hero_small-name-open-sky_main.svg",
+      "alt_text": "Visual product interface architecture for fashion",
+      "fallback_used": true,
+      "prompt_brief": "Professional commercial photograph for fashion digital product hero section. Art Direction Style: 'Photographs at uneven sizes'. Visual Guidelines: High contrast, natural studio lighting, authentic textures. Color Palette & Tone: Muted neutrals with bold deliberate accents. Brand Mood: editorial, calm, refined. Framing: 16:9 widescreen ratio, high-resolution 8k, photorealistic, sharp focal point, elegant depth of field, balanced negative space for typography overlay.",
+      "error_message": null,
+      "status_message": "Rendered offline Tier 3 SVG vector fallback"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ Harmonizes Macro Art Direction, Slot-by-Slot Compositions, Semantic Palettes,
 Typography Systems, and Application Shells into an explainable, deterministic DesignPlan.
 Zero-dependency, Python 3.9+ standard library.
 """
+import hashlib
 from datetime import datetime, timezone
 from types import MappingProxyType
 from typing import Any, Dict, List, Optional, Tuple
@@ -75,8 +76,13 @@ def compose_design_plan(
         sc, why = score_art_direction(ad, brief)
         ranked_ad.append((sc, ad, why))
 
-    # Tie-break: score descending, then alphabetical ID
-    ranked_ad.sort(key=lambda x: (-x[0], x[1]["id"]))
+    # Tie-break: score descending, then contextual deterministic hash
+    def _ad_tie_breaker(item):
+        score, ad, _ = item
+        ctx_hash = hashlib.sha256(f"{brief.project_name}:{brief.category}:{ad['id']}".encode()).hexdigest()
+        return (-score, ctx_hash)
+
+    ranked_ad.sort(key=_ad_tie_breaker)
     if not ranked_ad:
         raise ContractValidationError(ERR_HARD_CONSTRAINT_UNSATISFIED, "No art directions found in library", target="art_directions")
 
@@ -224,9 +230,43 @@ def compose_design_plan(
         "tier_3_css_svg": tier_3_c
     }
 
-    # 7. Motion Intelligence & References Integration (Phase 5)
+    # 7. Motion Intelligence & References Integration (Phase 5 & 7)
     motion_plan = plan_motion_for_brief(brief, library.motions)
     curated_references = retrieve_design_references(brief, library)
+
+    # 8. Domain-Aware Decision Rationale (Phase 7)
+    domain_type = "general"
+    category_lower = (brief.category or "").lower()
+    tones_lower = [t.lower() for t in brief.tones]
+    if category_lower in ("fashion", "luxury", "hospitality", "restaurant", "architecture", "personal-portfolio") or any(t in tones_lower for t in ("luxury", "editorial", "calm", "refined", "quiet")):
+        domain_type = "luxury_craftsmanship"
+    elif category_lower in ("dev-tool", "developer", "cloud", "infra", "security", "data") or any(t in tones_lower for t in ("technical", "austere", "precise", "functional")):
+        domain_type = "technical_infrastructure"
+    elif category_lower in ("agency", "design", "studio-portfolio", "creative") or any(t in tones_lower for t in ("bold", "curated", "confident", "expressive")):
+        domain_type = "creative_brand_architecture"
+
+    applied_domain_pattern = curated_references.get("matched_domain_pattern", {}).get("title", "")
+    applied_archetype_title = curated_references.get("matched_archetype", {}).get("title", "")
+    applied_exemplars = [e.get("name", e.get("id")) for e in curated_references.get("matched_exemplars", [])]
+    applied_heuristics = [h.get("name", h.get("id")) for h in curated_references.get("applicable_heuristics", [])]
+
+    decision_rationale = {
+        "domain_type": domain_type,
+        "selected_art_direction": top_ad["id"],
+        "applied_domain_pattern": applied_domain_pattern,
+        "applied_archetype": applied_archetype_title,
+        "applied_exemplars": applied_exemplars,
+        "applied_heuristics": applied_heuristics,
+        "planned_slots": [s["slot"] for s in slot_picks],
+        "omitted_slots": [s["slot"] for s in skipped_slots],
+        "content_integrity_policy": curated_references.get("content_integrity_rules", {}).get("classification_doctrine", "tier_1_factual_and_tier_2_qualitative_strictly_enforced"),
+        "responsive_floor_guards": curated_references.get("responsive_guards", {}),
+        "traceable_rationale": curated_references.get("traceable_rationale", (
+            f"Composition synthesized for {brief.project_name} ({domain_type}) paired with "
+            f"art direction '{top_ad['name']}'. Domain-specific IA enforces purposeful slot hierarchy, "
+            f"authentic contextual copy, and zero fabricated Tier 4 claims."
+        ))
+    }
 
     timestamp = deterministic_timestamp or datetime.now(timezone.utc).isoformat()
     brief_dict = brief.to_dict()
@@ -242,7 +282,8 @@ def compose_design_plan(
         "composition": {
             "total_score": total_comp_score,
             "slots": slot_picks,
-            "skipped_slots": skipped_slots
+            "skipped_slots": skipped_slots,
+            "decision_rationale": decision_rationale
         },
         "palette": palette_plan,
         "typography": typography_plan,

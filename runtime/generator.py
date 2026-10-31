@@ -77,6 +77,41 @@ def render_css(plan: Dict[str, Any]) -> str:
     font_display = _get_font_family_name(fonts.get("display"))
     font_text = _get_font_family_name(fonts.get("text"))
 
+    density = plan.get("normalized_brief", {}).get("density", "med")
+    if density == "low":
+        space_2xs = "0.35rem"
+        space_xs = "0.75rem"
+        space_sm = "1.25rem"
+        space_md = "2rem"
+        space_lg = "3.5rem"
+        space_xl = "5.5rem"
+        space_2xl = "8rem"
+        max_width = "1320px"
+        h1_clamp = "clamp(2.0rem, 4.5vw + 0.8rem, 4.75rem)"
+        h2_clamp = "clamp(1.65rem, 3vw + 0.5rem, 3.0rem)"
+    elif density == "high":
+        space_2xs = "0.2rem"
+        space_xs = "0.4rem"
+        space_sm = "0.75rem"
+        space_md = "1.15rem"
+        space_lg = "1.85rem"
+        space_xl = "2.75rem"
+        space_2xl = "4.5rem"
+        max_width = "1140px"
+        h1_clamp = "clamp(1.75rem, 2.5vw + 0.5rem, 2.75rem)"
+        h2_clamp = "clamp(1.35rem, 2vw + 0.25rem, 2.0rem)"
+    else:  # med
+        space_2xs = "0.25rem"
+        space_xs = "0.5rem"
+        space_sm = "1rem"
+        space_md = "1.5rem"
+        space_lg = "2.5rem"
+        space_xl = "4rem"
+        space_2xl = "6rem"
+        max_width = "1200px"
+        h1_clamp = "clamp(2.0rem, 3.5vw + 0.75rem, 3.75rem)"
+        h2_clamp = "clamp(1.5rem, 2.5vw + 0.5rem, 2.5rem)"
+
     return f"""/* ==========================================================================
    Atlas Design System — Generated Stylesheet
    Plan ID: {plan.get('plan_id', 'unknown')} | Art Direction: {plan.get('art_direction', {}).get('name', 'Default')}
@@ -97,16 +132,16 @@ def render_css(plan: Dict[str, Any]) -> str:
   --font-text: {font_text};
 
   /* Fluid Spacing Scale */
-  --space-2xs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.5rem;
-  --space-xl: 4rem;
-  --space-2xl: 6rem;
+  --space-2xs: {space_2xs};
+  --space-xs: {space_xs};
+  --space-sm: {space_sm};
+  --space-md: {space_md};
+  --space-lg: {space_lg};
+  --space-xl: {space_xl};
+  --space-2xl: {space_2xl};
 
   /* Layout Constants */
-  --max-width: 1200px;
+  --max-width: {max_width};
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
@@ -158,15 +193,18 @@ h1, h2, h3, h4, .brand-logo {{
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: -0.02em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }}
 
 h1 {{
-  font-size: clamp(2.25rem, 4vw + 1rem, 4rem);
+  font-size: {h1_clamp};
   margin-bottom: var(--space-md);
+  letter-spacing: -0.025em;
 }}
 
 h2 {{
-  font-size: clamp(1.75rem, 3vw + 0.5rem, 2.75rem);
+  font-size: {h2_clamp};
   margin-bottom: var(--space-sm);
 }}
 
@@ -179,6 +217,9 @@ p {{
   margin-bottom: var(--space-sm);
   color: var(--color-muted);
   font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 65ch;
+  overflow-wrap: break-word;
 }}
 
 a {{
@@ -215,6 +256,8 @@ a:hover {{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
   padding: 0.85rem 1.75rem;
   font-family: var(--font-text);
   font-size: 0.95rem;
@@ -282,6 +325,9 @@ a:hover {{
   color: var(--color-ink);
   font-weight: 500;
   font-size: 0.95rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }}
 
 .nav-toggle {{
@@ -291,6 +337,10 @@ a:hover {{
   font-size: 1.5rem;
   color: var(--color-ink);
   cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  align-items: center;
+  justify-content: center;
 }}
 
 /* Hero Section */
@@ -334,7 +384,7 @@ a:hover {{
 /* Social Proof & Metrics */
 .proof-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-md);
   text-align: center;
 }}
@@ -344,6 +394,11 @@ a:hover {{
   background-color: var(--color-surface);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }}
 
 .proof-number {{
@@ -351,12 +406,14 @@ a:hover {{
   font-size: 2.5rem;
   font-weight: 800;
   color: var(--color-accent);
+  line-height: 1.1;
+  margin-bottom: var(--space-2xs);
 }}
 
 /* Features Grid */
 .features-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: var(--space-md);
   margin-top: var(--space-lg);
 }}
@@ -538,6 +595,8 @@ a:hover {{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-height: 44px;
+  padding: var(--space-sm) 0;
   background: none;
   border: none;
   text-align: left;
@@ -608,6 +667,11 @@ a:hover {{
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {{
+  .proof-grid {{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+  }}
+
   .bento-grid {{
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: auto;
@@ -647,7 +711,7 @@ a:hover {{
 
 @media (max-width: 768px) {{
   .nav-toggle {{
-    display: block;
+    display: inline-flex;
   }}
 
   .nav-menu {{
@@ -665,6 +729,19 @@ a:hover {{
 
   .nav-menu.open {{
     transform: translateY(0);
+  }}
+
+  .proof-grid {{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+  }}
+
+  .steps-grid {{
+    grid-template-columns: 1fr;
+  }}
+
+  .features-grid {{
+    grid-template-columns: 1fr;
   }}
 
   .bento-grid {{
@@ -701,6 +778,38 @@ a:hover {{
 
   .footer-grid {{
     grid-template-columns: 1fr;
+  }}
+}}
+
+@media (max-width: 540px) {{
+  .proof-grid {{
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }}
+
+  .proof-card {{
+    padding: var(--space-sm);
+  }}
+
+  .proof-number {{
+    font-size: 1.85rem;
+  }}
+
+  .pricing-grid {{
+    grid-template-columns: 1fr;
+  }}
+
+  .container {{
+    padding: 0 16px;
+  }}
+
+  .hero-actions {{
+    flex-direction: column;
+    align-items: stretch;
+  }}
+
+  .hero-actions .btn {{
+    width: 100%;
   }}
 }}
 """
@@ -805,16 +914,425 @@ def _render_bento_features_grid(plan: Dict[str, Any]) -> str:
         </div>"""
 
 
+def _resolve_brief_content(plan: Dict[str, Any]) -> Dict[str, Any]:
+    """Synthesize category-aware, authentic brand copy from the normalized brief."""
+    brief = plan.get("normalized_brief", {})
+    project_name = _escape_html(brief.get("project_name", "Atlas Platform"))
+    category = _escape_html(brief.get("category", "saas")).lower()
+    tones = [t.lower() for t in brief.get("tones", [])]
+
+    is_luxury = any(t in tones for t in ("luxury", "editorial", "calm", "refined", "quiet")) or category in (
+        "fashion", "luxury", "hospitality", "restaurant", "architecture", "personal-portfolio"
+    )
+    is_technical = any(t in tones for t in ("technical", "austere", "precise", "functional")) or category in (
+        "dev-tool", "developer", "cloud", "infra", "security", "data"
+    )
+    is_agency = any(t in tones for t in ("bold", "curated", "confident", "expressive")) or category in (
+        "agency", "design", "studio-portfolio", "creative"
+    )
+
+    if is_luxury:
+        h1 = f"{project_name} — Timeless Craftsmanship &amp;&nbsp;Architectural Form"
+        hero_lead = f"Immerse yourself in bespoke creations defined by peerless materiality, meticulous finishing, and quiet distinction. Handcrafted for discerning patrons worldwide."
+        features_title = "Artisanal Mastery"
+        features_subtitle = "Every silhouette is refined through exacting restraint and time-honored atelier traditions."
+        feature_cards = [
+            ("Bespoke Craftsmanship", "Every creation embodies peerless artisanal mastery, tactile purity, and sculptural discipline."),
+            ("Curated Exclusivity", "Rare, limited-edition commissions tailored to discerning collectors and international patrons."),
+            ("Architectural Silhouette", "Proportional harmony balanced with uncompromising contemporary restraint and presence."),
+            ("Heritage & Provenance", "Rooted in storied traditions, executed with forward-looking aesthetic integrity."),
+            ("Impeccable Finishing", "Exacting attention to detail across every touchpoint, seam, contour, and surface."),
+            ("Private Concierge", "Discreet, dedicated consultation addressing bespoke requests, private viewings, and acquisitions.")
+        ]
+        proof_items = [
+            ("Bespoke", "Handcrafted in Private Ateliers"),
+            ("Limited", "Numbered Collector Editions"),
+            ("Heritage", "Time-Honored Provenance"),
+            ("Atelier", "Private Client Viewings &amp; Salons")
+        ]
+        workflow_title = "Atelier Commission Lifecycle"
+        workflow_subtitle = "A contemplative progression from material provenance to final hand-finished masterpiece."
+        workflow_steps = [
+            ("01", "Material Sourcing &amp; Provenance", "Curating rare, sustainably certified precious metals and ethically sourced stones of peerless purity."),
+            ("02", "Sculptural Form &amp; Prototyping", "Iterative hand-modeling in our atelier, harmonizing anatomical comfort with architectural volume."),
+            ("03", "Master Finishing &amp; Archival Seal", "Precision hand-polishing, microscopic setting, individual serial engraving, and archival registration.")
+        ]
+        pricing_title = "Private Acquisitions &amp; Bespoke Commissions"
+        pricing_subtitle = "Every creation is crafted to individual commission or issued in strictly numbered, registered editions."
+        pricing_tiers = [
+            {
+                "name": "Collector Salon",
+                "badge": None,
+                "price": "Inquire",
+                "period": "",
+                "description": "Private acquisition of limited-edition numbered atelier releases.",
+                "features": [
+                    "Numbered atelier certificate of provenance",
+                    "Hand-crafted presentation vault",
+                    "Archival registration with master atelier record",
+                    "Private salon preview invitation"
+                ],
+                "cta_text": "Inquire Availability",
+                "cta_cls": "btn btn-secondary"
+            },
+            {
+                "name": "Bespoke Commission",
+                "badge": "Haute Exclusive",
+                "price": "Custom",
+                "period": "",
+                "description": "One-of-a-kind creation designed in personal dialogue with our master artisan.",
+                "features": [
+                    "Private atelier consultation with head artisan",
+                    "Exclusive noble material sourcing and stone curation",
+                    "Custom sculptural casing and hand-engraved monogram",
+                    "Lifetime atelier maintenance and inspection",
+                    "Private white-glove salon handover"
+                ],
+                "cta_text": "Request Consultation",
+                "cta_cls": "btn btn-primary"
+            },
+            {
+                "name": "Heritage Patron",
+                "badge": None,
+                "price": "Private",
+                "period": "",
+                "description": "Sustained collaborative patronage for multi-piece collector series.",
+                "features": [
+                    "First-right access to rare material allocations",
+                    "Direct atelier archive documentation access",
+                    "Bespoke horological or jewelry suite creation",
+                    "Global private courier and concierge delivery"
+                ],
+                "cta_text": "Contact Concierge",
+                "cta_cls": "btn btn-secondary"
+            }
+        ]
+        faq_title = "Atelier &amp; Commission Insights"
+        faq_subtitle = "Essential details regarding our bespoke process, numbered editions, and private consultations."
+        faq_items = [
+            ("How can I arrange a private atelier consultation?",
+             "Consultations may be arranged through our private concierge. We accommodate clients via private salon appointments and offer personalized consultations for international patrons."),
+            ("Are your creations issued in limited numbered quantities?",
+             "Yes. Every collection is strictly limited in volume, with each individual piece engraved with an archival serial mark and accompanied by an official certificate of provenance."),
+            ("What bespoke customization options are available?",
+             "Our master artisans accommodate bespoke commissions ranging from specific precious material selections and gemstone settings to completely unique sculptural silhouettes crafted from the ground up.")
+        ]
+        cta_h2 = "Experience Bespoke Distinction"
+        cta_lead = "Schedule a private consultation at our flagship atelier to explore bespoke commissions."
+        cta_btn1 = "Request Private Appointment"
+        cta_btn2 = "Explore Atelier"
+        footer_desc = "Curated haute creation and timeless design executed with bespoke artisanal integrity."
+    elif is_technical:
+        h1 = f"{project_name} — High-Throughput Infrastructure Architecture"
+        hero_lead = f"Engineered for sub-millisecond telemetry, deterministic consistency, and low-latency operational throughput across cloud and distributed environments."
+        features_title = "Architected for Critical Workloads"
+        features_subtitle = "Rigorous telemetry, deterministic state transitions, and low-latency throughput at scale."
+        feature_cards = [
+            ("Kernel Telemetry", "Granular, real-time observability across distributed nodes with sub-millisecond overhead."),
+            ("Zero-Allocation Runtime", "High-efficiency execution pathways engineered for continuous sustained throughput."),
+            ("Deterministic Consistency", "Strong transactional invariants guaranteed across heterogeneous network partitions."),
+            ("Continuous Verification", "Automated contract verification validating system invariants before every deployment."),
+            ("Native Concurrency", "Non-blocking asynchronous event loops scaled linearly across available computing cores."),
+            ("Declarative Schemas", "Infrastructure-as-code orchestration specifications versioned cleanly in your repository.")
+        ]
+        proof_items = [
+            ("Kernel", "Sub-Millisecond Low Latency"),
+            ("Zero-Alloc", "High-Throughput Memory Loops"),
+            ("Invariants", "Deterministic State Transitions"),
+            ("Telemetry", "Continuous Distributed Observability")
+        ]
+        workflow_title = "Architecture &amp; Deployment Lifecycle"
+        workflow_subtitle = "A disciplined pipeline from kernel telemetry integration to verified distributed execution."
+        workflow_steps = [
+            ("01", "Instrument &amp; Integrate", "Embed lightweight eBPF hooks and SDK telemetry probes directly into your microservice runtime."),
+            ("02", "Ingestion &amp; Stream Processing", "Stream high-frequency metric events through low-latency memory-mapped ring buffers without garbage-collection pauses."),
+            ("03", "Continuous Verification", "Enforce invariant validation and real-time anomaly detection across every distributed node partition.")
+        ]
+        pricing_title = "Transparent, Infrastructure-Aligned Capacity"
+        pricing_subtitle = "Predictable capacity tiers engineered for high-throughput operational workloads."
+        pricing_tiers = [
+            {
+                "name": "Developer Node",
+                "badge": None,
+                "price": "$49",
+                "period": "/mo",
+                "description": "For individual systems engineers, staging clusters, and local benchmarking.",
+                "features": [
+                    "Up to 5 telemetry partition nodes",
+                    "Sub-millisecond kernel ring buffer ingestion",
+                    "Automated invariant checks in CI/CD pipelines",
+                    "Standard metrics retention and Prometheus export",
+                    "Developer community and issue tracker access"
+                ],
+                "cta_text": "Deploy Node",
+                "cta_cls": "btn btn-secondary"
+            },
+            {
+                "name": "Production Cluster",
+                "badge": "Recommended",
+                "price": "$199",
+                "period": "/mo",
+                "description": "For high-throughput production infrastructure with continuous operational load.",
+                "features": [
+                    "Unlimited partition node clustering",
+                    "Zero-allocation memory pipeline runtime",
+                    "Distributed consensus & replication engine",
+                    "Prometheus & OpenTelemetry native exporters",
+                    "Dedicated technical engineering support"
+                ],
+                "cta_text": "Launch Production",
+                "cta_cls": "btn btn-primary"
+            },
+            {
+                "name": "Enterprise Dedicated",
+                "badge": None,
+                "price": "Custom",
+                "period": "",
+                "description": "For global high-concurrency systems requiring custom SLA boundaries.",
+                "features": [
+                    "Dedicated bare-metal cluster deployment",
+                    "Custom kernel module extensions",
+                    "Air-gapped VPC and on-premise installation",
+                    "Custom telemetry retention policies",
+                    "24/7 dedicated site reliability escalation"
+                ],
+                "cta_text": "Contact Engineering",
+                "cta_cls": "btn btn-secondary"
+            }
+        ]
+        faq_title = "Technical Specifications &amp; Systems Architecture"
+        faq_subtitle = "Detailed technical answers regarding telemetry latency, runtime invariants, and integration."
+        faq_items = [
+            ("How does the runtime maintain low latency under sustained load?",
+             "The engine utilizes zero-allocation ring buffers and memory-mapped IPC channels, bypassing runtime garbage collection pauses and ensuring deterministic event dispatching."),
+            ("Can the platform integrate into existing OpenTelemetry pipelines?",
+             "Yes. Native OpenTelemetry and Prometheus metric exporters are integrated into the core kernel, allowing continuous export of span metrics and trace headers with zero third-party agent overhead."),
+            ("What failure modes are handled during network partition events?",
+             "The cluster employs distributed state invariants that detect partition boundaries instantly, maintaining local causal consistency and reconciling diverging logs upon partition healing.")
+        ]
+        cta_h2 = "Deploy Scalable Infrastructure Today"
+        cta_lead = "Get started in minutes with our native CLI, automated benchmarks, and comprehensive SDK."
+        cta_btn1 = "Deploy Kernel"
+        cta_btn2 = "Inspect Benchmarks"
+        footer_desc = "High-performance systems infrastructure and telemetry architecture engineered for reliability."
+    elif is_agency:
+        h1 = f"{project_name} — Distinctive Brand Architecture &amp; Strategy"
+        hero_lead = f"Partnering with ambitious founders and cultural leaders to articulate authentic brand identities, systemic typography, and singular digital experiences."
+        features_title = "Strategic Craft &amp; Vision"
+        features_subtitle = "Transforming strategic clarity into resonant visual identities and commanding brand presence."
+        feature_cards = [
+            ("Brand Architecture", "Structured strategic frameworks that crystallize identity and amplify market differentiation."),
+            ("Editorial Direction", "Compelling narratives and visual rhythms that captivate high-intent audiences."),
+            ("Systemic Typography", "Custom type design and spatial hierarchies establishing distinct brand authority."),
+            ("Digital Touchpoints", "Fluid, responsive interactive environments that translate vision into lasting engagement."),
+            ("Cultural Resonance", "Insight-driven creative direction tuned to modern culture and audience sensibilities."),
+            ("Comprehensive Rollout", "Unified production pipelines from conceptual genesis to multi-channel execution.")
+        ]
+        proof_items = [
+            ("Strategy", "Systemic Brand Architecture"),
+            ("Typography", "Proprietary Type Systems"),
+            ("Digital", "Responsive Interactive Spaces"),
+            ("Impact", "Cross-Disciplinary Cultural Reach")
+        ]
+        workflow_title = "Strategic Engagement &amp; Rollout"
+        workflow_subtitle = "From foundational strategic clarity to comprehensive multi-surface brand rollout."
+        workflow_steps = [
+            ("01", "Immersion &amp; Positioning", "Uncovering fundamental brand truth, market whitespace, and cultural context through executive dialogue."),
+            ("02", "Systemic Identity Design", "Crafting proprietary typography, generative color systems, and layout hierarchies that command attention."),
+            ("03", "Multi-Touchpoint Rollout", "Orchestrating design systems across responsive digital platforms, physical collateral, and environmental spaces.")
+        ]
+        pricing_title = "Commission &amp; Partnership Models"
+        pricing_subtitle = "Tailored engagement structures for brand architecture, design systems, and digital flagships."
+        pricing_tiers = [
+            {
+                "name": "Strategic Sprint",
+                "badge": None,
+                "price": "$12,000",
+                "period": "/project",
+                "description": "Focused 4-week engagement to define brand positioning and identity foundations.",
+                "features": [
+                    "Brand strategy & audience architecture",
+                    "Core visual direction & design tokens",
+                    "Typographic system specification",
+                    "Executive readout and asset toolkit",
+                    "Design guidelines handbook"
+                ],
+                "cta_text": "Book Strategic Sprint",
+                "cta_cls": "btn btn-secondary"
+            },
+            {
+                "name": "Full Identity Architecture",
+                "badge": "Flagship",
+                "price": "$35,000",
+                "period": "/project",
+                "description": "End-to-end design transformation from strategic genesis to multi-surface rollout.",
+                "features": [
+                    "Comprehensive brand identity & narrative system",
+                    "Proprietary typographic scale & custom vector marks",
+                    "Responsive digital design system & component library",
+                    "Cross-platform design guidelines & asset bundles",
+                    "Dedicated creative director supervision"
+                ],
+                "cta_text": "Initiate Commission",
+                "cta_cls": "btn btn-primary"
+            },
+            {
+                "name": "Creative Retainer",
+                "badge": None,
+                "price": "$8,500",
+                "period": "/mo",
+                "description": "Ongoing creative direction and design evolution for high-growth enterprises.",
+                "features": [
+                    "Continuous design sprint cadence",
+                    "Product UI & marketing campaign assets",
+                    "Senior design team integration",
+                    "Quarterly strategic brand alignment",
+                    "Priority creative availability"
+                ],
+                "cta_text": "Explore Partnership",
+                "cta_cls": "btn btn-secondary"
+            }
+        ]
+        faq_title = "Creative Process &amp; Partnership FAQ"
+        faq_subtitle = "Everything you need to know about our studio process, timelines, and deliverables."
+        faq_items = [
+            ("What does your strategic immersion phase entail?",
+             "We conduct deep stakeholder interviews, market whitespace analysis, and cultural trend research to identify the authentic narrative core of your brand before sketching a single layout or choosing a font."),
+            ("Do you deliver production-ready code or design tokens?",
+             "We deliver comprehensive design systems including fully documented design tokens, accessible color palettes, modular component guidelines, and standards-compliant production frontends."),
+            ("What is the typical timeline for an end-to-end brand architecture project?",
+             "Strategic sprints typically span 4 weeks, while full brand transformations with digital platform rollouts range from 8 to 14 weeks depending on the breadth of touchpoints and surface requirements.")
+        ]
+        cta_h2 = "Shape Your Next Brand Chapter"
+        cta_lead = "Let us articulate your market narrative with strategic clarity, uncompromising craft, and visual distinction."
+        cta_btn1 = "Initiate Commission"
+        cta_btn2 = "Review Case Studies"
+        footer_desc = "Strategic design, brand architecture, and digital experience direction for ambitious enterprises."
+    else:
+        h1 = f"{project_name} — Purpose-Built for {category.capitalize()} Excellence"
+        hero_lead = f"Accelerate your outcomes with purpose-built operational workflows, reliable data pipelines, and intelligent interfaces."
+        features_title = "Engineered for Performance"
+        features_subtitle = "Tuned for rigorous performance, explicit validation, and operational clarity."
+        feature_cards = [
+            ("Continuous Automation", "Streamline multi-step workflows with reliable, trigger-based pipeline automation."),
+            ("Unified Data Layer", "Synchronize operational intelligence across your entire organizational footprint."),
+            ("Enterprise Security", "End-to-end data encryption, role-based access governance, and strict compliance."),
+            ("Real-Time Telemetry", "Instantaneous visual analytics and actionable insights on demand."),
+            ("Collaborative Workspaces", "Shared operational environments engineered for frictionless cross-team alignment."),
+            ("Extensible Architecture", "Modular API-first integrations connecting directly with your toolchain.")
+        ]
+        proof_items = [
+            ("Automation", "End-to-End Pipeline Automation"),
+            ("Modular", "Extensible Service Architecture"),
+            ("Security", "Role-Based Access Governance"),
+            ("Observability", "Continuous Real-Time Telemetry")
+        ]
+        workflow_title = f"{category.capitalize()} Operational Lifecycle"
+        workflow_subtitle = "A structured, reliable progression engineered for operational clarity and speed."
+        workflow_steps = [
+            ("01", "Connect &amp; Configure", "Integrate your existing data sources and initialize operational parameters with minimal configuration."),
+            ("02", "Automate &amp; Transform", "Execute deterministic validation rules and streamline pipeline throughput across operations."),
+            ("03", "Monitor &amp; Optimize", "Track operational metrics with real-time observability, telemetry dashboards, and actionable insights.")
+        ]
+        pricing_title = "Predictable, Value-Driven Investment"
+        pricing_subtitle = f"Transparent plans designed to scale seamlessly with your {category} requirements."
+        pricing_tiers = [
+            {
+                "name": "Starter Tier",
+                "badge": None,
+                "price": "$39",
+                "period": "/mo",
+                "description": f"Essential operational capabilities for early-stage {category} teams.",
+                "features": [
+                    "Core workflow automation pipelines",
+                    "Standard data connector integrations",
+                    "Operational dashboard reporting",
+                    "Standard email support"
+                ],
+                "cta_text": "Start Free Trial",
+                "cta_cls": "btn btn-secondary"
+            },
+            {
+                "name": "Professional Tier",
+                "badge": "Most Popular",
+                "price": "$99",
+                "period": "/mo",
+                "description": f"Advanced tooling and capacity for scaling {category} operations.",
+                "features": [
+                    "High-volume data processing throughput",
+                    "Custom transformation and validation rules",
+                    "Multi-user workspace collaboration",
+                    "Priority operational assistance"
+                ],
+                "cta_text": "Upgrade to Pro",
+                "cta_cls": "btn btn-primary"
+            },
+            {
+                "name": "Enterprise Tier",
+                "badge": None,
+                "price": "Custom",
+                "period": "",
+                "description": f"Comprehensive custom infrastructure for enterprise-scale {category} operations.",
+                "features": [
+                    "Custom integrations and dedicated throughput",
+                    "Role-based security governance",
+                    "Dedicated account management",
+                    "Custom SLA and onboarding assistance"
+                ],
+                "cta_text": "Contact Sales",
+                "cta_cls": "btn btn-secondary"
+            }
+        ]
+        faq_title = "Frequently Asked Questions"
+        faq_subtitle = "Essential insights into our platform capabilities, onboarding, and architecture."
+        faq_items = [
+            (f"How quickly can we integrate {project_name} into our existing workflow?",
+             "Most teams deploy within hours using our modular connectors, declarative configurations, and step-by-step onboarding walkthroughs."),
+            ("What security controls are enforced across the platform?",
+             "We implement strict role-based access control, cryptographic verification for all pipeline transitions, and comprehensive audit logging across all workspace actions."),
+            ("Can we customize and extend the default automation pipelines?",
+             "Yes. The platform provides an extensible API and modular hook architecture, allowing you to attach custom validation rules, external webhooks, and automated notifications.")
+        ]
+        cta_h2 = "Ready to Build Distinctive Experiences?"
+        cta_lead = f"Join forward-thinking teams shipping verified, high-fidelity {category} experiences today."
+        cta_btn1 = "Get Started Free"
+        cta_btn2 = "Schedule Consultation"
+        footer_desc = f"Purpose-built {category} platform engineered for operational reliability and user experience."
+
+    return {
+        "h1": h1,
+        "hero_lead": hero_lead,
+        "features_title": features_title,
+        "features_subtitle": features_subtitle,
+        "feature_cards": feature_cards,
+        "proof_items": proof_items,
+        "workflow_title": workflow_title,
+        "workflow_subtitle": workflow_subtitle,
+        "workflow_steps": workflow_steps,
+        "pricing_title": pricing_title,
+        "pricing_subtitle": pricing_subtitle,
+        "pricing_tiers": pricing_tiers,
+        "faq_title": faq_title,
+        "faq_subtitle": faq_subtitle,
+        "faq_items": faq_items,
+        "cta_h2": cta_h2,
+        "cta_lead": cta_lead,
+        "cta_btn1": cta_btn1,
+        "cta_btn2": cta_btn2,
+        "footer_desc": footer_desc
+    }
+
+
 def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
     """Render the complete semantic HTML5 document from the DesignPlan."""
     brief = plan.get("normalized_brief", {})
-    art_dir = plan.get("art_direction", {})
     typography = plan.get("typography", {})
     comp = plan.get("composition", {})
 
     project_name = _escape_html(brief.get("project_name", "Atlas Platform"))
     category = _escape_html(brief.get("category", "SaaS"))
     font_links = _extract_font_links(typography)
+    content = _resolve_brief_content(plan)
 
     # Map assets by slot
     asset_map: Dict[str, Dict[str, Any]] = {}
@@ -831,9 +1349,9 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
     else:
         hero_media_html = ""
 
-    # Render sections according to selected composition slots
+    # Composition slots filtering
     slots_chosen = comp.get("slots", [])
-    slot_names = [s["slot"] for s in slots_chosen]
+    planned_slots = [s["slot"] for s in slots_chosen] if slots_chosen else ["hero", "features", "cta"]
     features_slot = next((s for s in slots_chosen if s.get("slot") == "features"), None)
     is_bento_features = bool(
         features_slot and features_slot.get("pattern_id") == "atlas:features-bento"
@@ -842,32 +1360,215 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
     if is_bento_features:
         features_body_html = _render_bento_features_grid(plan)
     else:
-        features_body_html = """        <div class="features-grid">
-          <article class="feature-card">
-            <h3>Deterministic Execution</h3>
-            <p>Every brief compiles into verifiable, reproducible design structures with zero random drift across cycles.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Deep Immutability</h3>
-            <p>Canonical design assets and memory records are recursively frozen, guaranteeing complete data purity.</p>
-          </article>
-          <article class="feature-card">
-            <h3>3-Tier Visual Asset Pipeline</h3>
-            <p>Seamlessly integrates native AI imagery with local semantic vector fallbacks when offline or uncredentialed.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Browser Verification</h3>
-            <p>Automated headless browser rendering validates responsiveness, typography scale, and layout integrity across all viewports.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Accessible By Default</h3>
-            <p>Semantic HTML5 landmarks, visible focus rings, high contrast ratios, and complete keyboard navigation compliance.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Standards-Compliant Output</h3>
-            <p>Lightweight, standard-compliant vanilla HTML, CSS, and JS that serves cleanly from static hosts.</p>
-          </article>
+        card_htmls = []
+        for title, desc in content["feature_cards"]:
+            card_htmls.append(f"""          <article class="feature-card">
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </article>""")
+        cards_joined = "\n".join(card_htmls)
+        features_body_html = f"""        <div class="features-grid">
+{cards_joined}
         </div>"""
+
+    # Assemble sections dynamically based on planned slots
+    sections_html = []
+
+    # 1. Hero Section
+    if "hero" in planned_slots or "app_shell" in planned_slots:
+        sections_html.append(f"""    <!-- Hero Section -->
+    <section class="section hero-section" id="hero">
+      <div class="container hero-grid{'' if hero_media_html else ' hero-grid-single'}">
+        <div class="hero-content">
+          <h1>{content["h1"]}</h1>
+          <p class="hero-lead">
+            {content["hero_lead"]}
+          </p>
+          <div class="hero-actions">
+            <a href="#cta" class="btn btn-primary">{content["cta_btn1"]}</a>
+            <a href="#features" class="btn btn-secondary">{content["cta_btn2"]}</a>
+          </div>
+        </div>
+        {hero_media_html}
+      </div>
+    </section>""")
+
+    # 2. Proof Section
+    if "proof" in planned_slots or "social_proof" in planned_slots:
+        proof_card_htmls = []
+        for num, text in content["proof_items"]:
+            proof_card_htmls.append(f"""          <div class="proof-card">
+            <div class="proof-number">{num}</div>
+            <p>{text}</p>
+          </div>""")
+        proof_cards_joined = "\n".join(proof_card_htmls)
+        sections_html.append(f"""    <!-- Verified Capabilities & Proof -->
+    <section class="section proof-section" id="proof">
+      <div class="container">
+        <div class="proof-grid">
+{proof_cards_joined}
+        </div>
+      </div>
+    </section>""")
+
+    # 3. Features Section
+    if "features" in planned_slots:
+        sections_html.append(f"""    <!-- Key Features Section -->
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+          <h2>{content["features_title"]}</h2>
+          <p>{content["features_subtitle"]}</p>
+        </div>
+
+{features_body_html}
+      </div>
+    </section>""")
+
+    # 4. Workflow Section
+    if any(s in planned_slots for s in ("workflow", "how-it-works", "steps")):
+        step_cards = []
+        for step_num, step_title, step_desc in content.get("workflow_steps", []):
+            step_cards.append(f"""          <div class="step-card">
+            <div class="step-num">{step_num}</div>
+            <h3>{step_title}</h3>
+            <p>{step_desc}</p>
+          </div>""")
+        step_cards_joined = "\n".join(step_cards)
+        workflow_title = content.get("workflow_title", "Operational Workflow")
+        workflow_subtitle = content.get("workflow_subtitle", "A structured methodology engineered for operational clarity.")
+        sections_html.append(f"""    <!-- How It Works / Process -->
+    <section class="section steps-section" id="workflow">
+      <div class="container">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+          <h2>{workflow_title}</h2>
+          <p>{workflow_subtitle}</p>
+        </div>
+
+        <div class="steps-grid">
+{step_cards_joined}
+        </div>
+      </div>
+    </section>""")
+
+    # 5. Pricing Section
+    if "pricing" in planned_slots:
+        pricing_cards = []
+        for tier in content.get("pricing_tiers", []):
+            tier_name = _escape_html(tier.get("name", "Tier"))
+            badge = tier.get("badge")
+            badge_html = f'\n            <div style="color: var(--color-accent); font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">{_escape_html(badge)}</div>' if badge else ""
+            featured_cls = " pricing-featured" if badge else ""
+            desc = _escape_html(tier.get("description", ""))
+            price = _escape_html(tier.get("price", ""))
+            period = _escape_html(tier.get("period", ""))
+            period_html = f'<span style="font-size: 1rem; font-weight: 400; color: var(--color-muted);">{period}</span>' if period else ""
+            cta_text = _escape_html(tier.get("cta_text", "Get Started"))
+            cta_cls = tier.get("cta_cls", "btn btn-secondary")
+            
+            features_li = "\n".join(f"              <li>✓ {_escape_html(f)}</li>" for f in tier.get("features", []))
+            
+            pricing_cards.append(f"""          <div class="pricing-card{featured_cls}">{badge_html}
+            <h3>{tier_name}</h3>
+            <p>{desc}</p>
+            <div class="pricing-price">{price}{period_html}</div>
+            <ul class="pricing-features">
+{features_li}
+            </ul>
+            <a href="#cta" class="{cta_cls}">{cta_text}</a>
+          </div>""")
+        pricing_cards_joined = "\n".join(pricing_cards)
+        pricing_title = content.get("pricing_title", "Predictable Investment")
+        pricing_subtitle = content.get("pricing_subtitle", "Scale effortlessly with transparent, value-driven tiers.")
+        sections_html.append(f"""    <!-- Transparent Pricing -->
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+          <h2>{pricing_title}</h2>
+          <p>{pricing_subtitle}</p>
+        </div>
+
+        <div class="pricing-grid">
+{pricing_cards_joined}
+        </div>
+      </div>
+    </section>""")
+
+    # 6. FAQ Section
+    if "faq" in planned_slots:
+        faq_items = []
+        for q, a in content.get("faq_items", []):
+            faq_items.append(f"""          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>{_escape_html(q)}</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{_escape_html(a)}</p>
+            </div>
+          </div>""")
+        faq_joined = "\n".join(faq_items)
+        faq_title = content.get("faq_title", "Frequently Asked Questions")
+        faq_subtitle = content.get("faq_subtitle", "Essential insights into our approach, architecture, and engagement.")
+        sections_html.append(f"""    <!-- FAQ Accordion -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+          <h2>{faq_title}</h2>
+          <p>{faq_subtitle}</p>
+        </div>
+
+        <div class="faq-list">
+{faq_joined}
+        </div>
+      </div>
+    </section>""")
+
+    # 7. CTA Section
+    if "cta" in planned_slots:
+        sections_html.append(f"""    <!-- Conversion Call to Action -->
+    <section class="section cta-section" id="cta">
+      <div class="container">
+        <div class="cta-banner">
+          <h2>{content["cta_h2"]}</h2>
+          <p style="max-width: 580px; margin: var(--space-sm) auto var(--space-lg);">
+            {content["cta_lead"]}
+          </p>
+          <div style="display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">
+            <a href="#hero" class="btn btn-primary">{content["cta_btn1"]}</a>
+            <a href="#features" class="btn btn-secondary">{content["cta_btn2"]}</a>
+          </div>
+        </div>
+      </div>
+    </section>""")
+
+    main_content_html = "\n\n".join(sections_html)
+
+    # Dynamic Navigation Menu Links
+    nav_links = []
+    if "features" in planned_slots:
+        nav_links.append('<li><a href="#features" class="nav-link">Features</a></li>')
+    if any(s in planned_slots for s in ("workflow", "how-it-works", "steps")):
+        nav_links.append('<li><a href="#workflow" class="nav-link">Workflow</a></li>')
+    if "pricing" in planned_slots:
+        nav_links.append('<li><a href="#pricing" class="nav-link">Pricing</a></li>')
+    if "faq" in planned_slots:
+        nav_links.append('<li><a href="#faq" class="nav-link">FAQ</a></li>')
+    if "cta" in planned_slots:
+        nav_links.append(f'<li><a href="#cta" class="btn btn-primary">{content["cta_btn1"]}</a></li>')
+    nav_menu_html = "\n        ".join(nav_links)
+
+    # Footer navigation links
+    footer_nav = []
+    if "features" in planned_slots:
+        footer_nav.append('<li><a href="#features">Features</a></li>')
+    if any(s in planned_slots for s in ("workflow", "how-it-works", "steps")):
+        footer_nav.append('<li><a href="#workflow">Workflow</a></li>')
+    if "pricing" in planned_slots:
+        footer_nav.append('<li><a href="#pricing">Pricing</a></li>')
+    if "faq" in planned_slots:
+        footer_nav.append('<li><a href="#faq">FAQ</a></li>')
+    footer_nav_html = "\n            ".join(footer_nav)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -875,7 +1576,7 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{project_name} — High Performance {category.capitalize()}</title>
-  <meta name="description" content="Next-generation {category} platform engineered for institutional reliability, performance, and clarity.">
+  <meta name="description" content="Distinctive {category} web experience engineered for performance, clarity, and visual resonance.">
   
   <!-- Typography Fonts Preconnect -->
   {font_links}
@@ -895,208 +1596,13 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
       </button>
 
       <ul class="nav-menu" id="navMenu">
-        <li><a href="#features" class="nav-link">Features</a></li>
-        <li><a href="#workflow" class="nav-link">Workflow</a></li>
-        <li><a href="#pricing" class="nav-link">Pricing</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
-        <li><a href="#cta" class="btn btn-primary">Get Started</a></li>
+        {nav_menu_html}
       </ul>
     </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="section hero-section" id="hero">
-      <div class="container hero-grid{'' if hero_media_html else ' hero-grid-single'}">
-        <div class="hero-content">
-          <h1>Engineered for Clarity, Speed, and Depth.</h1>
-          <p class="hero-lead">
-            Accelerate your {category} workflows with purpose-built design systems, 
-            truthful verification, and deterministic execution. Built for ambitious teams.
-          </p>
-          <div class="hero-actions">
-            <a href="#cta" class="btn btn-primary">Start Free Trial</a>
-            <a href="#features" class="btn btn-secondary">Explore Capabilities</a>
-          </div>
-        </div>
-        {hero_media_html}
-      </div>
-    </section>
-
-    <!-- Verified Architectural Standards & Capabilities -->
-    <section class="section proof-section" id="proof">
-      <div class="container">
-        <div class="proof-grid">
-          <div class="proof-card">
-            <div class="proof-number">Standard</div>
-            <p>HTML5 &amp; Modern CSS3 Architecture</p>
-          </div>
-          <div class="proof-card">
-            <div class="proof-number">Verified</div>
-            <p>Multi-Viewport Headless Layouts</p>
-          </div>
-          <div class="proof-card">
-            <div class="proof-number">Zero</div>
-            <p>External Runtime Dependencies</p>
-          </div>
-          <div class="proof-card">
-            <div class="proof-number">Accessible</div>
-            <p>WCAG 2.1 AA Keyboard Compliant</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Key Features Section -->
-    <section class="section features-section" id="features">
-      <div class="container">
-        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
-          <h2>Architected Without Compromise</h2>
-          <p>Every layer has been tuned for rigorous performance, explicit validation, and visual distinction.</p>
-        </div>
-
-{features_body_html}
-      </div>
-    </section>
-
-    <!-- How It Works / Process -->
-    <section class="section steps-section" id="workflow">
-      <div class="container">
-        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
-          <h2>From Brief to Verified Deployment</h2>
-          <p>Three straightforward steps to generate production-ready web experiences.</p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">01</div>
-            <h3>Define Context</h3>
-            <p>Provide your target audience, industry sector, brand tones, and conversion goals.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">02</div>
-            <h3>Score & Harmonize</h3>
-            <p>The composition engine retrieves matching macro art directions and layout blueprints.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">03</div>
-            <h3>Verify in Browser</h3>
-            <p>Automated visual QA inspects responsive screenshots and validates layout integrity.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Transparent Pricing -->
-    <section class="section pricing-section" id="pricing">
-      <div class="container">
-        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
-          <h2>Transparent, Predictable Investment</h2>
-          <p>Scale effortlessly from initial prototype to global enterprise production.</p>
-        </div>
-
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <h3>Developer</h3>
-            <p>For independent creators and experiments.</p>
-            <div class="pricing-price">$29<span style="font-size: 1rem; font-weight: 400; color: var(--color-muted);">/mo</span></div>
-            <ul class="pricing-features">
-              <li>✓ Single project deployment</li>
-              <li>✓ Standard library access</li>
-              <li>✓ Tier 3 SVG vector assets</li>
-              <li>✓ Community support</li>
-            </ul>
-            <a href="#cta" class="btn btn-secondary">Get Started</a>
-          </div>
-
-          <div class="pricing-card pricing-featured">
-            <div style="color: var(--color-accent); font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">Most Popular</div>
-            <h3>Professional</h3>
-            <p>For growing engineering teams.</p>
-            <div class="pricing-price">$89<span style="font-size: 1rem; font-weight: 400; color: var(--color-muted);">/mo</span></div>
-            <ul class="pricing-features">
-              <li>✓ Unlimited website generation</li>
-              <li>✓ Full 620-record canonical library</li>
-              <li>✓ Real AI image generation integration</li>
-              <li>✓ Multi-viewport browser visual QA</li>
-              <li>✓ Priority support channel</li>
-            </ul>
-            <a href="#cta" class="btn btn-primary">Start Pro Trial</a>
-          </div>
-
-          <div class="pricing-card">
-            <h3>Enterprise</h3>
-            <p>For mission-critical digital estates.</p>
-            <div class="pricing-price">Custom</div>
-            <ul class="pricing-features">
-              <li>✓ Custom art direction authoring</li>
-              <li>✓ Dedicated headless QA runner</li>
-              <li>✓ Strict SLA & uptime guarantee</li>
-              <li>✓ SOC2 & security compliance</li>
-            </ul>
-            <a href="#cta" class="btn btn-secondary">Contact Sales</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Accordion -->
-    <section class="section faq-section" id="faq">
-      <div class="container">
-        <div style="text-align: center; max-width: 650px; margin: 0 auto;">
-          <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about our architecture and workflow.</p>
-        </div>
-
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>How does Atlas prevent generic AI website templates?</span>
-              <span>+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Atlas uses a 2-tier design model pairing curated Macro Art Directions with 293 tested composition blueprints. It enforces distinct typographic scales, bespoke color tokens, and intentional section rhythms tailored to your brief.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>What happens if AI image API credentials are not available?</span>
-              <span>+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Under our DEC-003 policy, the system gracefully falls back to local Tier 3 Semantic SVG vectors. The page renders instantly and completely without broken image links or fabricated external URLs.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>Is the generated code dependent on external npm frameworks?</span>
-              <span>+</span>
-            </button>
-            <div class="faq-answer">
-              <p>No. The generator produces clean, standard-compliant vanilla HTML5, modern CSS3, and minimal vanilla JavaScript. It can be served from any static file server or CDN without build steps.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Conversion Call to Action -->
-    <section class="section cta-section" id="cta">
-      <div class="container">
-        <div class="cta-banner">
-          <h2>Ready to Build Distinctive Experiences?</h2>
-          <p style="max-width: 580px; margin: var(--space-sm) auto var(--space-lg);">
-            Join hundreds of forward-thinking teams shipping verified, high-fidelity web experiences today.
-          </p>
-          <div style="display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">
-            <a href="#hero" class="btn btn-primary">Create Your Account</a>
-            <a href="#features" class="btn btn-secondary">Schedule a Demo</a>
-          </div>
-        </div>
-      </div>
-    </section>
+{main_content_html}
   </main>
 
   <!-- Site Footer -->
@@ -1105,36 +1611,33 @@ def render_html(plan: Dict[str, Any], asset_manifest: Dict[str, Any]) -> str:
       <div class="footer-grid">
         <div class="footer-col">
           <div class="brand-logo" style="margin-bottom: var(--space-sm);">{project_name}</div>
-          <p>Deterministic website generation and visual QA engine powered by Atlas-Skill.</p>
+          <p>{content["footer_desc"]}</p>
         </div>
         <div class="footer-col">
-          <h3>Capabilities</h3>
+          <h3>Navigation</h3>
           <ul>
-            <li><a href="#features">Art Direction</a></li>
-            <li><a href="#features">Composition Blueprints</a></li>
-            <li><a href="#workflow">Asset Pipeline</a></li>
+            {footer_nav_html}
           </ul>
         </div>
         <div class="footer-col">
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="#pricing">Pricing Plans</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#hero">Documentation</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>Integrity</h3>
+          <h3>Legal</h3>
           <ul>
             <li><a href="#hero">Privacy Policy</a></li>
             <li><a href="#hero">Terms of Service</a></li>
-            <li><a href="#hero">Status: All Systems Operational</a></li>
+            <li><a href="#hero">Cookie Settings</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Status</h3>
+          <ul>
+            <li><a href="#hero">Systems Operational</a></li>
+            <li><a href="#hero">Global Network Status</a></li>
           </ul>
         </div>
       </div>
 
       <div style="border-top: 1px solid var(--color-border); padding-top: var(--space-md); text-align: center;">
-        <p>&copy; 2026 {project_name}. All rights reserved. Generated deterministically by Atlas-Skill v{plan.get('runtime_version', '2.0.0')}.</p>
+        <p>&copy; 2026 {project_name}. All rights reserved.</p>
       </div>
     </div>
   </footer>

@@ -112,6 +112,7 @@ class ProductBrief:
         assets: Optional[List[str]] = None,
         slots: Optional[List[str]] = None,
         exclude: Optional[List[str]] = None,
+        pricing_tiers: Optional[List[Dict[str, Any]]] = None,
         prefer_conventional: bool = False,
         explicit_constraints: Optional[Dict[str, Any]] = None,
         scoring_weights: Optional[Dict[str, float]] = None
@@ -125,8 +126,22 @@ class ProductBrief:
         self.tones = list(tones or [])
         self.density = density
         self.assets = list(assets or [])
-        self.slots = list(slots) if slots is not None else list(DEFAULT_SLOTS.get(page_type, []))
         self.exclude = list(exclude or [])
+        self.pricing_tiers = list(pricing_tiers) if pricing_tiers else None
+        if slots is not None:
+            # 1. Explicit slots provided by brief: honor strictly, minus explicit exclude
+            self.slots = [s for s in slots if s not in self.exclude]
+        else:
+            # 2. Intelligent category & page_type defaults when slots are unspecified
+            base_slots = list(DEFAULT_SLOTS.get(page_type, []))
+            non_pricing_categories = {
+                "fashion", "luxury", "personal-portfolio", "studio-portfolio",
+                "architecture", "culture", "art", "hospitality", "restaurant",
+                "agency", "design", "creative"
+            }
+            if category.lower() in non_pricing_categories and "pricing" in base_slots:
+                base_slots = [s for s in base_slots if s != "pricing"]
+            self.slots = [s for s in base_slots if s not in self.exclude]
         self.prefer_conventional = bool(prefer_conventional)
         self.explicit_constraints = dict(explicit_constraints or {})
         
@@ -149,6 +164,7 @@ class ProductBrief:
             "assets": self.assets,
             "slots": self.slots,
             "exclude": self.exclude,
+            "pricing_tiers": self.pricing_tiers,
             "prefer_conventional": self.prefer_conventional,
             "explicit_constraints": self.explicit_constraints,
             "scoring_weights": self.scoring_weights
@@ -254,15 +270,21 @@ def normalize_brief(raw: Union[Dict[str, Any], None], diagnostics: Optional[List
     else:
         raise ContractValidationError(ERR_INVALID_TYPE, "Field 'exclude' must be a list of IDs", target="exclude")
 
-    # 11. Prefer Conventional
+    # 11. Pricing Tiers (optional verified brief input)
+    raw_pricing = raw.get("pricing_tiers")
+    pricing_tiers = None
+    if raw_pricing is not None and isinstance(raw_pricing, (list, tuple)):
+        pricing_tiers = list(raw_pricing)
+
+    # 12. Prefer Conventional
     prefer_conventional = bool(raw.get("prefer_conventional", False))
 
-    # 12. Explicit Constraints
+    # 13. Explicit Constraints
     explicit_constraints = raw.get("explicit_constraints", {})
     if not isinstance(explicit_constraints, dict):
         raise ContractValidationError(ERR_INVALID_TYPE, "Field 'explicit_constraints' must be a dictionary", target="explicit_constraints")
 
-    # 13. Scoring Weights
+    # 14. Scoring Weights
     scoring_weights = raw.get("scoring_weights", {})
     if not isinstance(scoring_weights, dict):
         raise ContractValidationError(ERR_INVALID_TYPE, "Field 'scoring_weights' must be a dictionary", target="scoring_weights")
@@ -286,6 +308,7 @@ def normalize_brief(raw: Union[Dict[str, Any], None], diagnostics: Optional[List
         assets=assets,
         slots=slots,
         exclude=exclude,
+        pricing_tiers=pricing_tiers,
         prefer_conventional=prefer_conventional,
         explicit_constraints=explicit_constraints,
         scoring_weights=scoring_weights
