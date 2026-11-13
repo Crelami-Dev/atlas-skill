@@ -11,15 +11,16 @@ The installed instruction package has no npm runtime dependencies. Browser audit
 From the target project, run:
 
 ```sh
-npx --yes --package=git+https://github.com/Crelami-Dev/atlas-skill.git atlas-skill install --agent claude
+npx --yes github:Crelami-Dev/atlas-skill
 ```
 
-Replace claude with codex or antigravity. This uses GitHub, not an npm registry publication. For a private repository, authenticate Git using your existing trusted workflow first. Do not paste credentials into command URLs.
+A terminal menu asks you to choose Agents (`.agents/skills/atlas`) or Claude Code (`.claude/skills/atlas`). Enter 1 or 2. No global installation occurs. Agents is a shared folder convention for compatible tools, not a promise that every AI tool discovers it. Use Ctrl+C to cancel before any writes. For automation pass `install --agent agents` or `install --agent claude`; without a target, a noninteractive run exits with guidance instead of guessing. This uses GitHub, not an npm registry publication. For a private repository, authenticate Git using your existing trusted workflow first. Do not paste credentials into command URLs.
 
 Use a reviewed commit fragment (#<commit-sha>) for reproducibility. Re-run using a newer reviewed source revision when updating; the CLI installs the package npx actually downloaded, not a separately fetched remote payload.
 
 ## Commands
 
+- no command: opens the interactive installer.
 - install: installs into an empty, dedicated skill folder.
 - update: replaces a managed Atlas installation after backing up the entire old folder.
 - doctor: checks recorded file integrity and reports installed/installer versions.
@@ -27,7 +28,8 @@ Use a reviewed commit fragment (#<commit-sha>) for reproducibility. Re-run using
 - --version: prints the installer/package version.
 - --dry-run: with install/update validates source and prints the planned target without writing it.
 - --dir PATH: explicitly chooses a different skill directory.
-- --agent codex|claude|antigravity: chooses the project-local default.
+- --agent agents|claude: chooses the project-local target without a menu. codex and antigravity remain aliases for agents.
+- update and doctor also show the target menu when no --agent or --dir is supplied.
 
 Example using a local clone from a different project directory:
 
@@ -40,7 +42,7 @@ Do not install the source checkout recursively into itself. Use a separate targe
 
 ## Agent paths
 
-Claude Code project skills use .claude/skills/<name>. Codex and the current shared Antigravity default use .agents/skills/<name>. These defaults are project-local.
+Claude Code project skills use .claude/skills/<name>. The Agents option uses .agents/skills/<name> for tools supporting that convention, including Codex and the current shared Antigravity default. These destinations are project-local. Other AI tools may require their own paths; use --dir and check their discovery rules.
 
 Antigravity has multiple surfaces and supports legacy paths. Use --dir if your environment requires another location rather than assuming every version has identical discovery rules.
 

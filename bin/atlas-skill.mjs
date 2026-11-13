@@ -3,18 +3,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { createInterface } from 'node:readline/promises';
 import { packageFiles } from '../scripts/package-files.mjs';
 
 const source = path.resolve(import.meta.dirname, '..');
 const metadataName = '.atlas-install.json';
 const { manifest, files } = packageFiles(source);
-const agents = { codex: '.agents/skills/atlas', claude: '.claude/skills/atlas', antigravity: '.agents/skills/atlas' };
+const agents = { agents: '.agents/skills/atlas', claude: '.claude/skills/atlas', codex: '.agents/skills/atlas', antigravity: '.agents/skills/atlas' };
 const fail = (message, code = 1) => { throw Object.assign(new Error(message), { exitCode: code }); };
 const inside = (root, target) => { const rel = path.relative(root, target); return rel === '' || (!rel.startsWith('..') && !path.isAbsolute(rel)); };
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 
 function options(argv) {
-  const result = { command: 'help', agent: 'codex', dir: null, dryRun: false };
+  const result = { command: 'install', agent: null, dir: null, dryRun: false };
   let commandSet = false;
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
@@ -29,8 +30,29 @@ function options(argv) {
     result.command = arg; commandSet = true;
   }
   if (!['help', 'version', 'install', 'update', 'doctor', 'list'].includes(result.command)) fail(`Unknown command: ${result.command}`, 2);
-  if (!Object.hasOwn(agents, result.agent)) fail(`Unknown agent: ${result.agent}. Use codex, claude, antigravity or --dir with a supported agent.`, 2);
+  if (result.agent !== null && !Object.hasOwn(agents, result.agent)) fail(`Unknown agent: ${result.agent}. Use agents or claude (codex and antigravity are aliases for agents).`, 2);
   return result;
+}
+
+async function chooseTarget(config) {
+  if (config.agent) return;
+  if (config.dir) { config.agent = 'agents'; return; }
+  if (!process.stdin.isTTY || !process.stdout.isTTY) fail('Choose a target with --agent agents or --agent claude when running without an interactive terminal.', 2);
+  const prompt = createInterface({ input: process.stdin, output: process.stdout });
+  let answered = false;
+  prompt.on('SIGINT', () => { prompt.close(); });
+  prompt.on('close', () => { if (!answered) process.exitCode = 130; });
+  console.log(`\nAtlas Skill ${manifest.version} — project-local ${config.command}\nProject: ${process.cwd()}\n\n  1. Agents — .agents/skills/atlas\n     For AI tools that discover skills in .agents/skills.\n  2. Claude Code — .claude/skills/atlas\n\nNothing is installed globally. Ctrl+C to cancel.\n`);
+  try {
+    while (!config.agent) {
+      const answer = (await prompt.question('Choose [1/2]: ')).trim().toLowerCase();
+      if (['1', 'agents'].includes(answer)) config.agent = 'agents';
+      else if (['2', 'claude'].includes(answer)) config.agent = 'claude';
+      else console.log('Enter 1 for Agents or 2 for Claude Code.');
+    }
+    answered = true;
+  } catch { fail('Installation cancelled. No files were changed.', 130); }
+  finally { prompt.close(); }
 }
 
 function destination(config) {
@@ -104,10 +126,11 @@ function install(config, target) {
 
 try {
   const config = options(process.argv.slice(2));
-  if (config.command === 'help') console.log(`Atlas Skill ${manifest.version}\n\natlas-skill install [--agent codex|claude|antigravity] [--dir PATH] [--dry-run]\natlas-skill update  [--agent ...] [--dir PATH] [--dry-run]\natlas-skill doctor  [--agent ...] [--dir PATH]\natlas-skill list\natlas-skill --version\n\nProject-local by default. Updates back up the complete old folder. No network requests, npm installs or agent configuration edits are performed by this CLI.`);
+  if (config.command === 'help') console.log(`Atlas Skill ${manifest.version}\n\natlas-skill          Open the interactive project installer\natlas-skill install [--agent agents|claude] [--dir PATH] [--dry-run]\natlas-skill update  [--agent ...] [--dir PATH] [--dry-run]\natlas-skill doctor  [--agent ...] [--dir PATH]\natlas-skill list\natlas-skill --version\n\nChoose Agents or Claude interactively, or pass --agent for automation. codex and antigravity remain aliases for agents. The shared path works only with tools that support .agents/skills discovery. Project-local by default. Updates back up the complete old folder. No network requests, npm installs or agent configuration edits are performed by this CLI.`);
   else if (config.command === 'version') console.log(manifest.version);
   else if (config.command === 'list') console.log(JSON.stringify({ version: manifest.version, skills: manifest.skills, projectDestinations: agents }, null, 2));
   else {
+    await chooseTarget(config);
     const target = destination(config);
     if (config.command === 'doctor') {
       const { record, changes } = inspect(target);

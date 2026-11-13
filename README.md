@@ -9,15 +9,20 @@ Research-led frontend design for coding agents. Atlas helps an agent investigate
 Run from the project where you want to use Atlas:
 
 ```sh
-npx --yes --package=git+https://github.com/Crelami-Dev/atlas-skill.git atlas-skill install --agent claude
+npx --yes github:Crelami-Dev/atlas-skill
 ```
 
-Other project targets:
+The installer asks where Atlas should live:
 
-```sh
-npx --yes --package=git+https://github.com/Crelami-Dev/atlas-skill.git atlas-skill install --agent codex
-npx --yes --package=git+https://github.com/Crelami-Dev/atlas-skill.git atlas-skill install --agent antigravity
+```text
+1. Agents       .agents/skills/atlas
+2. Claude Code  .claude/skills/atlas
+Choose [1/2]:
 ```
+
+Choose **Agents** for AI tools that support the shared `.agents/skills` discovery path. This is not restricted to Codex or Antigravity; support depends on the tool. Choose **Claude Code** for its project skill directory. Neither choice installs globally.
+
+For automation, skip the menu with `install --agent agents` or `install --agent claude`. The existing `codex` and `antigravity` flags remain compatible aliases for `agents`.
 
 This repository may be private. Git must already have permission to read it; the installer does not request, store or print credentials. It does not change repository visibility. Node.js 22 or later is required.
 
@@ -27,21 +32,20 @@ For reproducible installs, pin the Git URL to a reviewed commit with `#<commit-s
 
 ## Install destinations
 
-| Agent | Project-local destination |
+| Target | Project-local destination |
 |---|---|
-| Codex | .agents/skills/atlas |
+| Agents (shared discovery) | .agents/skills/atlas |
 | Claude Code | .claude/skills/atlas |
-| Antigravity | .agents/skills/atlas |
 
-The default is the shared .agents destination. Use --dir for a different installation directory. Antigravity surfaces/older installations may use other paths; choose the path appropriate to that environment.
+Without a target flag the terminal shows a menu; there is no silent default. In noninteractive environments pass `--agent` or a dedicated `--dir`. Use `--dir` for tools with another discovery path.
 
 After installation, reload/restart the agent if required and explicitly ask it to use Atlas. File installation and integrity checks do not prove that an agent has activated the skill.
 
 ## Update and inspect
 
 ```sh
-npx --yes --package=git+https://github.com/Crelami-Dev/atlas-skill.git atlas-skill update --agent claude
-npx --yes --package=git+https://github.com/Crelami-Dev/atlas-skill.git atlas-skill doctor --agent claude
+npx --yes github:Crelami-Dev/atlas-skill update --agent claude
+npx --yes github:Crelami-Dev/atlas-skill doctor --agent claude
 ```
 
 Update backs up the complete managed installation under .atlas-skill-backups in the working project before replacing it. Local edits and extra files remain in that backup. Unmanaged/legacy folders are never silently overwritten.

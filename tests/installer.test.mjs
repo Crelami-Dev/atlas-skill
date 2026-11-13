@@ -20,6 +20,16 @@ test('installer lifecycle and boundaries', async t => {
   await t.test('list exposes all seven skill entry files', () => {
     const result = run(['list']); assert.equal(result.status, 0);
     assert.equal(json(result).skills.length, 7);
+    assert.equal(json(result).projectDestinations.agents, '.agents/skills/atlas');
+  });
+  await t.test('noninteractive missing target never guesses or writes', () => {
+    for (const args of [[], ['install'], ['update'], ['doctor'], ['install', '--dry-run']]) {
+      const result = run(args);
+      assert.equal(result.status, 2);
+      assert.match(result.stderr, /--agent agents or --agent claude/);
+      assert.ok(!fs.existsSync(target));
+      assert.ok(!fs.existsSync(path.join(workspace, '.agents')));
+    }
   });
   await t.test('dry run validates without creating destination', () => {
     const result = run(['install', '--agent', 'claude', '--dry-run']);
@@ -80,6 +90,7 @@ test('installer lifecycle and boundaries', async t => {
     assert.equal(run(['install', '--agent', 'antigravity'], dir).status, 0);
     assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas/SKILL.md')));
     assert.equal(run(['doctor', '--agent', 'codex'], dir).status, 0);
+    assert.equal(run(['doctor', '--agent', 'agents'], dir).status, 0);
   });
   await t.test('missing installation reports failure', () => assert.equal(run(['doctor', '--dir', path.join(workspace, 'absent')]).status, 1));
   await t.test('unknown commands, agents and incomplete options are usage errors', () => {
