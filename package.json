@@ -1,18 +1,24 @@
 {
   "name": "atlas-skill",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "private": true,
-  "description": "Atlas Skill - Runtime, Motion Adapter & Taste Knowledge Integration",
+  "description": "Research-led frontend design skills with a small local installer for coding agents.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "bin": { "atlas-skill": "bin/atlas-skill.mjs" },
+  "repository": { "type": "git", "url": "git+https://github.com/Crelami-Dev/atlas-skill.git" },
   "homepage": "https://github.com/Crelami-Dev/atlas-skill",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Crelami-Dev/atlas-skill.git"
-  },
+  "files": [
+    "bin/", "scripts/", "SKILL.md", "skills/", "references/", "evals/",
+    "research/2026-11-13/README.md", "research/2026-11-13/sources.json",
+    "package-manifest.json", "plugin.json", "docs/INSTALLATION.md"
+  ],
   "scripts": {
-    "test": "node tests/test_animejs_v4_integration.mjs"
-  },
-  "dependencies": {
-    "animejs": "4.5.0"
+    "validate": "node scripts/validate-package.mjs",
+    "test": "node --test tests/installer.test.mjs",
+    "test:export": "node scripts/verify-export.mjs",
+    "test:browser": "node skills/atlas-checker/scripts/self-test.mjs",
+    "prepack": "node scripts/validate-package.mjs"
   }
 }
-

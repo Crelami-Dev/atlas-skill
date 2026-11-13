@@ -1,15 +1,9 @@
-# Dependencies
 node_modules/
-
-# Python cache & test artifacts
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Logs & temp
+.env*
+!.env.example
+.DS_Store
 *.log
-tmp/
-.temp/
+*.tgz
+.atlas-skill-backups/
+maintenance/
+coverage/
