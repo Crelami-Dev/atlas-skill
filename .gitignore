@@ -7,3 +7,5 @@ node_modules/
 .atlas-skill-backups/
 maintenance/
 coverage/
+__pycache__/
+*.pyc
