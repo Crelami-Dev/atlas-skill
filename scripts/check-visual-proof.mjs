@@ -104,8 +104,29 @@ for (const file of uiFiles) {
   if (/<(?:picture|canvas|video)\b[^>]*>/i.test(cleaned)) {
     hasVisualCenterpiece = true;
   }
-  if (/<[a-z][a-z0-9-]*\b[^>]*\b(?:data-atlas-proof|data-photo-placeholder)(?:\s*=\s*(?:["'][^"']*["']|[^\s>]+))?[^>]*>/i.test(cleaned)) {
+  if (/<[a-z][a-z0-9-]*\b[^>]*\b(?:data-atlas-proof|data-photo-placeholder|data-photo-slot)(?:\s*=\s*(?:["'][^"']*["']|[^\s>]+))?[^>]*>/i.test(cleaned)) {
     hasVisualCenterpiece = true;
+  }
+
+  // Hard-fail leaked developer photo placeholder instructions in UI markup/text
+  const PHOTO_PLACEHOLDER_LEAK_RE = /(?:\b(?:ganti(?:\s+dengan)?\s+(?:foto|gambar)(?:\s+(?:asli|ini))?|replace\s+(?:this\s+)?(?:with\s+)?(?:real\s+|actual\s+)?(?:photo|image)|(?:insert|upload)\s+(?:real\s+)?(?:photo|image)(?:\s+here)?|(?:taruh|masukkan|pasang)\s+(?:foto|gambar)\s+(?:di\s+sini|disini)|(?:foto|gambar)\s+\S+(?:\s+\S+)?\s+di\s+sini|menunggu\s+foto(?:\s+dokumentasi|\s+asli|\s+klien)?|foto\s+menyusul|foto\s+akan\s+(?:ditambahkan|menyusul)|awaiting\s+(?:real\s+|client\s+)?photo(?:graphy|s)?|(?:photo|image)\s+(?:coming\s+soon|tbd)|(?:slot\s+foto|photo\s+slot)\s*(?:#?\d+|hero|utama|banner|produk|menu|galeri)|(?:image|photo|foto)\s+placeholder|placeholder\s+(?:image|photo|foto)|photo-replace-badge|photo-slot-subject|data\s+klien\s+diperlukan)\b|\[\s*(?:ganti\s+dengan\s+foto|replace\s+with\s+photo|insert\s+image|placeholder|data\s+klien\s+diperlukan|(?:foto|image)\s*:[^\]]+|foto[^\]]{0,40}di\s+sini)[^\]]*\])/gi;
+  for (const m of cleaned.matchAll(PHOTO_PLACEHOLDER_LEAK_RE)) {
+    findings.push({
+      level: 'error',
+      id: 'leaked-photo-placeholder-ui',
+      file: rel,
+      line: lineOf(m.index),
+      message: `Instruksi placeholder foto/developer ('${m[0]}') bocor ke UI pengunjung. Gunakan pelat spesimen editorial spesifik-domain dengan atribut senyap data-photo-slot.`
+    });
+  }
+  for (const m of cleaned.matchAll(/<figure\b[^>]*\b(?:data-photo-placeholder|data-photo-slot)\b[^>]*>(?:(?!(?:<\/figure>|<section\b|<form\b))[\s\S])*?\bSubjek:\s+[^\n<]{10,}/gi)) {
+    findings.push({
+      level: 'error',
+      id: 'leaked-photo-placeholder-ui',
+      file: rel,
+      line: lineOf(m.index),
+      message: `Catatan brief internal ('Subjek: ...') bocor ke dalam slot media UI. Gunakan caption editorial nyata untuk pengunjung.`
+    });
   }
 
   // Inspect <svg> elements in cleaned markup

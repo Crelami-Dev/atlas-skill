@@ -7,6 +7,7 @@ and detects runtime console errors, dead anchors, unwired buttons, NaN/undefined
 and mobile horizontal overflow.
 """
 import argparse
+import importlib
 import json
 import os
 import shutil
@@ -14,8 +15,18 @@ import tempfile
 import time
 
 def probe_ui(target: str, out_dir: str):
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
+    try:
+        webdriver = importlib.import_module("selenium.webdriver")
+        Options = importlib.import_module("selenium.webdriver.chrome.options").Options
+    except ModuleNotFoundError as exc:
+        return {
+            "mode": "READ_ONLY_VISUAL_BUG_PROBE",
+            "target": target,
+            "screenshots_to_inspect_via_vision": [],
+            "detected_ui_bugs": [],
+            "console_errors": [],
+            "error": f"Python package 'selenium' is not installed ({exc}). Install with 'pip install selenium'.",
+        }
 
     os.makedirs(out_dir, exist_ok=True)
     chrome_home = tempfile.mkdtemp(prefix="bughunter_probe_")
@@ -56,7 +67,7 @@ def probe_ui(target: str, out_dir: str):
             driver.save_screenshot(shot_path)
             report["screenshots_to_inspect_via_vision"].append(shot_path)
 
-            dom_probe = driver.execute_script("""
+            dom_probe = driver.execute_script(r"""
                 const bugs = [];
                 const iw = window.innerWidth;
                 const sw = document.documentElement.scrollWidth;
@@ -105,4 +116,7 @@ if __name__ == "__main__":
     ap.add_argument("target", help="HTML path or live local URL")
     ap.add_argument("--out-dir", default="/tmp/bug_hunter_screenshots")
     args = ap.parse_args()
-    print(json.dumps(probe_ui(args.target, args.out_dir), indent=2))
+    res = probe_ui(args.target, args.out_dir)
+    print(json.dumps(res, indent=2))
+    if res.get("error"):
+        raise SystemExit(1)

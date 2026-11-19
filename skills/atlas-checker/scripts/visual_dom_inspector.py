@@ -7,6 +7,7 @@ Desktop (1440x900 top/mid/low), Tablet (820x1180), and Mobile (390x844, 375x667,
 """
 import argparse
 import base64
+import importlib
 import json
 import mimetypes
 import os
@@ -52,8 +53,19 @@ def inline_local_assets(html_str: str, base_dir: Path) -> str:
 
 
 def run_inspection(target: str, out_dir: str):
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
+    try:
+        webdriver = importlib.import_module("selenium.webdriver")
+        Options = importlib.import_module("selenium.webdriver.chrome.options").Options
+    except ModuleNotFoundError as exc:
+        return {
+            "target": target,
+            "screenshots_for_vision_review": [],
+            "viewports": {},
+            "aesthetic_findings": [],
+            "console_errors": [],
+            "overall": "FAIL",
+            "error": f"Python package 'selenium' is not installed ({exc}). Install with 'pip install selenium' or use Node quick-check.mjs.",
+        }
 
     os.makedirs(out_dir, exist_ok=True)
     chrome_home = tempfile.mkdtemp(prefix="atlas_chrome_")
@@ -134,7 +146,7 @@ def run_inspection(target: str, out_dir: str):
         time.sleep(0.15)
 
         desktop_audit = driver.execute_script(
-            """
+            r"""
             const findings = [];
             const iw = window.innerWidth;
             const sw = document.documentElement.scrollWidth;
@@ -227,14 +239,14 @@ def run_inspection(target: str, out_dir: str):
             const sections = [...document.querySelectorAll('main section')].filter(s => s.offsetParent !== null);
             for (const sec of sections) {
               const r = sec.getBoundingClientRect();
-              const richCount = sec.querySelectorAll('img, canvas, video, svg, table, select, input, [role="tablist"], [data-atlas-proof], [data-photo-placeholder]').length;
+              const richCount = sec.querySelectorAll('img, canvas, video, svg, table, select, input, [role="tablist"], [data-atlas-proof], [data-photo-placeholder], [data-photo-slot]').length;
               if (r.height > 820 && richCount === 0) {
                 findings.push({level: 'warn', id: 'text-wall-section', detail: `Section #${sec.id || 'unnamed'} is ${Math.round(r.height)}px tall with 0 visual/interactive media`});
               }
 
               if (r.height >= 280 && r.width >= 600) {
                 const secArea = r.width * r.height;
-                const leafNodes = [...sec.querySelectorAll('h1, h2, h3, h4, p, ul, ol, dl, table, figure, img, svg, canvas, video, form, [data-photo-placeholder], [data-atlas-proof]')];
+                const leafNodes = [...sec.querySelectorAll('h1, h2, h3, h4, p, ul, ol, dl, table, figure, img, svg, canvas, video, form, [data-photo-placeholder], [data-photo-slot], [data-atlas-proof]')];
                 let coveredArea = 0;
                 for (const node of leafNodes) {
                   const nr = node.getBoundingClientRect();
@@ -249,7 +261,7 @@ def run_inspection(target: str, out_dir: str):
               const secBg = effectiveBg(sec);
               if (secBg && relLum(secBg) < 0.12) {
                 const proseLen = [...sec.querySelectorAll('p')].reduce((acc, p) => acc + (p.textContent || '').trim().length, 0);
-                const structCount = sec.querySelectorAll('table, dl, pre, figure, img, svg, canvas, video, [data-photo-placeholder], [data-atlas-proof]').length;
+                const structCount = sec.querySelectorAll('table, dl, pre, figure, img, svg, canvas, video, [data-photo-placeholder], [data-photo-slot], [data-atlas-proof]').length;
                 if (proseLen > 420 && structCount === 0) {
                   findings.push({level: 'warn', id: 'dark-section-long-prose-only', detail: `Dark section #${sec.id || 'unnamed'} contains ${proseLen} chars of plain paragraph text without structured cards/media/specs`});
                 }
@@ -302,6 +314,22 @@ def run_inspection(target: str, out_dir: str):
             const brokenImgs = [...document.querySelectorAll('img')].filter(i => i.offsetParent !== null && (!i.complete || i.naturalWidth === 0));
             if (brokenImgs.length > 0) {
               findings.push({level: 'error', id: 'broken-images', detail: `${brokenImgs.length} visible <img> failed to decode`});
+            }
+
+            const bodyText = (document.body && document.body.innerText) ? document.body.innerText : '';
+            const leakMatch = bodyText.match(/(?:\b(?:ganti(?:\s+dengan)?\s+(?:foto|gambar)(?:\s+(?:asli|ini))?|replace\s+(?:this\s+)?(?:with\s+)?(?:real\s+|actual\s+)?(?:photo|image)|(?:insert|upload)\s+(?:real\s+)?(?:photo|image)(?:\s+here)?|(?:taruh|masukkan|pasang)\s+(?:foto|gambar)\s+(?:di\s+sini|disini)|(?:foto|gambar)\s+\S+(?:\s+\S+)?\s+di\s+sini|menunggu\s+foto(?:\s+dokumentasi|\s+asli|\s+klien)?|foto\s+menyusul|foto\s+akan\s+(?:ditambahkan|menyusul)|awaiting\s+(?:real\s+|client\s+)?photo(?:graphy|s)?|(?:photo|image)\s+(?:coming\s+soon|tbd)|(?:slot\s+foto|photo\s+slot)\s*(?:#?\d+|hero|utama|banner|produk|menu|galeri)|(?:image|photo|foto)\s+placeholder|placeholder\s+(?:image|photo|foto)|data\s+klien\s+diperlukan)\b|\[\s*(?:ganti\s+dengan\s+foto|replace\s+with\s+photo|insert\s+image|placeholder|data\s+klien\s+diperlukan|(?:foto|image)\s*:[^\]]+|foto[^\]]{0,40}di\s+sini)[^\]]*\])/i);
+            if (leakMatch) {
+              findings.push({level: 'error', id: 'leaked-photo-placeholder-ui', detail: `Visible developer/placeholder instruction detected in DOM: "${leakMatch[0]}"`});
+            }
+
+            for (const slot of document.querySelectorAll('[data-photo-slot], [data-photo-placeholder]')) {
+              if (!slot.offsetParent) continue;
+              const hasMedia = slot.querySelector('img, picture, canvas, video, svg');
+              const txtLen = (slot.innerText || '').trim().length;
+              if (!hasMedia && txtLen < 12) {
+                findings.push({level: 'error', id: 'empty-photo-slot', detail: `Photo slot [data-photo-slot] has no rendered media and insufficient editorial specimen text (${txtLen} chars)`});
+                break;
+              }
             }
 
             return {iw, sw, sectionCount: sections.length, findings};

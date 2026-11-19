@@ -164,4 +164,43 @@ test('installer lifecycle, multi-agent flags, QA suite, and boundaries', async t
     assert.match(result.stderr, /invalid file path/);
     fs.writeFileSync(metadata, original);
   });
+
+  await t.test('slop-scan and check-visual-proof block leaked photo placeholder badges but pass clean editorial plates', () => {
+    const slopScan = path.join(source, 'skills/atlas-checker/scripts/slop-scan.mjs');
+    const visualProof = path.join(source, 'scripts/check-visual-proof.mjs');
+
+    const leakySamples = [
+      '<figure data-photo-placeholder="true"><span>GANTI DENGAN FOTO ASLI</span></figure>',
+      '<figure data-photo-slot="hero"><span>SLOT FOTO 01 • 16:9</span></figure>',
+      '<figure data-photo-slot="hero"><span>Replace with photo</span></figure>',
+      '<section><p>[Data Klien Diperlukan]</p></section>',
+      '<figure data-photo-slot="hero"><p>Subjek: Meja bar kayu jati dengan pencahayaan pagi</p></figure>'
+    ];
+    for (let i = 0; i < leakySamples.length; i++) {
+      const sampleDir = path.join(workspace, `leak-${i}`);
+      fs.mkdirSync(sampleDir);
+      fs.writeFileSync(path.join(sampleDir, 'index.html'), `<!doctype html><html><body><main>${leakySamples[i]}</main></body></html>`);
+      const sRes = spawnSync(process.execPath, [slopScan, sampleDir], { encoding: 'utf8' });
+      const vRes = spawnSync(process.execPath, [visualProof, sampleDir], { encoding: 'utf8' });
+      assert.equal(sRes.status, 1, `slop-scan should fail sample ${i}`);
+      assert.match(sRes.stdout, /leaked-photo-placeholder-ui/);
+      assert.equal(vRes.status, 1, `check-visual-proof should fail sample ${i}`);
+      assert.match(vRes.stdout, /leaked-photo-placeholder-ui/);
+    }
+
+    const cleanDir = path.join(workspace, 'clean-plate');
+    fs.mkdirSync(cleanDir);
+    fs.writeFileSync(
+      path.join(cleanDir, 'styles.css'),
+      ':root{--color-bg:#faf9f6;--color-surface:#f1efe9;--color-surface-elevated:#fff;--font-display:serif;--font-sans:sans-serif}body{background:var(--color-bg);font-family:var(--font-sans)}section{background:var(--color-surface)}.card{background:var(--color-surface-elevated)}input,button{border:1px solid #d8d5cd}'
+    );
+    fs.writeFileSync(
+      path.join(cleanDir, 'index.html'),
+      '<!doctype html><html><head><link rel="stylesheet" href="styles.css"></head><body><main><figure data-photo-slot="bar-16x9" data-atlas-proof="editorial-plate"><div role="img" aria-label="Meja seduh kayu jati pagi hari"><span>PLATE 01 · CIBEUNYING</span></div><figcaption>Ruang seduh utama kapasitas 18 kursi.</figcaption></figure><section><form><label for="subj">Subjek: Pertanyaan Kerjasama Acara</label><input id="subj" type="text"><button type="submit">Kirim</button></form></section></main></body></html>'
+    );
+    const sClean = spawnSync(process.execPath, [slopScan, cleanDir], { encoding: 'utf8' });
+    const vClean = spawnSync(process.execPath, [visualProof, cleanDir, '--strict'], { encoding: 'utf8' });
+    assert.equal(sClean.status, 0, sClean.stdout + sClean.stderr);
+    assert.equal(vClean.status, 0, vClean.stdout + vClean.stderr);
+  });
 });

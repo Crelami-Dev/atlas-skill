@@ -26,7 +26,7 @@ Jangan menggunakan susunan *"hero dua kolom di kiri + kartu workbench berisi Sea
 
 1. **Kepatuhan Kontras WCAG AA:** Pastikan setiap pasangan teks dan latar di `design-tokens.css` memiliki rasio kontras minimal `4.5:1` agar teks selalu terbaca jelas.
 2. **Maksimal 2 Keluarga Font:** Deklarasikan paling banyak 2 keluarga font di `design-tokens.css` untuk menjaga kecepatan muat dan konsistensi hierarki.
-3. **Strategi Gambar & Placeholder Terdesain:** Ikuti alur keputusan di [imagery.md](../../references/imagery.md): (a) gunakan aset pengguna bila tersedia; (b) bila domain butuh foto (fotografer, restoran, produk, properti, travel, fashion, event, pernikahan) namun aset belum ada, bangun dengan bingkai placeholder berasio tetap (`data-photo-placeholder`), komposisi tipografis/tekstur kaya, caption/alt bermakna, dan penanda halus `"Ganti dengan foto asli"` sembari meminta foto asli kepada pengguna di pesan akhir. Jangan menggambar siluet SVG bukit+matahari generik.
+3. **Strategi Gambar & Pelat Spesimen Editorial:** Ikuti alur keputusan di [imagery.md](../../references/imagery.md): (a) gunakan aset pengguna bila tersedia; (b) bila domain butuh foto (fotografer, restoran, produk, properti, travel, fashion, event, pernikahan) namun aset belum ada, bangun **pelat spesimen editorial/teknis spesifik-domain** dengan rasio tetap dan tandai slot hanya lewat atribut HTML senyap (`data-photo-slot="..."` + `data-atlas-proof="editorial-plate"`), lalu minta foto asli kepada pengguna di pesan akhir. **Jangan pernah** menampilkan teks instruksi seperti `"Ganti dengan foto asli"`, `"SLOT FOTO 01"`, atau siluet SVG bukit+matahari di UI pengunjung.
 
 ## Perintah Verifikasi
 

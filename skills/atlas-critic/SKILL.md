@@ -9,7 +9,7 @@ Tinjau hasil tangkapan layar dari [atlas-checker](../atlas-checker/SKILL.md) ber
 
 | Sumbu | Poin Maks | Hal yang Diperiksa |
 |---|---:|---|
-| **1. Kejelasan Layar Pertama & Bukti Visual** | 20 | Pengunjung langsung memahami fungsi produk; terdapat elemen visual nyata; CTA utama terlihat jelas pada `1440x900` dan `375x667`. |
+| **1. Kejelasan Layar Pertama & Bukti Visual** | 20 | Pengunjung langsung memahami fungsi produk; terdapat elemen visual nyata (foto atau pelat spesimen editorial tanpa badge `"Ganti dengan foto asli"`/`"SLOT FOTO"`); CTA utama terlihat jelas pada `1440x900` dan `375x667`. |
 | **2. Spesifisitas Domain & Uji Substitusi** | 20 | Tata letak dan konten spesifik terhadap topik proyek; bebas dari 3 kartu ikon generik dan SVG wireframe kotak kaku. |
 | **3. Tipografi & Keterbacaan** | 15 | Maksimal 2 keluarga font; angka tabular pada tabel/metrik; tidak ada backtick Markdown yang bocor di elemen HTML. |
 | **4. Ritme Permukaan & Kontras** | 15 | Pergantian warna permukaan yang terukur antarbagian; kontras teks memenuhi standar WCAG AA (`>= 4.5:1`). |

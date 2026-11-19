@@ -37,6 +37,7 @@ function walk(dir, output = []) {
 
 const BUZZWORD_REGEX = /\b(solusi komprehensif|di era digital|transformasi digital menyeluruh|inovasi tanpa batas|unlock the power of|revolutionize your|supercharge your workflow|seamlessly integrate|elevate your digital|next-generation platform|empowering modern teams)\b/gi;
 const PLACEHOLDER_REGEX = /\b(lorem ipsum|your company|feature one|feature two|acme corp|john doe|jane doe|123 main st(?:reet)?|info@example\.com|test@example\.com)\b/gi;
+const PHOTO_PLACEHOLDER_LEAK_REGEX = /(?:\b(?:ganti(?:\s+dengan)?\s+(?:foto|gambar)(?:\s+(?:asli|ini))?|replace\s+(?:this\s+)?(?:with\s+)?(?:real\s+|actual\s+)?(?:photo|image)|(?:insert|upload)\s+(?:real\s+)?(?:photo|image)(?:\s+here)?|(?:taruh|masukkan|pasang)\s+(?:foto|gambar)\s+(?:di\s+sini|disini)|(?:foto|gambar)\s+\S+(?:\s+\S+)?\s+di\s+sini|menunggu\s+foto(?:\s+dokumentasi|\s+asli|\s+klien)?|foto\s+menyusul|foto\s+akan\s+(?:ditambahkan|menyusul)|awaiting\s+(?:real\s+|client\s+)?photo(?:graphy|s)?|(?:photo|image)\s+(?:coming\s+soon|tbd)|(?:slot\s+foto|photo\s+slot)\s*(?:#?\d+|hero|utama|banner|produk|menu|galeri)|(?:image|photo|foto)\s+placeholder|placeholder\s+(?:image|photo|foto)|photo-replace-badge|photo-slot-subject|data\s+klien\s+diperlukan)\b|\[\s*(?:ganti\s+dengan\s+foto|replace\s+with\s+photo|insert\s+image|placeholder|data\s+klien\s+diperlukan|(?:foto|image)\s*:[^\]]+|foto[^\]]{0,40}di\s+sini)[^\]]*\])/gi;
 
 for (const file of walk(root)) {
   const ext = path.extname(file).toLowerCase();
@@ -47,7 +48,7 @@ for (const file of walk(root)) {
 
   // 1. Hard-fail placeholder text
   for (const m of noComments.matchAll(PLACEHOLDER_REGEX)) {
-    report('placeholder-copy', 'error', file, m.index, text, `Ganti teks placeholder '${m[0]}' dengan konten nyata dari brief atau penanda celah yang jujur.`);
+    report('placeholder-copy', 'error', file, m.index, text, `Ganti teks placeholder '${m[0]}' dengan konten nyata spesifik-domain dari brief (jangan tampilkan penanda instruksi developer di UI pengunjung).`);
   }
 
   // 2. Hard-fail Anime.js v3 hallucination in UI/motion code
@@ -60,6 +61,14 @@ for (const file of walk(root)) {
     const strippedScriptsStyles = noComments.replace(/<(?:script|style)\b[^>]*>[\s\S]*?<\/(?:script|style)>/gi, (s) => ' '.repeat(s.length));
     for (const m of strippedScriptsStyles.matchAll(/\b(?:ARCHETYPE:\s*[A-Z0-9-]+|SPLIT-SCREEN APPLICATION CALCULATOR|DEALT\s+DIRECTION|ATLAS-BRIEF|Zero fabricated testimonials|Tanpa ulasan bintang rekayasa|DISPATCH\s+v\d+)\b/gi)) {
       report('leaked-skill-jargon', 'error', file, m.index, text, `Jangan bocorkan istilah internal skill (${m[0]}) ke UI pengunjung akhir; ganti dengan teks domain nyata.`);
+    }
+
+    // 2c. Hard-fail leaked developer photo placeholder instructions in UI markup/text
+    for (const m of strippedScriptsStyles.matchAll(PHOTO_PLACEHOLDER_LEAK_REGEX)) {
+      report('leaked-photo-placeholder-ui', 'error', file, m.index, text, `Jangan tampilkan teks/kelas instruksi placeholder foto ('${m[0]}') di UI pengunjung; gunakan pelat spesimen editorial spesifik-domain dan tandai slot hanya lewat atribut data-photo-slot.`);
+    }
+    for (const m of strippedScriptsStyles.matchAll(/<figure\b[^>]*\b(?:data-photo-placeholder|data-photo-slot)\b[^>]*>(?:(?!(?:<\/figure>|<section\b|<form\b))[\s\S])*?\bSubjek:\s+[^\n<]{10,}/gi)) {
+      report('leaked-photo-placeholder-ui', 'error', file, m.index, text, `Jangan tampilkan catatan brief internal ('Subjek: ...') di dalam slot media UI; tulis caption editorial nyata untuk pengunjung.`);
     }
 
     // 3. AI copywriting clichés

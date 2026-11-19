@@ -10,7 +10,7 @@ Daftar teks asli, data faktual, aset media yang tersedia, dan batas kejujuran (a
 
 ## Rencana gambar
 
-Jelaskan sumber aset visual: (a) memakai aset foto/media dari pengguna, atau (b) menggunakan bingkai placeholder terdesain (`data-photo-placeholder`) dengan rasio tetap, caption bermakna, dan penanda "Ganti dengan foto asli" sembari meminta foto asli kepada pengguna di pesan akhir. Dilarang memakai siluet bukit+matahari generik.
+Jelaskan sumber aset visual: (a) memakai aset foto/media dari pengguna, atau (b) menggunakan pelat spesimen editorial/teknis spesifik-domain dengan rasio tetap (`data-photo-slot` + `data-atlas-proof`) tanpa menampilkan teks instruksi `"Ganti dengan foto asli"` di UI pengunjung, lalu meminta foto asli ke pengguna di pesan akhir. Dilarang memakai siluet bukit+matahari generik.
 
 ## Tiga alternatif komposisi
 

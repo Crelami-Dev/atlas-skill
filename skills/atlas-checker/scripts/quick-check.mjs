@@ -200,6 +200,10 @@ async function auditViewport(page, vp, shotsDir, slopPhrases, options) {
     if (/\btodo:|\blorem ipsum\b|\[company|\btbd\b/i.test(bodyText)) {
       fails.push("placeholder-residue: found TODO / Lorem / Placeholder / TBD in visible text");
     }
+    const photoLeak = bodyText.match(/(?:\b(?:ganti(?:\s+dengan)?\s+(?:foto|gambar)(?:\s+(?:asli|ini))?|replace\s+(?:this\s+)?(?:with\s+)?(?:real\s+|actual\s+)?(?:photo|image)|(?:insert|upload)\s+(?:real\s+)?(?:photo|image)(?:\s+here)?|(?:taruh|masukkan|pasang)\s+(?:foto|gambar)\s+(?:di\s+sini|disini)|menunggu\s+foto(?:\s+dokumentasi|\s+asli|\s+klien)?|foto\s+menyusul|awaiting\s+(?:real\s+|client\s+)?photo(?:graphy|s)?|(?:photo|image)\s+(?:coming\s+soon|tbd)|(?:slot\s+foto|photo\s+slot)\s*(?:#?\d+|hero|utama|banner|produk|menu|galeri)|(?:image|photo|foto)\s+placeholder|placeholder\s+(?:image|photo|foto)|data\s+klien\s+diperlukan)\b|\[\s*(?:ganti\s+dengan\s+foto|replace\s+with\s+photo|insert\s+image|placeholder|data\s+klien\s+diperlukan|(?:foto|image)\s*:[^\]]+|foto[^\]]{0,40}di\s+sini)[^\]]*\])/i);
+    if (photoLeak) {
+      fails.push(`leaked-photo-placeholder-ui: visible developer/placeholder instruction "${photoLeak[0]}"`);
+    }
 
     // Stuck opacity:0 check after scrolling top -> mid -> low -> top
     const stuckHidden = [...document.querySelectorAll("section, article, h1, h2, h3, [data-reveal]")].filter((el) => {

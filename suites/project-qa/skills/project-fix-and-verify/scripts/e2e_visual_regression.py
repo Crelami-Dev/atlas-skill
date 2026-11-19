@@ -5,6 +5,7 @@ Captures post-fix Desktop & Mobile PNG screenshots so the agent MUST visually ve
 that all fixes look clean, unslop, and introduced zero layout or runtime regressions across viewports.
 """
 import argparse
+import importlib
 import json
 import os
 import shutil
@@ -12,8 +13,17 @@ import tempfile
 import time
 
 def verify_post_fix(target: str, out_dir: str):
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
+    try:
+        webdriver = importlib.import_module("selenium.webdriver")
+        Options = importlib.import_module("selenium.webdriver.chrome.options").Options
+    except ModuleNotFoundError as exc:
+        return {
+            "target": target,
+            "post_fix_screenshots": [],
+            "viewports": {},
+            "regressions": [f"Python package 'selenium' is not installed ({exc}). Install with 'pip install selenium'."],
+            "status": "FAIL",
+        }
 
     os.makedirs(out_dir, exist_ok=True)
     chrome_home = tempfile.mkdtemp(prefix="fixverify_chrome_")

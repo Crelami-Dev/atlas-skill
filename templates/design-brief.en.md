@@ -10,7 +10,7 @@ List verified copy, factual data, available media assets, and honesty boundaries
 
 ## Image plan
 
-State the visual asset strategy: (a) use user-supplied photography/media, or (b) build with structured aspect-ratio editorial placeholder frames (`data-photo-placeholder`) marked "Replace with photo" while requesting the real photos from the user in the final message. Never use generic hill-and-sun SVG silhouettes.
+State the visual asset strategy: (a) use user-supplied photography/media, or (b) build domain-authentic editorial/technical specimen plates (`data-photo-slot` + `data-atlas-proof`) with fixed aspect ratios and zero visitor-visible `"Replace with photo"` badges, while requesting real photos from the user in the final message. Never use generic hill-and-sun SVG silhouettes.
 
 ## Three composition alternatives
 
