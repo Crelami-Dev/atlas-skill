@@ -1,0 +1,3 @@
+# Yayasan Baca Pesisir — Transparansi & Penggalangan Buku Kepulauan (ID)
+
+Bangun website satu halaman yang siap produksi, sebaik yang kamu bisa, untuk laporan transparansi dan penggalangan buku "Yayasan Baca Pesisir", lembaga nirlaba yang mendirikan perpustakaan desa di wilayah kepulauan Indonesia Timur. Calon donatur perlu membaca laporan penggunaan dana tahun berjalan (persentase pengadaan buku bacaan anak, pengiriman kapal kargo, pelatihan pustakawan lokal, dan operasional), daftar rincian pengiriman buku ke 6 desa sasaran yang telah diaudit beserta jumlah eksemplar dan status tiba, serta kalkulator dan formulir simulasi komitmen donasi sekali kirim atau bulanan (diberi keterangan bahwa formulir ini adalah simulasi tanpa pemotongan pembayaran nyata).

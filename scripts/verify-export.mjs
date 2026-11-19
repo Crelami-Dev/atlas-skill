@@ -5,8 +5,10 @@ import os from 'node:os';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(import.meta.dirname, '..');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, '..');
 const outputIndex = process.argv.indexOf('--report');
 const reportPath = outputIndex >= 0 ? path.resolve(process.argv[outputIndex + 1]) : null;
 const destination = path.join(os.tmpdir(), `atlas-export-${crypto.randomUUID()}`);
@@ -25,7 +27,7 @@ verify('Exported hashes match content', () => {
   for (const [name, hash] of Object.entries(proof.files)) assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(destination, name))).digest('hex'), hash, name);
 });
 verify('Demos, private and generated directories are excluded', () => {
-  for (const name of Object.keys(proof.files)) assert.ok(!/(^|\/)(demo-[^/]*|node_modules|maintenance|\.next|out|\.env[^/]*)(\/|$)/.test(name), name);
+  for (const name of Object.keys(proof.files)) assert.ok(!/(^|\/)(demo-[^/]*|node_modules|maintenance|\.next|out|\.env[^/]*|evals\/results|evals\/archive-invalid|evals\/archive-invalid|evals\/archive-invalid|evals\/archive-invalid|evals\/archive-invalid|evals\/archive-invalid|evals\/archive-invalid|evals\/archive-invalid)(\/|$)/.test(name), name);
 });
 verify('Existing destination is not overwritten', () => {
   const result = run([path.join(root, 'scripts/export-skill.mjs'), '--out', destination]);

@@ -1,0 +1,3 @@
+# Ledgerline AI — Contractor Invoicing & Tax Reserve Service (EN)
+
+Build a production-ready single-page website, as well as you can, for "Ledgerline AI", an automated invoicing and tax-category software service for independent contractors and freelance engineers. Visitors need to understand how automatic invoice follow-up reminders work, estimate their net take-home pay and quarterly tax reserve based on monthly billed hours and hourly rate, inspect the CSV/JSON tax-category export fields for their accountant, compare the Solo ($19/mo) and Studio ($49/mo) plans, and start a 14-day free trial without inventing customer counts or unverified testimonials.

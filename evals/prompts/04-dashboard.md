@@ -1,0 +1,3 @@
+# NusaKirim — Konsol Operasional Pengiriman & Kas COD Harian (ID)
+
+Bangun website satu halaman yang siap produksi, sebaik yang kamu bisa, untuk konsol operasional harian "NusaKirim" yang digunakan oleh staf ekspedisi regional untuk memantau pengiriman dan arus kas COD hari ini. Operator membutuhkan ringkasan kas COD terkumpul, total paket aktif, dan paket terkendala; daftar pengiriman harian lengkap dengan nomor resi, kota tujuan, kurir pengantar, nominal tagihan, dan status pengiriman (Terkirim, Dalam Perjalanan, Tertunda, Gagal) yang dapat dicari dan disaring; jadwal sif kurir aktif; serta panel rincian log pengantaran saat baris resi dipilih.

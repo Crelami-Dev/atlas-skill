@@ -1,135 +1,54 @@
 ---
 name: atlas-anti-slop
-description: "Challenge generic composition, copied visual signatures, irrelevant decoration, inflated copy and superficial novelty through subject-specific critique and evidence-backed revision."
+description: "Gunakan saat menulis atau meninjau salinan teks, struktur komponen, dan gaya visual untuk mendeteksi serta menghapus 18 pola klise AI (slop) menggunakan slop-scan.mjs. Jangan gunakan untuk logika non-UI."
 ---
 
-# Atlas Anti-Slop - challenge the reason behind every choice
+# Atlas Anti-Slop - Pemeriksaan Pola Klise UI
 
-Generic output is a failure of decisions, not a forbidden-color list. A page can be square or rounded, light or dark, centred or asymmetric and still be excellent or generic.
+Pola klise AI (*slop*) muncul ketika halaman diisi dengan struktur template generik dan jargon pemasaran tanpa kaitan dengan domain proyek. Baca [slop-patterns.md](../../references/slop-patterns.md) dan jalankan pemindai `slop-scan.mjs` pada Fase 4 dan Fase 6.
 
-## 1. Perform the substitution test
+## 1. Perbandingan Kode Buruk vs Baik
 
-Imagine replacing the business name, headline and photos with an unrelated industry.
+### Kontras A: Bagian Pembuka (Hero) & Teks
 
-If nearly everything else remains plausible, ask what essential evidence, behavior or structure is missing. The solution may be a different narrative, content model, media role or action, not more ornament.
+Contoh yang dihindari (template SaaS ungu-biru generik dengan klaim tanpa bukti):
+```html
+<section class="text-center py-24 bg-gradient-to-r from-purple-600 to-blue-600">
+  <span class="rounded-full px-4 py-1 bg-white/10">✨ Solusi Komprehensif Di Era Digital</span>
+  <h1 class="bg-clip-text text-transparent">Transformasi Bisnis Anda Secara Seamless</h1>
+  <p>Dipercaya oleh 10.000+ tim inovatif di seluruh dunia.</p>
+</section>
+```
 
-Do not automatically reject familiar structures. A clear service page may legitimately use a conventional layout. The defect is using it without considering whether it serves this brief.
+Contoh yang disarankan (spesifik terhadap domain, berbasis bukti, dan memakai token):
+```html
+<section class="hero-split" data-hero>
+  <div class="hero-copy">
+    <p class="eyebrow">Bengkel Restorasi Jam Mekanik • Cikini, sejak 2014</p>
+    <h1 data-hero-title>Servis mesin otomatis Swiss & Jepang dengan garansi kalibrasi 12 bulan.</h1>
+    <p class="lead">Pemeriksaan amplitudo di ruang tunggu tanpa biaya cek awal. Estimasi pengerjaan 5–10 hari kerja tergantung ketersediaan suku cadang asli.</p>
+    <div class="hero-actions">
+      <a data-primary class="btn-primary" href="#estimasi">Cek Estimasi Servis</a>
+      <a class="btn-secondary" href="#alamat">Jam Buka & Lokasi</a>
+    </div>
+  </div>
+  <figure class="hero-evidence">
+    <img src="/assets/timegrapher-bench.webp" width="960" height="720" alt="Pengujian akurasi mesin jam pada alat timegrapher" />
+    <figcaption>Kalibrasi posisi 5-arah sebelum serah terima.</figcaption>
+  </figure>
+</section>
+```
 
-## 2. Look for borrowed signatures
+### Kontras B: Penyajian Fitur dan Bukti
 
-Check whether the direction resembles one known site's identity rather than sharing a general principle.
+- **Hindari 3 Kartu Ikon/Emoji Identik:** Tiga kartu berisi `🚀 Cepat`, `🔒 Aman`, dan `💎 Terbaik` tidak memberi informasi baru kepada pengunjung karena dapat ditempelkan ke situs apa pun tanpa perubahan makna.
+- **Gunakan Bukti Spesifik Domain:** Ganti kata sifat umum dengan tabel spesifikasi, rincian harga, kalkulator interaktif, atau tahapan proses yang menjawab pertanyaan nyata pengunjung.
 
-Avoid recreating another brand's distinctive hero, typography, copy cadence, asset arrangement, branded cursor or motion sequence. Research should improve judgment, not conceal copying behind different words.
+## 2. Daftar Periksa Sebelum Selesai
 
-If the project is an authorized faithful implementation, follow the provided reference and be honest about that objective. Do not call fidelity “original design”.
+1. **Uji Substitusi:** Jika nama merek diganti menjadi "CloudAI" dan 90% isi halaman masih terasa cocok, ubah dua bagian pertama agar menampilkan alur kerja atau data spesifik milik subjek.
+2. **Bebas Frasa Klise:** Hapus frasa seperti `solusi komprehensif`, `di era digital`, `inovasi tanpa batas`, `unlock the power`, `elevate`, `seamless`, `revolutionize`, dan `"Bukan sekadar X, tapi Y"` karena menurunkan kejelasan pesan.
+3. **Tanpa Ornamen Tanpa Fungsi:** Hindari bola blur bercahaya dekoratif, titik lampu lalu-lintas jendela palsu pada situs non-developer, dan animasi melayang tanpa henti di dekat teks bacaan karena mengganggu fokus baca.
+4. **Verifikasi Pemindai:** Jalankan `node <atlas>/skills/atlas-checker/scripts/slop-scan.mjs <project-root>` hingga menghasilkan `0` error dan periksa setiap peringatan yang muncul.
 
-## 3. Diagnose before replacing
-
-| Symptom | Likely cause | Better investigation |
-|---|---|---|
-| Every section starts with a pill and number | Repeated scaffolding substituted for hierarchy | Which labels actually orient the visitor? |
-| Photo lives in the same rounded card everywhere | UI component grammar imposed on media | Should the photo be a scene, evidence, detail or decoration? |
-| Three repeated benefits with empty claims | Missing product/business evidence | What decision can a visitor make from each item? |
-| Generic split hero for every industry | No composition exploration | What should be experienced first for this subject? |
-| Giant heading, huge image, thin content | Scale used to simulate substance | What can be removed or stated more clearly? |
-| Full-screen photograph copied after split-hero feedback | One template replaced by another | Does the scene actually establish this business? |
-| Decorative terminal on a physical venue | Wrong domain vocabulary | What objects, people or practical details prove the offer? |
-| New tabs, sliders and counters with no need | Interactivity treated as decoration | What user effort is actually reduced? |
-| Footer is only a giant wordmark | Closure treated as a poster | What orientation or action remains useful? |
-| Every correction changes radius/font | Symptoms addressed instead of structure | What did the critique actually identify? |
-
-## 4. Use numbers only when they mean something
-
-Numbers suit a real sequence, queue, route, measurement, product ID, chapter or data comparison.
-
-They do not automatically improve benefits, section eyebrows or vague brand values. Do not replace icon cards with the same 01/02/03 list across all projects.
-
-If an index is useful, make it help navigation or understanding. Remove it when it merely makes the page resemble an award-gallery screenshot.
-
-## 5. Avoid the anti-template template
-
-Do not turn any of these into Atlas's new default:
-
-- Immersive full-bleed photography.
-- Editorial serif plus one italic word.
-- Off-white paper and charcoal ink.
-- Giant cropped wordmark.
-- Asymmetric catalogue spread.
-- Browser/terminal centerpiece.
-- Dark SaaS panels with fine borders.
-- Unusual pointer, scroll choreography or 3D scene.
-- A mandatory interactive selector in every site.
-
-All can be appropriate. The brief, evidence, research and tests must establish why.
-
-## 6. Review copy as information
-
-Prefer direct statements, concrete objects, relevant constraints and useful verbs.
-
-Avoid vague praise and exhausted phrases such as “elevate”, “unlock”, “seamless”, “revolutionary”, “solusi komprehensif” and “di era digital” unless supplied copy genuinely requires them.
-
-Avoid the repeated “not just X, but Y” construction, adjective piles, artificial suspense and headings that congratulate the design.
-
-Do not make every heading a two-fragment slogan. Natural language and necessary detail are often stronger.
-
-For Indonesian, use a consistent register. Do not mix stiff corporate language, intimate second-person copy and random English terminology merely for style.
-
-## 7. Require factual restraint
-
-Specificity does not authorize invention.
-
-Prices, lead times, certifications, performance, availability, addresses, customer counts and testimonials require evidence. A fictional demo must not imply real inventory, successful requests or actual client work.
-
-When facts are missing, state an honest limit or remove the claim. Do not replace missing evidence with vague “trusted by thousands” language.
-
-## 8. Evaluate decoration by contribution
-
-For every border, badge, background pattern, shadow, radius, icon or floating label, ask whether it:
-
-- Improves grouping.
-- Explains content.
-- Signals interaction or state.
-- Supports a specific identity grounded in the brief.
-
-If the only answer is “looks designed”, try removing it and compare. Keep restraint where it strengthens the subject, but do not confuse restraint with a sterile wireframe.
-
-## 9. Evaluate motion by causality
-
-A useful effect connects cause to consequence: selection, expansion, progress, navigation or reading emphasis.
-
-Do not count animations. Remove fake progress, empty counters, permanent pulses and movement that competes with reading. A static final state must make sense.
-
-No essential content should stay invisible while a library loads or an observer waits. Honor reduced motion and preserve keyboard usability.
-
-## 10. Review interaction authenticity
-
-A clickable mockup that changes only a badge may be less useful than a well-written explanation.
-
-The selected state, content, data and action should agree. Do not show a chart or calculator whose outputs ignore inputs. Do not claim a form submitted when it only generated local text.
-
-Explain demonstrations honestly without filling the product experience with developer notes.
-
-## 11. Run a demanding critique
-
-Write the strongest remaining objection after the first candidate:
-
-- What makes this feel interchangeable?
-- What is visually overplayed or underdeveloped?
-- What does the audience still not understand?
-- Which interaction is unnecessary or incomplete?
-- What would a thoughtful reviewer remove?
-- Is the implementation harder than the result warrants?
-
-Prioritize by impact, confidence and cost. Fix the underlying cause. Open the new screenshots and check whether the result is actually better.
-
-## 12. Resist both complacency and arbitrary churn
-
-A green audit is not an aesthetic verdict. “Looks good” without evidence is not a review.
-
-Continue when a concrete change is likely to improve clarity, fit, craft or behavior. If a revision weakens the result, revert it. Do not add novelty to prove effort.
-
-When no strong improvement remains, record the trade-offs and limitations. Completion should survive a skeptical review, not depend on an arbitrary 9/10 score.
-
-## Output
-
-Keep an explicit anti-template finding in the review: what generic patterns were considered, what was rejected, what conventional elements remain intentionally, and why this particular page needs them.
+- **Kontrol Debug State Terbuka:** Jangan merender dropdown atau tombol pemilih state (`Populated / Loading / Empty / Error`) di UI produksi karena itu adalah alat uji pengembang; jika diperlukan untuk pengujian, beri atribut `hidden` secara default dan hanya tampilkan saat URL memuat `?debug=1`.

@@ -1,0 +1,3 @@
+# Kedai & Roastery Jati — Ruang Seduh Kopi & Sourdough Bandung (ID)
+
+Bangun website satu halaman yang siap produksi, sebaik yang kamu bisa, untuk "Kedai & Roastery Jati", ruang seduh kopi single-origin Nusantara dan roti sourdough panggang kayu di Jl. Taman Cibeunying Selatan No. 14, Bandung. Calon pengunjung perlu melihat daftar lengkap menu seduh manual, espresso, teh daun lepas, serta roti dan kudapan pagi beserta asal biji, catatan rasa, dan harga sebenarnya (Rp24.000 hingga Rp46.000), jadwal sangrai mingguan, jam buka harian (07:00–21:00 WIB), ketersediaan meja kerja dan soket listrik, aturan kunjungan langsung tanpa reservasi untuk 1–3 orang, serta formulir pemesanan meja bagi rombongan 4–8 orang.

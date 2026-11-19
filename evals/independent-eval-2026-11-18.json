@@ -1,0 +1,52 @@
+{
+  "evaluationDate": "2026-11-18",
+  "packageVersion": "6.1.0",
+  "protocol": "evals/run-protocol.md",
+  "rubric": "evals/rubric.md",
+  "cases": 10,
+  "independentJudgeRounds": [
+    {
+      "round": 1,
+      "meanA": 3.11,
+      "meanB": 4.16,
+      "bWins": 10,
+      "criticalDefectsOnB": 2,
+      "similarBPairs": 3,
+      "notes": "05-product/B duplicated 01/02/03 list and placed CTA below mobile fold; 03-event/B had SVG line overlap and clipped h1 at 375px."
+    },
+    {
+      "round": 2,
+      "meanA": 3.00,
+      "meanB": 4.26,
+      "bWins": 10,
+      "criticalDefectsOnB": 1,
+      "similarBPairs": 1,
+      "notes": "05-product/B had a stray closing </div> breaking .split-60-40 on 1440px desktop."
+    },
+    {
+      "round": 3,
+      "meanA": 2.99,
+      "meanB": 4.04,
+      "totalA": "209/70",
+      "totalB": "283/70",
+      "bWins": 10,
+      "criticalDefectsOnB": 1,
+      "similarBPairs": 0,
+      "notes": "Criterion (a) (>=9/10 wins & B>=4.0) and Criterion (c) (<=2 similar pairs) passed. Criterion (b) (0 critical defects) NOT met because 5/10 B cases (02-photographer, 03-event, 05-product, 06-restaurant, 10-wedding) displayed visible 'GANTI DENGAN FOTO ASLI' badges in end-user UI per references/imagery.md."
+    }
+  ],
+  "round3Scores": [
+    { "case": "01-saas", "aMean": 3.00, "bMean": 4.14, "aScores": [3, 3, 2, 3, 2, 4, 4], "bScores": [4, 4, 4, 4, 4, 4, 5], "winner": "B" },
+    { "case": "02-photographer", "aMean": 2.43, "bMean": 3.71, "aScores": [3, 3, 1, 2, 2, 4, 2], "bScores": [4, 4, 4, 4, 4, 4, 2], "winner": "B" },
+    { "case": "03-event", "aMean": 3.14, "bMean": 3.71, "aScores": [3, 3, 1, 3, 4, 4, 4], "bScores": [4, 4, 4, 4, 4, 4, 2], "winner": "B" },
+    { "case": "04-dashboard", "aMean": 2.86, "bMean": 4.29, "aScores": [3, 3, 2, 3, 1, 4, 4], "bScores": [5, 4, 4, 4, 4, 4, 5], "winner": "B" },
+    { "case": "05-product", "aMean": 2.71, "bMean": 3.71, "aScores": [3, 3, 1, 2, 3, 4, 3], "bScores": [4, 4, 4, 4, 4, 4, 2], "winner": "B" },
+    { "case": "06-restaurant", "aMean": 3.14, "bMean": 3.71, "aScores": [3, 3, 1, 3, 4, 4, 4], "bScores": [4, 4, 4, 4, 4, 4, 2], "winner": "B" },
+    { "case": "07-donation", "aMean": 3.29, "bMean": 4.14, "aScores": [3, 3, 1, 3, 4, 4, 5], "bScores": [4, 4, 4, 4, 4, 4, 5], "winner": "B" },
+    { "case": "08-docs", "aMean": 3.00, "bMean": 4.57, "aScores": [3, 3, 1, 3, 3, 4, 4], "bScores": [5, 4, 5, 5, 4, 4, 5], "winner": "B" },
+    { "case": "09-legal", "aMean": 3.14, "bMean": 4.71, "aScores": [3, 3, 1, 3, 4, 4, 4], "bScores": [5, 5, 5, 5, 4, 4, 5], "winner": "B" },
+    { "case": "10-wedding", "aMean": 3.14, "bMean": 3.71, "aScores": [3, 3, 1, 3, 4, 4, 4], "bScores": [4, 4, 4, 4, 4, 4, 2], "winner": "B" }
+  ],
+  "verdict": "Belum siap",
+  "verdictReason": "Reached 3-round maximum with Criterion (b) unmet: visible 'GANTI DENGAN FOTO ASLI' placeholder badge in 5/10 B cases flagged as critical end-user UI defect by independent judge."
+}

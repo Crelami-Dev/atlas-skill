@@ -1,0 +1,3 @@
+# Kala Vessel — 316Ti Insulated Field Bottle Storefront (EN)
+
+Build a production-ready single-page website, as well as you can, for "Kala Vessel", a double-wall vacuum-insulated water bottle made from medical-grade 316Ti stainless steel for tropical fieldwork and daily commuting. Shoppers need to choose between two capacities (500 ml at Rp385.000 and 750 ml at Rp445.000) and three powder-coated finishes (Raw Brushed Steel, Volcanic Basalt, and Moss Celadon), see live stock availability and price updates, review laboratory thermal retention data (24-hour cold / 12-hour hot curve and material thickness specifications), read care and replacement gasket instructions, and add their configuration to a cart summary.

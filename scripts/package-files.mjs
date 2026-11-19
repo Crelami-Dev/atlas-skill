@@ -11,9 +11,9 @@ export function packageFiles(root) {
     const boundary = path.relative(absoluteRoot, actual);
     if (boundary.startsWith('..') || path.isAbsolute(boundary)) throw new Error(`Package path escapes root: ${relative}`);
     if (fs.statSync(target).isDirectory()) {
-      for (const name of fs.readdirSync(target)) visit(path.join(relative, name));
+      for (const name of fs.readdirSync(target)) { if (name === "__pycache__" || name.endsWith(".pyc")) continue; visit(path.join(relative, name)); }
     } else {
-      if (/(^|\/)(node_modules|\.next|out|\.env[^/]*)(\/|$)/.test(relative.replaceAll('\\', '/'))) throw new Error(`Private/generated package path: ${relative}`);
+      if (/(^|\/)(node_modules|\.next|out|\.env[^/]*|evals\/results)(\/|$)/.test(relative.replaceAll('\\', '/'))) throw new Error(`Private/generated package path: ${relative}`);
       files.add(relative.replaceAll('\\', '/'));
     }
   }

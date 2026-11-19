@@ -61,7 +61,7 @@ function usageError(message) {
 
 function parseArgs(argv) {
   const args = argv.slice(2);
-  const options = { target: "", shotsDir: "", verifyClicks: false, heroSelector: "", heroActionSelector: "", fitHeroUnder: 420, help: false };
+  const options = { target: "", shotsDir: "maintenance/browser", verifyClicks: false, heroSelector: "", heroActionSelector: "", fitHeroUnder: 420, help: false };
   const values = { "--shots": "shotsDir", "--hero": "heroSelector", "--hero-action": "heroActionSelector", "--fit-hero-under": "fitHeroUnder" };
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -418,6 +418,7 @@ async function main() {
   if (!target || help) {
     console.log("Usage: node quick-check.mjs <http-url | html-file | dir> [--shots <dir>] [--click-test | --no-click-test] [--hero <selector> --hero-action <selector> --fit-hero-under <width>]");
     process.exitCode = help ? 0 : 2;
+    console.log(`${help ? "PASS" : "UNVERIFIED"}: ${help ? "usage requested" : "target URL or path is required"}`);
     return;
   }
 
@@ -482,14 +483,16 @@ async function main() {
       for (const err of consoleErrors) console.log(`    FAIL: ${err}`);
     }
 
+    const finalStatus = totalFails ? "FAIL" : "PASS";
     console.log(`Summary: ${totalFails} FAIL, ${totalWarns} WARN${shotsDir ? ` | Screenshots saved to ${shotsDir}` : ""}`);
     if (shotsDir) fs.writeFileSync(path.join(shotsDir, "report.json"), JSON.stringify({
-      version: 4, target: targetUrl, reviewedAt: new Date().toISOString(),
+      version: 4, status: finalStatus, target: targetUrl, reviewedAt: new Date().toISOString(),
       results, consoleErrors, resources, interactive, totalFails, totalWarns,
       claim: "Automated subset only; visual review and explicit interaction verification remain required",
       visualReview: "Required: open screenshots and record judgement in ATLAS-REVIEW.md",
       limitations: ["Browser-converted flat-background contrast only; photo overlays and inherited opacity require review", "Smoke tests cover menu and tab selected state only", "Chromium is not cross-browser certification"]
     }, null, 2));
+    console.log(`${finalStatus}: ${totalFails ? "violations found" : "all automated checks passed"}`);
     if (totalFails > 0) process.exitCode = 1;
   } finally {
     await browser?.close();
@@ -498,6 +501,8 @@ async function main() {
 }
 
 main().catch((err) => {
+  const code = err.exitCode || 1;
   console.error(err.message || err);
-  process.exitCode = err.exitCode || 1;
+  console.log(`${code === 2 ? "UNVERIFIED" : "FAIL"}: ${code === 2 ? "browser audit unavailable or invalid invocation" : "checker error"}`);
+  process.exitCode = code;
 });

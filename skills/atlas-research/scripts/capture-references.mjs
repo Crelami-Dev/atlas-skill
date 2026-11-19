@@ -28,7 +28,7 @@ try {
   for (const [index, url] of urls.entries()) {
     const id = `${String(index + 1).padStart(2, '0')}-${new URL(url).hostname.replace(/[^a-z0-9.-]/gi, '-')}`;
     const context = await browser.newContext();
-    const entry = { url, id, capturedAt: new Date().toISOString(), views: [], errors: [], visualInspection: 'NOT_YET_REVIEWED' };
+    const entry = { url, id, capturedAt: new Date().toISOString(), views: [], errors: [], visualInspection: 'NOT_YET_REVIEWED', evidenceStatus: 'UNVERIFIED', purpose: 'Internal analysis only; one page captured per URL.' };
     const page = await context.newPage();
     page.on('pageerror', error => entry.errors.push(error.message));
     try {
@@ -45,6 +45,8 @@ try {
           headings: [...document.querySelectorAll('h1,h2')].filter(el => el.getBoundingClientRect().height > 0).slice(0, 12).map(el => el.textContent.trim().slice(0, 160)),
           bodyFont: getComputedStyle(document.body).fontFamily,
           overflow: document.documentElement.scrollWidth - innerWidth,
+          gate: /cookie|consent|verify you are human|security check|access denied|captcha/i.test(document.body.innerText),
+          empty: document.body.innerText.trim().length < 40,
         }));
         let middleScreenshot = null;
         if (width === 1440 && response?.ok()) {
@@ -56,10 +58,11 @@ try {
         entry.views.push({ width, height, status: response?.status(), screenshot, middleScreenshot, settleMs, ...observed });
       }
     } catch (error) { entry.errors.push(error.message); }
+    if (entry.views.length === 2 && entry.views.every(view => view.status < 400 && !view.gate && !view.empty)) entry.evidenceStatus = 'CAPTURED_REQUIRES_HUMAN_REVIEW';
     results.push(entry);
     await context.close();
     fs.writeFileSync(path.join(output, 'capture-report.json'), JSON.stringify({ purpose: 'Read-only design reference research; no forms, consent buttons or account actions clicked', results }, null, 2));
     console.log(`${id}: ${entry.views.length} captures, ${entry.errors.length} runtime/capture notes`);
   }
 } finally { await browser.close(); }
-if (results.some(result => result.views.length !== 2 || result.views.some(view => view.status >= 400))) process.exitCode = 1;
+if (results.some(result => result.evidenceStatus === 'UNVERIFIED')) process.exitCode = 1;

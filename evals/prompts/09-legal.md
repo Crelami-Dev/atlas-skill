@@ -1,0 +1,3 @@
+# Mahendra, Sutanto & Partners — Corporate & Infrastructure Law Counsel (EN)
+
+Build a production-ready single-page website, as well as you can, for "Mahendra, Sutanto & Partners", a corporate law, infrastructure dispute, and cross-border regulatory advisory firm in Jakarta. General counsel and corporate clients visiting the site need to review the firm's four core practice areas (Energy & Infrastructure Project Finance, Cross-Border M&A and Joint Ventures, Commercial Arbitration & Dispute Resolution, and Data Protection & Financial Technology Compliance), inspect partner credentials and bar admissions, read summaries of recent regulatory briefings on Indonesian investment and carbon-market rules, and submit a confidential conflict-check and consultation request.

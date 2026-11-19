@@ -4,12 +4,14 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const outputIndex = process.argv.indexOf('--out');
 const root = outputIndex >= 0 ? path.resolve(process.argv[outputIndex + 1]) : fs.mkdtempSync(path.join(os.tmpdir(), 'atlas-checker-regression-'));
 fs.mkdirSync(root, { recursive: true });
-const checker = path.join(import.meta.dirname, 'quick-check.mjs');
-const good = fs.readFileSync(path.join(import.meta.dirname, 'fixtures/audit-good.html'), 'utf8');
+const checker = path.join(__dirname, 'quick-check.mjs');
+const good = fs.readFileSync(path.join(__dirname, 'fixtures/audit-good.html'), 'utf8');
 const bad = good
   .replace('document.getElementById(\'fixture-nav\').hidden = !open;', '// Broken: ARIA changes without visible navigation.')
   .replace("document.getElementById(item.getAttribute('aria-controls')).hidden = !active;", '// Broken: selected state changes without visible panel.')

@@ -1,0 +1,3 @@
+# Rani Wijaya — Documentary & Architectural Photographer (EN)
+
+Build a production-ready single-page website, as well as you can, for Rani Wijaya, a documentary and architectural photographer based in Jakarta. Editors and curators visiting the site need to browse three commissioned photo series ("Concrete Monsoons: Jakarta Flood Infrastructure 2024", "Salt & Timber: Coastal Shipwrights of South Sulawesi", and "Quiet Concrete: Post-Independence Civic Halls"), read technical field notes and print edition specifications for each plate, check her exhibition history and monograph publication record, and submit a commission or archival print inquiry.

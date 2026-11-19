@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "name": "atlas-project-qa-suite",
+  "version": "7.0.0",
+  "skills": [
+    {
+      "name": "project-bug-hunter",
+      "path": "suites/project-qa/skills/project-bug-hunter/SKILL.md"
+    },
+    {
+      "name": "project-security-auditor",
+      "path": "suites/project-qa/skills/project-security-auditor/SKILL.md"
+    },
+    {
+      "name": "project-fix-and-verify",
+      "path": "suites/project-qa/skills/project-fix-and-verify/SKILL.md"
+    }
+  ],
+  "include": [
+    "suites/project-qa/package-manifest.json",
+    "suites/project-qa/rules",
+    "suites/project-qa/skills"
+  ]
+}

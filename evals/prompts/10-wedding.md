@@ -1,0 +1,3 @@
+# Undangan Pernikahan Nadia Kusuma & Reza Prakoso — Rumah Sarwono (ID)
+
+Bangun website satu halaman yang siap produksi, sebaik yang kamu bisa, untuk undangan pernikahan Nadia Kusuma & Reza Prakoso yang akan diselenggarakan pada Minggu, 23 Agustus 2026 di Rumah Sarwono, Pasar Minggu, Jakarta Selatan. Tamu undangan perlu mengetahui informasi kedua mempelai dan keluarga, susunan acara Akad Nikah (pukul 08:30–10:00 WIB) dan Resepsi Kebun (pukul 11:00–14:00 WIB), panduan busana (batik atau tenun bernuansa bumi), kisah singkat perjalanan kedua mempelai, petunjuk arah dan kantong parkir menuju lokasi, serta formulir konfirmasi kehadiran (RSVP) beserta jumlah tamu dan pilihan preferensi hidangan.

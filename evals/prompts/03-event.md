@@ -1,0 +1,3 @@
+# Simposium Publik Kota Setelah Hujan — Taman Ismail Marzuki (ID)
+
+Bangun website satu halaman yang siap produksi, sebaik yang kamu bisa, untuk simposium tata kota publik "Kota Setelah Hujan" yang diselenggarakan pada Sabtu, 18 Juli 2026 pukul 13:00–21:00 WIB di Teater Kecil, Taman Ismail Marzuki, Jl. Cikini Raya No. 73, Jakarta Pusat. Pengunjung perlu mengetahui latar belakang acara, daftar sesi diskusi beserta jam dan topik bahasan, profil empat pembicara utama (hidrologi perkotaan, arsitektur lanskap, sejarah kanal Jakarta, dan perwakilan warga bantaran sungai), fasilitas aksesibilitas kursi roda dan Juru Bahasa Isyarat (JBI), panduan transportasi umum menuju lokasi, serta formulir pendaftaran kursi gratis.

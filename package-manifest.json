@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "version": "4.0.0",
+  "version": "7.0.0",
   "entrypoint": "SKILL.md",
   "skills": [
     {
-      "name": "atlas",
+      "name": "atlas-frontend-design",
       "path": "SKILL.md"
     },
     {
@@ -20,6 +20,18 @@
       "path": "skills/atlas-design/SKILL.md"
     },
     {
+      "name": "atlas-motion-animejs",
+      "path": "skills/atlas-motion-animejs/SKILL.md"
+    },
+    {
+      "name": "atlas-ui-architecture",
+      "path": "skills/atlas-ui-architecture/SKILL.md"
+    },
+    {
+      "name": "atlas-fullstack-contracts",
+      "path": "skills/atlas-fullstack-contracts/SKILL.md"
+    },
+    {
       "name": "atlas-anti-slop",
       "path": "skills/atlas-anti-slop/SKILL.md"
     },
@@ -30,20 +42,39 @@
     {
       "name": "atlas-checker",
       "path": "skills/atlas-checker/SKILL.md"
+    },
+    {
+      "name": "atlas-critic",
+      "path": "skills/atlas-critic/SKILL.md"
     }
   ],
   "include": [
     "SKILL.md",
     "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "package.json",
     "package-manifest.json",
     "plugin.json",
     "skills",
     "references",
     "scripts",
-    "evals",
+    "templates",
+    "adapters",
     "research/2026-11-13/README.md",
     "research/2026-11-13/sources.json",
-    "docs/INSTALLATION.md"
+    "docs/INSTALLATION.md",
+    "docs/REPO-METADATA.md",
+    "suites/project-qa",
+    "evals/compare.mjs",
+    "evals/prepare-blind-eval.mjs",
+    "evals/prompts",
+    "evals/review-2026-11-13.md",
+    "evals/rubric.md",
+    "evals/run-protocol.md",
+    "evals/scenarios.md",
+    "evals/independent-eval-2026-11-18.json",
+    "evals/independent-eval-2026-11-18.md"
   ],
   "excludedContext": [
     "demo-*",
@@ -54,6 +85,8 @@
     ".next",
     "out",
     ".env*",
-    "local databases"
+    "local databases",
+    "evals/results",
+    "evals/archive-invalid"
   ]
 }

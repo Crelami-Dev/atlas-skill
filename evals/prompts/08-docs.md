@@ -1,0 +1,3 @@
+# PulseQueue — Zero-Dependency Job Queue Technical Documentation (EN)
+
+Build a production-ready single-page website, as well as you can, for the technical documentation of "PulseQueue", a zero-dependency Node.js and TypeScript background job and retry queue library (v2.4.0 stable and v3.0.0-beta). Developers visiting the documentation need the npm/pnpm installation command, quickstart code examples for producer, consumer, and exponential backoff configuration, a searchable and filterable API reference covering core methods and options with exact parameter types and return values, migration notes between v2.4 and v3.0-beta, and concurrency benchmark notes.

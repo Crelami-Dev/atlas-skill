@@ -1,31 +1,32 @@
-# Select a composition from the subject
+# Pemilihan Arketipe Struktural & Komposisi (Atlas v6.0)
 
-Use this before implementation, especially when the user gives broad creative freedom. The objective is a relevant page, not novelty for its own sake.
+Gunakan panduan ini sebelum menulis kode UI. Mengganti palet warna, jenis huruf, atau radius sudut di atas kerangka yang sama tidak dihitung sebagai desain yang berbeda. Setiap domain wajib memakai arketipe struktural yang sesuai dengan cara pengunjung mengevaluasi kontennya.
 
-## Explore three genuinely different structures
+## Aturan Keras Pembatasan Pola Workbench
 
-Write a sentence for each option describing what the visitor sees and why it suits the business. Changing palette, radius, typeface or which side contains the photo does not count as a different structure.
+Pola **"hero 2 kolom + kartu workbench (search/filter/Reset)"** HANYA boleh digunakan untuk domain **aplikasi interaktif atau dashboard operasional** (`split-screen` aplikasi SaaS atau `dashboard-shell`). Pola tersebut dilarang dipakai pada halaman restoran, portofolio fotografer/arsitek, acara/festival, undangan pernikahan, firma hukum, klinik, travel, fashion, maupun halaman donasi/NGO.
 
-For a furniture concept with room photography, for example:
+## 10 Arketipe Struktural Resmi
 
-- Environmental scene: enter a complete room first, then discover objects and everyday use. Appropriate when atmosphere and relationships among objects are the evidence.
-- Object catalogue cover: show a single object and its useful characteristics with product-like navigation. Appropriate when the object and specifications are the main offer.
-- Material journal: begin with texture, construction or a maker's documented process. Appropriate only when real material/process assets exist; do not invent craftsmanship to justify a visual idea.
+| ID Arketipe | Struktur Utama | Kapan Dipakai (`whenToUse`) | Kapan Dilarang (`whenForbidden`) |
+|---|---|---|---|
+| `editorial-index-rail` | Rail indeks bernomor di kiri + matriks area praktik/layanan (`01–04`) + direktori mitra & meja konsultasi | Firma hukum, konsultan manajemen/pajak, company profile korporat, lembaga kebijakan | Dilarang untuk toko ritel produk tunggal, dashboard real-time, atau undangan perayaan |
+| `poster-full-bleed` | Masthead poster tipografis selebar penuh (tanggal/lokasi raksasa atau panggung suasana ruang) + jadwal atau buku besar menu 2 kolom | Festival, konferensi, konser, acara publik, serta restoran/roastery/kafe | Dilarang untuk dashboard analitik, dokumentasi API, atau firma hukum/audit |
+| `split-screen` | Layar terbelah asimetris (`42/58`) yang menyandingkan proposisi produk dengan kalkulator/simulator aplikasi langsung | Aplikasi web SaaS, alat produktivitas/otomasi, simulator finansial B2B | Dilarang untuk restoran, portofolio foto, pernikahan, hukum, travel, atau halaman naratif |
+| `dashboard-shell` | App shell penuh viewport (`sidebar kiri + pita KPI + tabel operasional padat dengan filter + drawer detail`) tanpa hero promosi | Aplikasi operasional, logistik/armada, POS/kasir, CRM/ERP, konsol telemetri | Dilarang untuk landing page publik, restoran, portofolio, acara, atau company profile |
+| `ledger-table-first` | Header triase layanan langsung + matriks jadwal praktisi/tarif/suku bunga berbentuk tabel + protokol persiapan | Klinik kesehatan, rumah sakit, laboratorium, layanan keuangan/akuntansi, jadwal kursus | Dilarang untuk lookbook fashion, undangan pernikahan, atau galeri fotografi |
+| `narrative-long-scroll` | Kolom baca tunggal terpusat (`65ch–68ch`) + catatan margin + grafik alokasi inline + tabel audit distribusi & lembar komitmen | Yayasan/NGO, kampanye donasi, laporan tahunan, riset publik, jurnalisme data | Dilarang untuk e-commerce multi-varian, dashboard operasional, atau dokumentasi SDK |
+| `gallery-masonry` | Kolofon tipis + grid pelat karya asimetris multi-rasio (`16:9`, `4:5`, `1:1`) bernomor kuratorial (`01–06`) + lembar komisi | Portofolio fotografer, arsitektur, agensi kreatif, galeri seni, lookbook fashion | Dilarang memasang search bar/filter/Reset; dilarang untuk aplikasi B2B atau klinik |
+| `docs-three-pane` | 3 panel dokumentasi (`navigasi pohon kiri + referensi teknis & tab kode tengah + daftar isi kanan`) dimulai dari perintah instalasi | Dokumentasi SDK/API, CLI developer tools, library open-source, panduan infrastruktur | Dilarang untuk situs konsumen, restoran, acara, properti, atau portofolio visual |
+| `catalogue-grid` | Panggung produk/properti multi-sudut (`60/40`) atau grid unit terkurasi + pemilih varian/unit + tabel spesifikasi terukur | E-commerce produk fisik, katalog properti/real estate, katalog program pendidikan | Dilarang memakai timer kelangkaan palsu; halaman produk tunggal dilarang memakai toolbar filter katalog |
+| `timeline-story` | Sampul/lambang seremonial terpusat + alur waktu kronologis (rundown acara atau itinerary hari demi hari) + peta & RSVP/booking | Undangan pernikahan, perayaan, ekspedisi travel/tur wisata, linimasa sejarah brand | Dilarang memakai kartu harga SaaS, widget dashboard korporat, atau toolbar filter data |
 
-These examples are not three new mandatory templates. For another business, derive options from its content and the way a visitor evaluates it.
+## Menuliskan Tiga Alternatif di `design-brief.md`
 
-## Choose and reject explicitly
+1. Di bagian `## Tiga alternatif komposisi`, pilih **3 arketipe struktural yang berbeda** dari tabel di atas dan jelaskan apa yang dilihat pengunjung pada layar pertama untuk masing-masing alternatif.
+2. Di bagian `## Pilihan akhir dan alasan`, nyatakan `ID Arketipe` yang dipilih (sesuai keluaran `selectedArchetype.id` dari `scripts/deal-direction.mjs`) beserta alasan mengapa dua arketipe lainnya ditolak.
+3. Di bagian `## Hal yang sengaja ditolak dan kenapa`, catat pola yang dilarang oleh `selectedArchetype.whenForbidden` agar tidak bocor saat implementasi.
 
-Record why one composition helps this audience and why the other options fit less well. Consider available assets, the actual next action, mobile geometry, accessibility and truthful content. Do not add an interactive feature merely to make a page different.
+## Variasi Penutup Halaman (Hindari Pola Seragam)
 
-## Remove borrowed decoration
-
-Ask what each frame, badge, serial number, dotted background, pill, floating label and rounded corner contributes. Delete elements that only make the page resemble a design showcase. Number real steps or meaningful catalogue records; do not add numbers to arbitrary benefits or section eyebrows.
-
-Geometry is contextual. A physical object's softness does not prescribe software corner radii. A photograph can be a scene or printed image, with no card at all. A button can be flat or subtly shaped according to the wider visual grammar.
-
-## Verify the actual composition
-
-On mobile, inspect the complete first screen, not only a cropped title. For a requested full-screen hero, use small viewport units, measure the navigation-plus-content height, and verify the primary action remains visible at 320×568 and 375×667 as well as larger phones. Allow growth for enlarged text, open navigation and no-JS fallback; never clip content to claim a fit.
-
-On desktop, judge the relationship among scene, message and action. A full-screen photograph is not automatically distinctive either: its crop, narrative, type placement and next section must belong to the subject. Inspect the catalogue, story and footer as part of one page, not as disconnected hero exercises.
+- Jangan mengakhiri seluruh domain dengan pita gelap 2-kolom (informasi di kiri, formulir kartu putih di kanan). Untuk hospitality/restoran (`linen-espresso-craft`), akhiri dengan pita terang/permukaan yang memisahkan jadwal sangrai dan meja reservasi dari gaya undangan pernikahan atau simposium.

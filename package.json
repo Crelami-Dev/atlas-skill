@@ -1,22 +1,52 @@
 {
   "name": "atlas-skill",
-  "version": "4.0.0",
-  "private": true,
-  "description": "Research-led frontend design skills with a small local installer for coding agents.",
-  "license": "UNLICENSED",
+  "version": "7.0.0",
+  "description": "Universal frontend design, CSS token system, Anime.js v4 choreography, multi-viewport verification, and Antigravity QA & Security Suite.",
+  "license": "MIT",
   "type": "module",
-  "engines": { "node": ">=22" },
-  "bin": { "atlas-skill": "bin/atlas-skill.mjs" },
-  "repository": { "type": "git", "url": "git+https://github.com/Crelami-Dev/atlas-skill.git" },
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "atlas-skill": "bin/atlas-skill.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Crelami-Dev/atlas-skill.git"
+  },
   "homepage": "https://github.com/Crelami-Dev/atlas-skill",
   "files": [
-    "bin/", "scripts/", "SKILL.md", "skills/", "references/", "evals/",
-    "research/2026-11-13/README.md", "research/2026-11-13/sources.json",
-    "package-manifest.json", "plugin.json", "docs/INSTALLATION.md"
+    "bin/",
+    "scripts/",
+    "SKILL.md",
+    "skills/",
+    "suites/",
+    "references/",
+    "templates/",
+    "adapters/",
+    "research/2026-11-13/README.md",
+    "research/2026-11-13/sources.json",
+    "package-manifest.json",
+    "plugin.json",
+    "docs/INSTALLATION.md",
+    "docs/REPO-METADATA.md",
+    "evals/compare.mjs",
+    "evals/prepare-blind-eval.mjs",
+    "evals/prompts/",
+    "evals/review-2026-11-13.md",
+    "evals/rubric.md",
+    "evals/run-protocol.md",
+    "evals/scenarios.md",
+    "evals/independent-eval-2026-11-18.json",
+    "evals/independent-eval-2026-11-18.md"
   ],
   "scripts": {
     "validate": "node scripts/validate-package.mjs",
-    "test": "node --test tests/installer.test.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "atlas:brief": "node scripts/check-brief.mjs",
+    "atlas:tokens": "node scripts/check-tokens.mjs",
+    "atlas:motion": "node scripts/check-motion-v4.mjs",
+    "atlas:gates": "node scripts/run-gates.mjs",
     "test:export": "node scripts/verify-export.mjs",
     "test:browser": "node skills/atlas-checker/scripts/self-test.mjs",
     "prepack": "node scripts/validate-package.mjs"
