@@ -3,7 +3,7 @@ name: atlas-frontend-design
 description: "Gunakan saat merancang, membangun, atau meninjau antarmuka web, landing page, dashboard, dan animasi Anime.js v4. Jangan gunakan untuk skrip backend murni, migrasi database, atau CLI tanpa antarmuka web."
 ---
 
-# Atlas Frontend & Motion Design System (v6.0)
+# Atlas Frontend & Motion Design System (v7.0.0)
 
 Alur kerja terstruktur untuk merancang dan memverifikasi antarmuka web, arketipe tata letak, sistem token CSS, komponen form, arsitektur state UI, serta animasi Anime.js v4. Lihat rincian tiap fase di [phase-workflow.md](references/phase-workflow.md).
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Atlas v6.0 — Gate 5: Visual Proof, Surface Cadence, & Anti-Wireframe Scanner
+ * Atlas v7.0.0 — Gate 5: Visual Proof, Surface Cadence, & Anti-Wireframe Scanner
  * Catches visually dry or broken markup before browser screenshot inspection:
  *   1. Hard-fails large crude geometric wireframe SVGs (polygons/rects + >=4 text labels)
  *   2. Hard-fails generic hill/mountain + sun SVG silhouettes (generic-hill-sun-svg)

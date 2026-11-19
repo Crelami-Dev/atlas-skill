@@ -1,4 +1,4 @@
-/* Atlas Design Tokens v6.0 — Intentional Typography, Color Roles, Geometry, Form Controls, & Anime.js v4 Motion */
+/* Atlas Design Tokens v7.0.0 — Intentional Typography, Color Roles, Geometry, Form Controls, & Anime.js v4 Motion */
 :root {
   /* 1. Typography (max 2 intentional families; avoid lazy unstyled defaults) */
   --font-display: 'Plus Jakarta Sans', 'Instrument Sans', system-ui, sans-serif;

@@ -101,7 +101,7 @@ Evaluasi buta oleh sesi juri independen (menggunakan [protokol evaluasi](evals/r
 
 - **Skor rata-rata (Putaran 3):** Baseline A **2.99 / 5.00** (`209/70`) vs Atlas B **4.04 / 5.00** (`283/70`), dengan **B menang di 10 dari 10 kasus**.
 - **Keberagaman layout:** Memenuhi batas keberagaman (tidak ada lebih dari 2 pasangan B yang dinilai berkerangka sama).
-- **Temuan terbuka (KRITIS):** Juri independen Putaran 3 menilai badge `"GANTI DENGAN FOTO ASLI"` yang ditampilkan langsung di UI pengunjung pada 5/10 kasus domain visual (`02-photographer`, `03-event`, `05-product`, `06-restaurant`, `10-wedding`) sebagai cacat placeholder template yang belum dibersihkan. Artefak mentah `evals/results/` dan `evals/archive-invalid/` dikecualikan dari paket distribusi agar rilis tetap ramping.
+- **Temuan terbuka Putaran 3 (`v6.1.0`) & status `v7.0.0`:** Pada `v6.1.0`, juri independen Putaran 3 menilai badge `"GANTI DENGAN FOTO ASLI"` di UI pengunjung pada 5/10 kasus domain visual sebagai cacat placeholder. Pada **`v7.0.0`**, instruksi badge tersebut telah dihapus dari `references/imagery.md` dan diblokir otomatis lewat aturan `leaked-photo-placeholder-ui` di `slop-scan.mjs`, `check-visual-proof.mjs`, `quick-check.mjs`, dan `visual_dom_inspector.py`; hasil empiris baru masih menunggu putaran evaluasi buta independen berikutnya. Artefak mentah `evals/results/` dan `evals/archive-invalid/` tetap dikecualikan dari paket distribusi.
 
 ## Repository Validation
 

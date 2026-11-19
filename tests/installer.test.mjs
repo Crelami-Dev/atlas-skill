@@ -118,7 +118,23 @@ test('installer lifecycle, multi-agent flags, QA suite, and boundaries', async t
     assert.ok(fs.existsSync(path.join(dir, '.agents/skills/project-fix-and-verify/scripts/verify_feature_coverage.py')));
     assert.ok(fs.existsSync(path.join(dir, '.agents/rules/atlas-frontend-gate.md')));
     assert.ok(fs.existsSync(path.join(dir, '.agents/rules/qa-security-gate.md')));
-    assert.equal(run(['doctor', '--agent', 'codex'], dir).status, 0);
+    const docClean = run(['doctor', '--agent', 'codex'], dir);
+    assert.equal(docClean.status, 0, docClean.stderr);
+    assert.ok(json(docClean).runtime?.node);
+
+    // Tamper with a sibling QA skill and verify doctor catches it + update backs it up
+    const qaSkillPath = path.join(dir, '.agents/skills/project-bug-hunter/SKILL.md');
+    fs.appendFileSync(qaSkillPath, '\nCustom QA note\n');
+    const docDirty = run(['doctor', '--agent', 'antigravity'], dir);
+    assert.equal(docDirty.status, 1);
+    assert.ok(json(docDirty).changes.includes('.agents/skills/project-bug-hunter/SKILL.md'));
+
+    const upd = run(['update', '--agent', 'antigravity', '--with-rules', '--expose-subskills', '--with-qa'], dir);
+    assert.equal(upd.status, 0, upd.stderr);
+    const updData = json(upd);
+    assert.equal(updData.status, 'updated');
+    assert.match(fs.readFileSync(path.join(updData.backup, '.atlas-extras-backup/qa-skills/project-bug-hunter/SKILL.md'), 'utf8'), /Custom QA note/);
+    assert.equal(run(['doctor', '--agent', 'antigravity'], dir).status, 0);
   });
 
   await t.test('agent all installs to .agents, .claude, and .cursor', () => {

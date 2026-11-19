@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Unified Atlas v6.0 OP Phase Gate Runner (run-gates.mjs)
+ * Unified Atlas v7.0.0 Phase Gate Runner (run-gates.mjs)
  * Executes 5 deterministic static gates + optional --visual Headless Browser Screenshot & DOM Aesthetic Gate:
  *   1. Brief Gate (check-brief)
  *   2. Design Tokens Gate (check-tokens)
@@ -57,10 +57,20 @@ steps.push({ name: '3. Anime.js v4 Motion Gate', cmd: process.execPath, args: [p
 steps.push({ name: '4. Anti-Slop Gate', cmd: process.execPath, args: [path.join(atlasRoot, `skills/atlas-checker/scripts/slop-scan${ext}`), projectRoot] });
 steps.push({ name: '5. Visual Proof & Anti-Wireframe Gate', cmd: process.execPath, args: [path.join(atlasRoot, `scripts/check-visual-proof${ext}`), projectRoot, ...(strict ? ['--strict'] : [])] });
 
+function resolvePython() {
+  for (const candidate of process.platform === 'win32' ? ['python', 'python3'] : ['python3', 'python']) {
+    const probe = spawnSync(candidate, ['--version'], { encoding: 'utf8' });
+    if (probe.status === 0 && /Python 3\./i.test((probe.stdout || '') + (probe.stderr || ''))) {
+      return candidate;
+    }
+  }
+  return process.platform === 'win32' ? 'python' : 'python3';
+}
+
 if (visualTarget) {
   steps.push({
     name: '6. Browser Screenshot & Aesthetic DOM Gate',
-    cmd: 'python3',
+    cmd: resolvePython(),
     args: [path.join(atlasRoot, 'skills/atlas-checker/scripts/visual_dom_inspector.py'), path.resolve(visualTarget), '--out-dir', path.resolve(shotsDir)]
   });
 }

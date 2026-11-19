@@ -113,7 +113,8 @@ async function chooseTarget(config) {
 
 function resolveTargets(config) {
   if (config.dir) {
-    return [{ agent: config.agent || 'custom', target: path.resolve(config.dir), rulesDir: null, ruleAdapter: null, ruleFile: null }];
+    const resolvedDir = path.resolve(config.dir);
+    return [{ agent: config.agent || 'custom', baseDir: path.dirname(resolvedDir), target: resolvedDir, rulesDir: null, ruleAdapter: null, ruleFile: null }];
   }
   const baseDir = config.global ? os.homedir() : process.cwd();
   const table = config.global ? GLOBAL_TARGETS : PROJECT_TARGETS;
@@ -131,6 +132,7 @@ function resolveTargets(config) {
     seenTargets.add(target);
     resolved.push({
       agent: agentName,
+      baseDir,
       target,
       rulesDir: spec.rulesDir ? path.resolve(baseDir, spec.rulesDir) : null,
       ruleAdapter: spec.ruleAdapter,
@@ -164,7 +166,33 @@ function inspect(target) {
     if (!inside(target, file) || file === target) fail('Installation metadata contains an invalid file path.');
     if (!fs.existsSync(file) || !fs.statSync(file).isFile() || hash(file) !== expected) changes.push(relative);
   }
+  if (record.extraFiles && typeof record.extraFiles === 'object' && !Array.isArray(record.extraFiles)) {
+    const baseRoot = typeof record.baseDir === 'string' ? path.resolve(record.baseDir) : path.dirname(path.dirname(target));
+    for (const [relative, expected] of Object.entries(record.extraFiles)) {
+      const file = path.resolve(baseRoot, relative);
+      if (!inside(baseRoot, file) || file === baseRoot) fail('Installation metadata contains an invalid extra file path.');
+      if (!fs.existsSync(file) || !fs.statSync(file).isFile() || hash(file) !== expected) changes.push(relative);
+    }
+  }
   return { record, changes };
+}
+
+function detectRuntime() {
+  let pythonCmd = null;
+  let pythonVersion = null;
+  let selenium = false;
+  for (const candidate of process.platform === 'win32' ? ['python', 'python3'] : ['python3', 'python']) {
+    const probe = spawnSync(candidate, ['--version'], { encoding: 'utf8' });
+    const text = ((probe.stdout || '') + (probe.stderr || '')).trim();
+    if (probe.status === 0 && /Python 3\./i.test(text)) {
+      pythonCmd = candidate;
+      pythonVersion = text;
+      const selProbe = spawnSync(candidate, ['-c', 'import importlib.util, sys; sys.exit(0 if importlib.util.find_spec("selenium") else 1)'], { encoding: 'utf8' });
+      selenium = selProbe.status === 0;
+      break;
+    }
+  }
+  return { node: process.version, python: pythonVersion ? `${pythonCmd} (${pythonVersion})` : null, selenium };
 }
 
 function validateSource() {
@@ -172,29 +200,49 @@ function validateSource() {
   if (result.status !== 0) fail(`Source package failed validation:\n${result.stdout}${result.stderr}`);
 }
 
-function copyTree(srcDir, dstDir) {
+function copyTree(srcDir, dstDir, collected = []) {
   fs.mkdirSync(dstDir, { recursive: true });
   for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
     if (entry.name === '__pycache__' || entry.name.endsWith('.pyc')) continue;
     const s = path.join(srcDir, entry.name);
     const d = path.join(dstDir, entry.name);
-    if (entry.isDirectory()) copyTree(s, d);
-    else fs.copyFileSync(s, d);
+    if (entry.isDirectory()) copyTree(s, d, collected);
+    else {
+      fs.copyFileSync(s, d);
+      collected.push(d);
+    }
   }
+  return collected;
 }
 
-function installExtras(config, entry) {
+function installExtras(config, entry, backup) {
   const skillsParent = path.dirname(entry.target);
   const exposed = [];
   const qaSkills = [];
   const rulesWritten = [];
+  const extraFiles = {};
+  const recordFile = (absPath) => {
+    const rel = path.relative(entry.baseDir, absPath).replaceAll('\\', '/');
+    if (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) {
+      extraFiles[rel] = hash(absPath);
+    }
+  };
+  const backupExistingDir = (dstDir, group, name) => {
+    if (backup && fs.existsSync(dstDir)) {
+      const bakDst = path.join(backup, '.atlas-extras-backup', group, name);
+      copyTree(dstDir, bakDst);
+      fs.rmSync(dstDir, { recursive: true, force: true });
+    }
+  };
 
   if (config.exposeSubskills) {
     for (const skill of manifest.skills) {
       if (skill.path === 'SKILL.md') continue;
       const srcSkillDir = path.dirname(path.join(source, skill.path));
       const dstSkillDir = path.join(skillsParent, skill.name);
-      copyTree(srcSkillDir, dstSkillDir);
+      backupExistingDir(dstSkillDir, 'skills', skill.name);
+      const written = copyTree(srcSkillDir, dstSkillDir);
+      for (const f of written) recordFile(f);
       exposed.push(dstSkillDir);
     }
   }
@@ -204,7 +252,9 @@ function installExtras(config, entry) {
     for (const skill of qaManifest.skills) {
       const srcSkillDir = path.dirname(path.join(source, skill.path));
       const dstSkillDir = path.join(skillsParent, skill.name);
-      copyTree(srcSkillDir, dstSkillDir);
+      backupExistingDir(dstSkillDir, 'qa-skills', skill.name);
+      const written = copyTree(srcSkillDir, dstSkillDir);
+      for (const f of written) recordFile(f);
       qaSkills.push(dstSkillDir);
     }
   }
@@ -215,6 +265,7 @@ function installExtras(config, entry) {
     if (!fs.existsSync(dstRule)) {
       fs.copyFileSync(path.join(source, entry.ruleAdapter), dstRule);
       rulesWritten.push(dstRule);
+      recordFile(dstRule);
     }
     if (config.withQa) {
       const qaRuleSrc = path.join(source, 'suites/project-qa/rules/qa-security-gate.md');
@@ -222,11 +273,12 @@ function installExtras(config, entry) {
       if (fs.existsSync(qaRuleSrc) && !fs.existsSync(qaRuleDst) && entry.ruleFile.endsWith('.md')) {
         fs.copyFileSync(qaRuleSrc, qaRuleDst);
         rulesWritten.push(qaRuleDst);
+        recordFile(qaRuleDst);
       }
     }
   }
 
-  return { exposed, qaSkills, rulesWritten };
+  return { exposed, qaSkills, rulesWritten, extraFiles };
 }
 
 function installOne(config, entry) {
@@ -289,7 +341,14 @@ function installOne(config, entry) {
       fs.renameSync(target, backup);
     }
     fs.renameSync(stage, target);
-    const extras = installExtras(config, entry);
+    const extras = installExtras(config, entry, backup);
+    if (Object.keys(extras.extraFiles).length > 0) {
+      const metaPath = path.join(target, metadataName);
+      const metaObj = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+      metaObj.baseDir = entry.baseDir;
+      metaObj.extraFiles = extras.extraFiles;
+      fs.writeFileSync(metaPath, JSON.stringify(metaObj, null, 2));
+    }
     return {
       status: exists ? 'updated' : 'installed',
       version: manifest.version,
@@ -298,7 +357,9 @@ function installOne(config, entry) {
       files: files.length,
       backup,
       priorModifiedFiles: prior?.changes || [],
-      ...extras
+      exposed: extras.exposed,
+      qaSkills: extras.qaSkills,
+      rulesWritten: extras.rulesWritten
     };
   } catch (error) {
     if (backup && fs.existsSync(backup) && !fs.existsSync(target)) fs.renameSync(backup, target);
@@ -347,6 +408,7 @@ Options:
     await chooseTarget(config);
     const targets = resolveTargets(config);
     if (config.command === 'doctor') {
+      const runtime = detectRuntime();
       const results = [];
       for (const entry of targets) {
         validateDestinationPath(entry.target);
@@ -359,7 +421,8 @@ Options:
           installedVersion: record.version,
           installerVersion: manifest.version,
           nodeVersion: process.version,
-          checkedFiles: Object.keys(record.files).length,
+          runtime,
+          checkedFiles: Object.keys(record.files).length + Object.keys(record.extraFiles || {}).length,
           changes,
           agentActivation: 'not-tested'
         });

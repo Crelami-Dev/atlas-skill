@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Atlas v6.0 — Multimodal Screenshot Renderer & Aesthetic DOM Geometry Inspector
+Atlas v7.0.0 — Multimodal Screenshot Renderer & Aesthetic DOM Geometry Inspector
 Renders any local .html file (inlining local relative stylesheets/scripts into Page.setDocumentContent
 so sandboxed Chromium policies blocking file:// URLs never block rendering) or live URL across
 Desktop (1440x900 top/mid/low), Tablet (820x1180), and Mobile (390x844, 375x667, 320x568).
