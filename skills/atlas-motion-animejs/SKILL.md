@@ -1,6 +1,6 @@
 ---
 name: atlas-motion-animejs
-description: "Gunakan saat merancang atau mengimplementasikan animasi web, transisi layout FLIP, koreografi scroll, dan efek pegas menggunakan Anime.js v4 (animejs@^4.0.0). Jangan gunakan untuk efek hover warna sederhana yang cukup memakai transisi CSS."
+description: "Design and implement web animations, FLIP layout transitions, scroll choreography, and spring physics with Anime.js v4 (Gunakan saat merancang atau mengimplementasikan animasi web, transisi layout FLIP, koreografi scroll, dan efek pegas menggunakan Anime.js v4). Do not use for simple color hover effects handled cleanly by CSS transitions."
 ---
 
 # Atlas Motion Engine - Koreografi Anime.js v4

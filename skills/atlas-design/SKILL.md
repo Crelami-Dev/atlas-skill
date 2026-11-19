@@ -1,6 +1,6 @@
 ---
 name: atlas-design
-description: "Gunakan saat menerjemahkan brief dan hasil deal-direction menjadi sistem token CSS, hierarki tipografi 2-font, kontras warna WCAG AA, dan struktur layout makro yang berbeda per domain. Jangan gunakan untuk logika backend atau audit keamanan."
+description: "Translate design briefs and deal-direction output into CSS token systems, typography hierarchy, WCAG AA contrast, and domain-specific macro layouts (Gunakan saat menerjemahkan brief dan hasil deal-direction menjadi sistem token CSS, hierarki tipografi, kontras warna WCAG AA, dan struktur layout makro per domain). Do not use for backend logic or security audits."
 ---
 
 # Atlas Design - Sistem Token, Kontras, & Keberagaman Arketipe Struktur

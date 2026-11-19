@@ -1,6 +1,6 @@
 ---
 name: atlas-fullstack-contracts
-description: "Gunakan saat menghubungkan UI frontend ke API atau adaptor data mock bertipe, mengatur batas sesi autentikasi, variabel lingkungan, dan metadata SEO/OpenGraph. Jangan gunakan untuk komponen presentasi murni tanpa data atau metadata halaman."
+description: "Connect frontend UI to typed API/mock data adapters, auth session boundaries, environment variable hygiene, and SEO/OpenGraph metadata (Gunakan saat menghubungkan UI frontend ke API atau adaptor data mock bertipe, mengatur batas sesi autentikasi, variabel lingkungan, dan metadata SEO/OpenGraph). Do not use for pure presentational components."
 ---
 
 # Atlas Fullstack Contracts & Kesiapan Proyek

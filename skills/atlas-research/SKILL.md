@@ -1,6 +1,6 @@
 ---
 name: atlas-research
-description: "Gunakan saat membutuhkan riset referensi domain atau perbandingan pola antarmuka sebelum mendesain proyek baru pada domain yang belum dikenal. Jangan gunakan untuk prompt kecil yang sudah jelas atau perbaikan bug."
+description: "Conduct domain reference research and UI mechanism comparisons before designing a new project in an unfamiliar domain (Gunakan saat membutuhkan riset referensi domain atau perbandingan pola antarmuka sebelum mendesain proyek baru pada domain yang belum dikenal). Do not use for small, obvious prompts or bug fixes."
 ---
 
 # Atlas Research - Analisis Mekanisme Referensi

@@ -1,6 +1,6 @@
 ---
 name: atlas-ui-architecture
-description: "Gunakan saat merancang arsitektur aplikasi web multi-tampilan, dashboard, tabel data, sistem filter, modal/drawer, dan formulir interaktif. Jangan gunakan untuk halaman artikel statis tanpa interaksi data."
+description: "Architect multi-view web applications, operational dashboards, data tables, filter systems, modals/drawers, and interactive forms with 5-state view contracts (Gunakan saat merancang arsitektur aplikasi web multi-tampilan, dashboard, tabel data, sistem filter, modal/drawer, dan formulir interaktif). Do not use for static articles without data interaction."
 ---
 
 # Atlas UI Architecture - Arsitektur Aplikasi & Kontrak 5-State

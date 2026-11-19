@@ -28,11 +28,21 @@ Contoh markup pelat spesimen yang bersih (tanpa bocoran instruksi placeholder di
 
 ```html
 <figure class="editorial-plate" data-photo-slot="cibeunying-bar-16x9" data-aspect="16:9" data-atlas-proof="editorial-plate">
-  <div class="editorial-plate-stage" role="img" aria-label="Studi pencahayaan pagi meja bar kayu jati menghadap taman Cibeunying">
+  <div class="editorial-plate-stage" role="img" aria-label="Denah pencahayaan pagi meja bar kayu jati enam kursi menghadap taman Cibeunying">
     <div class="editorial-plate-meta">
       <span>PLATE 01 · CIBEUNYING</span>
       <span>16:9 · 07:30 WIB · ORIENTASI TIMUR</span>
     </div>
+    <svg viewBox="0 0 480 160" width="480" height="160" aria-hidden="true">
+      <rect x="24" y="24" width="432" height="112" rx="8" fill="none" stroke="currentColor" stroke-opacity="0.2" stroke-width="1.5"/>
+      <rect x="72" y="56" width="336" height="44" rx="4" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="116" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="178" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="240" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="302" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="364" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M124 78 L152 78 M224 78 L256 78 M328 78 L360 78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
     <p class="editorial-plate-caption">Meja seduh kayu jati tiga meter dengan pencahayaan alami pagi dan stasiun pour-over berjarak 45 cm antar tamu.</p>
   </div>
   <figcaption>Ruang seduh utama Jl. Taman Cibeunying Selatan No. 14 — kapasitas 18 kursi bar.</figcaption>

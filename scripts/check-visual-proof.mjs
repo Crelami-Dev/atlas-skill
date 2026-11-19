@@ -63,7 +63,7 @@ const usedFormControls = new Map(); // control -> { file, line }
 for (const file of styleFiles) {
   const raw = fs.readFileSync(file, 'utf8');
   const cleaned = raw.replace(/\/\*[\s\S]*?\*\//g, '').replace(/<!--[\s\S]*?-->/g, '');
-  for (const m of cleaned.matchAll(/var\((--color-(?:bg|surface|surface-elevated|surface-sage|surface-tint|blueprint|blueprint-surface)|--spec-[\w-]+)\)/g)) {
+  for (const m of cleaned.matchAll(/var\((--(?:color-)?(?:bg|background|surface|card|muted|secondary|elevated|panel|tint|blueprint|sage)[\w-]*|--spec-[\w-]+)\)/g)) {
     distinctSurfaceTokensUsed.add(m[1]);
   }
   const cssOnly = path.extname(file).toLowerCase() === '.css'
@@ -85,12 +85,20 @@ for (const file of uiFiles) {
 
   const cleaned = stripCommentsAndScripts(text);
 
+  for (const m of cleaned.matchAll(/(?:class|className)\s*=\s*(?:"([^"]+)"|'([^']+)'|\{[`"']([^}`"']+)[`"']\})/g)) {
+    const cls = m[1] || m[2] || m[3] || '';
+    for (const bgMatch of cls.matchAll(/\bbg-(?:background|card|muted|secondary|popover|primary|accent|zinc|slate|neutral|stone|gray|amber|emerald|indigo|white|black)(?:-\d{2,3})?(?:\/\d{1,3})?\b/g)) {
+      distinctSurfaceTokensUsed.add(`tw:${bgMatch[0]}`);
+    }
+  }
+
   for (const ctrl of ['select', 'input', 'button']) {
     const tagRe = new RegExp(`<${ctrl}\\b([^>]*)>`, 'gi');
     for (const m of cleaned.matchAll(tagRe)) {
       const attrs = m[1] || '';
       if (/\btype\s*=\s*["']hidden["']/i.test(attrs)) continue;
-      if (/\bstyle\s*=\s*["'][^"']+["']/i.test(attrs)) {
+      const hasClassAttr = /\b(?:class|className)\s*=\s*(?:["'][^"'\s][^"']*["']|\{[^}]+\})/i.test(attrs);
+      if (/\bstyle\s*=\s*["'][^"']+["']/i.test(attrs) || hasClassAttr) {
         styledFormControls.add(ctrl);
       } else if (!usedFormControls.has(ctrl)) {
         usedFormControls.set(ctrl, { file: rel, line: lineOf(m.index) });

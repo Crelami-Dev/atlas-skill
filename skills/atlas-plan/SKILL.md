@@ -1,6 +1,6 @@
 ---
 name: atlas-plan
-description: "Gunakan saat merencanakan struktur halaman web, inventaris konten, alternatif tata letak, dan anggaran viewport sebelum menulis kode UI. Jangan gunakan untuk patch CSS kecil atau perbaikan satu baris."
+description: "Plan web page structure, visitor tasks, real content inventory, layout alternatives, and viewport budgets before writing UI code (Gunakan saat merencanakan struktur halaman web, inventaris konten, alternatif tata letak, dan anggaran viewport sebelum menulis kode UI). Do not use for tiny CSS patches or single-line fixes."
 ---
 
 # Atlas Plan - Perencanaan Struktur dan Konten

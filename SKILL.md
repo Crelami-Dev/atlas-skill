@@ -1,6 +1,6 @@
 ---
 name: atlas-frontend-design
-description: "Gunakan saat merancang, membangun, atau meninjau antarmuka web, landing page, dashboard, dan animasi Anime.js v4. Jangan gunakan untuk skrip backend murni, migrasi database, atau CLI tanpa antarmuka web."
+description: "Design, build, and audit anti-slop web interfaces, landing pages, dashboards, CSS token systems, and Anime.js v4 motion (Gunakan saat merancang, membangun, atau meninjau antarmuka web, landing page, dashboard, dan animasi Anime.js v4). Do not use for pure backend scripts, database migrations, or CLI tools without a web UI."
 ---
 
 # Atlas Frontend & Motion Design System (v7.0.0)

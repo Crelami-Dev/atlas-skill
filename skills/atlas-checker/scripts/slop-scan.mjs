@@ -101,23 +101,31 @@ for (const file of walk(root)) {
       report('unmotivated-glass', 'warn', file, blurMatches[0].index, text, 'Penggunaan blur/glassmorphism berulang; batasi hanya pada lapisan overlay fungsional (mis. header lengket di atas media).');
     }
 
-    // 8. Font proliferation: count distinct font family declarations (not total rules referencing var(--font-sans))
-    const familyMatches = [...noComments.matchAll(/font-family\s*:\s*([^;}{"']+)/gi)];
-    const distinctFamilies = new Set();
-    let thirdFamilyIndex = 0;
+    // 8. Font proliferation: allow max 2 proportional families + max 1 monospace family
+    const MONO_FONT_RE = /^(?:--font-(?:mono|code|monospace))|\b(?:mono|monospace|ui-monospace|jetbrains\s*mono|fira\s*code|sfmono-regular|menlo|consolas|courier|source\s*code\s*pro|ibm\s*plex\s*mono|inconsolata)\b/i;
+    const familyMatches = [...noComments.matchAll(/font-family\s*:\s*([^;}{\r\n<>]+)/gi)];
+    const distinctProportional = new Set();
+    const distinctMono = new Set();
+    let violationIndex = 0;
     for (const fm of familyMatches) {
       const rawFam = fm[1].trim();
       if (/^(?:inherit|initial|unset|revert)$/i.test(rawFam)) continue;
       const primaryTokenOrName = rawFam.startsWith('var(')
         ? rawFam.match(/var\(\s*(--[\w-]+)/)?.[1] || rawFam
         : rawFam.split(',')[0].trim().replace(/^['"]|['"]$/g, '').toLowerCase();
-      if (!distinctFamilies.has(primaryTokenOrName)) {
-        distinctFamilies.add(primaryTokenOrName);
-        if (distinctFamilies.size === 3) thirdFamilyIndex = fm.index;
+      if (MONO_FONT_RE.test(primaryTokenOrName) || MONO_FONT_RE.test(rawFam)) {
+        if (!distinctMono.has(primaryTokenOrName)) {
+          distinctMono.add(primaryTokenOrName);
+          if (distinctMono.size === 2 && !violationIndex) violationIndex = fm.index;
+        }
+      } else if (!distinctProportional.has(primaryTokenOrName)) {
+        distinctProportional.add(primaryTokenOrName);
+        if (distinctProportional.size === 3 && !violationIndex) violationIndex = fm.index;
       }
     }
-    if (distinctFamilies.size > 2) {
-      report('font-proliferation', 'error', file, thirdFamilyIndex, text, `Ditemukan ${distinctFamilies.size} keluarga huruf berbeda (${[...distinctFamilies].join(', ')}); batasi maksimal 2 keluarga huruf (display & teks isi).`);
+    if (distinctProportional.size > 2 || distinctMono.size > 1) {
+      const allDetected = [...distinctProportional, ...distinctMono].join(', ');
+      report('font-proliferation', 'error', file, violationIndex, text, `Ditemukan kelebihan keluarga huruf (${allDetected}); batasi maksimal 2 keluarga huruf proporsional (display & teks isi) + 1 monospace.`);
     }
 
     

@@ -12,7 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import http from "node:http";
-import { loadPlaywright, findBrowserExecutable } from "./browser-runtime.mjs";
+import { launchBrowser } from "./browser-runtime.mjs";
 
 const VIEWPORTS = [
   { name: "320-short", width: 320, height: 568, folds: false },
@@ -442,9 +442,7 @@ async function main() {
   let interactive = { status: "skipped", reason: "Not requested: audit is read-only by default", checks: [], issues: [] };
 
   try {
-    const pw = loadPlaywright();
-    const executablePath = findBrowserExecutable();
-    browser = await pw.chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
+    browser = await launchBrowser();
     const context = await browser.newContext();
     const page = await context.newPage();
     page.on("pageerror", (err) => consoleErrors.push(err.message));

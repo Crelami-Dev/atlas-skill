@@ -199,4 +199,67 @@ test('deterministic quality gates', async t => {
     assert.equal(lightPass.status, 0, lightPass.stdout + lightPass.stderr);
     assert.equal(JSON.parse(lightPass.stdout).overall, 'PASS');
   });
+
+  await t.test('2 proportional + 1 monospace font system passes tokens and slop-scan while 3 proportional fonts fail', () => {
+    const dir = path.join(tmp, 'fonts-3');
+    fs.mkdirSync(dir);
+    const deal = runNode('scripts/deal-direction.mjs', ['--prompt', 'restoran kopi nusantara', '--project', dir, '--write-tokens']);
+    assert.equal(deal.status, 0, deal.stderr);
+    const generatedTokens = fs.readFileSync(path.join(dir, 'design-tokens.css'), 'utf8');
+    assert.match(generatedTokens, /--font-display:/);
+    assert.match(generatedTokens, /--font-sans:/);
+    assert.match(generatedTokens, /--font-mono:/);
+
+    fs.writeFileSync(
+      path.join(dir, 'styles.css'),
+      'h1{font-family:var(--font-display)}body{font-family:var(--font-sans)}code{font-family:var(--font-mono)}'
+    );
+    fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html><body><h1>Judul</h1><code>v7.0</code></body></html>');
+    assert.equal(runNode('scripts/check-tokens.mjs', [dir, '--tokens', path.join(dir, 'design-tokens.css')]).status, 0);
+    assert.equal(runNode('skills/atlas-checker/scripts/slop-scan.mjs', [dir]).status, 0);
+
+    // 3 proportional fonts must still FAIL both gates
+    fs.writeFileSync(
+      path.join(dir, 'bad-tokens.css'),
+      ':root{--font-display:"Fraunces",serif;--font-sans:"Inter",sans-serif;--font-alt:"Lato",sans-serif}'
+    );
+    assert.equal(runNode('scripts/check-tokens.mjs', [dir, '--tokens', path.join(dir, 'bad-tokens.css')]).status, 1);
+    fs.writeFileSync(
+      path.join(dir, 'bad.html'),
+      '<!doctype html><html><head><style>h1{font-family:"Fraunces",serif}p{font-family:"Inter",sans-serif}.sub{font-family:"Lato",sans-serif}</style></head><body><h1>Test</h1></body></html>'
+    );
+    assert.equal(runNode('skills/atlas-checker/scripts/slop-scan.mjs', [dir]).status, 1);
+  });
+
+  await t.test('brownfield globals.css fallback, 68ch measure, inline SVG hex, and Tailwind classes pass gates', () => {
+    const bfDir = path.join(tmp, 'brownfield-tw');
+    fs.mkdirSync(path.join(bfDir, 'src/app'), { recursive: true });
+    fs.writeFileSync(
+      path.join(bfDir, 'src/app/globals.css'),
+      ':root{--color-bg:#f8fafc;--color-surface:#f1f5f9;--color-text:#0f172a;--font-sans:"Inter",sans-serif}prose{max-width:68ch}'
+    );
+    fs.writeFileSync(
+      path.join(bfDir, 'src/app/Page.tsx'),
+      `export default function Page() {
+        return (
+          <main className="bg-zinc-50 text-slate-900">
+            <section className="bg-white p-6">
+              <div className="bg-slate-900 text-white" style={{ maxWidth: '68ch', height: '100svh' }}>
+                <svg viewBox="0 0 120 40" data-viz="true"><rect x="4" y="8" width="40" height="24" fill="#1f5c46" /></svg>
+                <form>
+                  <input className="border rounded px-3 py-2" type="email" />
+                  <select className="border rounded px-3 py-2"><option>Monthly</option></select>
+                  <button className="bg-emerald-700 text-white px-4 py-2" type="submit">Save</button>
+                </form>
+              </div>
+            </section>
+          </main>
+        );
+      }`
+    );
+    const tokRes = runNode('scripts/check-tokens.mjs', [bfDir]);
+    assert.equal(tokRes.status, 0, tokRes.stdout + tokRes.stderr);
+    const vpRes = runNode('scripts/check-visual-proof.mjs', [bfDir, '--strict']);
+    assert.equal(vpRes.status, 0, vpRes.stdout + vpRes.stderr);
+  });
 });

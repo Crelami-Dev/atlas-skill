@@ -981,12 +981,15 @@ and optionally writes a pre-validated design-tokens.css + .atlas-direction.json.
 
   const displayFont = primary.fonts.display || primary.fonts.sans;
   const sansFont = primary.fonts.sans;
-  const secondFontLine = displayFont !== sansFont
-    ? `  --font-display: ${displayFont};\n  --font-sans: ${sansFont};`
-    : `  --font-sans: ${sansFont};\n  --font-mono: ${primary.fonts.mono};`;
+  const monoFont = primary.fonts.mono || "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+  const fontLines = [
+    `  --font-display: ${displayFont};`,
+    `  --font-sans: ${sansFont};`,
+    `  --font-mono: ${monoFont};`
+  ].join('\n');
 
   const tokensCss = `:root {
-${secondFontLine}
+${fontLines}
 
   --text-2xs: 0.6875rem;
   --text-xs: 0.78125rem;
@@ -1062,7 +1065,18 @@ ${secondFontLine}
   --duration-slow: 540ms;
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* 6. Styled Form & Interactive Controls */
+/* 6. Base Foundation, Editorial Specimen Plates, & Styled Form Controls */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background-color: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); font-size: var(--text-base); line-height: var(--leading-body, 1.6); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { font-family: var(--font-display, var(--font-sans)); line-height: var(--leading-tight, 1.12); letter-spacing: var(--tracking-tight, -0.025em); margin-top: 0; }
+code, pre, kbd, samp, .mono { font-family: var(--font-mono, ui-monospace, monospace); }
+img, svg, video, canvas { max-width: 100%; height: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border); }
+.editorial-plate, figure[data-photo-slot] { margin: 0; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background-color: var(--color-surface-elevated); overflow: hidden; }
+.editorial-plate-stage { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-4); padding: var(--space-6); min-height: 220px; background: radial-gradient(circle at 82% 18%, var(--color-surface-tint, var(--color-surface)), var(--color-surface) 72%); border-bottom: 1px solid var(--color-border); }
+.editorial-plate-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--text-xs); letter-spacing: var(--tracking-wide, 0.05em); text-transform: uppercase; color: var(--color-muted); }
+.editorial-plate figcaption, figure[data-photo-slot] > figcaption { padding: var(--space-3) var(--space-4); font-size: var(--text-xs); color: var(--color-muted); background-color: var(--color-surface-elevated); }
 input:not([type="checkbox"]):not([type="radio"]), select, textarea {
   appearance: none;
   -webkit-appearance: none;

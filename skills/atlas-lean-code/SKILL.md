@@ -1,6 +1,6 @@
 ---
 name: atlas-lean-code
-description: "Gunakan saat menulis kode frontend dengan HTML semantik, CSS Grid/Flexbox, manajemen state lokal yang ramping, dan pembersihan siklus hidup komponen di React, Next.js, Vue, Svelte, Astro, atau Vanilla JS. Jangan gunakan untuk perencanaan desain awal."
+description: "Write lean frontend code with semantic HTML, CSS Grid/Flexbox, narrow local state, and clean lifecycle teardown across React, Next.js, Vue, Svelte, Astro, or Vanilla JS (Gunakan saat menulis kode frontend dengan HTML semantik, CSS Grid/Flexbox, manajemen state lokal yang ramping, dan pembersihan siklus hidup komponen). Do not use for initial design planning."
 ---
 
 # Atlas Lean Code - Semantik Bersih & Manajemen State Ramping

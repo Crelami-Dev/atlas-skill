@@ -1,6 +1,6 @@
 ---
 name: atlas-checker
-description: "Gunakan saat menjalankan 5 pemeriksaan statis run-gates.mjs serta pengambilan dan inspeksi tangkapan layar browser multi-viewport sebelum menyerahkan proyek UI. Jangan gunakan untuk proyek tanpa kode antarmuka."
+description: "Run the 5 static run-gates.mjs validators plus multi-viewport browser screenshot and DOM aesthetic inspection before delivering any UI project (Gunakan saat menjalankan 5 pemeriksaan statis run-gates.mjs serta pengambilan dan inspeksi tangkapan layar browser multi-viewport sebelum menyerahkan proyek UI). Do not use for projects without web UI code."
 ---
 
 # Atlas Checker - Pemeriksaan Gate Terpadu & Verifikasi Tangkapan Layar

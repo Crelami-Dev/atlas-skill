@@ -1,6 +1,6 @@
 ---
 name: atlas-anti-slop
-description: "Gunakan saat menulis atau meninjau salinan teks, struktur komponen, dan gaya visual untuk mendeteksi serta menghapus 18 pola klise AI (slop) menggunakan slop-scan.mjs. Jangan gunakan untuk logika non-UI."
+description: "Review and refactor UI copy, component structure, and styling to eliminate 18 AI slop clichés using slop-scan.mjs (Gunakan saat menulis atau meninjau salinan teks, struktur komponen, dan gaya visual untuk mendeteksi serta menghapus 18 pola klise AI menggunakan slop-scan.mjs). Do not use for non-UI logic."
 ---
 
 # Atlas Anti-Slop - Pemeriksaan Pola Klise UI

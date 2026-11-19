@@ -1,6 +1,6 @@
 ---
 name: atlas-critic
-description: "Gunakan saat mengevaluasi kualitas akhir halaman web berdasarkan 7 sumbu rubrik desain, tipografi, aksesibilitas, dan kerapian kode untuk memberikan keputusan LOLOS/PASS atau PERBAIKI/FIX. Jangan gunakan sebelum pemeriksaan atlas-checker selesai."
+description: "Evaluate final rendered web page quality across the 7-axis design, typography, accessibility, and code leanness rubric to issue PASS/LOLOS or actionable FIX/PERBAIKI (Gunakan saat mengevaluasi kualitas akhir halaman web berdasarkan 7 sumbu rubrik untuk memberikan keputusan LOLOS/PASS atau PERBAIKI/FIX). Do not use before atlas-checker completes."
 ---
 
 # Atlas Critic - Evaluasi Rubrik 7 Sumbu
