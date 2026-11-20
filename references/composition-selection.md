@@ -1,32 +1,32 @@
-# Pemilihan Arketipe Struktural & Komposisi (Atlas v6.0)
+# Structural Archetype & Composition Selection (Atlas v7.0)
 
-Gunakan panduan ini sebelum menulis kode UI. Mengganti palet warna, jenis huruf, atau radius sudut di atas kerangka yang sama tidak dihitung sebagai desain yang berbeda. Setiap domain wajib memakai arketipe struktural yang sesuai dengan cara pengunjung mengevaluasi kontennya.
+Consult this guide before writing UI code. Swapping color palettes, typefaces, or corner radii on top of the exact same macro skeleton does not count as structural variety. Every domain must adopt a structural archetype suited to how its visitors evaluate information.
 
-## Aturan Keras Pembatasan Pola Workbench
+## Hard Rule: Restrict the Workbench Hero Pattern
 
-Pola **"hero 2 kolom + kartu workbench (search/filter/Reset)"** HANYA boleh digunakan untuk domain **aplikasi interaktif atau dashboard operasional** (`split-screen` aplikasi SaaS atau `dashboard-shell`). Pola tersebut dilarang dipakai pada halaman restoran, portofolio fotografer/arsitek, acara/festival, undangan pernikahan, firma hukum, klinik, travel, fashion, maupun halaman donasi/NGO.
+The **"2-column hero + search/filter/Reset workbench card"** pattern is restricted strictly to **interactive software applications and operational dashboards** (`split-screen` SaaS apps or `dashboard-shell`). Never force it onto restaurants, photographer/architect portfolios, events/festivals, weddings, law firms, clinics, travel itineraries, fashion lookbooks, or nonprofit/NGO pages.
 
-## 10 Arketipe Struktural Resmi
+## 10 Official Structural Archetypes
 
-| ID Arketipe | Struktur Utama | Kapan Dipakai (`whenToUse`) | Kapan Dilarang (`whenForbidden`) |
+| Archetype ID | Core Structure | When to Use (`whenToUse`) | When Forbidden (`whenForbidden`) |
 |---|---|---|---|
-| `editorial-index-rail` | Rail indeks bernomor di kiri + matriks area praktik/layanan (`01–04`) + direktori mitra & meja konsultasi | Firma hukum, konsultan manajemen/pajak, company profile korporat, lembaga kebijakan | Dilarang untuk toko ritel produk tunggal, dashboard real-time, atau undangan perayaan |
-| `poster-full-bleed` | Masthead poster tipografis selebar penuh (tanggal/lokasi raksasa atau panggung suasana ruang) + jadwal atau buku besar menu 2 kolom | Festival, konferensi, konser, acara publik, serta restoran/roastery/kafe | Dilarang untuk dashboard analitik, dokumentasi API, atau firma hukum/audit |
-| `split-screen` | Layar terbelah asimetris (`42/58`) yang menyandingkan proposisi produk dengan kalkulator/simulator aplikasi langsung | Aplikasi web SaaS, alat produktivitas/otomasi, simulator finansial B2B | Dilarang untuk restoran, portofolio foto, pernikahan, hukum, travel, atau halaman naratif |
-| `dashboard-shell` | App shell penuh viewport (`sidebar kiri + pita KPI + tabel operasional padat dengan filter + drawer detail`) tanpa hero promosi | Aplikasi operasional, logistik/armada, POS/kasir, CRM/ERP, konsol telemetri | Dilarang untuk landing page publik, restoran, portofolio, acara, atau company profile |
-| `ledger-table-first` | Header triase layanan langsung + matriks jadwal praktisi/tarif/suku bunga berbentuk tabel + protokol persiapan | Klinik kesehatan, rumah sakit, laboratorium, layanan keuangan/akuntansi, jadwal kursus | Dilarang untuk lookbook fashion, undangan pernikahan, atau galeri fotografi |
-| `narrative-long-scroll` | Kolom baca tunggal terpusat (`65ch–68ch`) + catatan margin + grafik alokasi inline + tabel audit distribusi & lembar komitmen | Yayasan/NGO, kampanye donasi, laporan tahunan, riset publik, jurnalisme data | Dilarang untuk e-commerce multi-varian, dashboard operasional, atau dokumentasi SDK |
-| `gallery-masonry` | Kolofon tipis + grid pelat karya asimetris multi-rasio (`16:9`, `4:5`, `1:1`) bernomor kuratorial (`01–06`) + lembar komisi | Portofolio fotografer, arsitektur, agensi kreatif, galeri seni, lookbook fashion | Dilarang memasang search bar/filter/Reset; dilarang untuk aplikasi B2B atau klinik |
-| `docs-three-pane` | 3 panel dokumentasi (`navigasi pohon kiri + referensi teknis & tab kode tengah + daftar isi kanan`) dimulai dari perintah instalasi | Dokumentasi SDK/API, CLI developer tools, library open-source, panduan infrastruktur | Dilarang untuk situs konsumen, restoran, acara, properti, atau portofolio visual |
-| `catalogue-grid` | Panggung produk/properti multi-sudut (`60/40`) atau grid unit terkurasi + pemilih varian/unit + tabel spesifikasi terukur | E-commerce produk fisik, katalog properti/real estate, katalog program pendidikan | Dilarang memakai timer kelangkaan palsu; halaman produk tunggal dilarang memakai toolbar filter katalog |
-| `timeline-story` | Sampul/lambang seremonial terpusat + alur waktu kronologis (rundown acara atau itinerary hari demi hari) + peta & RSVP/booking | Undangan pernikahan, perayaan, ekspedisi travel/tur wisata, linimasa sejarah brand | Dilarang memakai kartu harga SaaS, widget dashboard korporat, atau toolbar filter data |
+| `editorial-index-rail` | Sticky numbered left index rail + practice/service matrix (`01–04`) + partner directory & consultation desk | Law firms, management/tax consultancies, corporate profiles, policy institutes | Forbidden for single-product retail storefronts, real-time dashboards, or celebration invites |
+| `poster-full-bleed` | Full-width architectural or typographic poster masthead (oversized date/venue or atmospheric cover) + timetable or 2-column print menu | Festivals, conferences, concerts, public events, and hospitality venues (restaurants, roasteries, cafés) | Forbidden for analytics dashboards, API documentation, or law/audit firms |
+| `split-screen` | Asymmetric split screen (`42/58`) pairing product thesis with a live domain calculator or interactive estimator | B2B SaaS web apps, productivity/automation tools, financial simulators | Forbidden for restaurants, photo portfolios, weddings, legal firms, travel, or longform narratives |
+| `dashboard-shell` | Full-viewport app shell (`left sidebar + KPI strip + dense filterable data table + slide-over detail drawer`), zero marketing hero | Operational tools, logistics/fleet dispatch, POS, CRM/ERP workspaces, telemetry consoles | Forbidden for public landing pages, restaurants, portfolios, events, or corporate profiles |
+| `ledger-table-first` | Immediate service triage bar + structured practitioner/rate schedule matrix table + preparation protocol | Medical clinics, hospitals, labs, financial/accounting rate boards, course timetables | Forbidden for fashion lookbooks, wedding invitations, or photography monographs |
+| `narrative-long-scroll` | Centered single reading column (`65ch–68ch`) + margin callouts + inline allocation bar + audited distribution table & pledge sheet | Nonprofits/NGOs, donation campaigns, annual impact reports, public research, data journalism | Forbidden for multi-variant e-commerce stores, operational dashboards, or SDK docs |
+| `gallery-masonry` | Minimal top colophon + asymmetric multi-ratio exhibition plates (`16:9`, `4:5`, `1:1`) numbered curatorial `01–06` + commission sheet | Photography portfolios, architecture studios, creative agencies, art galleries, fashion lookbooks | Forbidden to include search bars/filter/Reset toolbars; forbidden for B2B apps or clinics |
+| `docs-three-pane` | 3-pane docs layout (`left nav tree + center technical guide & code tabs + right on-this-page TOC`), leading with install command | SDK/API documentation, developer CLIs, open-source libraries, infrastructure guides | Forbidden for consumer retail storefronts, restaurants, events, real estate, or portfolios |
+| `catalogue-grid` | Multi-angle product/property stage (`60/40`) or curated unit grid + variant/floorplan selector + measured specification table | Physical product e-commerce, real estate developments, structured course catalogs | Forbidden to use fake scarcity countdowns; single-product pages must not mount filter toolbars |
+| `timeline-story` | Centered ceremonial crest or expedition cover + chronological rundown/itinerary + venue/route map + RSVP/booking sheet | Wedding invitations, celebrations, travel/tour itineraries, cultural heritage timelines | Forbidden to use SaaS pricing tiers, corporate dashboard widgets, or data filter toolbars |
 
-## Menuliskan Tiga Alternatif di `design-brief.md`
+## Documenting Three Alternatives in `design-brief.md`
 
-1. Di bagian `## Tiga alternatif komposisi`, pilih **3 arketipe struktural yang berbeda** dari tabel di atas dan jelaskan apa yang dilihat pengunjung pada layar pertama untuk masing-masing alternatif.
-2. Di bagian `## Pilihan akhir dan alasan`, nyatakan `ID Arketipe` yang dipilih (sesuai keluaran `selectedArchetype.id` dari `scripts/deal-direction.mjs`) beserta alasan mengapa dua arketipe lainnya ditolak.
-3. Di bagian `## Hal yang sengaja ditolak dan kenapa`, catat pola yang dilarang oleh `selectedArchetype.whenForbidden` agar tidak bocor saat implementasi.
+1. Under `## Three composition alternatives`, pick **3 different structural archetypes** from the table above and describe what the visitor sees above the fold in each option.
+2. Under `## Final choice and rationale`, state the chosen `Archetype ID` (matching `selectedArchetype.id` from `scripts/deal-direction.mjs`) and explain why the other two alternatives were set aside.
+3. Under `## Deliberately rejected and why`, record every pattern forbidden by `selectedArchetype.whenForbidden` so none leak into implementation.
 
-## Variasi Penutup Halaman (Hindari Pola Seragam)
+## Vary Page Closers (Avoid Ending Uniformity)
 
-- Jangan mengakhiri seluruh domain dengan pita gelap 2-kolom (informasi di kiri, formulir kartu putih di kanan). Untuk hospitality/restoran (`linen-espresso-craft`), akhiri dengan pita terang/permukaan yang memisahkan jadwal sangrai dan meja reservasi dari gaya undangan pernikahan atau simposium.
+- Do not close every domain with a dark 2-column band (contact info on left, white form card on right). For hospitality/restaurants (`linen-espresso-craft`), close with a calm light or tinted surface band separating roasting schedules and group-table booking from event/wedding conventions.

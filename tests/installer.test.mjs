@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const source = path.resolve(__dirname, '..');
 const cli = path.join(source, 'bin/atlas-skill.mjs');
 const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'atlas-installer-test-'));
-const target = path.join(workspace, '.claude/skills/atlas-frontend-design');
+const target = path.join(workspace, '.claude/skills/atlas-skill');
 const run = (args, cwd = workspace) => spawnSync(process.execPath, [cli, ...args], { cwd, encoding: 'utf8' });
 const json = result => JSON.parse(result.stdout.split('\nRestart/reload')[0]);
 
@@ -21,15 +21,16 @@ test('installer lifecycle, multi-agent flags, QA suite, and boundaries', async t
     assert.match(run(['--help']).stdout, /--with-qa/);
   });
 
-  await t.test('list exposes all 11 core skills and 3 QA skills', () => {
+  await t.test('list exposes all 13 core skills (3 top-level + 10 internal modules) and 3 QA skills', () => {
     const result = run(['list']);
     assert.equal(result.status, 0, result.stderr);
     const data = json(result);
     assert.equal(data.version, '7.0.0');
-    assert.equal(data.skills.length, 11);
+    assert.deepEqual(data.topLevelSkills, ['atlas-skill', 'atlas-frontend', 'atlas-bug-hunter']);
+    assert.equal(data.skills.length, 13);
     assert.equal(data.qaSkills.length, 3);
-    assert.equal(data.projectDestinations.agents, '.agents/skills/atlas-frontend-design');
-    assert.equal(data.projectDestinations.antigravity, '.agents/skills/atlas-frontend-design');
+    assert.equal(data.projectDestinations.agents, '.agents/skills/atlas-skill');
+    assert.equal(data.projectDestinations.antigravity, '.agents/skills/atlas-skill');
   });
 
   await t.test('noninteractive missing target never guesses or writes', () => {
@@ -56,9 +57,14 @@ test('installer lifecycle, multi-agent flags, QA suite, and boundaries', async t
     assert.equal(data.status, 'installed');
     assert.equal(data.version, '7.0.0');
     assert.equal(data.target, target);
-    for (const relative of ['SKILL.md', 'skills/atlas-research/SKILL.md', 'references/typography.md', 'scripts/validate-package.mjs', 'docs/INSTALLATION.md', 'suites/project-qa/rules/qa-security-gate.md']) {
+    for (const relative of ['SKILL.md', 'skills/atlas-frontend/SKILL.md', 'skills/atlas-bug-hunter/SKILL.md', 'skills/atlas-research/SKILL.md', 'references/typography.md', 'scripts/validate-package.mjs', 'scripts/fetch-photos.mjs', 'docs/INSTALLATION.md', 'suites/project-qa/rules/qa-security-gate.md']) {
       assert.ok(fs.existsSync(path.join(target, relative)), relative);
     }
+    // Verify the 3 top-level skills are installed by default without exposing the 10 internal sub-skills
+    assert.ok(fs.existsSync(path.join(workspace, '.claude/skills/atlas-skill/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(workspace, '.claude/skills/atlas-frontend/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(workspace, '.claude/skills/atlas-bug-hunter/SKILL.md')));
+    assert.ok(!fs.existsSync(path.join(workspace, '.claude/skills/atlas-plan/SKILL.md')));
     for (const name of ['node_modules', '.git']) {
       assert.ok(!fs.existsSync(path.join(target, name)), name);
     }
@@ -110,7 +116,9 @@ test('installer lifecycle, multi-agent flags, QA suite, and boundaries', async t
     fs.mkdirSync(dir);
     const result = run(['install', '--agent', 'antigravity', '--with-rules', '--expose-subskills', '--with-qa'], dir);
     assert.equal(result.status, 0, result.stderr);
-    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-frontend-design/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-skill/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-frontend/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-bug-hunter/SKILL.md')));
     assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-motion-animejs/SKILL.md')));
     assert.ok(fs.existsSync(path.join(dir, '.agents/skills/project-bug-hunter/SKILL.md')));
     assert.ok(fs.existsSync(path.join(dir, '.agents/skills/project-security-auditor/SKILL.md')));
@@ -142,9 +150,11 @@ test('installer lifecycle, multi-agent flags, QA suite, and boundaries', async t
     fs.mkdirSync(dir);
     const result = run(['install', '--agent', 'all', '--with-rules', '--with-qa'], dir);
     assert.equal(result.status, 0, result.stderr);
-    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-frontend-design/SKILL.md')));
-    assert.ok(fs.existsSync(path.join(dir, '.claude/skills/atlas-frontend-design/SKILL.md')));
-    assert.ok(fs.existsSync(path.join(dir, '.cursor/skills/atlas-frontend-design/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-skill/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-frontend/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.agents/skills/atlas-bug-hunter/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.claude/skills/atlas-skill/SKILL.md')));
+    assert.ok(fs.existsSync(path.join(dir, '.cursor/skills/atlas-skill/SKILL.md')));
     assert.ok(fs.existsSync(path.join(dir, '.cursor/rules/atlas-frontend-gate.mdc')));
     assert.ok(fs.existsSync(path.join(dir, '.agents/rules/qa-security-gate.md')));
   });

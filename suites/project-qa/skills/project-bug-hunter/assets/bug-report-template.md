@@ -1,43 +1,43 @@
-# Laporan Audit Bug Projek: <Nama Projek>
+# Project Bug Audit Report: <Project Name>
 
-**Tanggal Audit:** <YYYY-MM-DD>
-**Status Kode Saat Ini:** Read-Only (Belum ada perubahan kode yang diterapkan - menunggu instruksi perbaikan)
+**Audit Date:** <YYYY-MM-DD>
+**Current Code Status:** Read-Only (No code modifications applied — awaiting fix approval)
 
-## 1. Ringkasan Eksekutif
+## 1. Executive Summary
 
-| Tingkat Keparahan | Jumlah Temuan | Ringkasan Dampak |
+| Severity | Finding Count | Impact Summary |
 | :--- | :---: | :--- |
-| Critical | 0 | Menyebabkan crash aplikasi, kehilangan data, atau fitur utama gagal total |
-| High | 0 | Fitur utama rusak pada skenario umum atau alur transaksi gagal |
-| Medium | 0 | Edge case gagal, error handling buruk, atau inkonsistensi state/UI |
-| Low | 0 | Masalah minor kualitas kode, performa ringan, atau tampilan |
+| Critical | 0 | Causes application crashes, data loss, or complete failure of core features |
+| High | 0 | Primary workflows break under normal use or transaction paths fail |
+| Medium | 0 | Edge cases fail, error handling degrades, or UI/state falls out of sync |
+| Low | 0 | Minor code quality, lightweight performance, or cosmetic layout issues |
 | **Total** | **0** | |
 
-## 2. Inventaris Fitur yang Diperiksa
+## 2. Inspected Feature Inventory
 
-Daftar seluruh fitur pada projek beserta status hasil pengecekan awal:
+Complete inventory of features across the project and their initial diagnostic status:
 
-- **[Nama Fitur 1]** (`path/file`): Status (Bermasalah / Normal) - Catatan singkat.
-- **[Nama Fitur 2]** (`path/file`): Status (Bermasalah / Normal) - Catatan singkat.
+- **[Feature Name 1]** (`path/file`): Status (Defective / Passing) — Brief note.
+- **[Feature Name 2]** (`path/file`): Status (Defective / Passing) — Brief note.
 
-## 3. Detail Temuan Bug dan Cara Mengatasinya
+## 3. Detailed Bug Findings & Remediation Steps
 
-### [BUG-01] <Judul Bug yang Spesifik>
+### [BUG-01] <Specific Bug Title>
 
-- **Tingkat Keparahan:** Critical / High / Medium / Low
-- **Lokasi File:** `path/to/file.ext:baris`
-- **Fitur Terdampak:** <Nama fitur>
-- **Skenario Reproduksi:**
-  1. Langkah pertama pemicu bug
-  2. Input atau kondisi spesifik
-  3. Hasil aktual vs hasil yang seharusnya
-- **Akar Masalah (Root Cause):** Penjelasan teknis mengapa bug ini terjadi.
-- **Cara Mengatasi (Solusi Teknis):**
-  Penjelasan langkah demi langkah perbaikan dan cuplikan solusi kode yang direkomendasikan.
-- **Analisis Kesiapan Perbaikan & Dampak ke Fitur Lain (Blast Radius):**
-  - File/modul terkait yang ikut terpengaruh jika diperbaiki: `path/related_file.ext`
-  - Hal yang perlu dijaga agar perbaikan tidak merusak fitur lain: <penjelasan>
+- **Severity:** Critical / High / Medium / Low
+- **File Location:** `path/to/file.ext:line`
+- **Affected Feature:** <Feature name>
+- **Reproduction Steps:**
+  1. Initial trigger action
+  2. Specific input or state condition
+  3. Actual outcome vs expected outcome
+- **Root Cause:** Technical explanation of why the defect occurs.
+- **How to Fix (Technical Remediation):**
+  Step-by-step fix instructions and recommended safe code snippet.
+- **Fix Readiness & Cross-Feature Impact Analysis (Blast Radius):**
+  - Related modules/callers affected by the fix: `path/related_file.ext`
+  - Guardrails required to avoid regressions in adjacent features: <notes>
 
-## 4. Menunggu Instruksi Perbaikan
+## 4. Awaiting Fix Approval
 
-Seluruh temuan di atas telah dianalisis beserta rencana perbaikannya tanpa mengubah file projek Anda saat ini. Balas apabila Anda mengizinkan perbaikan dikerjakan (seluruhnya atau nomor temuan tertentu), maka proses perbaikan, pengujian 100% fitur, dan analisis ulang menyeluruh akan dijalankan.
+All findings above have been analyzed with concrete remediation plans without modifying any project files. Reply if you approve applying these fixes (all findings or specific IDs), and full remediation, 100% feature testing, and whole-project re-auditing will proceed.

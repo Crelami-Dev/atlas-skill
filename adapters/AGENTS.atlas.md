@@ -1,9 +1,11 @@
-# Atlas Frontend Design & Optional QA Guardrail (v7.0.0)
+# Atlas 3-Skill Architecture & Quality Guardrail (v7.0.0)
 
-1. **Frontend Design & Motion Workflow (`atlas-frontend-design` v7.0.0):**
-   - Read and follow `.agents/skills/atlas-frontend-design/SKILL.md` (or `.claude/skills/atlas-frontend-design/SKILL.md`).
-   - Run `deal-direction.mjs` when host tokens do not exist yet, choose **Full Mode** or **Compact Track** (`<!-- atlas-brief: light -->` for small prompts), enforce WCAG AA contrast and 5-state UI views, use Anime.js v4 (`createScope`, `spring`, GPU transforms), and verify with `run-gates.mjs`.
-   - When a browser tool is available, capture and inspect desktop (`1440x900`), tablet (`820x1180`), and mobile (`375x667`) screenshots before concluding.
+1. **All-in-One Full Stack + Auto Bug Hunter (`/atlas-skill`):**
+   - Read and follow `.agents/skills/atlas-skill/SKILL.md` (or `.claude/skills/atlas-skill/SKILL.md`).
+   - Run `deal-direction.mjs`, fetch real licensed photography on visual domains (`scripts/fetch-photos.mjs`), enforce WCAG AA contrast, `65ch` measure, `>= 44px` tap targets, and Anime.js v4 motion (`createScope`), verify with `run-gates.mjs --visual` + `quick-check.mjs` + screenshot inspection, and **automatically run Bug Hunter + Security/CVE scan with immediate auto-remediation (`project-fix-and-verify`)**.
 
-2. **Optional Project QA Suite (`--with-qa` / `suites/project-qa/`):**
-   - For bug discovery or security auditing, run `project-bug-hunter` and `project-security-auditor` in read-only mode first, and only modify project files via `project-fix-and-verify` after explicit user approval.
+2. **Frontend-Only Orchestrator (`/atlas-frontend`):**
+   - Read and follow `.agents/skills/atlas-frontend/SKILL.md` when the user wants full frontend design, real photography, Anime.js v4 motion, and visual browser verification without running the Bug Hunter / Security CVE suite.
+
+3. **Dedicated Bug & Security Hunter + Smart Fix Switch (`/atlas-bug-hunter`):**
+   - Read and follow `.agents/skills/atlas-bug-hunter/SKILL.md`. Default to **Mode A (Read-Only Deep Hunt & `PROJECT-AUDIT-REPORT.md`)**, and automatically switch to **Mode B (`project-fix-and-verify` 100% feature testing & zero-defect re-audit)** whenever the user commands to fix/repair/patch issues.

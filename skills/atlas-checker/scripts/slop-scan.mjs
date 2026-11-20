@@ -7,7 +7,7 @@ const configFile = path.join(root, '.atlas-slop.json');
 const config = fs.existsSync(configFile) ? JSON.parse(fs.readFileSync(configFile, 'utf8')) : { disabled: {} };
 const disabled = config.disabled || {};
 const extensions = new Set(['.html', '.css', '.jsx', '.tsx', '.js', '.ts', '.vue', '.svelte', '.astro']);
-const ignoreDirs = new Set(['node_modules', '.git', '.agents', '.claude', '.cursor', '.windsurf', '.clinerules', 'dist', 'build', '.next', 'out', 'maintenance']);
+const ignoreDirs = new Set(['node_modules', '.git', '.agents', '.claude', '.cursor', '.windsurf', '.clinerules', '.atlas-skill-backups', 'dist', 'build', '.next', 'out', 'maintenance']);
 const findings = [];
 
 function report(id, level, file, index, text, advice) {
@@ -48,57 +48,57 @@ for (const file of walk(root)) {
 
   // 1. Hard-fail placeholder text
   for (const m of noComments.matchAll(PLACEHOLDER_REGEX)) {
-    report('placeholder-copy', 'error', file, m.index, text, `Ganti teks placeholder '${m[0]}' dengan konten nyata spesifik-domain dari brief (jangan tampilkan penanda instruksi developer di UI pengunjung).`);
+    report('placeholder-copy', 'error', file, m.index, text, `Replace placeholder copy '${m[0]}' with real domain-specific content from the brief (never leak developer notes to visitors).`);
   }
 
   // 2. Hard-fail Anime.js v3 hallucination in UI/motion code
   for (const m of noComments.matchAll(/import\s+(?:anime|\*\s+as\s+\w+)\s+from\s+['"]animejs['"]|\banime\s*\(\s*\{\s*targets\s*:|\banime\.(?:default|timeline|stagger)\s*\(/g)) {
-    report('animejs-v3-hallucination', 'error', file, m.index, text, "Jangan gunakan sintaks Anime.js v3. Gunakan named imports Anime.js v4: import { animate, createTimeline, createScope, stagger } from 'animejs'.");
+    report('animejs-v3-hallucination', 'error', file, m.index, text, "Do not use Anime.js v3 syntax. Use Anime.js v4 named imports: import { animate, createTimeline, createScope, stagger } from 'animejs'.");
   }
 
   if (['.html', '.css', '.jsx', '.tsx', '.vue', '.svelte', '.astro'].includes(ext)) {
     // 2b. Hard-fail leaked internal Atlas skill jargon in visible UI text
     const strippedScriptsStyles = noComments.replace(/<(?:script|style)\b[^>]*>[\s\S]*?<\/(?:script|style)>/gi, (s) => ' '.repeat(s.length));
     for (const m of strippedScriptsStyles.matchAll(/\b(?:ARCHETYPE:\s*[A-Z0-9-]+|SPLIT-SCREEN APPLICATION CALCULATOR|DEALT\s+DIRECTION|ATLAS-BRIEF|Zero fabricated testimonials|Tanpa ulasan bintang rekayasa|DISPATCH\s+v\d+)\b/gi)) {
-      report('leaked-skill-jargon', 'error', file, m.index, text, `Jangan bocorkan istilah internal skill (${m[0]}) ke UI pengunjung akhir; ganti dengan teks domain nyata.`);
+      report('leaked-skill-jargon', 'error', file, m.index, text, `Do not leak internal skill jargon (${m[0]}) into visitor-facing UI; replace with authentic domain copy.`);
     }
 
     // 2c. Hard-fail leaked developer photo placeholder instructions in UI markup/text
     for (const m of strippedScriptsStyles.matchAll(PHOTO_PLACEHOLDER_LEAK_REGEX)) {
-      report('leaked-photo-placeholder-ui', 'error', file, m.index, text, `Jangan tampilkan teks/kelas instruksi placeholder foto ('${m[0]}') di UI pengunjung; gunakan pelat spesimen editorial spesifik-domain dan tandai slot hanya lewat atribut data-photo-slot.`);
+      report('leaked-photo-placeholder-ui', 'error', file, m.index, text, `Do not render photo placeholder instruction ('${m[0]}') in visitor UI; use domain editorial specimen plates marked silently via data-photo-slot.`);
     }
-    for (const m of strippedScriptsStyles.matchAll(/<figure\b[^>]*\b(?:data-photo-placeholder|data-photo-slot)\b[^>]*>(?:(?!(?:<\/figure>|<section\b|<form\b))[\s\S])*?\bSubjek:\s+[^\n<]{10,}/gi)) {
-      report('leaked-photo-placeholder-ui', 'error', file, m.index, text, `Jangan tampilkan catatan brief internal ('Subjek: ...') di dalam slot media UI; tulis caption editorial nyata untuk pengunjung.`);
+    for (const m of strippedScriptsStyles.matchAll(/<figure\b[^>]*\b(?:data-photo-placeholder|data-photo-slot)\b[^>]*>(?:(?!(?:<\/figure>|<section\b|<form\b))[\s\S])*?\b(?:Subjek|Subject):\s+[^\n<]{10,}/gi)) {
+      report('leaked-photo-placeholder-ui', 'error', file, m.index, text, `Do not display internal brief notes ('Subjek:/Subject: ...') inside UI media slots; write an authentic visitor editorial caption.`);
     }
 
     // 3. AI copywriting clichés
     for (const m of noComments.matchAll(BUZZWORD_REGEX)) {
-      report('ai-buzzword-copy', 'warn', file, m.index, text, `Ganti klise pemasaran AI '${m[0]}' dengan kalimat faktual, objek konkret, dan kata kerja langsung.`);
+      report('ai-buzzword-copy', 'warn', file, m.index, text, `Replace AI marketing cliché '${m[0]}' with concrete nouns, measurable mechanisms, and direct verbs.`);
     }
 
     // 4. Emoji used inside interactive controls or headings
     for (const m of noComments.matchAll(/<(?:button|a|h1|h2|h3|nav)\b[^>]*>[^<]*[\u{1F300}-\u{1FAFF}\u{2728}\u{1F680}]/gu)) {
-      report('emoji-ui', 'warn', file, m.index, text, 'Hindari emoji sebagai ikon UI pada tombol/judul/navigasi; gunakan teks jelas atau ikon SVG terarah.');
+      report('emoji-ui', 'warn', file, m.index, text, 'Avoid using emojis as UI icons inside buttons, headings, or nav bars; use plain text or purposeful SVG icons.');
     }
 
     // 5. Generic purple-blue AI gradient (CSS + Tailwind classes)
     for (const m of noComments.matchAll(/(?:linear|radial)-gradient\([^)]*(?:#(?:6[0-9a-f]|7[0-9a-f]|8[0-9a-f])[0-9a-f]{4}|purple|indigo|violet)[^)]*(?:#(?:0[0-9a-f]|1[0-9a-f]|2[0-9a-f]|3[0-9a-f])[0-9a-f]{4}|blue|cyan)/gi)) {
-      report('generic-purple-blue-gradient', 'warn', file, m.index, text, 'Gradien ungu-biru generik terdeteksi; pastikan berasal dari identitas brand asli, bukan template bawaan AI.');
+      report('generic-purple-blue-gradient', 'warn', file, m.index, text, 'Generic purple-blue gradient detected; confirm it belongs to an authentic brand identity rather than a default AI template.');
     }
     for (const m of noComments.matchAll(/\bfrom-(?:indigo|purple|violet)-[4567]00\b[^\n"']*\bto-(?:blue|cyan|pink|fuchsia)-[4567]00\b/g)) {
-      report('generic-purple-blue-gradient', 'warn', file, m.index, text, 'Kelas gradien Tailwind ungu-biru generik terdeteksi; ganti dengan permukaan solid terstruktur atau palet brand nyata.');
+      report('generic-purple-blue-gradient', 'warn', file, m.index, text, 'Generic Tailwind purple-blue gradient detected; replace with structured solid surfaces or a brand palette.');
     }
 
     // 6. Gradient clipped headline spam
     const clipMatches = [...noComments.matchAll(/background-clip\s*:\s*text|\bbg-clip-text\b/gi)];
     if (clipMatches.length >= 2) {
-      report('gradient-text-spam', 'warn', file, clipMatches[1].index, text, 'Terlalu banyak teks bergradien (bg-clip-text); bangun hierarki lewat skala tipografi, kontras, dan posisi.');
+      report('gradient-text-spam', 'warn', file, clipMatches[1].index, text, 'Excessive gradient-clipped headlines (bg-clip-text); establish hierarchy via type scale, contrast, and placement.');
     }
 
     // 7. Unmotivated glassmorphism spam
     const blurMatches = [...noComments.matchAll(/backdrop-filter\s*:\s*blur|\bbackdrop-blur(?:-(?:sm|md|lg|xl|2xl|3xl))?\b/gi)];
     if (blurMatches.length > 2) {
-      report('unmotivated-glass', 'warn', file, blurMatches[0].index, text, 'Penggunaan blur/glassmorphism berulang; batasi hanya pada lapisan overlay fungsional (mis. header lengket di atas media).');
+      report('unmotivated-glass', 'warn', file, blurMatches[0].index, text, 'Repeated blur/glassmorphism detected; restrict backdrop-blur to functional overlay layers (such as sticky headers over media).');
     }
 
     // 8. Font proliferation: allow max 2 proportional families + max 1 monospace family
@@ -125,7 +125,7 @@ for (const file of walk(root)) {
     }
     if (distinctProportional.size > 2 || distinctMono.size > 1) {
       const allDetected = [...distinctProportional, ...distinctMono].join(', ');
-      report('font-proliferation', 'error', file, violationIndex, text, `Ditemukan kelebihan keluarga huruf (${allDetected}); batasi maksimal 2 keluarga huruf proporsional (display & teks isi) + 1 monospace.`);
+      report('font-proliferation', 'error', file, violationIndex, text, `Excess font families detected (${allDetected}); limit to max 2 proportional families (display & body) + 1 optional monospace.`);
     }
 
     
@@ -140,21 +140,21 @@ for (const file of walk(root)) {
         /<option\b[^>]*>[^<]*\bPopulated\b[^<]*<\/option>/i.test(selectInner) &&
         /<option\b[^>]*>[^<]*\b(?:Loading|Empty|Error|Zero[-\s]?Match)\b[^<]*<\/option>/i.test(selectInner)
       ) {
-        report('leaked-debug-state-switcher', 'error', file, m.index, text, 'Pemilih state debug (Populated/Loading/Empty/Error) tidak boleh tampil di UI produksi. Hapus atau sembunyikan dengan atribut hidden di balik ?debug=1.');
+        report('leaked-debug-state-switcher', 'error', file, m.index, text, 'Debug state switcher (Populated/Loading/Empty/Error) must not appear in production UI. Remove or hide behind ?debug=1.');
       }
     }
     const debugBtnMatches = [...noComments.matchAll(/<button\b([^>]*)>\s*(?:Populated|Loading|Empty(?:\s+State)?|Error(?:\s+State)?)\s*<\/button>/gi)];
     if (debugBtnMatches.length >= 3) {
       const allHidden = debugBtnMatches.every((bm) => /\bhidden\b/i.test(bm[1] || ''));
       if (!(allHidden && hasDebugParamGuard)) {
-        report('leaked-debug-state-switcher', 'error', file, debugBtnMatches[0].index, text, 'Grup tombol pemilih state debug (Populated/Loading/Empty/Error) terlihat di UI produksi. Sembunyikan di balik ?debug=1.');
+        report('leaked-debug-state-switcher', 'error', file, debugBtnMatches[0].index, text, 'Debug state-switcher button group (Populated/Loading/Empty/Error) is visible in production UI. Hide behind ?debug=1.');
       }
     }
 
     // 9. Repeated uniform card grids
     const cards = (noComments.match(/(?:class|className)=["'][^"']*(?:card|feature-box|bento-item)[^"']*["']/gi) || []).length;
     if (cards >= 3) {
-      report('repeated-card-grid', 'warn', file, Math.max(0, noComments.search(/card|feature-box|bento-item/i)), text, 'Periksa apakah kartu berulang memiliki fungsi keputusan berbeda atau sekadar mengisi grid 3-kolom generik.');
+      report('repeated-card-grid', 'warn', file, Math.max(0, noComments.search(/card|feature-box|bento-item/i)), text, 'Verify that repeated cards serve distinct decision functions rather than filling a generic 3-column grid.');
     }
   }
 }

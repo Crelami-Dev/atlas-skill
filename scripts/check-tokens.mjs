@@ -27,7 +27,7 @@ if (tokenFlag < 0 && !fs.existsSync(tokens)) {
 const configPath = path.join(root, '.atlas-token-allowlist.json');
 const allow = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')).files || [] : [];
 const styleExtensions = new Set(['.css', '.html', '.jsx', '.tsx', '.vue', '.svelte', '.astro']);
-const ignoreDirs = new Set(['node_modules', '.git', '.agents', '.claude', '.cursor', '.windsurf', '.clinerules', 'dist', 'build', '.next', 'out', 'maintenance']);
+const ignoreDirs = new Set(['node_modules', '.git', '.agents', '.claude', '.cursor', '.windsurf', '.clinerules', '.atlas-skill-backups', 'dist', 'build', '.next', 'out', 'maintenance']);
 const files = [];
 
 function walk(dir) {
@@ -47,7 +47,7 @@ function stripCommentsPreserveLength(str) {
 }
 
 if (!fs.existsSync(tokens)) {
-  console.error(`FAIL: token file tidak ditemukan: ${tokens}\nFIX: Salin templates/design-tokens.css ke proyek dan sesuaikan palet, skala tipografi, serta token motion sebelum mulai coding UI.`);
+  console.error(`FAIL: token file not found: ${tokens}\nFIX: Copy templates/design-tokens.css into the project and customize palette, typography scale, and motion tokens before writing UI code.`);
   process.exit(1);
 }
 
@@ -59,7 +59,7 @@ function isSafeScaleValue(rawVal) {
   if (!val) return true;
   if (/^(?:calc|clamp|min|max)\([\s\S]*var\(--[\w-]+\)[\s\S]*\)$/i.test(val)) return true;
   const parts = val.split(/\s+/);
-  const safeAtom = /^(?:0(?:px|rem|em|%|vh|vw|dvh|svh|lvh|ch)?|auto|inherit|initial|unset|revert|none|normal|50%|100%|fit-content|max-content|min-content|\d+(?:\.\d+)?ch|(?:100|50)(?:vh|vw|dvh|svh|lvh)|[12]px|\d+(?:\.\d+)?fr|var\(--[\w-]+(?:\s*,\s*[^)]+)?\))$/i;
+  const safeAtom = /^(?:0(?:px|rem|em|%|vh|vw|dvh|svh|lvh|ch)?|auto|inherit|initial|unset|revert|none|normal|50%|100%|fit-content|max-content|min-content|\d+(?:\.\d+)?ch|(?:100|50)(?:vh|vw|dvh|svh|lvh)|-?[12]px|\d+(?:\.\d+)?fr|var\(--[\w-]+(?:\s*,\s*[^)]+)?\))$/i;
   return parts.every((p) => safeAtom.test(p));
 }
 
@@ -79,7 +79,7 @@ for (const file of files) {
     const start = Math.max(0, match.index - 16);
     const prefix = colorScanText.slice(start, match.index);
     if (/(?:href|xlink:href|src|fill=["']url\(|stroke=["']url\()=["']?[^"']*$/i.test(prefix)) continue;
-    errors.push(`${rel}:${lineOf(match.index)} raw color '${match[0]}' -> gunakan CSS custom property dari design-tokens.css (mis. var(--color-accent))`);
+    errors.push(`${rel}:${lineOf(match.index)} raw color '${match[0]}' -> use a CSS custom property from design-tokens.css (e.g., var(--color-accent))`);
   }
 
   // Inspect CSS declarations in .css files, <style> blocks, AND inline style="..." attributes
@@ -99,7 +99,7 @@ for (const file of files) {
     for (const match of block.content.matchAll(/(?<![\w-])(font-size|margin(?:-(?:top|right|bottom|left|inline|block))?|padding(?:-(?:top|right|bottom|left|inline|block))?|gap|row-gap|column-gap|border-radius)\s*:\s*([^;}{"']+)/gi)) {
       const value = match[2].trim();
       if (!isSafeScaleValue(value)) {
-        errors.push(`${rel}:${lineOf(block.offset + match.index)} raw scale value '${match[1]}: ${value}' -> gunakan var(--space-*), var(--text-*), atau var(--radius-*)`);
+        errors.push(`${rel}:${lineOf(block.offset + match.index)} raw scale value '${match[1]}: ${value}' -> use var(--space-*), var(--text-*), or var(--radius-*)`);
       }
     }
   }
@@ -120,14 +120,14 @@ for (const m of tokenText.matchAll(/(--font-[\w-]+)\s*:\s*([^;]+)/g)) {
   }
 }
 if (proportionalFamilies.size > 2) {
-  errors.push(`${path.relative(root, tokens)}: ditemukan lebih dari 2 font proporsional (${[...proportionalFamilies].join(', ')}) -> batasi maksimal 2 peran proporsional (display & sans/body)`);
+  errors.push(`${path.relative(root, tokens)}: found more than 2 proportional font families (${[...proportionalFamilies].join(', ')}) -> limit to max 2 proportional roles (display & sans/body)`);
 }
 if (monoFamilies.size > 1) {
-  errors.push(`${path.relative(root, tokens)}: ditemukan lebih dari 1 font monospace (${[...monoFamilies].join(', ')}) -> batasi maksimal 1 peran monospace`);
+  errors.push(`${path.relative(root, tokens)}: found more than 1 monospace font family (${[...monoFamilies].join(', ')}) -> limit to max 1 monospace role`);
 }
 
 if (errors.length) {
-  console.error(`FAIL: ${errors.length} pelanggaran design token ditemukan:\n${errors.slice(0, 40).join('\n')}`);
+  console.error(`FAIL: ${errors.length} design token violation(s) found:\n${errors.slice(0, 40).join('\n')}`);
   process.exitCode = 1;
 } else {
   console.log('PASS: token usage valid');

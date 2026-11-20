@@ -9,9 +9,9 @@ Perform a deep, read-only application security audit combining static source-to-
 
 ## Decision Tree
 
-- **User asks to check security / find vulnerabilities ONLY** (`cari celah keamanan`, `audit keamanan`, `cek security`): Execute Steps 1 through 6 below in strictly read-only mode, deliver `LAPORAN-AUDIT-KEAMANAN.md`, and wait for user approval.
-- **User asks to check BOTH bugs AND security** (`cari bug dan celah keamanan`, `audit projek menyeluruh`): Run both `project-bug-hunter` and `project-security-auditor` and deliver a unified `LAPORAN-AUDIT-PROJEK.md`, waiting for user instruction before patching.
-- **User explicitly commands to FIX / PATCH vulnerabilities** (`benerin`, `perbaiki celah keamanan`, `patch semua`): Load and execute `project-fix-and-verify`.
+- **User asks to check security / find vulnerabilities ONLY** (`audit security`, `find vulnerabilities`, `security check`): Execute Steps 1 through 6 below in strictly read-only mode, deliver `SECURITY-AUDIT-REPORT.md`, and wait for user approval.
+- **User asks to check BOTH bugs AND security** (`find bugs and security vulnerabilities`, `full project audit`): Run both `project-bug-hunter` and `project-security-auditor` and deliver a unified `PROJECT-AUDIT-REPORT.md`, waiting for user instruction before patching.
+- **User explicitly commands to FIX / PATCH vulnerabilities** (`fix security issues`, `patch vulnerabilities`, `fix all`): Load and execute `project-fix-and-verify`.
 
 ## Path Resolution
 
@@ -61,6 +61,6 @@ Investigate exact fixes before writing the report so you are ready if instructed
 
 ### Step 6: Deliver the Markdown Security Report and Wait for Approval
 
-1. Follow [security-report-template.md](assets/security-report-template.md) to create `LAPORAN-AUDIT-KEAMANAN.md` (or merge into `LAPORAN-AUDIT-PROJEK.md` alongside `project-bug-hunter`) in the user's language.
-2. Cite exact `file:line` locations, CVE/GHSA identifiers and advisory URLs, realistic attack scenarios, step-by-step hardening instructions (`Cara Mengatasi`), and compatibility notes. Redact real secret values (`sk_live_****abcd`).
+1. Follow [security-report-template.md](assets/security-report-template.md) to create `SECURITY-AUDIT-REPORT.md` (or merge into `PROJECT-AUDIT-REPORT.md` alongside `project-bug-hunter`) in the user's language.
+2. Cite exact `file:line` locations, CVE/GHSA identifiers and advisory URLs, realistic attack scenarios, step-by-step hardening instructions, and compatibility notes. Redact real secret values (`sk_live_****abcd`).
 3. Present the `.md` report and **wait for explicit user instruction** before running `project-fix-and-verify`.

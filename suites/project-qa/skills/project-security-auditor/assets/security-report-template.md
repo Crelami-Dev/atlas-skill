@@ -1,42 +1,42 @@
-# Laporan Audit Keamanan Projek: <Nama Projek>
+# Project Security Audit Report: <Project Name>
 
-**Tanggal Audit:** <YYYY-MM-DD>
-**Postur Risiko Saat Ini:** Critical / High / Medium / Low
-**Status Kode Saat Ini:** Read-Only (Belum ada perubahan kode yang diterapkan - menunggu instruksi perbaikan)
+**Audit Date:** <YYYY-MM-DD>
+**Current Risk Posture:** Critical / High / Medium / Low
+**Current Code Status:** Read-Only (No code modifications applied — awaiting fix approval)
 
-## 1. Ringkasan Eksekutif Keamanan
+## 1. Security Executive Summary
 
-| Tingkat Keparahan | Jumlah Celah | Ringkasan Risiko Serangan |
+| Severity | Finding Count | Attack Risk Summary |
 | :--- | :---: | :--- |
-| Critical | 0 | Pengambilalihan sistem/akun penuh, kebocoran data sensitif, RCE, atau SQLi |
-| High | 0 | Bypass otorisasi (IDOR), XSS tersimpan, kebocoran kredensial, atau SSRF |
-| Medium | 0 | Konfigurasi CORS/CSRF lemah, ketiadaan rate limit, atau validasi input parsial |
-| Low | 0 | Hardening header HTTP, informasi versi terekspos, atau praktik best-practice |
+| Critical | 0 | Full system/account takeover, sensitive credential leak, RCE, or SQLi |
+| High | 0 | Authorization bypass (IDOR), stored XSS, exposed secrets, or SSRF |
+| Medium | 0 | Weak CORS/CSRF configuration, missing rate limiting, or partial input validation |
+| Low | 0 | HTTP header hardening, exposed version banners, or defense-in-depth improvements |
 | **Total** | **0** | |
 
-## 2. Peta Permukaan Serangan (Attack Surface) yang Dianalisis
+## 2. Analyzed Attack Surface Map
 
-- **Autentikasi & Sesi:** <ringkasan mekanisme yang diperiksa>
-- **Endpoint / Input Publik & Privat:** <daftar modul/route yang diaudit>
-- **Penyimpanan Data & Kredensial:** <database, file upload, environment variables>
-- **Integrasi Eksternal & Dependensi:** <paket pihak ketiga / webhook / API luar>
+- **Authentication & Sessions:** <summary of checked handlers>
+- **Public & Private Endpoints / Inputs:** <list of audited routes/modules>
+- **Data Storage & Secrets:** <database, uploads, environment variables>
+- **External Integrations & Dependencies:** <third-party packages / webhooks / external APIs>
 
-## 3. Detail Celah Keamanan dan Cara Mengatasinya
+## 3. Detailed Security Findings & Remediation Steps
 
-### [SEC-01] <Judul Celah Keamanan>
+### [SEC-01] <Vulnerability Title>
 
-- **Tingkat Keparahan:** Critical / High / Medium / Low
-- **Kategori:** <Contoh: OWASP A01 - Broken Access Control / IDOR>
-- **Lokasi File:** `path/to/file.ext:baris`
-- **Skenario Serangan (Bagaimana Celah Bisa Dieksploitasi):**
-  Penjelasan konkret alur serangan dari input penyerang hingga dampak yang ditimbulkan.
-- **Akar Kerentanan:** Mengapa kode saat ini rentan.
-- **Cara Mengatasi (Remediasi & Hardening):**
-  Langkah perbaikan konkret beserta contoh pola kode yang aman.
-- **Analisis Kesiapan Patch & Dampak ke Fitur Lain:**
-  - Konfigurasi / environment variable / fitur lain yang perlu disesuaikan saat patch dipasang: <penjelasan>
-  - Cara memastikan fitur asli tetap berjalan normal setelah diamankan: <penjelasan>
+- **Severity:** Critical / High / Medium / Low
+- **Category:** <e.g., OWASP A01 - Broken Access Control / IDOR>
+- **File Location:** `path/to/file.ext:line`
+- **Attack Scenario (How It Can Be Exploited):**
+  Concrete attack path from attacker-controlled input to impact.
+- **Root Vulnerability:** Why the current implementation is vulnerable.
+- **How to Fix (Remediation & Hardening):**
+  Concrete remediation steps with secure code patterns or upgraded package versions.
+- **Patch Compatibility & Feature Impact Analysis:**
+  - Config / environment variables / callers needing updates when applying the patch: <notes>
+  - How to ensure legitimate workflows continue working safely after hardening: <notes>
 
-## 4. Menunggu Instruksi Perbaikan
+## 4. Awaiting Fix Approval
 
-Laporan keamanan dan rencana patch di atas telah disiapkan tanpa memodifikasi kode projek Anda. Balas jika Anda ingin perbaikan keamanan dikerjakan sekarang, maka proses patching, pengujian 100% seluruh fitur projek, dan audit keamanan ulang menyeluruh akan dijalankan.
+All security findings and pre-planned hardening patches above have been prepared without altering project files. Reply to authorize remediation, and patching, 100% all-feature testing, and a complete post-fix security re-audit will be executed.

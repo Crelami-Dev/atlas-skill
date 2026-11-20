@@ -451,7 +451,7 @@ async function main() {
     });
 
     page.on("response", (res) => {
-      if (res.status() >= 400) resources.push(`${res.status()} ${res.url()}`);
+      if (res.status() >= 400 && !res.url().endsWith("/favicon.ico")) resources.push(`${res.status()} ${res.url()}`);
     });
     page.on("requestfailed", (req) => resources.push(`${req.failure()?.errorText} ${req.url()}`));
     await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 30000 });

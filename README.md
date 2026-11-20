@@ -9,12 +9,12 @@ Engineered with **deterministic CLI phase gates** and **side-by-side Bad-vs-Good
 Requires **Node.js 18+** (Node 22 LTS recommended) with zero runtime npm dependencies.
 
 ```sh
-# Install into OpenAI Codex or Google Antigravity IDE (.agents/skills/ + optional rules)
-node bin/atlas-skill.mjs install --agent antigravity --with-rules --expose-subskills
-node bin/atlas-skill.mjs install --agent codex --with-rules --expose-subskills
+# Install the 3 focused top-level skills (/atlas-skill, /atlas-frontend, /atlas-bug-hunter) into OpenAI Codex or Google Antigravity IDE
+node bin/atlas-skill.mjs install --agent antigravity --with-rules
+node bin/atlas-skill.mjs install --agent codex --with-rules
 
 # Install into Anthropic Claude Code (.claude/skills/)
-node bin/atlas-skill.mjs install --agent claude --expose-subskills
+node bin/atlas-skill.mjs install --agent claude
 
 # Install into Cursor (.cursor/skills/ + .cursor/rules/*.mdc)
 node bin/atlas-skill.mjs install --agent cursor --with-rules
@@ -25,27 +25,35 @@ node bin/atlas-skill.mjs install --agent cline --with-rules
 node bin/atlas-skill.mjs install --agent copilot
 
 # Install to ALL major project agent folders at once (.agents + .claude + .cursor + rules)
-node bin/atlas-skill.mjs install --agent all --with-rules --expose-subskills
+node bin/atlas-skill.mjs install --agent all --with-rules
 
 # Workstation-wide GLOBAL install (active across every project on your machine!)
-node bin/atlas-skill.mjs install --agent antigravity --global --with-rules --expose-subskills
-node bin/atlas-skill.mjs install --agent claude --global --expose-subskills
-node bin/atlas-skill.mjs install --agent codex --global --expose-subskills
+node bin/atlas-skill.mjs install --agent antigravity --global --with-rules
+node bin/atlas-skill.mjs install --agent claude --global
+node bin/atlas-skill.mjs install --agent codex --global
 ```
 
 Or install directly via `npx` from GitHub (or npm) into any target project:
 
 ```sh
-# Install Frontend + QA & Security Suite + Rules + Sub-skills into all major agents:
-npx --yes github:Crelami-Dev/atlas-skill install --agent all --with-rules --expose-subskills --with-qa
+# Install the 3 top-level Atlas skills + Rules into all major agents:
+npx --yes github:Crelami-Dev/atlas-skill install --agent all --with-rules
 
 # Or install globally for Google Antigravity IDE:
-npx --yes github:Crelami-Dev/atlas-skill install --agent antigravity --global --with-rules --expose-subskills --with-qa
+npx --yes github:Crelami-Dev/atlas-skill install --agent antigravity --global --with-rules
 ```
 
-## Architecture: 1 Orchestrator + 10 Focused Modules (+ Optional QA Suite)
+## Architecture: 3 Focused Top-Level Entrypoint Skills + 10 Internal Modules
 
-Start at [SKILL.md](SKILL.md). Each phase loads only the module required at that moment to keep context lean:
+By default, Atlas installs **3 clean top-level skills** so your IDE slash-command menu stays uncluttered while every command runs a complete, self-checking pipeline:
+
+| Top-Level Skill | Slash Command | Responsibility |
+|---|---|---|
+| [atlas-skill](SKILL.md) | `/atlas-skill` | **Full All-in-One Orchestrator:** Runs Frontend Design, Real Licensed Photography (`fetch-photos.mjs`), CSS Tokens, Anime.js v4 Motion, Visual Browser Verification **+ Automatic Bug Hunter & Security/CVE Audit + Immediate Auto-Fix** |
+| [atlas-frontend](skills/atlas-frontend/SKILL.md) | `/atlas-frontend` | **Dedicated Frontend Orchestrator:** Runs Phases 0–6 end-to-end (Design, Real Photography, CSS Tokens, Anime.js v4 Motion, and mandatory `run-gates.mjs --visual` + `quick-check.mjs` + `atlas-critic`) **without** Bug Hunter / Security CVE scans |
+| [atlas-bug-hunter](skills/atlas-bug-hunter/SKILL.md) | `/atlas-bug-hunter` | **Dedicated Bug & Security Hunter + Smart Fix Switch:** **Mode A (Default Read-Only):** Deep functional/UI bug + OWASP/live-CVE discovery & Markdown report (`PROJECT-AUDIT-REPORT.md`). **Mode B (When commanded to fix/repair):** Automatically executes [project-fix-and-verify](suites/project-qa/skills/project-fix-and-verify/SKILL.md) with 100% feature testing and zero-defect re-audit |
+
+Each top-level orchestrator automatically loads the 10 internal phase modules as needed:
 
 | Module | Responsibility |
 |---|---|
@@ -97,11 +105,11 @@ See [installation & multi-agent setup](docs/INSTALLATION.md), [Anime.js v4 playb
 
 ## Empirical Evaluation Status (Independent Blind A/B Benchmark)
 
-Evaluasi buta oleh sesi juri independen (menggunakan [protokol evaluasi](evals/run-protocol.md) dan [rubrik penilaian](evals/rubric.md) pada 10 kasus A/B dengan Baseline A non-stub yang dibangun bersih tanpa skill) mencatat hasil berikut pada putaran ke-3 (lihat [ringkasan evaluasi independen](evals/independent-eval-2026-11-18.md) dan [data JSON](evals/independent-eval-2026-11-18.json)):
+Blind evaluation conducted by an independent judge session (using the [evaluation protocol](evals/run-protocol.md) and [scoring rubric](evals/rubric.md) across 10 A/B cases with non-stub Baseline A pages built cleanly without the skill) recorded the following Round 3 results (see [independent evaluation summary](evals/independent-eval-2026-11-18.md) and [JSON data](evals/independent-eval-2026-11-18.json)):
 
-- **Skor rata-rata (Putaran 3):** Baseline A **2.99 / 5.00** (`209/70`) vs Atlas B **4.04 / 5.00** (`283/70`), dengan **B menang di 10 dari 10 kasus**.
-- **Keberagaman layout:** Memenuhi batas keberagaman (tidak ada lebih dari 2 pasangan B yang dinilai berkerangka sama).
-- **Temuan terbuka Putaran 3 (`v6.1.0`) & status `v7.0.0`:** Pada `v6.1.0`, juri independen Putaran 3 menilai badge `"GANTI DENGAN FOTO ASLI"` di UI pengunjung pada 5/10 kasus domain visual sebagai cacat placeholder. Pada **`v7.0.0`**, instruksi badge tersebut telah dihapus dari `references/imagery.md` dan diblokir otomatis lewat aturan `leaked-photo-placeholder-ui` di `slop-scan.mjs`, `check-visual-proof.mjs`, `quick-check.mjs`, dan `visual_dom_inspector.py`; hasil empiris baru masih menunggu putaran evaluasi buta independen berikutnya. Artefak mentah `evals/results/` dan `evals/archive-invalid/` tetap dikecualikan dari paket distribusi.
+- **Mean score (Round 3):** Baseline A **2.99 / 5.00** (`209/70`) vs Atlas B **4.04 / 5.00** (`283/70`), with **B winning 10 out of 10 cases**.
+- **Layout diversity:** Met the diversity threshold (no more than 2 B-side pairs sharing the same macro skeleton).
+- **Round 3 open finding (`v6.1.0`) & `v7.0.0` status:** On `v6.1.0`, the independent Round 3 judge flagged the visible `"GANTI DENGAN FOTO ASLI"` (`"REPLACE WITH REAL PHOTO"`) badge in visitor-facing UI across 5/10 visual-domain cases as a critical placeholder defect. In **`v7.0.0`**, that badge instruction has been removed from `references/imagery.md` and is automatically blocked via the `leaked-photo-placeholder-ui` rule in `slop-scan.mjs`, `check-visual-proof.mjs`, `quick-check.mjs`, and `visual_dom_inspector.py`; fresh empirical results await the next independent blind evaluation round. Raw `evals/results/` and `evals/archive-invalid/` artifacts remain excluded from the distribution package.
 
 ## Repository Validation
 

@@ -72,7 +72,7 @@ def verify_post_fix(target: str, out_dir: str):
 
         if out["regressions"]:
             out["status"] = "FAIL"
-        out["vision_gate"] = "MANDATORY: Inspect 'post_fix_screenshots' via view_file / Read before issuing LAPORAN-VERIFIKASI-PERBAIKAN.md!"
+        out["vision_gate"] = "MANDATORY: Inspect 'post_fix_screenshots' via view_file / Read before issuing FIX-VERIFICATION-REPORT.md!"
         return out
     finally:
         driver.quit()

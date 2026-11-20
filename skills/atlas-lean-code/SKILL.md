@@ -1,31 +1,31 @@
 ---
 name: atlas-lean-code
-description: "Write lean frontend code with semantic HTML, CSS Grid/Flexbox, narrow local state, and clean lifecycle teardown across React, Next.js, Vue, Svelte, Astro, or Vanilla JS (Gunakan saat menulis kode frontend dengan HTML semantik, CSS Grid/Flexbox, manajemen state lokal yang ramping, dan pembersihan siklus hidup komponen). Do not use for initial design planning."
+description: "Use when writing frontend code with semantic HTML, CSS Grid/Flexbox, narrow local state, and clean lifecycle teardown across React, Next.js, Vue, Svelte, Astro, or Vanilla JS. Do not use for initial design planning."
 ---
 
-# Atlas Lean Code - Semantik Bersih & Manajemen State Ramping
+# Atlas Lean Code — Clean Semantics & Narrow State
 
-Kode yang sederhana dan mengikuti standar platform web lebih mudah dipelihara serta jarang mengalami bug tampilan lintas ukuran layar.
+Simple, web-platform-first code is easier to maintain and suffers far fewer cross-viewport layout regressions.
 
-## 1. Periksa Konvensi Proyek Host Lebih Dulu
+## 1. Inspect Host Conventions First
 
-- Baca `package.json`, `tsconfig.json`, struktur folder (`app/`, `pages/`, `src/`), serta konfigurasi CSS yang sudah ada sebelum menambah file baru agar implementasi selaras dengan arsitektur repositori.
-- Gunakan komponen bawaan framework yang sudah terpasang (`next/image`, `next/font`, router bawaan) daripada membuat ulang utilitas serupa.
+- Read `package.json`, `tsconfig.json`, folder layout (`app/`, `pages/`, `src/`), and existing CSS setup before adding files so new work blends cleanly into the repository.
+- Reuse built-in framework primitives (`next/image`, `next/font`, native router) instead of reimplementing custom utilities.
 
-## 2. Tangga Kesederhanaan Implementasi
+## 2. Implementation Simplicity Ladder
 
-Pilih lapisan paling dasar yang mampu memenuhi kebutuhan interaksi secara utuh karena abstraksi JavaScript yang berlebihan memperbesar ukuran bundle dan risiko bug state:
+Pick the lowest-complexity layer that satisfies the interaction completely, because heavy JS abstractions inflate bundles and state bugs:
 
-1. **HTML5 Semantik:** Gunakan `<main>`, `<nav>`, `<header>`, `<section aria-labelledby>`, `<button type="button">`, `<a href>`, `<details>/<summary>`, dan `<dialog>`.
-2. **Tata Letak CSS Modern:** Gunakan CSS Grid (`minmax(0, 1fr)`), Flexbox (`gap`), `clamp()`, `aspect-ratio`, dan variabel `design-tokens.css`. Jangan menghitung lebar kolom dengan listener `resize` JavaScript karena CSS menangani reflow secara jauh lebih cepat.
-3. **State Lokal Sempit:** Simpan state di komponen interaktif terkecil dan hitung daftar terfilter atau total secara turunan (`useMemo` / `computed`) agar tidak terjadi ketidakcocokan sinkronisasi antar-state.
-4. **Pembersihan Animasi:** Isolasi animasi Anime.js v4 di dalam `createScope({ root })` dan panggil `scope.revert()` saat unmount (lihat [atlas-motion-animejs](../atlas-motion-animejs/SKILL.md)).
+1. **Semantic HTML5:** Use `<main>`, `<nav>`, `<header>`, `<section aria-labelledby>`, `<button type="button">`, `<a href>`, `<details>/<summary>`, and `<dialog>`.
+2. **Modern CSS Layout:** Use CSS Grid (`minmax(0, 1fr)`), Flexbox (`gap`), `clamp()`, `aspect-ratio`, and `design-tokens.css` variables. Never measure column widths in JS `resize` listeners when CSS handles reflow natively.
+3. **Narrow Local State:** Keep state inside the smallest owning component and derive filtered lists or totals (`useMemo` / `computed`) instead of duplicating state.
+4. **Motion Cleanup:** Isolate Anime.js v4 calls inside `createScope({ root })` and invoke `scope.revert()` on unmount (see [atlas-motion-animejs](../atlas-motion-animejs/SKILL.md)).
 
-## 3. Pencegahan 6 Bug Umum Frontend
+## 3. Preventing 6 Common Frontend Bugs
 
-- **Luapan Teks pada Flex/Grid:** Tambahkan `min-width: 0` pada elemen anak flex/grid yang memuat judul panjang, URL, atau tabel agar konten membungkus dengan rapi pada layar `320px`.
-- **Balapan Request Async / Klik Ganda:** Nonaktifkan tombol kirim saat `isSubmitting` bernilai aktif dan gunakan `AbortController` pada pencarian cepat agar respons lama tidak menimpa hasil terbaru.
-- **Key List yang Stabil:** Gunakan ID unik item (`item.id`) sebagai `key` pada daftar yang dapat difilter atau diurutkan karena penggunaan indeks array menyebabkan bug tampilan dan animasi yang salah sasaran.
-- **Kontrol Aksesibel:** Berikan `aria-label` pada tombol yang hanya berisi ikon dan pastikan indikator fokus (`:focus-visible`) terlihat jelas untuk navigasi keyboard.
-- **Aset Valid:** Pastikan setiap path gambar, SVG, dan font yang dirujuk benar-benar ada di disk agar tidak menimbulkan error `404`.
-- **Perapian Akhir:** Hapus import yang tidak terpakai, kelas CSS mati, dan `console.log` debug sebelum menyerahkan hasil.
+- **Flex/Grid Overflow:** Add `min-width: 0` on flex/grid children holding long headings, URLs, or tables so content wraps cleanly at `320px`.
+- **Async Race Conditions / Double Submit:** Disable submit buttons while `isSubmitting` is active and use `AbortController` on live search so stale responses never overwrite newer results.
+- **Stable List Keys:** Use unique entity IDs (`item.id`) rather than array indices as `key` props in filterable or sortable lists.
+- **Accessible Controls:** Add `aria-label` on icon-only buttons and maintain crisp `:focus-visible` outlines for keyboard navigation.
+- **Valid Asset Paths:** Verify every referenced image, SVG, and font exists on disk to prevent `404` console errors.
+- **Final Cleanup:** Remove unused imports, dead CSS classes, and stray `console.log` statements before delivery.

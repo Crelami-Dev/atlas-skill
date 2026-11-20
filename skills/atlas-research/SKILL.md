@@ -1,26 +1,26 @@
 ---
 name: atlas-research
-description: "Conduct domain reference research and UI mechanism comparisons before designing a new project in an unfamiliar domain (Gunakan saat membutuhkan riset referensi domain atau perbandingan pola antarmuka sebelum mendesain proyek baru pada domain yang belum dikenal). Do not use for small, obvious prompts or bug fixes."
+description: "Use when conducting domain reference research and UI mechanism comparisons before designing a new project in an unfamiliar domain. Do not use for small, obvious prompts or routine bug fixes."
 ---
 
-# Atlas Research - Analisis Mekanisme Referensi
+# Atlas Research — Reference Mechanism Analysis
 
-Riset domain membantu menemukan struktur informasi yang relevan dengan topik tanpa menyalin tampilan situs lain. Pada Jalur Ringan (prompt singkat dengan domain yang sudah familier), pembuatan `research-notes.md` bersifat opsional kecuali diminta secara eksplisit oleh pengguna.
+Domain research uncovers information hierarchies appropriate to the subject without copying another site's branding. On the Compact Track (short prompts in well-understood domains), `research-notes.md` is optional unless explicitly requested by the user.
 
-## 1. Jalur Pengumpulan Bukti
+## 1. Evidence Gathering Paths
 
-Ketika riset diperlukan, gunakan alat yang tersedia di lingkungan agen untuk menyusun `research-notes.md` berdasarkan [research-template.md](../../references/research-template.md):
+When research is needed, use the tools available in your environment to populate `research-notes.md` based on [research-template.md](../../references/research-template.md):
 
-1. **Inspeksi Browser Langsung:** Gunakan alat browser atau `node <atlas>/skills/atlas-research/scripts/capture-references.mjs --out ./maintenance/research <url>` pada 3-5 situs referensi yang relevan.
-2. **Pencarian Web Agen:** Jika browser headless tidak tersedia, gunakan fitur pencarian web dan pembaca halaman untuk memeriksa referensi domain dan pembanding lintas industri.
-3. **Lingkungan Offline:** Jangan mengarang URL atau berpura-pura membuka situs ketika akses jaringan mati karena referensi fiktif menyesatkan keputusan desain. Catat `riset live tidak dapat dilakukan (offline environment)` dan gunakan panduan [domain-reasoning.md](../../references/domain-reasoning.md).
+1. **Live Browser Inspection:** Use browser tools or `node <atlas>/skills/atlas-research/scripts/capture-references.mjs --out ./maintenance/research <url>` on 3–5 relevant reference sites.
+2. **Agent Web Search:** If headless Chromium is unavailable, use web search and page readers to analyze domain references and cross-industry benchmarks.
+3. **Offline Environment:** Never invent URLs or pretend to visit live sites when network access is off, because fabricated references mislead design decisions. Record `live research unavailable (offline environment)` and rely on [domain-reasoning.md](../../references/domain-reasoning.md).
 
-## 2. Pemisahan Mekanisme dan Klise Visual
+## 2. Separating Mechanisms from Visual Clichés
 
-Untuk setiap referensi yang diperiksa, catat dua hal di `research-notes.md`:
-- **PRINSIP DIADAPTASI:** Bagaimana urutan informasi, kepadatan data, atau kedekatan filter membantu menyelesaikan tugas pengunjung.
-- **ELEMEN DITOLAK:** Warna merek, efek dekoratif berat, atau pembajakan scroll yang sengaja tidak ditiru agar proyek tetap orisinal dan ringan di perangkat mobile.
+For each examined reference, record two entries in `research-notes.md`:
+- **ADAPTED PRINCIPLES:** How information ordering, data density, or control proximity helps visitors complete their task.
+- **REJECTED ELEMENTS:** Brand colors, heavy decorative effects, or scroll-jacking intentionally omitted so the implementation stays original and fast on mobile.
 
-## 3. Penggunaan Ulang Catatan Riset
+## 3. Reusing Research Notes
 
-Jika `design-brief.md` tidak berubah dan `research-notes.md` berusia kurang dari 30 hari, gunakan kembali catatan yang sudah ada agar iterasi berjalan efisien.
+If `design-brief.md` has not changed and `research-notes.md` is less than 30 days old, reuse existing notes to keep iteration lean.

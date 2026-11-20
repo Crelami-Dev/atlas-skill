@@ -1,23 +1,23 @@
 ---
 name: atlas-critic
-description: "Evaluate final rendered web page quality across the 7-axis design, typography, accessibility, and code leanness rubric to issue PASS/LOLOS or actionable FIX/PERBAIKI (Gunakan saat mengevaluasi kualitas akhir halaman web berdasarkan 7 sumbu rubrik untuk memberikan keputusan LOLOS/PASS atau PERBAIKI/FIX). Do not use before atlas-checker completes."
+description: "Use when evaluating final rendered web page quality across the 7-axis design, typography, accessibility, and code leanness rubric to issue PASS or FIX. Do not use before atlas-checker completes."
 ---
 
-# Atlas Critic - Evaluasi Rubrik 7 Sumbu
+# Atlas Critic — 7-Axis Rubric Evaluation
 
-Tinjau hasil tangkapan layar dari [atlas-checker](../atlas-checker/SKILL.md) bersama panduan [critical-review.md](../../references/critical-review.md) karena penilaian dari kode sumber saja sering melewatkan masalah hierarki visual dan keterbacaan. Berikan skor dari total 100 poin pada 7 sumbu berikut:
+Review the rendered screenshots from [atlas-checker](../atlas-checker/SKILL.md) alongside [critical-review.md](../../references/critical-review.md), as code inspection alone routinely misses hierarchy and legibility issues. Score out of 100 points across 7 axes:
 
-| Sumbu | Poin Maks | Hal yang Diperiksa |
+| Axis | Max Pts | Evaluation Criteria |
 |---|---:|---|
-| **1. Kejelasan Layar Pertama & Bukti Visual** | 20 | Pengunjung langsung memahami fungsi produk; terdapat elemen visual nyata (foto atau pelat spesimen editorial tanpa badge `"Ganti dengan foto asli"`/`"SLOT FOTO"`); CTA utama terlihat jelas pada `1440x900` dan `375x667`. |
-| **2. Spesifisitas Domain & Uji Substitusi** | 20 | Tata letak dan konten spesifik terhadap topik proyek; bebas dari 3 kartu ikon generik dan SVG wireframe kotak kaku. |
-| **3. Tipografi & Keterbacaan** | 15 | Maksimal 2 keluarga font; angka tabular pada tabel/metrik; tidak ada backtick Markdown yang bocor di elemen HTML. |
-| **4. Ritme Permukaan & Kontras** | 15 | Pergantian warna permukaan yang terukur antarbagian; kontras teks memenuhi standar WCAG AA (`>= 4.5:1`). |
-| **5. Koreografi Motion Anime.js v4** | 10 | Penggunaan `createScope` dengan `revert()`, properti transform GPU, dan penghormatan terhadap `prefers-reduced-motion`. |
-| **6. Kelengkapan 5-State & Kerapian Mobile** | 10 | Kondisi loading, berisi data, kosong, hasil filter nol + tombol reset, dan error ditangani tanpa overflow pada layar `320px`/`375px`. |
-| **7. Kebersihan Kode & Keamanan Klien** | 10 | Tidak ada error konsol, tidak ada sink XSS `innerHTML`, tidak ada rahasia bocor, dan seluruh gate statis lulus. |
+| **1. First-Screen Clarity & Visual Proof** | 20 | Visitors immediately grasp the product/service purpose; real visual proof is present (real photos or domain editorial specimen plates with zero `"Replace with photo"` / `"PHOTO SLOT"` badges); primary CTA is crisp at `1440x900` and `375x667`. |
+| **2. Domain Specificity & Substitution Test** | 20 | Macro layout and content fit the exact subject; free of 3 generic icon cards and crude wireframe box SVGs. |
+| **3. Typography & Readability** | 15 | Max 2 proportional + 1 monospace font families; tabular numerals in tables/metrics; zero leaked raw Markdown backticks in HTML. |
+| **4. Surface Rhythm & Contrast** | 15 | Deliberate surface polarity cadence across sections; all text meets WCAG AA contrast (`>= 4.5:1`). |
+| **5. Anime.js v4 Choreography** | 10 | Uses `createScope` with `revert()`, GPU transform properties, and `prefers-reduced-motion` support. |
+| **6. 5-State Completeness & Mobile Fit** | 10 | Loading, populated, empty, zero-match + Reset, and error states handled cleanly with zero horizontal overflow at `320px`/`375px`. |
+| **7. Code Hygiene & Client Security** | 10 | Zero console errors, zero `innerHTML` XSS sinks, zero leaked secrets, and all static gates passing. |
 
-## Aturan Keputusan (Verdict)
+## Verdict Rules
 
-- **`LOLOS` / `PASS` (`>= 88/100` dan tanpa cacat fungsional/visual berat):** Proyek siap diserahkan kepada pengguna beserta catatan batasan pengujian yang jujur.
-- **`PERBAIKI` / `FIX` (`< 88/100` atau ditemukan cacat pada tangkapan layar):** Perbaiki hingga 3 masalah utama yang ditemukan, ambil ulang tangkapan layar, dan lakukan verifikasi ulang (maksimal 3 putaran).
+- **`PASS` (`>= 88/100` with zero major functional/visual defects):** Ready for delivery alongside honest verification scope and any remaining limits.
+- **`FIX` (`< 88/100` or visible screenshot defects):** Fix up to 3 highest-impact defects, re-capture screenshots, and re-verify (max 3 rounds).

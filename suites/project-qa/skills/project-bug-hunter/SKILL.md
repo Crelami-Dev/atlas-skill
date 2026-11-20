@@ -1,6 +1,6 @@
 ---
 name: project-bug-hunter
-description: "Audits software projects in strict read-only mode to find functional bugs, logic flaws, async race conditions, UI layout defects, and build/test failures. Pre-analyzes root causes and blast radius, and delivers a Markdown (.md) bug report while waiting for user approval. Use when asked to find bugs, cari bug, cek error projek, or audit feature quality; never use to modify code without explicit approval."
+description: "Audits software projects in strict read-only mode to find functional bugs, logic flaws, async race conditions, UI layout defects, and build/test failures. Pre-analyzes root causes and blast radius, and delivers a Markdown (.md) bug report while waiting for user approval. Use when asked to find bugs, check project errors, or audit feature quality; never use to modify code without explicit approval."
 ---
 
 # Project Bug Hunter — Read-Only Bug & UI Defect Discovery
@@ -9,9 +9,9 @@ Systematically discover functional defects, logic errors, unhandled edge cases, 
 
 ## Decision Tree
 
-- **User asks to find/check bugs ONLY** (`cari bug`, `cek error`, `find bugs`): Execute Steps 1 through 6 below in strictly read-only mode, write `LAPORAN-AUDIT-BUG.md`, and stop to wait for user instruction.
-- **User asks to check BOTH bugs AND security vulnerabilities** (`cari bug dan celah keamanan`, `audit projek menyeluruh`): Run both `project-bug-hunter` and `project-security-auditor`, combine all findings into one unified `LAPORAN-AUDIT-PROJEK.md`, and wait for user approval before touching project files.
-- **User explicitly commands to FIX issues** (`benerin`, `perbaiki`, `fix semua`): Do not stop at reporting; immediately load and execute `project-fix-and-verify`.
+- **User asks to find/check bugs ONLY** (`find bugs`, `check errors`, `audit bugs`): Execute Steps 1 through 6 below in strictly read-only mode, write `BUG-AUDIT-REPORT.md`, and stop to wait for user instruction.
+- **User asks to check BOTH bugs AND security vulnerabilities** (`find bugs and security vulnerabilities`, `full project audit`): Run both `project-bug-hunter` and `project-security-auditor`, combine all findings into one unified `PROJECT-AUDIT-REPORT.md`, and wait for user approval before touching project files.
+- **User explicitly commands to FIX issues** (`fix it`, `apply fixes`, `fix all`): Do not stop at reporting; immediately load and execute `project-fix-and-verify`.
 
 ## Path Resolution
 
@@ -56,6 +56,6 @@ Prepare full remediation readiness during discovery in case the user tells you t
 
 ### Step 6: Generate the Markdown Report and Wait for User Command
 
-1. Follow [bug-report-template.md](assets/bug-report-template.md) and create `LAPORAN-AUDIT-BUG.md` (or `LAPORAN-AUDIT-PROJEK.md` when merged with `project-security-auditor`) in the workspace root, matching the user's language.
-2. Include severity (`Critical`, `High`, `Medium`, `Low`), exact `file:line` references, concrete reproduction scenarios, step-by-step fix instructions (`Cara Mengatasi`), and pre-analyzed blast-radius notes.
+1. Follow [bug-report-template.md](assets/bug-report-template.md) and create `BUG-AUDIT-REPORT.md` (or `PROJECT-AUDIT-REPORT.md` when merged with `project-security-auditor`) in the workspace root, matching the user's language.
+2. Include severity (`Critical`, `High`, `Medium`, `Low`), exact `file:line` references, concrete reproduction scenarios, step-by-step remediation instructions, and pre-analyzed blast-radius notes.
 3. Present the report path clearly to the user and **stop and wait** for explicit instructions before running `project-fix-and-verify`.

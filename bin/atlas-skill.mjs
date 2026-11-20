@@ -14,22 +14,22 @@ const metadataName = '.atlas-install.json';
 const { manifest, files } = packageFiles(source);
 
 const PROJECT_TARGETS = {
-  agents: { skillsRoot: '.agents/skills', mainName: 'atlas-frontend-design', rulesDir: '.agents/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
-  codex: { skillsRoot: '.agents/skills', mainName: 'atlas-frontend-design', rulesDir: '.', ruleAdapter: 'adapters/AGENTS.atlas.md', ruleFile: 'AGENTS.atlas.md' },
-  antigravity: { skillsRoot: '.agents/skills', mainName: 'atlas-frontend-design', rulesDir: '.agents/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
-  claude: { skillsRoot: '.claude/skills', mainName: 'atlas-frontend-design', rulesDir: null, ruleAdapter: null, ruleFile: null },
-  cursor: { skillsRoot: '.cursor/skills', mainName: 'atlas-frontend-design', rulesDir: '.cursor/rules', ruleAdapter: 'adapters/cursor-rule.mdc', ruleFile: 'atlas-frontend-gate.mdc' },
-  windsurf: { skillsRoot: '.windsurf/skills', mainName: 'atlas-frontend-design', rulesDir: '.windsurf/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
-  cline: { skillsRoot: '.clinerules/skills', mainName: 'atlas-frontend-design', rulesDir: '.clinerules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
-  copilot: { skillsRoot: '.github/skills', mainName: 'atlas-frontend-design', rulesDir: '.github', ruleAdapter: 'adapters/AGENTS.atlas.md', ruleFile: 'copilot-instructions.atlas.md' }
+  agents: { skillsRoot: '.agents/skills', mainName: 'atlas-skill', rulesDir: '.agents/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
+  codex: { skillsRoot: '.agents/skills', mainName: 'atlas-skill', rulesDir: '.', ruleAdapter: 'adapters/AGENTS.atlas.md', ruleFile: 'AGENTS.atlas.md' },
+  antigravity: { skillsRoot: '.agents/skills', mainName: 'atlas-skill', rulesDir: '.agents/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
+  claude: { skillsRoot: '.claude/skills', mainName: 'atlas-skill', rulesDir: null, ruleAdapter: null, ruleFile: null },
+  cursor: { skillsRoot: '.cursor/skills', mainName: 'atlas-skill', rulesDir: '.cursor/rules', ruleAdapter: 'adapters/cursor-rule.mdc', ruleFile: 'atlas-frontend-gate.mdc' },
+  windsurf: { skillsRoot: '.windsurf/skills', mainName: 'atlas-skill', rulesDir: '.windsurf/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
+  cline: { skillsRoot: '.clinerules/skills', mainName: 'atlas-skill', rulesDir: '.clinerules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
+  copilot: { skillsRoot: '.github/skills', mainName: 'atlas-skill', rulesDir: '.github', ruleAdapter: 'adapters/AGENTS.atlas.md', ruleFile: 'copilot-instructions.atlas.md' }
 };
 
 const GLOBAL_TARGETS = {
-  agents: { skillsRoot: '.agents/skills', mainName: 'atlas-frontend-design', rulesDir: '.agents/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
-  codex: { skillsRoot: '.agents/skills', mainName: 'atlas-frontend-design', rulesDir: '.agents', ruleAdapter: 'adapters/AGENTS.atlas.md', ruleFile: 'AGENTS.atlas.md' },
-  antigravity: { skillsRoot: '.gemini/config/skills', mainName: 'atlas-frontend-design', rulesDir: '.gemini/config/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
-  claude: { skillsRoot: '.claude/skills', mainName: 'atlas-frontend-design', rulesDir: null, ruleAdapter: null, ruleFile: null },
-  cursor: { skillsRoot: '.cursor/skills', mainName: 'atlas-frontend-design', rulesDir: '.cursor/rules', ruleAdapter: 'adapters/cursor-rule.mdc', ruleFile: 'atlas-frontend-gate.mdc' }
+  agents: { skillsRoot: '.agents/skills', mainName: 'atlas-skill', rulesDir: '.agents/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
+  codex: { skillsRoot: '.agents/skills', mainName: 'atlas-skill', rulesDir: '.agents', ruleAdapter: 'adapters/AGENTS.atlas.md', ruleFile: 'AGENTS.atlas.md' },
+  antigravity: { skillsRoot: '.gemini/config/skills', mainName: 'atlas-skill', rulesDir: '.gemini/config/rules', ruleAdapter: 'adapters/antigravity-rule.md', ruleFile: 'atlas-frontend-gate.md' },
+  claude: { skillsRoot: '.claude/skills', mainName: 'atlas-skill', rulesDir: null, ruleAdapter: null, ruleFile: null },
+  cursor: { skillsRoot: '.cursor/skills', mainName: 'atlas-skill', rulesDir: '.cursor/rules', ruleAdapter: 'adapters/cursor-rule.mdc', ruleFile: 'atlas-frontend-gate.mdc' }
 };
 
 const ALL_AGENTS = [...Object.keys(PROJECT_TARGETS), 'all'];
@@ -90,7 +90,7 @@ async function chooseTarget(config) {
   let answered = false;
   prompt.on('SIGINT', () => { prompt.close(); });
   prompt.on('close', () => { if (!answered) process.exitCode = 130; });
-  console.log(`\nAtlas Skill v${manifest.version} — ${config.global ? 'global' : 'project-local'} ${config.command}\nBase: ${config.global ? os.homedir() : process.cwd()}\n\n  1. Antigravity / Codex / Agents — .agents/skills/atlas-frontend-design\n  2. Claude Code                  — .claude/skills/atlas-frontend-design\n  3. Cursor                       — .cursor/skills/atlas-frontend-design\n  4. All Major Agents             — .agents + .claude + .cursor\n\nCtrl+C to cancel.\n`);
+  console.log(`\nAtlas Skill v${manifest.version} — ${config.global ? 'global' : 'project-local'} ${config.command}\nBase: ${config.global ? os.homedir() : process.cwd()}\n\n  1. Antigravity / Codex / Agents — .agents/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter}\n  2. Claude Code                  — .claude/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter}\n  3. Cursor                       — .cursor/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter}\n  4. All Major Agents             — .agents + .claude + .cursor\n\nCtrl+C to cancel.\n`);
   try {
     while (!config.agent) {
       const answer = (await prompt.question('Choose [1-4]: ')).trim().toLowerCase();
@@ -235,9 +235,22 @@ function installExtras(config, entry, backup) {
     }
   };
 
+  // Always install the 2 sibling top-level entrypoints (atlas-frontend & atlas-bug-hunter) for standard agent installs
+  if (!config.dir) {
+    for (const skill of manifest.skills) {
+      if (skill.path === 'SKILL.md' || !skill.topLevel) continue;
+      const srcSkillDir = path.dirname(path.join(source, skill.path));
+      const dstSkillDir = path.join(skillsParent, skill.name);
+      backupExistingDir(dstSkillDir, 'top-level-skills', skill.name);
+      const written = copyTree(srcSkillDir, dstSkillDir);
+      for (const f of written) recordFile(f);
+      exposed.push(dstSkillDir);
+    }
+  }
+
   if (config.exposeSubskills) {
     for (const skill of manifest.skills) {
-      if (skill.path === 'SKILL.md') continue;
+      if (skill.path === 'SKILL.md' || skill.topLevel) continue;
       const srcSkillDir = path.dirname(path.join(source, skill.path));
       const dstSkillDir = path.join(skillsParent, skill.name);
       backupExistingDir(dstSkillDir, 'skills', skill.name);
@@ -399,6 +412,7 @@ Options:
     const qaManifest = readQaManifest();
     console.log(JSON.stringify({
       version: manifest.version,
+      topLevelSkills: manifest.topLevelSkills || ['atlas-skill', 'atlas-frontend', 'atlas-bug-hunter'],
       skills: manifest.skills,
       qaSkills: qaManifest.skills,
       projectDestinations: Object.fromEntries(Object.entries(PROJECT_TARGETS).map(([k, v]) => [k, `${v.skillsRoot}/${v.mainName}`])),

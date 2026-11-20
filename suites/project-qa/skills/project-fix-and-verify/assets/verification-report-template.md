@@ -1,31 +1,31 @@
-# Laporan Perbaikan, Uji 100% Fitur, dan Audit Ulang: <Nama Projek>
+# Fix, 100% Feature Testing, & Re-Audit Verification Report: <Project Name>
 
-**Tanggal Verifikasi:** <YYYY-MM-DD>
-**Status Akhir Projek:** Siap & Aman Digunakan (0 Bug Tersisa, 0 Celah Keamanan Tersisa)
+**Verification Date:** <YYYY-MM-DD>
+**Final Project Status:** Ready & Hardened (0 Remaining Bugs, 0 Remaining Security Vulnerabilities)
 
-## 1. Ringkasan Perbaikan Bug & Keamanan yang Diterapkan
+## 1. Summary of Applied Bug & Security Fixes
 
-| ID Temuan | Kategori | Lokasi / Paket | Perubahan yang Diterapkan | Status |
+| Finding ID | Category | Location / Package | Applied Change | Status |
 | :--- | :--- | :--- | :--- | :---: |
-| BUG-01 | Bug | `path/file:baris` | <ringkasan perbaikan akar masalah> | Selesai |
-| SEC-01 | Security / CVE | `path/file:baris` | <ringkasan patch / upgrade versi aman> | Selesai |
+| BUG-01 | Bug | `path/file:line` | <root-cause fix summary> | Done |
+| SEC-01 | Security / CVE | `path/file:line` | <patch / safe version upgrade summary> | Done |
 
-## 2. Matriks Pengujian 100% Seluruh Fitur Projek
+## 2. 100% Project Feature Test Matrix
 
-Seluruh fitur pada projek (bukan hanya bagian yang diubah) telah diuji coba secara aktif:
+Every feature across the entire project (not just modified files) has been actively exercised:
 
-| No | Fitur / Halaman / Endpoint / Command | Skenario yang Diuji (Normal, Edge Case, & Keamanan) | Hasil |
+| No | Feature / Page / Endpoint / Command | Tested Scenarios (Normal, Edge Case, & Security) | Result |
 | :---: | :--- | :--- | :---: |
-| 1 | <Fitur 1> | <Alur normal, input invalid/kosong, uji akses tanpa izin> | Lulus |
-| 2 | <Fitur 2> | <CRUD lengkap, batas data, uji payload injeksi/XSS> | Lulus |
+| 1 | <Feature 1> | <Normal flow, invalid/empty input, unauthorized access check> | Pass |
+| 2 | <Feature 2> | <Full CRUD, boundary values, injection/XSS payload tests> | Pass |
 
-- **Build / Typecheck / Linter:** <Lulus bersih>
-- **Automated Test Suite:** <X/X test lulus>
+- **Build / Typecheck / Linter:** <Passed cleanly>
+- **Automated Test Suite:** <X/X tests passing>
 
-## 3. Hasil Analisis Ulang & Pengujian End-to-End Keseluruhan
+## 3. Whole-Project Re-Audit & End-to-End Verification
 
-Setelah seluruh perbaikan selesai, projek telah dianalisis ulang dari awal dan dicoba kembali secara menyeluruh:
+After all fixes were applied, the entire project was re-audited from scratch and re-tested end-to-end:
 
-- **Re-Audit Bug Menyeluruh:** Bersih dari regresi, error runtime, maupun sisa kode debug.
-- **Re-Audit Keamanan & Live CVE:** Seluruh permukaan input, otorisasi, konfigurasi, dan versi dependensi telah diverifikasi ulang dan aman dari serangan yang diuji.
-- **Uji End-to-End Keseluruhan:** Seluruh fitur berjalan stabil dari awal hingga akhir.
+- **Full Bug Re-Audit:** Clean of regressions, runtime errors, and leftover debug code.
+- **Full Security & Live CVE Re-Audit:** All input surfaces, authorization checks, configs, and dependency versions verified safe against tested attack vectors.
+- **Full End-to-End Pass:** All workflows verified stable from startup to teardown.

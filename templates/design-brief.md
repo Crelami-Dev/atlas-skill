@@ -1,39 +1,39 @@
-# Design brief
+# Design Brief
 
-## Pengunjung dan tugas utamanya
+## Visitor and primary task
 
-Jelaskan siapa pengunjungnya, dari mana mereka datang, perangkat utama, dan 1 kalimat konkret tugas yang harus selesai dalam kunjungan ini.
+Describe who the visitor is, where they arrive from, their primary device, and one concrete sentence defining the task they must finish in this visit.
 
-## Konten nyata
+## Real content
 
-Daftar teks asli, data faktual, aset media yang tersedia, dan batas kejujuran (apa yang nyata vs simulasi/demo). Dilarang memakai lorem ipsum atau klaim palsu.
+List factual copy, real figures, available media assets, and honesty boundaries (what is live vs simulated/demo). Never use lorem ipsum or fabricated claims.
 
-## Rencana gambar
+## Image plan
 
-Jelaskan sumber aset visual: (a) memakai aset foto/media dari pengguna, atau (b) menggunakan pelat spesimen editorial/teknis spesifik-domain dengan rasio tetap (`data-photo-slot` + `data-atlas-proof`) tanpa menampilkan teks instruksi `"Ganti dengan foto asli"` di UI pengunjung, lalu meminta foto asli ke pengguna di pesan akhir. Dilarang memakai siluet bukit+matahari generik.
+State the visual asset strategy: (a) use user-provided photography/media, or (b) build domain-specific editorial/technical specimen plates (`data-photo-slot` + `data-atlas-proof`) with fixed aspect ratios and zero visitor-visible `"Replace with photo"` instructions, then ask for real photos in the closing chat message. Never use generic hill-and-sun silhouettes.
 
-## Tiga alternatif komposisi
+## Three composition alternatives
 
-### Alternatif 1
+### Alternative 1
 
-Ide struktur spesifik-subjek, kekuatan untuk tugas pengunjung, dan risiko utamanya.
+Subject-specific structural concept, key strength for the visitor task, and main trade-off.
 
-### Alternatif 2
+### Alternative 2
 
-Ide struktur yang benar-benar berbeda (bukan sekadar tukar kiri-kanan), kekuatan, dan risiko utamanya.
+Genuinely different structural layout (not just a left-right swap), key strength, and main trade-off.
 
-### Alternatif 3
+### Alternative 3
 
-Ide struktur ketiga yang berbeda secara alur bukti/interaksi, kekuatan, dan risiko utamanya.
+Third distinct flow of proof/interaction, key strength, and main trade-off.
 
-## Pilihan akhir dan alasan
+## Final choice and rationale
 
-Sebutkan alternatif yang dipilih, arketipe grid/tipografi, serta rencana koreografi motion Anime.js v4 (trigger, durasi, easing, dan perilaku reduced-motion).
+State the chosen alternative, structural archetype/typography pairing, surface polarity cadence, and Anime.js v4 motion plan (trigger, duration, easing, and reduced-motion behavior).
 
-## Hal yang sengaja ditolak dan kenapa
+## Deliberately rejected and why
 
-Catat pola klise AI (slop), dekorasi kosong, atau efek referensi yang sengaja dibuang beserta alasannya.
+Note AI clichés (slop), empty ornament, or reference patterns intentionally excluded and why.
 
-## Rencana verifikasi
+## Verification plan
 
-Daftar perintah gate (`run-gates.mjs`, build, test), ukuran layar mobile/desktop yang akan di-screenshot, serta interaksi dan state UI yang akan dibuktikan.
+List gate commands (`run-gates.mjs`, build, tests), mobile/desktop screenshot viewports to inspect, and interactive states to verify.

@@ -1,59 +1,67 @@
-# Panduan Alur Kerja Fase Atlas (Phase 0 - Phase 6)
+# Atlas Phase Workflow Guide (Phase 0 – Phase 7)
 
-Dokumen ini memuat rincian teknis untuk setiap fase eksekusi yang dirujuk dari [SKILL.md](../SKILL.md).
+This document details the technical execution steps for each workflow phase referenced from [SKILL.md](../SKILL.md) (`/atlas-skill`) and [atlas-frontend](../skills/atlas-frontend/SKILL.md) (`/atlas-frontend`).
 
-## Phase 0 - Penentuan Arah Visual (`deal-direction.mjs`)
+## Phase 0 — Visual Direction Selection (`deal-direction.mjs`)
 
-Saat proyek belum memiliki sistem token bawaan, jalankan pemilih arah visual deterministik:
+Whenever the project lacks an existing design-token system, run the deterministic art-direction dealer:
 
 ```sh
-node <atlas>/scripts/deal-direction.mjs --prompt "<permintaan pengguna>" --project <project-root> --write-tokens
+node <atlas>/scripts/deal-direction.mjs --prompt "<user request>" --project <project-root> --write-tokens
 ```
 
-Alasan aturan: model bahasa cenderung kembali ke warna ungu-biru generik atau latar abu-abu datar jika palet dan pasangan tipografi tidak dikunci sejak awal.
+Rationale: language models tend to revert to generic purple-blue gradients or flat gray backgrounds if palette polarity and font pairings are not locked upfront.
 
-## Phase 1 - Perencanaan Brief (`atlas-plan`)
+## Phase 1 — Design Brief Planning (`atlas-plan`)
 
-Baca [atlas-plan](../skills/atlas-plan/SKILL.md), [design-brief.md](../templates/design-brief.md) (Indonesia) atau [design-brief.en.md](../templates/design-brief.en.md) (Inggris), serta [composition-selection.md](composition-selection.md).
+Read [atlas-plan](../skills/atlas-plan/SKILL.md), [design-brief.en.md](../templates/design-brief.en.md) (or [design-brief.md](../templates/design-brief.md)), and [composition-selection.md](composition-selection.md).
 
-- **Jalur Lengkap (Full Track):** Tulis 3 alternatif komposisi struktural (`### Alternatif 1..3` atau `### Alternative 1..3`) dan verifikasi dengan `node <atlas>/scripts/check-brief.mjs design-brief.md`.
-- **Jalur Ringan (Compact Track untuk prompt kecil/jelas):** Tambahkan komentar `<!-- atlas-brief: light -->` di `design-brief.md` (atau jalankan `check-brief.mjs --light`) agar cukup mengisi tujuan pengunjung, konten nyata, pilihan komposisi, dan rencana verifikasi tanpa perlu membuat 3 alternatif penuh.
-- **Kejujuran Konten:** Jangan mengarang klaim jumlah pelanggan atau testimoni fiktif karena data palsu merusak kredibilitas produk dan melanggar pemeriksaan anti-slop.
+- **Full Track:** Write 3 distinct structural alternatives (`### Alternative 1..3`) and validate with `node <atlas>/scripts/check-brief.mjs design-brief.md`.
+- **Compact Track (for concise/clear prompts):** Add `<!-- atlas-brief: light -->` at the top of `design-brief.md` (or run `check-brief.mjs --light`) to document visitor job, real content, chosen layout, and verification plan without drafting 3 full alternatives.
+- **Content Honesty:** Never fabricate customer counts or fake testimonials; fabricated data harms credibility and fails anti-slop checks.
 
-## Phase 2 - Riset Domain (`atlas-research` - Opsional pada Jalur Ringan)
+## Phase 2 — Domain Research & Real Licensed Photography (`atlas-research` + `fetch-photos.mjs`)
 
-Baca [atlas-research](../skills/atlas-research/SKILL.md), [research-template.md](research-template.md), dan [domain-reasoning.md](domain-reasoning.md).
+Read [atlas-research](../skills/atlas-research/SKILL.md), [imagery.md](imagery.md), [research-template.md](research-template.md), and [domain-reasoning.md](domain-reasoning.md).
 
-- Lewati pembuatan `research-notes.md` pada prompt kecil dengan domain yang sudah jelas, kecuali pengguna meminta riset referensi atau domain proyek belum dikenal.
-- Saat riset dijalankan, catat mekanisme yang diadaptasi (`DIADAPTASI`) dan elemen klise yang ditolak (`DITOLAK`) agar antarmuka mengambil pola fungsional tanpa menjiplak satu situs sumber.
+- **Real Licensed Photography on Visual Domains:** Whenever building for a visual domain (cafés, restaurants, hospitality, portfolios, real estate, e-commerce, travel, fashion, weddings, events) without user-provided photography, download real CC0/CC-BY/Public-Domain photos from Wikimedia Commons:
+  ```sh
+  node <atlas>/scripts/fetch-photos.mjs --query "<subject 1>|<subject 2>|<subject 3>|<subject 4>" --out <project-root>/assets/photos --count 4
+  ```
+- Skip `research-notes.md` on small prompts with familiar domains unless the user explicitly asks for reference research or the domain is unfamiliar.
+- When running research, log adapted functional mechanisms (`ADAPTED`) and rejected visual clichés (`REJECTED`) so the layout learns structural solutions without cloning any single source site.
 
-## Phase 3 - Sistem Token & Ritme Permukaan (`atlas-design`)
+## Phase 3 — Token System & Surface Rhythm (`atlas-design`)
 
-Baca [atlas-design](../skills/atlas-design/SKILL.md), [typography.md](typography.md), dan [interaction-design.md](interaction-design.md).
+Read [atlas-design](../skills/atlas-design/SKILL.md), [typography.md](typography.md), and [interaction-design.md](interaction-design.md).
 
-1. **Maksimal 2 Keluarga Font:** Batasi tipografi hingga maksimal 2 keluarga font di `design-tokens.css` karena terlalu banyak font memperlambat pemuatan halaman dan mengaburkan hierarki baca.
-2. **Variasi Polaritas Permukaan:** Gunakan minimal 3 token warna permukaan secara bergantian agar pergantian antarbagian halaman mudah dipindai secara visual.
-3. **Verifikasi Token:** Jalankan `node <atlas>/scripts/check-tokens.mjs <project-root> --tokens <token-file>` untuk memeriksa tidak ada nilai hex mentah yang bocor di luar file token.
+1. **Max 2 Proportional Font Families (+ 1 Optional Monospace):** Limit typography to at most 2 proportional font families (display & body) plus 1 optional monospace family for numeric/code alignment in `design-tokens.css` to keep page loads fast and hierarchy clear.
+2. **Surface Polarity Cadence:** Alternate at least 3 calm surface color roles (`bg`, `surface`, `elevated`, `tint`, `blueprint`) so section transitions scan naturally.
+3. **Token Validation:** Run `node <atlas>/scripts/check-tokens.mjs <project-root> --tokens <token-file>` to verify zero raw hex or scale values leak outside the token file.
 
-## Phase 4 - Implementasi UI, Bukti Visual, & Motion (`atlas-lean-code` + `atlas-motion-animejs`)
+## Phase 4 — UI Implementation, Visual Proof, & Motion (`atlas-lean-code` + `atlas-motion-animejs`)
 
-Baca [atlas-anti-slop](../skills/atlas-anti-slop/SKILL.md), [atlas-motion-animejs](../skills/atlas-motion-animejs/SKILL.md), [animejs-v4-playbook.md](animejs-v4-playbook.md), [atlas-lean-code](../skills/atlas-lean-code/SKILL.md), dan [accessibility-and-behavior.md](accessibility-and-behavior.md).
+Read [atlas-anti-slop](../skills/atlas-anti-slop/SKILL.md), [atlas-motion-animejs](../skills/atlas-motion-animejs/SKILL.md), [animejs-v4-playbook.md](animejs-v4-playbook.md), [atlas-lean-code](../skills/atlas-lean-code/SKILL.md), and [accessibility-and-behavior.md](accessibility-and-behavior.md).
 
-1. **Elemen Visual Nyata:** Sertakan elemen visual nyata (`<img>`, `<picture>`, `<canvas>`, `<video>`, `<svg data-viz>`, atau `[data-atlas-proof]`) pada halaman pendaratan karena halaman berisi teks semata sulit menunjukkan konteks produk secara cepat. Untuk halaman dokumentasi atau tipografi murni, tambahkan `<!-- atlas-proof: not-applicable -->`.
-2. **Hindari SVG Wireframe Kotak Kaku:** Jangan menggambar diagram `<svg>` kotak/poligon mentah dengan banyak label teks sebagai pengganti UI karena sulit dibaca di layar sempit dan tampak seperti kerangka belum selesai.
-3. **Sintaks Anime.js v4 & Visibilitas Awal:** Gunakan named imports Anime.js v4 di dalam `createScope({ root, mediaQueries })` dan jangan menyembunyikan konten awal dengan `opacity: 0` di CSS statis karena kegagalan skrip atau SSR akan membuat halaman tampak kosong.
-4. **Kunci Lebar Grid Mobile (`min-width: 0`):** Gunakan `minmax(0, 1fr)` dan `min-width: 0` pada elemen anak CSS Grid agar tabel atau blok kode panjang tidak menimbulkan luapan horizontal pada layar 320px-375px.
+1. **Real Visual Proof:** Include authentic visual proof (`<img>`, `<picture>`, `<canvas>`, `<video>`, `<svg data-viz>`, or `[data-atlas-proof]`) on landing pages so visitors grasp the subject rapidly. For pure documentation or typography pages, opt out via `<!-- atlas-proof: not-applicable -->`.
+2. **Avoid Crude Wireframe Box or Floorplan SVGs:** Never draw raw box/polygon `<svg>` diagrams or `<rect>` table + `<circle>` chair schematics (`crude-floorplan-svg`) as a substitute for real photography or UI.
+3. **Anime.js v4 Syntax & Initial Visibility:** Use Anime.js v4 named imports inside `createScope({ root, mediaQueries })` and never hide initial content with `opacity: 0` in static CSS, as slow JS or SSR will render a blank screen.
+4. **Lock Mobile Grid Widths (`min-width: 0`):** Use `minmax(0, 1fr)` and `min-width: 0` on CSS Grid children so wide tables or code specimens never overflow horizontally on `320px–375px` phones.
 
-## Phase 5 - Pemeriksaan Gate & Tangkapan Layar (`atlas-checker`)
+## Phase 5 — Gate Checks & Screenshot Inspection (`atlas-checker`)
 
-Baca [atlas-checker](../skills/atlas-checker/SKILL.md) dan [visual-review.md](visual-review.md).
+Read [atlas-checker](../skills/atlas-checker/SKILL.md) and [visual-review.md](visual-review.md).
 
-Jalankan pemeriksaan terpadu:
+Run unified verification:
 ```sh
-node <atlas>/scripts/run-gates.mjs <project-root> --mode full --visual <entry-html-or-url> --shots-dir maintenance/screenshots
+node <atlas>/scripts/run-gates.mjs <project-root> --mode full --strict --visual <entry-html-or-url> --shots-dir maintenance/screenshots
 ```
-Buka hasil tangkapan layar PNG (`1440x900` dan `375x667`) menggunakan alat pembaca gambar jika tersedia, karena pemeriksaan kode statis saja tidak dapat mendeteksi teks terpotong, tumpang-tindih elemen, atau kontras visual yang buruk di browser nyata.
+Open the resulting PNG screenshots (`1440x900` and `375x667`) directly using your image viewer whenever available, as static checks alone cannot spot clipped text, broken alignment, or poor visual contrast in a live browser.
 
-## Phase 6 - Evaluasi Rubrik (`atlas-critic`)
+## Phase 6 — Rubric Evaluation (`atlas-critic`)
 
-Baca [atlas-critic](../skills/atlas-critic/SKILL.md) dan [critical-review.md](critical-review.md). Nilai hasil berdasarkan 7 sumbu rubrik dan berikan status `LOLOS` (`PASS`) jika skor mencapai minimal 88/100 tanpa cacat fungsional/visual utama, atau `PERBAIKI` (`FIX`) beserta daftar perbaikan spesifik.
+Read [atlas-critic](../skills/atlas-critic/SKILL.md) and [critical-review.md](critical-review.md). Score the result across all 7 axes and issue `PASS` if the total reaches at least `88/100` with zero major functional/visual defects, or `FIX` with concrete, testable diffs.
+
+## Phase 7 — Automatic Bug Hunter, Security/CVE Audit & Immediate Fix (`/atlas-skill` Only)
+
+When running under `/atlas-skill` ([SKILL.md](../SKILL.md)), automatically execute [atlas-bug-hunter](../skills/atlas-bug-hunter/SKILL.md) (`project_inventory.py`, `ui_visual_bug_probe.py`, `security_scan.py`, `live_cve_osv_check.py`) and **immediately remediate all findings via [project-fix-and-verify](../suites/project-qa/skills/project-fix-and-verify/SKILL.md) without stopping for user approval** until 0 bugs and 0 security flaws remain. (Skipped when invoked via `/atlas-frontend`).

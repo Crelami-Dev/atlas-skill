@@ -1,36 +1,36 @@
 ---
 name: atlas-plan
-description: "Plan web page structure, visitor tasks, real content inventory, layout alternatives, and viewport budgets before writing UI code (Gunakan saat merencanakan struktur halaman web, inventaris konten, alternatif tata letak, dan anggaran viewport sebelum menulis kode UI). Do not use for tiny CSS patches or single-line fixes."
+description: "Use when planning web page structure, visitor tasks, real content inventory, layout alternatives, and viewport budgets before writing UI code. Do not use for tiny CSS patches or single-line fixes."
 ---
 
-# Atlas Plan - Perencanaan Struktur dan Konten
+# Atlas Plan — Structure and Content Planning
 
-Menyusun rencana singkat sebelum menulis HTML/JSX mencegah agen langsung menyalin tata letak hero-tengah + 3 kartu yang seragam. Buat `design-brief.md` memakai [design-brief.md](../../templates/design-brief.md) (Indonesia) atau [design-brief.en.md](../../templates/design-brief.en.md) (Inggris).
+Writing a short brief before drafting HTML/JSX prevents agents from copying a uniform centered-hero + 3-card layout. Create `design-brief.md` using [design-brief.en.md](../../templates/design-brief.en.md) (English) or [design-brief.md](../../templates/design-brief.md).
 
-## 1. Jalur Lengkap vs Jalur Ringan (Compact Track)
+## 1. Full Track vs Compact Track
 
-- **Jalur Lengkap (Full Track):** Digunakan untuk aplikasi multi-bagian atau desain ulang penuh. Mencakup 6 bagian brief dan minimal 3 alternatif komposisi (`### Alternatif 1..3` atau `### Alternative 1..3`).
-- **Jalur Ringan (Compact Track):** Digunakan untuk prompt singkat atau halaman sederhana. Tambahkan `<!-- atlas-brief: light -->` di bagian atas brief (atau jalankan `check-brief.mjs --light`) sehingga cukup mendokumentasikan tugas pengunjung, konten nyata, pilihan komposisi, dan rencana verifikasi tanpa mewajibkan 3 alternatif komposisi atau `research-notes.md`.
+- **Full Track:** Used for multi-section applications or full redesigns. Covers all 6 brief sections and at least 3 distinct structural alternatives (`### Alternative 1..3` or `### Alternatif 1..3`).
+- **Compact Track:** Used for concise prompts or single-purpose pages. Add `<!-- atlas-brief: light -->` at the top of the brief (or run `check-brief.mjs --light`) so you only document the visitor task, real content, final layout choice, and verification plan without requiring 3 full alternatives or `research-notes.md`.
 
-## 2. Rumuskan Satu Kalimat Tugas Pengunjung
+## 2. State One Concrete Visitor Task
 
-Ubah permintaan umum menjadi tugas pengguna yang dapat diamati:
-- **Kurang Spesifik:** "Website modern untuk kedai kopi."
-- **Spesifik:** "Pengunjung dari profil sosial media di layar 375x667 dapat memeriksa kisaran harga menu, jam operasional hari ini, dan membuka peta lokasi dalam maksimal dua langkah."
+Turn vague requests into observable user tasks:
+- **Too Vague:** "A modern website for a coffee shop."
+- **Specific:** "A visitor arriving from a local map search on a 375x667 phone can check drink price ranges, today's opening hours, and directions in at most two actions."
 
-## 3. Kejujuran Konten
+## 3. Content Honesty
 
-Jangan menulis teks placeholder (`Lorem ipsum`, `Your Company`) atau mengarang statistik dan testimoni fiktif karena klaim palsu menurunkan kepercayaan pengguna dan ditolak oleh pemeriksaan `check-brief.mjs` serta `slop-scan.mjs`.
+Never write placeholder copy (`Lorem ipsum`, `Your Company`) or invent customer metrics and testimonials, because fabricated claims erode trust and fail `check-brief.mjs` and `slop-scan.mjs`.
 
-## 4. Rencana Gambar (Wajib untuk Domain Visual)
+## 4. Image Plan (Mandatory for Visual Domains)
 
-Untuk domain yang membutuhkan fotografi (fotografer, restoran, produk, properti, travel, fashion, pernikahan, event), wajib sertakan bagian `## Rencana gambar` (atau `## Image plan`) di brief sesuai [imagery.md](../../references/imagery.md) karena proyek visual tanpa strategi aset yang jelas akan jatuh ke ilustrasi siluet generik.
+For photography-dependent domains (photographers, restaurants, physical products, real estate, travel, fashion, weddings, and events), include an `## Image plan` (or `## Rencana gambar`) section in the brief per [imagery.md](../../references/imagery.md), as visual projects without an asset strategy tend to fall back to generic silhouettes.
 
-## 5. Anggaran Viewport & Rencana Motion
+## 5. Viewport & Motion Budget
 
-- **Layar Mobile (`320x568` & `375x667`):** Pastikan judul tidak lebih dari 4 baris dan tombol tindakan utama terlihat tanpa geser horizontal (`scrollWidth <= innerWidth`) agar pengguna perangkat kecil dapat langsung berinteraksi.
-- **Koreografi Anime.js v4:** Rencanakan maksimal 2-3 momen animasi fungsional dengan durasi masuk di bawah `1200ms` dan dukungan `prefers-reduced-motion` agar animasi membantu orientasi visual tanpa memperlambat interaksi.
+- **Mobile Screens (`320x568` & `375x667`):** Keep the headline within 4 lines and ensure the primary action fits cleanly with zero horizontal overflow (`scrollWidth <= innerWidth`).
+- **Anime.js v4 Choreography:** Plan at most 2–3 purposeful motion moments with entrance durations under `1200ms` and `prefers-reduced-motion` support so animation aids orientation without delaying interaction.
 
-## Perintah Verifikasi
+## Verification Command
 
-Jalankan `node <atlas>/scripts/check-brief.mjs design-brief.md` (tambahkan `--light` untuk brief jalur ringan) dan pastikan keluar dengan status `PASS`.
+Run `node <atlas>/scripts/check-brief.mjs design-brief.md` (add `--light` for compact track briefs) and confirm it exits with `PASS`.

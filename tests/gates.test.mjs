@@ -14,45 +14,45 @@ const runNode = (scriptRel, args = [], cwd = tmp) =>
 
 const validTokensCss = fs.readFileSync(path.join(root, 'templates/design-tokens.css'), 'utf8');
 
-const validFullBriefId = `# Design brief
+const validFullBriefEn = `# Design brief
 
-## Pengunjung dan tugas utamanya
+## Visitor and primary task
 
-Pengunjung dari peta lokal di layar 375x667 memeriksa jam buka kedai kopi dan kisaran harga menu dalam dua langkah.
+Local map visitors on a 375x667 phone check coffee shop opening hours and menu prices within two taps.
 
-## Konten nyata
+## Real content
 
-Daftar menu seduh manual dan jam buka Jl. Taman Cibeunying Selatan No. 14 Bandung.
+Manual brew menu list and opening hours at 14 South Cibeunying Park St, Bandung.
 
-## Rencana gambar
+## Image plan
 
-Menggunakan pelat spesimen editorial dengan atribut data-photo-slot="bar-16x9" rasio 16:9 dan meminta foto asli ke pengguna di pesan akhir.
+Use layered editorial specimen plates marked silently via data-photo-slot="bar-16x9" (16:9 ratio) and request real photos in the closing message.
 
-## Tiga alternatif komposisi
+## Three composition alternatives
 
-### Alternatif 1
+### Alternative 1
 
-Full-bleed cover dengan bar jam buka di bagian atas dan daftar menu dua kolom.
+Full-bleed architectural cover with docked opening-hours bar and two-column print menu ledger.
 
-### Alternatif 2
+### Alternative 2
 
-Kolofon tipis di atas dengan pelat pameran asimetris 16:9 dan catatan origin di bawah.
+Thin top colophon with asymmetric 16:9 exhibition plates and origin table below.
 
-### Alternatif 3
+### Alternative 3
 
-Satu kolom editorial 68ch dengan tabel harga ringkas dan peta lokasi di kaki halaman.
+Single 68ch editorial column with compact tariff table and venue map in the footer.
 
-## Pilihan akhir dan alasan
+## Final choice and rationale
 
-Memilih Alternatif 1 dengan arketipe editorial dan Anime.js v4 durasi masuk 420ms serta dukungan reduced-motion.
+Select Alternative 1 with editorial typography and Anime.js v4 420ms entrance motion supporting reduced-motion.
 
-## Hal yang sengaja ditolak dan kenapa
+## Deliberately rejected and why
 
-Menolak kartu workbench filter SaaS dan siluet SVG bukit+matahari karena tidak sesuai untuk kedai kopi.
+Reject SaaS search/filter workbench cards and generic hill+sun SVGs because they do not suit a specialty coffee bar.
 
-## Rencana verifikasi
+## Verification plan
 
-Menjalankan run-gates.mjs --mode full --strict dan memeriksa tangkapan layar 1440x900 dan 375x667.
+Run run-gates.mjs --mode full --strict and inspect 1440x900 and 375x667 screenshots.
 `;
 
 test('deterministic quality gates', async t => {
@@ -64,26 +64,34 @@ test('deterministic quality gates', async t => {
     assert.equal(missing.status, 1);
 
     const fullPath = path.join(dir, 'full.md');
-    fs.writeFileSync(fullPath, validFullBriefId);
+    fs.writeFileSync(fullPath, validFullBriefEn);
     assert.equal(runNode('scripts/check-brief.mjs', [fullPath]).status, 0);
 
     const dupAltPath = path.join(dir, 'dup-alt.md');
-    fs.writeFileSync(dupAltPath, validFullBriefId.replace('### Alternatif 2', '### Alternatif 1'));
+    fs.writeFileSync(dupAltPath, validFullBriefEn.replace('### Alternative 2', '### Alternative 1'));
     assert.equal(runNode('scripts/check-brief.mjs', [dupAltPath]).status, 1);
 
     const noImagePlanPath = path.join(dir, 'no-img-plan.md');
     fs.writeFileSync(
       noImagePlanPath,
-      validFullBriefId.replace(/## Rencana gambar[\s\S]*?(?=## Tiga alternatif)/, '').replace('kedai kopi', 'restoran')
+      validFullBriefEn.replace(/## Image plan[\s\S]*?(?=## Three composition)/, '').replace('coffee shop', 'restaurant')
     );
     assert.equal(runNode('scripts/check-brief.mjs', [noImagePlanPath]).status, 1);
 
     const lightPath = path.join(dir, 'light.md');
     fs.writeFileSync(
       lightPath,
-      '<!-- atlas-brief: light -->\n## Pengunjung dan tugas utamanya\nMelihat dokumentasi API.\n## Konten nyata\nEndpoint GET /v1/health.\n## Pilihan akhir dan alasan\nPortal 3-panel sederhana.\n## Rencana verifikasi\nJalankan run-gates.mjs --mode light.\n'
+      '<!-- atlas-brief: light -->\n## Visitor and primary task\nRead API documentation.\n## Real content\nGET /v1/health endpoint.\n## Final choice and rationale\nClean 3-pane docs portal.\n## Verification plan\nRun run-gates.mjs --mode light.\n'
     );
     assert.equal(runNode('scripts/check-brief.mjs', [lightPath]).status, 0);
+
+    // Confirm legacy Indonesian headings still remain compatible
+    const lightIdPath = path.join(dir, 'light-id.md');
+    fs.writeFileSync(
+      lightIdPath,
+      '<!-- atlas-brief: light -->\n## Pengunjung dan tugas utamanya\nMelihat dokumentasi API.\n## Konten nyata\nEndpoint GET /v1/health.\n## Pilihan akhir dan alasan\nPortal 3-panel sederhana.\n## Rencana verifikasi\nJalankan run-gates.mjs --mode light.\n'
+    );
+    assert.equal(runNode('scripts/check-brief.mjs', [lightIdPath]).status, 0);
   });
 
   await t.test('check-tokens blocks raw hex/scale values and passes tokenized CSS', () => {
@@ -160,17 +168,40 @@ test('deterministic quality gates', async t => {
       '<!doctype html><html><body><!-- atlas-proof: not-applicable --><main><h1>API Reference</h1><p>Endpoint documentation.</p></main></body></html>'
     );
     assert.equal(runNode('scripts/check-visual-proof.mjs', [optOutDir, '--strict']).status, 0);
+
+    // Verify crude-floorplan-svg (rect tables + circle stools without gradients/bezier curves) is blocked
+    const floorplanDir = path.join(tmp, 'visual-floorplan');
+    fs.mkdirSync(floorplanDir);
+    fs.writeFileSync(
+      path.join(floorplanDir, 'index.html'),
+      `<!doctype html><html><body><main>
+        <svg viewBox="0 0 640 240">
+          <rect x="40" y="96" width="380" height="44" rx="4" />
+          <circle cx="96" cy="168" r="12" /><circle cx="164" cy="168" r="12" /><circle cx="232" cy="168" r="12" /><circle cx="300" cy="168" r="12" />
+          <rect x="468" y="64" width="110" height="110" rx="55" />
+        </svg>
+      </main></body></html>`
+    );
+    const fpRes = runNode('scripts/check-visual-proof.mjs', [floorplanDir]);
+    assert.equal(fpRes.status, 1);
+    assert.match(fpRes.stdout, /crude-floorplan-svg/);
+
+    // Verify fetch-photos.mjs --offline exits 0 cleanly and writes credits.json
+    const photoOut = path.join(tmp, 'photos-offline');
+    const fpOffline = runNode('scripts/fetch-photos.mjs', ['--query', 'pour over coffee|sourdough bread', '--out', photoOut, '--offline']);
+    assert.equal(fpOffline.status, 0, fpOffline.stderr);
+    assert.ok(fs.existsSync(path.join(photoOut, 'credits.json')));
   });
 
   await t.test('deal-direction uses word-boundary matching and selects distinct directions', () => {
     const dir = path.join(tmp, 'direction');
     fs.mkdirSync(dir);
-    const r1 = runNode('scripts/deal-direction.mjs', ['--prompt', 'restoran kopi nusantara ramai pengunjung', '--project', dir]);
+    const r1 = runNode('scripts/deal-direction.mjs', ['--prompt', 'specialty coffee shop roastery & sourdough bakery', '--project', dir]);
     assert.equal(r1.status, 0, r1.stderr);
     const d1 = JSON.parse(r1.stdout);
     assert.ok(d1.dealtPrimaryDirection?.id);
 
-    const r2 = runNode('scripts/deal-direction.mjs', ['--prompt', 'dashboard keuangan operasional', '--project', dir]);
+    const r2 = runNode('scripts/deal-direction.mjs', ['--prompt', 'operational finance dashboard', '--project', dir]);
     assert.equal(r2.status, 0, r2.stderr);
     const d2 = JSON.parse(r2.stdout);
     assert.notEqual(d1.dealtPrimaryDirection.id, d2.dealtPrimaryDirection.id);
@@ -179,7 +210,7 @@ test('deterministic quality gates', async t => {
   await t.test('run-gates runs full --strict and light modes end-to-end', () => {
     const proj = path.join(tmp, 'e2e-project');
     fs.mkdirSync(proj);
-    fs.writeFileSync(path.join(proj, 'design-brief.md'), validFullBriefId);
+    fs.writeFileSync(path.join(proj, 'design-brief.md'), validFullBriefEn);
     fs.writeFileSync(path.join(proj, 'design-tokens.css'), validTokensCss);
     fs.writeFileSync(
       path.join(proj, 'styles.css'),
@@ -187,7 +218,7 @@ test('deterministic quality gates', async t => {
     );
     fs.writeFileSync(
       path.join(proj, 'index.html'),
-      '<!doctype html><html><head><link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="styles.css"></head><body><main><section><figure data-photo-slot="bar-16x9" data-atlas-proof="editorial-plate"><div role="img" aria-label="Meja seduh pagi hari"><span>PLATE 01</span></div><figcaption>Ruang seduh utama Bandung.</figcaption></figure><button class="btn-primary" type="button">Lihat Menu</button></section></main></body></html>'
+      '<!doctype html><html><head><link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="styles.css"></head><body><main><section><figure data-photo-slot="bar-16x9" data-atlas-proof="editorial-plate"><div role="img" aria-label="Morning pour-over counter"><span>PLATE 01</span></div><figcaption>Main brew bar Bandung.</figcaption></figure><button class="btn-primary" type="button">View Menu</button></section></main></body></html>'
     );
 
     const fullPass = runNode('scripts/run-gates.mjs', [proj, '--mode', 'full', '--strict']);
@@ -203,7 +234,7 @@ test('deterministic quality gates', async t => {
   await t.test('2 proportional + 1 monospace font system passes tokens and slop-scan while 3 proportional fonts fail', () => {
     const dir = path.join(tmp, 'fonts-3');
     fs.mkdirSync(dir);
-    const deal = runNode('scripts/deal-direction.mjs', ['--prompt', 'restoran kopi nusantara', '--project', dir, '--write-tokens']);
+    const deal = runNode('scripts/deal-direction.mjs', ['--prompt', 'specialty coffee restaurant', '--project', dir, '--write-tokens']);
     assert.equal(deal.status, 0, deal.stderr);
     const generatedTokens = fs.readFileSync(path.join(dir, 'design-tokens.css'), 'utf8');
     assert.match(generatedTokens, /--font-display:/);
@@ -214,7 +245,7 @@ test('deterministic quality gates', async t => {
       path.join(dir, 'styles.css'),
       'h1{font-family:var(--font-display)}body{font-family:var(--font-sans)}code{font-family:var(--font-mono)}'
     );
-    fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html><body><h1>Judul</h1><code>v7.0</code></body></html>');
+    fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html><body><h1>Title</h1><code>v7.0</code></body></html>');
     assert.equal(runNode('scripts/check-tokens.mjs', [dir, '--tokens', path.join(dir, 'design-tokens.css')]).status, 0);
     assert.equal(runNode('skills/atlas-checker/scripts/slop-scan.mjs', [dir]).status, 0);
 

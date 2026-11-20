@@ -919,7 +919,7 @@ export function selectDirection(promptText) {
       primary = DIRECTIONS[0];
       fallbackStrategy = 'clarification-required';
       needsClarification = true;
-      clarificationQuestion = 'Domain atau kata sifat nada belum terdeteksi dari prompt. Tanyakan ke user: apakah ingin nada hangat/editorial, tegas/kontras, minimalis/tenang, gelap/teknis, atau resmi/institusional?';
+      clarificationQuestion = 'No domain or tone adjectives were detected in the prompt. Ask the user: should the tone be warm/editorial, bold/high-contrast, minimal/calm, dark/technical, or formal/institutional?';
     }
   }
 
@@ -1066,17 +1066,19 @@ ${fontLines}
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
 }
 /* 6. Base Foundation, Editorial Specimen Plates, & Styled Form Controls */
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; background-color: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); font-size: var(--text-base); line-height: var(--leading-body, 1.6); -webkit-font-smoothing: antialiased; }
-h1, h2, h3, h4 { font-family: var(--font-display, var(--font-sans)); line-height: var(--leading-tight, 1.12); letter-spacing: var(--tracking-tight, -0.025em); margin-top: 0; }
-code, pre, kbd, samp, .mono { font-family: var(--font-mono, ui-monospace, monospace); }
-img, svg, video, canvas { max-width: 100%; height: auto; }
-table { width: 100%; border-collapse: collapse; }
-th, td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border); }
-.editorial-plate, figure[data-photo-slot] { margin: 0; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background-color: var(--color-surface-elevated); overflow: hidden; }
-.editorial-plate-stage { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-4); padding: var(--space-6); min-height: 220px; background: radial-gradient(circle at 82% 18%, var(--color-surface-tint, var(--color-surface)), var(--color-surface) 72%); border-bottom: 1px solid var(--color-border); }
-.editorial-plate-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--text-xs); letter-spacing: var(--tracking-wide, 0.05em); text-transform: uppercase; color: var(--color-muted); }
-.editorial-plate figcaption, figure[data-photo-slot] > figcaption { padding: var(--space-3) var(--space-4); font-size: var(--text-xs); color: var(--color-muted); background-color: var(--color-surface-elevated); }
+:where(*, *::before, *::after) { box-sizing: border-box; }
+:where(body) { margin: 0; background-color: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); font-size: var(--text-base); line-height: var(--leading-body, 1.6); -webkit-font-smoothing: antialiased; }
+:where(h1, h2, h3, h4) { font-family: var(--font-display, var(--font-sans)); line-height: var(--leading-tight, 1.12); letter-spacing: var(--tracking-tight, -0.025em); margin-top: 0; }
+:where(main p, main li) { max-width: 65ch; }
+:where(header a, nav a, footer a) { min-height: 2.75rem; display: inline-flex; align-items: center; }
+:where(code, pre, kbd, samp, .mono) { font-family: var(--font-mono, ui-monospace, monospace); }
+:where(img, svg, video, canvas) { max-width: 100%; height: auto; }
+:where(table) { width: 100%; border-collapse: collapse; }
+:where(th, td) { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border); }
+:where(.editorial-plate, figure[data-photo-slot]) { margin: 0; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background-color: var(--color-surface-elevated); overflow: hidden; }
+:where(.editorial-plate-stage) { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-4); padding: var(--space-6); min-height: 220px; background-color: var(--color-surface); background-image: radial-gradient(circle at 82% 18%, var(--color-surface-tint, var(--color-surface)), var(--color-surface) 72%); border-bottom: 1px solid var(--color-border); }
+:where(.editorial-plate-meta) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--text-xs); letter-spacing: var(--tracking-wide, 0.05em); text-transform: uppercase; color: var(--color-muted); }
+:where(.editorial-plate figcaption, figure[data-photo-slot] > figcaption) { padding: var(--space-3) var(--space-4); font-size: var(--text-xs); color: var(--color-muted); background-color: inherit; }
 input:not([type="checkbox"]):not([type="radio"]), select, textarea {
   appearance: none;
   -webkit-appearance: none;
@@ -1088,6 +1090,7 @@ input:not([type="checkbox"]):not([type="radio"]), select, textarea {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xs);
   padding: var(--space-2) var(--space-3);
+  min-height: 2.75rem;
 }
 select {
   max-width: 100%;
@@ -1112,6 +1115,7 @@ button, .btn, .btn-primary, .btn-secondary, .btn-ghost {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 600;
+  min-height: 2.75rem;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-xs);
   border: 1px solid var(--color-border);

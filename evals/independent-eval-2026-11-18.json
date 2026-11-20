@@ -47,6 +47,6 @@
     { "case": "09-legal", "aMean": 3.14, "bMean": 4.71, "aScores": [3, 3, 1, 3, 4, 4, 4], "bScores": [5, 5, 5, 5, 4, 4, 5], "winner": "B" },
     { "case": "10-wedding", "aMean": 3.14, "bMean": 3.71, "aScores": [3, 3, 1, 3, 4, 4, 4], "bScores": [4, 4, 4, 4, 4, 4, 2], "winner": "B" }
   ],
-  "verdict": "Belum siap",
+  "verdict": "Not ready",
   "verdictReason": "Reached 3-round maximum with Criterion (b) unmet: visible 'GANTI DENGAN FOTO ASLI' placeholder badge in 5/10 B cases flagged as critical end-user UI defect by independent judge."
 }

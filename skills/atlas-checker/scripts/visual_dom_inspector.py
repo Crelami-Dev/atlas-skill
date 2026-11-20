@@ -366,17 +366,35 @@ def run_inspection(target: str, out_dir: str):
         )
         time.sleep(0.18)
 
+    local_server = None
     try:
         if target.startswith(("http://", "https://")):
             driver.get(target)
         else:
             abs_html = Path(os.path.abspath(target))
-            raw_html = abs_html.read_text(encoding="utf-8")
-            html_str = inline_local_assets(raw_html, abs_html.parent)
-            driver.get("about:blank")
-            fid = driver.execute_cdp_cmd("Page.getFrameTree", {})["frameTree"]["frame"]["id"]
-            driver.execute_cdp_cmd("Page.setDocumentContent", {"frameId": fid, "html": html_str})
-        time.sleep(0.4)
+            serve_dir = str(abs_html.parent)
+            try:
+                import functools
+                import http.server
+                import threading
+
+                class _QuietStaticHandler(http.server.SimpleHTTPRequestHandler):
+                    def log_message(self, format, *args):
+                        pass
+
+                handler = functools.partial(_QuietStaticHandler, directory=serve_dir)
+                local_server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+                port = local_server.server_address[1]
+                srv_thread = threading.Thread(target=local_server.serve_forever, daemon=True)
+                srv_thread.start()
+                driver.get(f"http://127.0.0.1:{port}/{abs_html.name}")
+            except Exception:
+                raw_html = abs_html.read_text(encoding="utf-8")
+                html_str = inline_local_assets(raw_html, abs_html.parent)
+                driver.get("about:blank")
+                fid = driver.execute_cdp_cmd("Page.getFrameTree", {})["frameTree"]["frame"]["id"]
+                driver.execute_cdp_cmd("Page.setDocumentContent", {"frameId": fid, "html": html_str})
+        time.sleep(0.45)
 
         # 1. Desktop 1440x900 Captures (Top, Mid, Low) + Aesthetic Geometry Audit
         set_vp(1440, 900, mobile=False)
@@ -467,6 +485,8 @@ def run_inspection(target: str, out_dir: str):
             const bodyParas = [...document.querySelectorAll('main p')].filter(p => {
               if (!p.offsetParent) return false;
               if (p.closest('figcaption, footer, small, [data-meta], .form-error')) return false;
+              if (p.matches('.eyebrow, .kicker, .step-day, .metric-label, .brand-sub, [data-eyebrow]')) return false;
+              if (window.getComputedStyle(p).textTransform === 'uppercase') return false;
               return (p.textContent || '').trim().length >= 40;
             });
             for (const p of bodyParas) {
@@ -528,7 +548,7 @@ def run_inspection(target: str, out_dir: str):
               const secBg = effectiveBg(sec);
               if (secBg && relLum(secBg) < 0.12) {
                 const proseLen = [...sec.querySelectorAll('p')].reduce((acc, p) => acc + (p.textContent || '').trim().length, 0);
-                const structCount = sec.querySelectorAll('table, dl, pre, figure, img, svg, canvas, video, [data-photo-placeholder], [data-photo-slot], [data-atlas-proof]').length;
+                const structCount = sec.querySelectorAll('table, dl, pre, figure, img, svg, canvas, video, article, ul, ol, [role="list"], .card, [data-photo-placeholder], [data-photo-slot], [data-atlas-proof]').length;
                 if (proseLen > 420 && structCount === 0) {
                   findings.push({level: 'warn', id: 'dark-section-long-prose-only', detail: `Dark section #${sec.id || 'unnamed'} contains ${proseLen} chars of plain paragraph text without structured cards/media/specs`});
                 }
@@ -721,6 +741,12 @@ def run_inspection(target: str, out_dir: str):
         )
         return report
     finally:
+        if local_server is not None:
+            try:
+                local_server.shutdown()
+                local_server.server_close()
+            except Exception:
+                pass
         driver.quit()
         shutil.rmtree(chrome_home, ignore_errors=True)
 

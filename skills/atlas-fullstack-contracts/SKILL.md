@@ -1,27 +1,27 @@
 ---
 name: atlas-fullstack-contracts
-description: "Connect frontend UI to typed API/mock data adapters, auth session boundaries, environment variable hygiene, and SEO/OpenGraph metadata (Gunakan saat menghubungkan UI frontend ke API atau adaptor data mock bertipe, mengatur batas sesi autentikasi, variabel lingkungan, dan metadata SEO/OpenGraph). Do not use for pure presentational components."
+description: "Use when connecting frontend UI to typed API/mock data adapters, auth session boundaries, environment variable hygiene, and SEO/OpenGraph metadata. Do not use for pure presentational components without data or page metadata."
 ---
 
-# Atlas Fullstack Contracts & Kesiapan Proyek
+# Atlas Fullstack Contracts & Production Readiness
 
-Modul ini mengatur batas antara antarmuka pengguna dengan lapisan data, autentikasi, variabel lingkungan, dan metadata dokumen.
+This module governs boundaries between UI components and data layers, authentication states, environment variables, and document metadata.
 
-## 1. Lapisan Data dan Adaptor Layanan (`src/data/` atau `src/services/`)
+## 1. Data Layer & Service Adapters (`src/data/` or `src/services/`)
 
-Pisahkan definisi tipe dan pemanggilan data dari komponen tampilan karena menyisipkan array objek besar langsung di dalam komponen JSX/Vue membuat kode sulit diuji dan dipelihara:
+Separate type definitions and data access from presentation components, because hardcoding large raw arrays inside JSX/Vue components makes code brittle and hard to test:
 
-- **Skema Domain Bertipe:** Definisikan tipe TypeScript, JSDoc, atau skema validasi untuk entitas utama (`Product`, `BookingSlot`, `ApiError`) di modul terpisah.
-- **Batas Layanan yang Jelas:** Arahkan pembacaan dan perubahan data melalui fungsi layanan (`getRooms()`, `submitInquiry(payload)`). Jika proyek berupa prototipe frontend tanpa backend aktif, simpan perubahan state secara lokal dan beri label simulasi secara jujur agar pengguna tidak mengira transaksi nyata telah terkirim ke server.
+- **Typed Domain Schemas:** Define TypeScript types, JSDoc typedefs, or validation schemas for core entities (`Product`, `BookingSlot`, `ApiError`) in dedicated modules.
+- **Clear Service Boundaries:** Route reads and mutations through service functions (`getRooms()`, `submitInquiry(payload)`). In frontend prototypes without a live backend, store state locally and label simulations honestly so users never assume live transactions occurred.
 
-## 2. Keamanan Sisi Klien & Batas Autentikasi
+## 2. Client-Side Security & Auth Boundaries
 
-- **Perlindungan Rahasia Lingkungan:** Jangan menempatkan kunci API privat, kredensial database, atau secret penandatanganan di dalam variabel `NEXT_PUBLIC_*`, `VITE_*`, `PUBLIC_*`, atau bundle klien karena seluruh kode frontend dapat dibaca langsung oleh publik di browser. Sediakan `.env.example` berisi contoh placeholder yang aman.
-- **Pencegahan XSS DOM:** Hindari memasukkan string dari pengguna atau parameter URL ke dalam `dangerouslySetInnerHTML`, `v-html`, atau `.innerHTML` karena membuka celah eksekusi skrip lintas situs (XSS).
-- **Status Sesi:** Jika aplikasi memiliki fitur login, sediakan tampilan yang jelas untuk kondisi belum masuk, sedang memproses, kredensial ditolak, dan sesi kedaluwarsa.
+- **Environment Secret Hygiene:** Never place private API keys, database credentials, or signing secrets inside `NEXT_PUBLIC_*`, `VITE_*`, `PUBLIC_*`, or client bundles, as all frontend code is readable in the browser. Provide `.env.example` with safe placeholder keys.
+- **DOM XSS Prevention:** Never inject untrusted user strings or URL query parameters into `dangerouslySetInnerHTML`, `v-html`, or `.innerHTML`; use text nodes or sanitized templating.
+- **Auth Session States:** For authenticated apps, explicitly design signed-out, signing-in, invalid-credentials, and expired-session states.
 
-## 3. Metadata Dokumen, Aset, & Pencegahan CLS
+## 3. Document Metadata, Assets, & CLS Prevention
 
-- Tetapkan `<title>`, `<meta name="description">`, atribut `<html lang="...">`, struktur landmark (`<header>`, `<main id="main-content">`, `<footer>`), serta tautan lewati-ke-konten (skip link).
-- Sediakan metadata OpenGraph (`og:title`, `og:description`, `og:type`) dan favicon lokal/inline SVG agar browser tidak menghasilkan error `404 /favicon.ico` di konsol.
-- Cantumkan atribut `width` dan `height` (atau `aspect-ratio` CSS) pada setiap elemen `<img>`, `<video>`, dan `<svg>` agar browser dapat mengalokasikan ruang sebelum gambar selesai dimuat.
+- Define `<title>`, `<meta name="description">`, `<html lang="...">`, semantic landmarks (`<header>`, `<main id="main-content">`, `<footer>`), and a keyboard skip link.
+- Provide OpenGraph metadata (`og:title`, `og:description`, `og:type`) and a local or inline SVG favicon so browsers do not log `404 /favicon.ico` errors.
+- Always declare `width` and `height` (or CSS `aspect-ratio`) on `<img>`, `<video>`, and `<svg>` elements so the browser reserves layout space prior to load.

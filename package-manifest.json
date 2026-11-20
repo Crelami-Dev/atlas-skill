@@ -2,10 +2,26 @@
   "schemaVersion": 1,
   "version": "7.0.0",
   "entrypoint": "SKILL.md",
+  "topLevelSkills": [
+    "atlas-skill",
+    "atlas-frontend",
+    "atlas-bug-hunter"
+  ],
   "skills": [
     {
-      "name": "atlas-frontend-design",
-      "path": "SKILL.md"
+      "name": "atlas-skill",
+      "path": "SKILL.md",
+      "topLevel": true
+    },
+    {
+      "name": "atlas-frontend",
+      "path": "skills/atlas-frontend/SKILL.md",
+      "topLevel": true
+    },
+    {
+      "name": "atlas-bug-hunter",
+      "path": "skills/atlas-bug-hunter/SKILL.md",
+      "topLevel": true
     },
     {
       "name": "atlas-plan",

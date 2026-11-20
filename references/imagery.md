@@ -1,63 +1,83 @@
-# Strategi Gambar, Fotografi, & Pelat Spesimen Editorial (`imagery.md`)
+# Visual Assets, Photography, & Editorial Specimen Plates (`imagery.md`)
 
-Panduan ini mengatur pengambilan keputusan visual untuk domain yang biasanya bergantung pada fotografi (portofolio fotografer, restoran/kuliner, produk fisik/e-commerce, properti/real estate, travel/pariwisata, fashion, pernikahan, dan event).
+This guide governs visual media decisions for photography-dependent domains (photographer portfolios, restaurants/hospitality, physical e-commerce, real estate, travel, fashion, weddings, and live events).
 
-## 1. Alur Keputusan Aset Visual
+## 1. Visual Asset Decision Tree
 
-1. **Kondisi A — Pengguna Menyediakan Aset Nyata:**
-   - Gunakan file foto/video yang diberikan pengguna secara langsung karena aset asli merupakan bukti paling jujur bagi pengunjung.
-   - Pasang atribut `width`, `height`, `aspect-ratio`, `loading="lazy"` (untuk gambar di bawah lipatan pertama), dan `alt` yang mendeskripsikan isi visual secara spesifik.
-2. **Kondisi B — Domain Visual tetapi Aset Foto Belum Tersedia:**
-   - Tetap bangun halaman secara utuh menggunakan **Pelat Spesimen Editorial / Teknis Spesifik-Domain (`data-photo-slot="..."` + `data-atlas-proof="..."`)** agar komposisi, ritme grid, dan proporsi media tampak **100% selesai** bagi pengunjung tanpa menampilkan teks instruksi internal.
-   - **Dilarang Keras di DOM Pengunjung:** Jangan pernah merender teks instruksi untuk pemilik proyek/developer di UI pengunjung seperti `"Ganti dengan foto asli"`, `"Replace with photo"`, `"SLOT FOTO 01"`, `"PHOTO SLOT"`, `"menunggu foto"`, `"Subjek: ..."`, `"[Data Klien Diperlukan]"`, atau kelas `.photo-replace-badge`.
-   - **Penandaan Diam-Diam untuk Handoff:** Tandai slot media yang nantinya bisa diganti dengan foto nyata hanya lewat atribut HTML senyap (`data-photo-slot="hero-16x9"`, `data-aspect="16:9"`) serta daftar slot di `design-brief.md` (`## Rencana gambar` / `## Image plan`) dan pesan penutup kepada pengguna (misalnya: *"Slot media telah ditandai dengan `data-photo-slot`. Silakan kirim 3 foto ruang seduh rasio 16:9 dan 4 foto menu rasio 4:5 jika ingin mengganti pelat spesimen saat ini dengan foto asli."*).
-3. **Kondisi C — Domain Berbasis Data, Kode, atau Tipografi Murni:**
-   - Untuk dashboard operasional, dokumentasi API, atau laporan tekstual, gunakan tabel data nyata, cuplikan terminal/kode, atau grafik data-viz terukur tanpa memaksakan foto dekoratif.
+1. **Condition A — User Supplies Real Assets:**
+   - Use user-provided photography or video directly—real assets are always the most honest visual proof.
+   - Set explicit `width`, `height`, `aspect-ratio`, `loading="lazy"` (for below-the-fold media), and descriptive `alt` text.
+2. **Condition B — Visual Domain Without Photo Assets Yet:**
+   - **Step B1 (Primary — Fetch Real Licensed Photography When Online):** Run Atlas's built-in Wikimedia Commons photo downloader to save high-resolution CC0 / CC-BY / Public-Domain photography locally into `assets/photos/` (with attribution metadata in `assets/photos/credits.json`):
+     ```sh
+     node <atlas>/scripts/fetch-photos.mjs --query "<subject 1>|<subject 2>|<subject 3>|<subject 4>" --out assets/photos --count 4
+     ```
+     Render the downloaded local images (`<img src="assets/photos/photo-01.jpg" width="..." height="..." alt="...">`) inside `<figure class="editorial-plate" data-photo-slot="..." data-atlas-proof="real-photography">` and include a quiet 1-line attribution credit from `assets/photos/credits.json` in the page footer.
+   - **Step B2 (Fallback — Offline or Technical/Architectural Diagrams Only):** Only when offline (`--offline`) or when an analytical diagram is more informative than a photograph, deliver a **100% finished-looking page** using **Domain-Specific Editorial / Technical Specimen Plates (`data-photo-slot="..."` + `data-atlas-proof="..."`)** with `<linearGradient>`/`<radialGradient>` and bezier curve (`C`/`S`/`Q`/`A`) `<path>` artwork, keeping all developer notes out of the visitor DOM.
+   - **Strictly Forbidden in Visitor DOM:** Never render owner/developer instructions in visible text or `aria-label`, including `"Ganti dengan foto asli"`, `"Replace with photo"`, `"SLOT FOTO 01"`, `"PHOTO SLOT"`, `"awaiting photo"`, `"Subjek: ..."`, `"[Data Klien Diperlukan]"`, or `.photo-replace-badge`. Never draw schematic `<rect>` table + `<circle>` stool/chair wireframe floorplans (`crude-floorplan-svg`).
+   - **Silent Handoff Markup:** Mark swappable frames solely via silent HTML attributes (`data-photo-slot="hero-16x9"`, `data-aspect="16:9"`), list the media slots in `design-brief.md` (`## Image plan`), and invite the user to swap in their own proprietary photography whenever ready.
+3. **Condition C — Data-, Code-, or Typography-First Domains:**
+   - For operational dashboards, API documentation, or research dossiers, lead with structured tables, live calculators, terminal/code specimens, or measured charts instead of forcing decorative photos.
 
-## 2. Pola Pelat Spesimen Spesifik-Domain (Kondisi B)
+## 2. Domain-Specific Specimen Plate Patterns (Condition B)
 
-Saat membangun halaman dalam **Kondisi B**, isi setiap bingkai `<figure data-photo-slot="..." data-atlas-proof="...">` dengan materi domain yang bernilai nyata bagi pengunjung dan bertumpu penuh pada token `--color-*` serta `--font-*`:
+When building under **Condition B**, populate each `<figure data-photo-slot="..." data-atlas-proof="...">` with meaningful domain composition backed by `--color-*` and `--font-*` tokens:
 
-- **Fotografer / Arsitektur:** Pelat Monograf & Eksposur Pameran (nomor pelat `PLATE I`, judul seri karya, metadata teknis nyata `35mm • f/2.8 • 1/125s • ISO 400`, gradien pencahayaan terarah, dan catatan kuratorial).
-- **Event / Simposium / Festival:** Pelat Denah Panggung & Akustik Ruang atau Poster Tipografi Kronologis (kapasitas kursi, dimensi panggung, jarak pandang, dan jadwal sesi).
-- **Produk Fisik / E-Commerce:** Pelat Potongan Material & Dimensi Teknis (toleransi milimeter, lapisan material, komposisi berat, serta perbandingan *swatch* warna/tekstur interaktif).
-- **Restoran / Kafe / Kuliner:** Pelat Asal Panen & Profil Cita Rasa (elevasi kebun, proses fermentasi/sangrai, suhu penyajian, catatan rasa, dan pasangan hidangan).
-- **Pernikahan / Seremonial:** Pelat Monogram Cetak & Peta Lokasi Acara (inisial tipografis, koordinat/rute lokasi, dan kartu penunjuk waktu).
+- **Photographer / Architecture:** Exhibition Monograph & Exposure Plate (`PLATE I`, series title, optical/lighting metadata `35mm • f/2.8 • 1/125s • ISO 400`, layered light-study SVG/gradients, and curatorial caption).
+- **Event / Symposium / Festival:** Stage Acoustic Diagram or Architectural Venue Elevation (seating capacity, stage sightlines, and schedule notes).
+- **Physical Product / E-Commerce:** Technical Material Cross-Section & Dimension Plate (millimeter tolerances, layered finish tones, weight specs, and interactive finish swatches).
+- **Restaurant / Café / Culinary:** Architectural Tasting Bar Illustration & Harvest Origin Plate (layered counter/light scene, origin elevation, roast curve, tasting notes, and food pairings).
+- **Wedding / Ceremonial:** Engraved Monogram Crest & Venue Coordinate Plate (typographic initials, venue coordinates/route diagram, and ceremony timeline cues).
 
-Contoh markup pelat spesimen yang bersih (tanpa bocoran instruksi placeholder di UI pengunjung):
+Clean specimen plate example (layered architectural SVG composition, zero raw wireframe boxes, zero leaked placeholder text):
 
 ```html
 <figure class="editorial-plate" data-photo-slot="cibeunying-bar-16x9" data-aspect="16:9" data-atlas-proof="editorial-plate">
-  <div class="editorial-plate-stage" role="img" aria-label="Denah pencahayaan pagi meja bar kayu jati enam kursi menghadap taman Cibeunying">
+  <div class="editorial-plate-stage" role="img" aria-label="Architectural morning light illustration across a teak pour-over bar counter with gooseneck kettle and porcelain cups">
     <div class="editorial-plate-meta">
-      <span>PLATE 01 · CIBEUNYING</span>
-      <span>16:9 · 07:30 WIB · ORIENTASI TIMUR</span>
+      <span>PLATE 01 · EAST BAR COUNTER</span>
+      <span>16:9 · 07:30 LOCAL · MORNING LIGHT</span>
     </div>
-    <svg viewBox="0 0 480 160" width="480" height="160" aria-hidden="true">
-      <rect x="24" y="24" width="432" height="112" rx="8" fill="none" stroke="currentColor" stroke-opacity="0.2" stroke-width="1.5"/>
-      <rect x="72" y="56" width="336" height="44" rx="4" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="116" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="178" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="240" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="302" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="364" cy="118" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M124 78 L152 78 M224 78 L256 78 M328 78 L360 78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <svg viewBox="0 0 760 240" width="760" height="240" aria-hidden="true">
+      <defs>
+        <linearGradient id="morningBeam" x1="0%" y1="0%" x2="85%" y2="100%">
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <!-- Arched east window & morning light beam (stops cleanly at counter y=168) -->
+      <path d="M96 168 L96 78 A68 68 0 0 1 232 78 L232 168 Z" fill="url(#morningBeam)"/>
+      <path d="M96 168 L96 78 A68 68 0 0 1 232 78 L232 168" fill="none" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.5"/>
+      <polygon points="104,132 224,132 392,168 164,168" fill="currentColor" fill-opacity="0.06"/>
+      <!-- Teak bar counter surface -->
+      <path d="M40 168 L720 168 L720 204 L40 204 Z" fill="currentColor" fill-opacity="0.12"/>
+      <line x1="40" y1="168" x2="720" y2="168" stroke="currentColor" stroke-opacity="0.45" stroke-width="2"/>
+      <!-- Gooseneck kettle & porcelain cups -->
+      <path d="M312 168 L322 108 L368 108 L378 168 Z" fill="currentColor" fill-opacity="0.72"/>
+      <path d="M322 132 C292 132 292 104 276 102" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M368 118 C392 118 392 152 374 152" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M432 138 L476 138 L470 168 L438 168 Z" fill="currentColor" fill-opacity="0.45"/>
+      <path d="M498 142 L538 142 L533 168 L503 168 Z" fill="currentColor" fill-opacity="0.32"/>
+      <!-- Pendant lamp -->
+      <line x1="590" y1="12" x2="590" y2="66" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5"/>
+      <path d="M556 90 A34 24 0 0 1 624 90 Z" fill="currentColor" fill-opacity="0.24" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.5"/>
     </svg>
-    <p class="editorial-plate-caption">Meja seduh kayu jati tiga meter dengan pencahayaan alami pagi dan stasiun pour-over berjarak 45 cm antar tamu.</p>
+    <p class="editorial-plate-caption">Three-meter teak pour-over counter bathed in morning east-window daylight with 45 cm seating spacing.</p>
   </div>
-  <figcaption>Ruang seduh utama Jl. Taman Cibeunying Selatan No. 14 — kapasitas 18 kursi bar.</figcaption>
+  <figcaption>Main brew counter seating 18 guests along the sunlit east garden wall.</figcaption>
 </figure>
 ```
 
-## 3. Pola Visual yang Dilarang Keras
+## 3. Strictly Forbidden Visual Patterns
 
-- **Kebocoran Instruksi Placeholder (`leaked-photo-placeholder-ui`):** Dilarang keras menampilkan kalimat seperti `"Ganti dengan foto asli"`, `"Replace with photo"`, `"SLOT FOTO 01"`, `"Image Placeholder"`, `"[Data Klien Diperlukan]"`, atau `"menunggu foto dokumentasi"` di elemen teks maupun `aria-label`.
-- **Siluet Kartun Bukit + Matahari (`generic-hill-sun-svg`):** Jangan pernah menggambar `<svg>` berisi lingkaran matahari (`<circle>`) di atas kurva/segitiga gunung atau ombak (`<path>`/`<polygon>`) sebagai pengganti foto karena langsung terlihat seperti ilustrasi generik AI.
-- **Ikon Stock atau Gambar Rusak (`broken-images`):** Jangan menaruh ikon kamera/cangkir di tengah kotak kosong, dan jangan pernah mengarahkan `<img src="...">` ke path lokal yang tidak ada atau URL eksternal yang belum diverifikasi.
-- **Teks SVG Menabrak Garis (`svg-text-overlap`):** Jangan menaruh `<text>` di atas atau melintasi batas garis (`stroke`) objek di dalam `<svg>`; letakkan anotasi di elemen HTML terpisah.
+- **Raw Wireframe Boxes Inside Plates:** Never draw rows of empty stroked `<rect>` and `<circle>` shapes inside `.editorial-plate-stage` that resemble a crude CAD schematic; compose layered SVGs using opacity gradients, filled domain silhouettes, lighting geometry, or measured curves.
+- **Leaked Placeholder Instructions (`leaked-photo-placeholder-ui`):** Never render phrases such as `"Replace with photo"`, `"Ganti dengan foto asli"`, `"PHOTO SLOT 01"`, `"SLOT FOTO 01"`, `"Image Placeholder"`, `"[Data Klien Diperlukan]"`, or `"awaiting photography"` in visible text or `aria-label`.
+- **Generic Hill-and-Sun Silhouettes (`generic-hill-sun-svg`):** Never draw an `<svg>` containing a sun `<circle>` over wavy/mountain `<path>`/`<polygon>` placeholders.
+- **Stock Icons or Broken Images (`broken-images`):** Never place a lonely camera icon inside an empty box, and never point `<img src="...">` at missing local files or unverified external URLs.
+- **SVG Text Overlapping Strokes (`svg-text-overlap`):** Never place `<text>` colliding with `<svg>` stroke boundaries; render captions and metadata in clean HTML outside or around the artwork.
 
-## 4. Bagian Wajib "Rencana Gambar" (`## Rencana gambar` / `## Image plan`) di Brief
+## 4. Mandatory `## Image plan` Section in `design-brief.md`
 
-Untuk setiap proyek pada domain visual (fotografer, restoran, produk, properti, travel, fashion, pernikahan, dan event), `design-brief.md` wajib memuat bagian `## Rencana gambar` (atau `## Image plan`) yang merinci:
-- Sumber aset (tersedia dari pengguna vs pelat spesimen editorial dengan atribut `data-photo-slot` untuk disambungkan nanti).
-- Daftar slot gambar utama beserta rasio aspek (`16:9`, `4:5`, `1:1`) dan aset foto yang diminta ke pengguna di pesan akhir.
+For every visual-domain project (photographers, restaurants, physical products, real estate, travel, fashion, weddings, and events), `design-brief.md` must include `## Image plan` (or `## Rencana gambar`) detailing:
+- Asset source (user-supplied photography vs editorial specimen plates tagged silently with `data-photo-slot`).
+- List of primary media slots, aspect ratios (`16:9`, `4:5`, `1:1`), and specific real photos to request from the user in the final chat message.

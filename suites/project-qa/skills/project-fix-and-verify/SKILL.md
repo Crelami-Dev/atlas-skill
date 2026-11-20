@@ -10,7 +10,7 @@ Implement user-approved bug and security fixes cleanly at the root cause, test *
 ## Decision Tree
 
 - **User ONLY asked to search/audit/check issues**: Stop immediately! Do NOT modify any project file. Load `project-bug-hunter` and/or `project-security-auditor` instead.
-- **User EXPLICITLY instructed to fix issues** (`benerin`, `perbaiki sesuai laporan`, `kerjakan perbaikannya`, `fix semuanya`): Proceed through Steps 1 to 5 below without skipping any verification gate.
+- **User EXPLICITLY instructed to fix issues** (`fix it`, `apply fixes`, `fix according to report`, `fix all`): Proceed through Steps 1 to 5 below without skipping any verification gate.
 
 ## Path Resolution
 
@@ -56,4 +56,4 @@ After all fixes pass feature testing, step back and re-analyze the entire projec
 
 ### Step 5: Deliver the Final Verification Report
 
-Generate `LAPORAN-VERIFIKASI-PERBAIKAN.md` following [verification-report-template.md](assets/verification-report-template.md) in the user's language, documenting every applied patch, the 100% Feature Test Matrix results, and the clean post-fix security and bug re-audit sign-off.
+Generate `FIX-VERIFICATION-REPORT.md` following [verification-report-template.md](assets/verification-report-template.md) in the user's language, documenting every applied patch, the 100% Feature Test Matrix results, and the clean post-fix security and bug re-audit sign-off.

@@ -1,36 +1,36 @@
 ---
 name: atlas-motion-animejs
-description: "Design and implement web animations, FLIP layout transitions, scroll choreography, and spring physics with Anime.js v4 (Gunakan saat merancang atau mengimplementasikan animasi web, transisi layout FLIP, koreografi scroll, dan efek pegas menggunakan Anime.js v4). Do not use for simple color hover effects handled cleanly by CSS transitions."
+description: "Use when designing or implementing web animations, FLIP layout transitions, scroll choreography, and spring physics with Anime.js v4 (animejs@^4.0.0). Do not use for simple color hover effects handled cleanly by CSS transitions."
 ---
 
-# Atlas Motion Engine - Koreografi Anime.js v4
+# Atlas Motion Engine — Anime.js v4 Choreography
 
-Gunakan **Anime.js v4 (`animejs@^4.0.0`)** saat antarmuka membutuhkan koreografi masuk bertahap, fisika pegas, transisi layout FLIP, animasi berbasis scroll, atau animasi garis SVG. Untuk perubahan satu properti sederhana saat hover, gunakan `transition` CSS biasa agar beban JavaScript tetap minimal.
+Use **Anime.js v4 (`animejs@^4.0.0`)** when an interface needs staggered entrance choreography, spring physics, FLIP layout transitions, scroll-linked motion, or SVG path drawing. For single-property hover changes, use standard CSS `transition` rules to keep bundle weight minimal.
 
-Baca [Anime.js v4 Playbook](../../references/animejs-v4-playbook.md) dan [Scope Helper Template](../../templates/animejs-v4-scope.ts) sebelum menulis kode animasi.
+Read the [Anime.js v4 Playbook](../../references/animejs-v4-playbook.md) and [Scope Helper Template](../../templates/animejs-v4-scope.ts) before writing animation code.
 
-## 1. Aturan Sintaks Anime.js v4 vs Legacy v3
+## 1. Anime.js v4 Syntax vs Legacy v3
 
-Jangan mencampur sintaks Anime.js v3 ke dalam proyek v4 karena struktur ekspor modul dan nama propertinya telah berubah dan akan memicu error saat runtime:
+Never mix Anime.js v3 syntax into a v4 codebase, as module exports and option keys have changed and fail at runtime:
 
-| Kemampuan | Sintaks Lama v3 (Ditolak Linter) | Sintaks Resmi Anime.js v4 |
+| Capability | Legacy v3 Syntax (Blocked by Linter) | Official Anime.js v4 Syntax |
 |---|---|---|
-| Impor Modul | `import anime from 'animejs'` | `import { animate, createTimeline, createScope, stagger, spring, onScroll } from 'animejs'` |
-| Pemanggilan Dasar | `anime({ targets: '.card', translateY: 20 })` | `animate('.card', { y: [20, 0], opacity: [0, 1] })` |
-| Properti & Nama Easing | `easing: 'easeOutExpo'` | `ease: 'outExpo'` |
-| Fisika Pegas | `easing: 'spring(1, 80, 10, 0)'` | `ease: spring({ bounce: 0.25, duration: 500 })` |
+| Module Import | `import anime from 'animejs'` | `import { animate, createTimeline, createScope, stagger, spring, onScroll } from 'animejs'` |
+| Basic Call | `anime({ targets: '.card', translateY: 20 })` | `animate('.card', { y: [20, 0], opacity: [0, 1] })` |
+| Property & Ease Name | `easing: 'easeOutExpo'` | `ease: 'outExpo'` |
+| Spring Physics | `easing: 'spring(1, 80, 10, 0)'` | `ease: spring({ bounce: 0.25, duration: 500 })` |
 | Timeline | `anime.timeline({ ... })` | `createTimeline({ defaults: { ease: 'outQuart' } })` |
 | Stagger | `delay: anime.stagger(60)` | `delay: stagger(60, { from: 'first' })` |
-| Arah Bolak-balik | `direction: 'alternate'` | `alternate: true` atau `reversed: true` |
-| Pemicu Scroll | IntersectionObserver manual | `autoplay: onScroll({ container, enter: 'bottom-=12% top' })` |
-| Pemecah Teks | SplitType pihak ketiga | `splitText(el, { lines: { wrap: 'clip' }, words: true })` |
-| Gambar Garis SVG | `strokeDashoffset: [anime.setDashoffset, 0]` | `animate(svg.createDrawable('path.route'), { draw: ['0 0', '0 1'] })` |
-| Transisi Layout (FLIP) | Hitung bounding-box manual | `const layout = createLayout(root); layout.record(); updateDOM(); layout.animate();` |
-| Pembersihan Komponen | `anime.remove()` | `const scope = createScope({ root }).add(...); return () => scope.revert();` |
+| Alternation | `direction: 'alternate'` | `alternate: true` or `reversed: true` |
+| Scroll Trigger | Manual IntersectionObserver | `autoplay: onScroll({ container, enter: 'bottom-=12% top' })` |
+| Text Splitting | Third-party SplitType | `splitText(el, { lines: { wrap: 'clip' }, words: true })` |
+| SVG Line Drawing | `strokeDashoffset: [anime.setDashoffset, 0]` | `animate(svg.createDrawable('path.route'), { draw: ['0 0', '0 1'] })` |
+| FLIP Layout Transitions | Manual bounding-box diffs | `const layout = createLayout(root); layout.record(); updateDOM(); layout.animate();` |
+| Lifecycle Cleanup | `anime.remove()` | `const scope = createScope({ root }).add(...); return () => scope.revert();` |
 
-## 2. Isolasi Siklus Hidup dengan `createScope()`
+## 2. Isolate Lifecycle with `createScope()`
 
-Bungkus inisialisasi animasi komponen di dalam `createScope({ root, mediaQueries })` dan panggil `scope.revert()` saat komponen dilepas agar listener scroll dan timer tidak bocor di memori:
+Wrap component animation initialization inside `createScope({ root, mediaQueries })` and call `scope.revert()` on unmount so scroll listeners and timers never leak:
 
 ```tsx
 'use client';
@@ -58,12 +58,12 @@ export function HeroShowcase() {
 }
 ```
 
-## 3. Visibilitas Progresif & Performa GPU
+## 3. Progressive Visibility & GPU Performance
 
-- **Jangan Sembunyikan Konten di CSS Statis:** Jangan menulis `[data-reveal] { opacity: 0; }` pada stylesheet global karena halaman akan tampak kosong saat SSR, koneksi lambat, atau ketika JavaScript dinonaktifkan. Biarkan elemen terlihat secara default dan gunakan keyframe `opacity: [0, 1]` saat `animate()` dijalankan.
-- **Animasikan Properti Komposit GPU:** Gunakan `x`, `y`, `scale`, `scaleX`, `scaleY`, `rotate`, atau `opacity` dan hindari menganimasikan `top`, `left`, `width`, atau `height` secara langsung karena memicu perhitungan ulang tata letak (layout reflow) di setiap frame.
-- **Batas Durasi:** Pastikan animasi masuk selesai dalam waktu maksimal `1500ms` agar tidak menghambat pengguna membaca atau menekan tombol utama.
+- **Never Hide Content in Static CSS:** Never write `[data-reveal] { opacity: 0; }` in global CSS, or SSR, slow networks, and disabled-JS browsers will show a blank page. Leave elements visible by default and pass `opacity: [0, 1]` keyframes inside `animate()`.
+- **Animate GPU-Composited Properties:** Animate `x`, `y`, `scale`, `scaleX`, `scaleY`, `rotate`, or `opacity`, avoiding `top`, `left`, `width`, or `height` which trigger per-frame layout reflows.
+- **Duration Cap:** Keep entrance sequences under `1500ms` so motion never blocks reading or primary actions.
 
-## Perintah Verifikasi
+## Verification Command
 
-Jalankan `node <atlas>/scripts/check-motion-v4.mjs <project-root>` untuk memverifikasi sintaks v4, pembersihan scope, dan ketiadaan jebakan `opacity: 0` statis.
+Run `node <atlas>/scripts/check-motion-v4.mjs <project-root>` to verify v4 syntax, `createScope` cleanup, and zero static `opacity: 0` traps.

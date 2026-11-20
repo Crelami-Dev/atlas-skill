@@ -26,7 +26,7 @@ const root = path.resolve(positional[0] || '.');
 
 const uiExts = new Set(['.html', '.jsx', '.tsx', '.vue', '.svelte', '.astro']);
 const styleExts = new Set(['.css', '.html', '.jsx', '.tsx', '.svelte', '.vue', '.astro']);
-const ignoreDirs = new Set(['node_modules', '.git', '.agents', '.claude', '.cursor', '.windsurf', '.clinerules', 'dist', 'build', '.next', 'out', 'maintenance']);
+const ignoreDirs = new Set(['node_modules', '.git', '.agents', '.claude', '.cursor', '.windsurf', '.clinerules', '.atlas-skill-backups', 'dist', 'build', '.next', 'out', 'maintenance']);
 
 const uiFiles = [];
 const styleFiles = [];
@@ -124,16 +124,16 @@ for (const file of uiFiles) {
       id: 'leaked-photo-placeholder-ui',
       file: rel,
       line: lineOf(m.index),
-      message: `Instruksi placeholder foto/developer ('${m[0]}') bocor ke UI pengunjung. Gunakan pelat spesimen editorial spesifik-domain dengan atribut senyap data-photo-slot.`
+      message: `Developer photo placeholder instruction ('${m[0]}') leaked into visitor UI. Use domain-specific editorial specimen plates with silent data-photo-slot attributes instead.`
     });
   }
-  for (const m of cleaned.matchAll(/<figure\b[^>]*\b(?:data-photo-placeholder|data-photo-slot)\b[^>]*>(?:(?!(?:<\/figure>|<section\b|<form\b))[\s\S])*?\bSubjek:\s+[^\n<]{10,}/gi)) {
+  for (const m of cleaned.matchAll(/<figure\b[^>]*\b(?:data-photo-placeholder|data-photo-slot)\b[^>]*>(?:(?!(?:<\/figure>|<section\b|<form\b))[\s\S])*?\b(?:Subjek|Subject):\s+[^\n<]{10,}/gi)) {
     findings.push({
       level: 'error',
       id: 'leaked-photo-placeholder-ui',
       file: rel,
       line: lineOf(m.index),
-      message: `Catatan brief internal ('Subjek: ...') bocor ke dalam slot media UI. Gunakan caption editorial nyata untuk pengunjung.`
+      message: `Internal brief note ('Subjek:/Subject: ...') leaked into a UI media slot. Write an authentic visitor-facing editorial caption instead.`
     });
   }
 
@@ -145,10 +145,15 @@ for (const file of uiFiles) {
     const heightAttrMatch = attrs.match(/\bheight=["']?\s*(\d+)/i);
     const svgHeight = vbMatch ? Number(vbMatch[2]) : (heightAttrMatch ? Number(heightAttrMatch[1]) : 0);
     const shapeCount = (inner.match(/<(?:polygon|rect)\b/gi) || []).length;
+    const rectCount = (inner.match(/<rect\b/gi) || []).length;
+    const circleCount = (inner.match(/<circle\b/gi) || []).length;
     const textCount = (inner.match(/<text\b/gi) || []).length;
+    const hasGradient = /<(?:linearGradient|radialGradient)\b/i.test(inner);
+    const hasBezierPath = /<path\b[^>]*\bd=["'][^"']*[CSQA][^"']*["']/i.test(inner);
     const isCrudeWireframe = (svgHeight >= 180 || (!vbMatch && !heightAttrMatch)) && shapeCount >= 4 && textCount >= 4;
+    const isCrudeFloorplan = rectCount >= 2 && circleCount >= 4 && !hasGradient && !hasBezierPath;
 
-    const hasCircle = /<circle\b/i.test(inner);
+    const hasCircle = circleCount > 0;
     const hasClosedHillPath = /<(?:path|polygon)\b[^>]*\bd=["'][^"']*(?:[QTCS]|L\s*\d+\s+\d+\s+L)[^"']*Z["']/i.test(inner);
     const isGenericHillSun = hasCircle && hasClosedHillPath && shapeCount <= 3 && textCount === 0;
 
@@ -158,7 +163,15 @@ for (const file of uiFiles) {
         id: 'generic-hill-sun-svg',
         file: rel,
         line: lineOf(m.index),
-        message: 'Siluet SVG generik (bukit/gelombang + lingkaran matahari) terdeteksi. Gunakan foto asli atau bingkai placeholder editorial terdesain ([data-photo-placeholder]) sesuai references/imagery.md.'
+        message: 'Generic hill/wave + sun circle SVG silhouette detected. Use real photography or layered domain editorial specimen plates ([data-photo-slot]) per references/imagery.md.'
+      });
+    } else if (isCrudeFloorplan) {
+      findings.push({
+        level: 'error',
+        id: 'crude-floorplan-svg',
+        file: rel,
+        line: lineOf(m.index),
+        message: 'Crude box-and-circle table/chair schematic SVG detected. Fetch real licensed photography via scripts/fetch-photos.mjs or use layered gradient/bezier SVG artwork per references/imagery.md.'
       });
     } else if (isCrudeWireframe) {
       findings.push({
@@ -166,7 +179,7 @@ for (const file of uiFiles) {
         id: 'crude-wireframe-svg',
         file: rel,
         line: lineOf(m.index),
-        message: 'Diagram SVG kotak/poligon kaku terdeteksi. Ganti wireframe SVG kaku dengan komponen UI interaktif nyata atau fotografi asli.'
+        message: 'Crude box/polygon wireframe SVG diagram detected. Replace rigid wireframe SVGs with real interactive UI components, layered domain illustration, or real photography.'
       });
     } else if (
       /\b(?:data-viz|data-chart|data-atlas-proof)\b/i.test(attrs) ||
@@ -191,7 +204,7 @@ for (const file of uiFiles) {
         id: 'leaked-debug-state-switcher',
         file: rel,
         line: lineOf(m.index),
-        message: 'Pemilih state debug (Populated/Loading/Empty/Error) tampil di UI produksi. Sembunyikan dengan atribut hidden di balik ?debug=1.'
+        message: 'Debug state switcher (Populated/Loading/Empty/Error) is visible in production UI. Remove or hide behind ?debug=1.'
       });
     }
   }
@@ -204,7 +217,7 @@ for (const file of uiFiles) {
       id: 'leaked-markdown-backticks',
       file: rel,
       line: lineOf(m.index),
-      message: 'Tanda backtick Markdown mentah (`...`) bocor di dalam elemen HTML. Gunakan elemen <code>...</code> yang rapi.'
+      message: 'Raw Markdown backticks (`...`) leaked inside an HTML element. Render clean <code>...</code> tags instead.'
     });
   }
 }
@@ -217,7 +230,7 @@ if (uiFiles.length > 0 && !hasVisualCenterpiece && !hasOptOut) {
     id: 'missing-visual-proof',
     file: path.relative(root, uiFiles[0]).replaceAll('\\', '/'),
     line: 1,
-    message: 'Halaman belum memiliki panggung bukti visual nyata (<img>, <picture>, <canvas>, <video>, <svg data-viz>, [data-atlas-proof], atau [data-photo-placeholder]). Tambahkan elemen visual nyata atau gunakan <!-- atlas-proof: not-applicable --> untuk halaman dokumentasi/tipografi murni.'
+    message: 'Page lacks real visual proof (<img>, <picture>, <canvas>, <video>, <svg data-viz>, [data-atlas-proof], or [data-photo-slot]). Add a visual stage or use <!-- atlas-proof: not-applicable --> for pure docs/typography pages.'
   });
 }
 
@@ -227,7 +240,7 @@ if (uiFiles.length > 0 && distinctSurfaceTokensUsed.size < 3 && !hasOptOut) {
     id: 'flat-surface-monotony',
     file: path.relative(root, uiFiles[0]).replaceAll('\\', '/'),
     line: 1,
-    message: `Hanya ${distinctSurfaceTokensUsed.size} peran warna permukaan yang dipakai. Gunakan minimal 3 variasi permukaan tenang (mis. base, elevated, dark-anchor/soft-tint) agar ritme halaman hidup.`
+    message: `Only ${distinctSurfaceTokensUsed.size} surface polarity role(s) used. Alternate at least 3 calm surface tokens (e.g., base, elevated, dark-anchor/soft-tint) for visual cadence.`
   });
 }
 
@@ -239,7 +252,7 @@ if (unstyledList.length > 0 && !hasOptOut) {
     id: 'unstyled-form-controls',
     file: firstHit.file,
     line: firstHit.line,
-    message: `Kontrol form (${unstyledList.join(', ')}) dipakai tanpa aturan CSS yang men-style elemen tersebut. Gunakan aturan komponen form dari templates/design-tokens.css (appearance: none, border, focus-visible ring, state disabled/error).`
+    message: `Form control(s) (${unstyledList.join(', ')}) used without explicit CSS styling rules. Apply form rules from templates/design-tokens.css (appearance: none, border, focus-visible ring, disabled/error states).`
   });
 }
 

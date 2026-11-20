@@ -1,18 +1,18 @@
-# Ringkasan Evaluasi Buta Juri Independen (2026-11-18)
+# Independent Blind Judge Evaluation Summary (2026-11-18)
 
-Evaluasi dilakukan secara buta (label `Candidate-1` / `Candidate-2` diacak per kasus) oleh sesi juri terpisah atas 10 kasus A/B (A dibangun bersih tanpa skill dan dibekukan; B dibangun dengan skill `atlas-frontend-design`).
+Evaluated blindly (randomized `Candidate-1` / `Candidate-2` labels per case) by a separate judge session across 10 A/B prompts (A built cleanly without the skill and frozen; B built using `atlas-frontend-design`).
 
-## Ringkasan Per Putaran
+## Round-by-Round Summary
 
-| Putaran | Rata-rata A | Rata-rata B | Kemenangan B | Cacat KRITIS pada B | Pasangan B Serupa |
+| Round | Mean A | Mean B | B Wins | CRITICAL Defects on B | Similar B Pairs |
 |---|---:|---:|---:|---:|---:|
-| Putaran 1 | 3.11 | 4.16 | 10 / 10 | 2 (`05-product`, `03-event`) | 3 pasang |
-| Putaran 2 | 3.00 | 4.26 | 10 / 10 | 1 (`05-product` split pecah) | 1 pasang |
-| Putaran 3 (Final) | 2.99 | 4.04 | 10 / 10 | 1 pola di 5/10 kasus (`"GANTI DENGAN FOTO ASLI"`) | <= 2 pasang (LOLOS) |
+| Round 1 | 3.11 | 4.16 | 10 / 10 | 2 (`05-product`, `03-event`) | 3 pairs |
+| Round 2 | 3.00 | 4.26 | 10 / 10 | 1 (`05-product` broken split) | 1 pair |
+| Round 3 (Final) | 2.99 | 4.04 | 10 / 10 | 1 pattern across 5/10 cases (`"GANTI DENGAN FOTO ASLI"`) | <= 2 pairs (PASS) |
 
-## Tabel Skor Putaran 3 (Juri Independen Terakhir)
+## Round 3 Score Table (Last Independent Judge)
 
-| Kasus | Rata-rata A | Rata-rata B | Selisih | Pemenang |
+| Case | Mean A | Mean B | Delta | Winner |
 |---|---:|---:|---:|---|
 | `01-saas` | 3.00 | 4.14 | +1.14 | B |
 | `02-photographer` | 2.43 | 3.71 | +1.28 | B |
@@ -24,11 +24,11 @@ Evaluasi dilakukan secara buta (label `Candidate-1` / `Candidate-2` diacak per k
 | `08-docs` | 3.00 | 4.57 | +1.57 | B |
 | `09-legal` | 3.14 | 4.71 | +1.57 | B |
 | `10-wedding` | 3.14 | 3.71 | +0.57 | B |
-| **Total / Rata-rata** | **2.99 (209/70)** | **4.04 (283/70)** | **+1.05** | **B (10/10)** |
+| **Total / Mean** | **2.99 (209/70)** | **4.04 (283/70)** | **+1.05** | **B (10/10)** |
 
-## Status Kriteria Kelulusan
+## Graduation Criteria Status
 
-- **(a) B menang >= 9/10 dan rata-rata B >= 4.0:** TERPENUHI (`10/10`, rata-rata `4.04`).
-- **(c) Tidak > 2 pasangan B berkerangka sama:** TERPENUHI.
-- **(b) Nol cacat KRITIS pada B:** BELUM TERPENUHI. Pada Putaran 3, juri independen menilai badge `"GANTI DENGAN FOTO ASLI"` yang tampak langsung di UI pengunjung pada 5 kasus domain fotografi/visual (`02-photographer`, `03-event`, `05-product`, `06-restaurant`, `10-wedding`) sebagai cacat placeholder template yang belum dibersihkan.
-- **Verdict:** **Belum siap** (batas maksimal 3 putaran tercapai).
+- **(a) B wins >= 9/10 and mean B >= 4.0:** MET (`10/10`, mean `4.04`).
+- **(c) No more than 2 B pairs sharing the same macro skeleton:** MET.
+- **(b) Zero CRITICAL defects on B:** NOT MET. In Round 3, the independent judge flagged the `"GANTI DENGAN FOTO ASLI"` badge visible directly in visitor UI across 5 visual/photography-domain cases (`02-photographer`, `03-event`, `05-product`, `06-restaurant`, `10-wedding`) as an uncleaned template placeholder defect.
+- **Verdict:** **Not ready** (3-round evaluation limit reached).

@@ -1,54 +1,54 @@
 ---
 name: atlas-anti-slop
-description: "Review and refactor UI copy, component structure, and styling to eliminate 18 AI slop clichés using slop-scan.mjs (Gunakan saat menulis atau meninjau salinan teks, struktur komponen, dan gaya visual untuk mendeteksi serta menghapus 18 pola klise AI menggunakan slop-scan.mjs). Do not use for non-UI logic."
+description: "Use when writing or reviewing UI copy, component structure, and styling to eliminate 18 AI slop clichés using slop-scan.mjs. Do not use for non-UI backend logic."
 ---
 
-# Atlas Anti-Slop - Pemeriksaan Pola Klise UI
+# Atlas Anti-Slop — Eliminating AI UI Clichés
 
-Pola klise AI (*slop*) muncul ketika halaman diisi dengan struktur template generik dan jargon pemasaran tanpa kaitan dengan domain proyek. Baca [slop-patterns.md](../../references/slop-patterns.md) dan jalankan pemindai `slop-scan.mjs` pada Fase 4 dan Fase 6.
+AI *slop* appears when pages rely on generic template scaffolding and empty marketing buzzwords disconnected from the subject. Read [slop-patterns.md](../../references/slop-patterns.md) and run `slop-scan.mjs` during Phases 4 and 6.
 
-## 1. Perbandingan Kode Buruk vs Baik
+## 1. Bad vs Good Code Contrasts
 
-### Kontras A: Bagian Pembuka (Hero) & Teks
+### Contrast A: Hero Section & Copy
 
-Contoh yang dihindari (template SaaS ungu-biru generik dengan klaim tanpa bukti):
+Avoid (generic purple-blue SaaS template with unsubstantiated claims):
 ```html
 <section class="text-center py-24 bg-gradient-to-r from-purple-600 to-blue-600">
-  <span class="rounded-full px-4 py-1 bg-white/10">✨ Solusi Komprehensif Di Era Digital</span>
-  <h1 class="bg-clip-text text-transparent">Transformasi Bisnis Anda Secara Seamless</h1>
-  <p>Dipercaya oleh 10.000+ tim inovatif di seluruh dunia.</p>
+  <span class="rounded-full px-4 py-1 bg-white/10">✨ Comprehensive Solution for the Digital Era</span>
+  <h1 class="bg-clip-text text-transparent">Seamlessly Transform Your Business Workflow</h1>
+  <p>Trusted by 10,000+ innovative teams worldwide.</p>
 </section>
 ```
 
-Contoh yang disarankan (spesifik terhadap domain, berbasis bukti, dan memakai token):
+Prefer (domain-specific, evidence-backed, tokenized):
 ```html
 <section class="hero-split" data-hero>
   <div class="hero-copy">
-    <p class="eyebrow">Bengkel Restorasi Jam Mekanik • Cikini, sejak 2014</p>
-    <h1 data-hero-title>Servis mesin otomatis Swiss & Jepang dengan garansi kalibrasi 12 bulan.</h1>
-    <p class="lead">Pemeriksaan amplitudo di ruang tunggu tanpa biaya cek awal. Estimasi pengerjaan 5–10 hari kerja tergantung ketersediaan suku cadang asli.</p>
+    <p class="eyebrow">Mechanical Watch Restoration • Midtown Bench, Est. 2014</p>
+    <h1 data-hero-title>Swiss &amp; Japanese automatic overhaul with a 12-month rate warranty.</h1>
+    <p class="lead">Complimentary beat-error amplitude check while you wait. Standard service turnaround is 5–10 business days subject to OEM part availability.</p>
     <div class="hero-actions">
-      <a data-primary class="btn-primary" href="#estimasi">Cek Estimasi Servis</a>
-      <a class="btn-secondary" href="#alamat">Jam Buka & Lokasi</a>
+      <a data-primary class="btn-primary" href="#estimate">Check Service Estimate</a>
+      <a class="btn-secondary" href="#hours">Hours &amp; Bench Location</a>
     </div>
   </div>
   <figure class="hero-evidence">
-    <img src="/assets/timegrapher-bench.webp" width="960" height="720" alt="Pengujian akurasi mesin jam pada alat timegrapher" />
-    <figcaption>Kalibrasi posisi 5-arah sebelum serah terima.</figcaption>
+    <img src="/assets/timegrapher-bench.webp" width="960" height="720" alt="Mechanical movement positional timing inspection on a bench timegrapher" />
+    <figcaption>Five-position timing calibration recorded prior to pickup.</figcaption>
   </figure>
 </section>
 ```
 
-### Kontras B: Penyajian Fitur dan Bukti
+### Contrast B: Features & Proof Presentation
 
-- **Hindari 3 Kartu Ikon/Emoji Identik:** Tiga kartu berisi `🚀 Cepat`, `🔒 Aman`, dan `💎 Terbaik` tidak memberi informasi baru kepada pengunjung karena dapat ditempelkan ke situs apa pun tanpa perubahan makna.
-- **Gunakan Bukti Spesifik Domain:** Ganti kata sifat umum dengan tabel spesifikasi, rincian harga, kalkulator interaktif, atau tahapan proses yang menjawab pertanyaan nyata pengunjung.
+- **Ban 3 Symmetric Emoji/Icon Cards:** Three identical cards labeled `🚀 Fast`, `🔒 Secure`, and `💎 Best` convey zero domain facts and could be pasted onto any website unchanged.
+- **Lead with Domain Proof:** Replace generic adjectives with specification tables, transparent pricing breakdowns, live domain calculators, or measurable process timelines.
 
-## 2. Daftar Periksa Sebelum Selesai
+## 2. Pre-Delivery Checklist
 
-1. **Uji Substitusi:** Jika nama merek diganti menjadi "CloudAI" dan 90% isi halaman masih terasa cocok, ubah dua bagian pertama agar menampilkan alur kerja atau data spesifik milik subjek.
-2. **Bebas Frasa Klise:** Hapus frasa seperti `solusi komprehensif`, `di era digital`, `inovasi tanpa batas`, `unlock the power`, `elevate`, `seamless`, `revolutionize`, dan `"Bukan sekadar X, tapi Y"` karena menurunkan kejelasan pesan.
-3. **Tanpa Ornamen Tanpa Fungsi:** Hindari bola blur bercahaya dekoratif, titik lampu lalu-lintas jendela palsu pada situs non-developer, dan animasi melayang tanpa henti di dekat teks bacaan karena mengganggu fokus baca.
-4. **Verifikasi Pemindai:** Jalankan `node <atlas>/skills/atlas-checker/scripts/slop-scan.mjs <project-root>` hingga menghasilkan `0` error dan periksa setiap peringatan yang muncul.
+1. **Substitution Test:** If changing the brand name to "CloudAI" keeps 90% of the page plausible, rewrite the first two sections around domain-specific workflows and numbers.
+2. **Zero Buzzword Clichés:** Remove phrases like `unlock the power of`, `revolutionize your`, `seamlessly integrate`, `elevate your digital`, `next-generation platform`, and `"Not just X, it's Y"`.
+3. **Zero Empty Ornament:** Avoid decorative glowing blur blobs, fake macOS window traffic lights on non-developer sites, and infinite floating loops next to prose.
+4. **Scanner Check:** Run `node <atlas>/skills/atlas-checker/scripts/slop-scan.mjs <project-root>` until it reports `0` errors and resolve every actionable warning.
 
-- **Kontrol Debug State Terbuka:** Jangan merender dropdown atau tombol pemilih state (`Populated / Loading / Empty / Error`) di UI produksi karena itu adalah alat uji pengembang; jika diperlukan untuk pengujian, beri atribut `hidden` secara default dan hanya tampilkan saat URL memuat `?debug=1`.
+- **Visible Debug State Controls:** Never render `Populated / Loading / Empty / Error` dropdowns or buttons in production UI; if retained for local testing, hide them with `hidden` and guard behind `?debug=1`.

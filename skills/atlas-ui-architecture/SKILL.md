@@ -1,38 +1,37 @@
 ---
 name: atlas-ui-architecture
-description: "Architect multi-view web applications, operational dashboards, data tables, filter systems, modals/drawers, and interactive forms with 5-state view contracts (Gunakan saat merancang arsitektur aplikasi web multi-tampilan, dashboard, tabel data, sistem filter, modal/drawer, dan formulir interaktif). Do not use for static articles without data interaction."
+description: "Use when architecting multi-view web applications, operational dashboards, data tables, filter systems, modals/drawers, and interactive forms with 5-state view contracts. Do not use for static articles without data interaction."
 ---
 
-# Atlas UI Architecture - Arsitektur Aplikasi & Kontrak 5-State
+# Atlas UI Architecture — Application Shells & 5-State Contract
 
-Gunakan modul ini saat membangun aplikasi yang memiliki navigasi antar-tampilan, daftar atau tabel dinamis, pencarian/filter, dialog, atau formulir input.
+Use this module whenever building applications with multi-view navigation, dynamic lists or tables, search/filter controls, dialogs, or interactive forms.
 
-## 1. Pemilihan App Shell Sesuai Jenis Proyek
+## 1. Choose an App Shell Matching the Project Type
 
-Pilih kerangka navigasi yang sesuai dengan tugas utama pengguna agar ruang layar tidak habis oleh navigasi yang tidak perlu:
+Match navigation chrome to the user's primary task so screen space is never wasted on unnecessary framing:
 
-| Jenis Proyek | App Shell Desktop | Adaptasi Mobile (`<= 767px`) |
+| Project Type | Desktop App Shell | Mobile Adaptation (`<= 767px`) |
 |---|---|---|
-| Situs Editorial / Layanan | Bar navigasi atas + CTA fokus + indeks footer | Bar atas ringkas + drawer layar penuh yang mendukung tombol `Escape` |
-| Dashboard / Aplikasi SaaS | Sidebar kiri yang dapat diciutkan (`240px` / `64px`) + panel kerja utama | Navigasi bawah (maksimal 4-5 menu) atau slide-over drawer tanpa overflow horizontal |
-| Katalog / E-Commerce / Booking | Header filter lengket + grid katalog + ringkasan pesanan | Bar filter/ringkasan bawah yang membuka dialog lembar (sheet) |
-| Dokumentasi / Basis Pengetahuan | 3 kolom (`navigasi kiri` + `teks 65ch` + `daftar isi kanan`) | 1 kolom baca + `<details>` daftar isi yang dapat dibuka di bagian atas |
+| Editorial / Service Site | Focused top nav bar + primary CTA + footer index | Compact top bar + full-height drawer supporting `Escape` |
+| Dashboard / SaaS App | Collapsible left sidebar (`240px` / `64px`) + main workbench | Bottom bar (max 4–5 items) or slide-over drawer with zero overflow |
+| Catalog / E-Commerce / Booking | Sticky filter header + catalog grid + order summary | Bottom filter/summary bar opening a sheet dialog |
+| Documentation / Knowledge Base | 3-column (`left nav tree` + `68ch guide` + `right TOC rail`) | 1 reading column + expandable `<details>` table of contents at top |
 
-## 2. Kontrak 5-State untuk Tampilan Berbasis Data
+## 2. The 5-State View Contract for Data-Driven Views
 
-Setiap daftar, tabel, grafik, atau hasil pencarian perlu mendukung 5 kondisi tampilan berikut karena pengguna nyata akan mengalami jeda jaringan, data kosong, atau pencarian tanpa hasil:
+Every list, table, chart, or search result must handle all 5 UI states cleanly because real users encounter network delays, empty datasets, and unmatched filters:
 
-1. **Loading State:** Kerangka placeholder (`aria-busy="true"`) dengan tinggi yang sesuai ukuran elemen akhir agar tidak menimbulkan pergeseran tata letak (CLS).
-2. **Populated State:** Data terstruktur dengan pemotongan teks yang aman (`min-width: 0`) dan angka berformat tabular (`font-variant-numeric: tabular-nums`).
-3. **Empty Dataset State:** Penjelasan jelas mengapa belum ada data beserta tombol tindakan untuk membuat atau mengimpor entri pertama.
-4. **Filtered Zero-Match State:** Berbeda dari dataset kosong; tampilkan kata kunci/filter yang tidak cocok dan sediakan tombol **"Reset Filter"** satu klik untuk memulihkan daftar.
-5. **Error / Recovery State:** Pesan kesalahan yang menjelaskan penyebab kegagalan serta tombol **"Coba Lagi" / "Retry"** yang mempertahankan input pengguna.
+1. **Loading State:** Skeleton placeholders (`aria-busy="true"`) matching final dimensions to prevent cumulative layout shift (CLS).
+2. **Populated State:** Structured data with safe truncation (`min-width: 0`) and tabular numerals (`font-variant-numeric: tabular-nums`).
+3. **Empty Dataset State:** Clear explanation of why no items exist yet plus a direct action button to create or import the first record.
+4. **Filtered Zero-Match State:** Distinct from an empty dataset; show the active query/filter criteria and a one-click **"Reset Filters"** button.
+5. **Error / Recovery State:** Actionable failure explanation with a **"Retry"** button that preserves all user input.
 
+- **Ban Visible Debug State Switchers in Production UI:** Never expose a state-picker dropdown or toggle bar (`Populated / Loading / Empty / Error`) to end visitors; these are developer test aids. Drive states from real data interactions (or hide debug controls behind `?debug=1` with the `hidden` attribute by default). Never mount `Search / Filter / Reset` toolbars onto short narrative, hospitality, wedding, or portfolio pages.
 
-- **Larangan Dropdown Debug di UI Produksi:** Jangan pernah menampilkan dropdown pemilih state (`Populated / Loading / Empty / Error`) secara terlihat kepada pengunjung halaman karena kontrol tersebut adalah alat pengembang, bukan fitur pengguna. Tampilkan state berdasarkan interaksi data nyata (atau sembunyikan penguji state di balik parameter URL `?debug=1` dengan atribut `hidden` secara default). Selain itu, jangan memasang tombol `Search / Filter / Reset` pada halaman naratif, restoran, undangan, atau portofolio yang hanya memiliki sedikit item.
+## 3. Responsive Tables, Dialogs, and Forms
 
-## 3. Tabel Responsif, Dialog, dan Formulir
-
-- **Tabel Data Lebar:** Bungkus tabel di dalam kontainer `overflow-x: auto` tersendiri agar tabel yang memiliki banyak kolom tidak merusak lebar viewport halaman utama di layar ponsel.
-- **Dialog & Drawer Aksesibel:** Gunakan elemen `<dialog>` bawaan (atau kelola fokus, `Escape`, dan pengembalian fokus ke tombol pemicu) karena `<div onClick>` tanpa manajemen fokus tidak dapat diakses lewat keyboard.
-- **Label & Validasi Formulir:** Pasangkan `<label>` eksplisit di atas setiap input karena atribut `placeholder` hilang saat pengguna mulai mengetik. Nonaktifkan tombol kirim selama proses pengiriman berlangsung untuk mencegah pengiriman ganda.
+- **Wide Data Tables:** Wrap wide tables inside their own `overflow-x: auto` container so multi-column data never breaks mobile viewport width.
+- **Accessible Dialogs & Drawers:** Use native `<dialog>` (or explicitly manage focus trapping, `Escape` dismissal, and focus restoration to the trigger button), since plain `<div onClick>` overlays fail keyboard accessibility.
+- **Explicit Labels & Form Validation:** Pair a visible `<label>` with every input (`placeholder` disappears once typing begins), show inline field errors via `aria-invalid="true"`, and disable submit controls while a request is in flight.
