@@ -67,7 +67,12 @@ export function initEditorialHeading(rootEl: HTMLElement) {
 }
 ```
 
-## 4. Recipe B: Scroll-Triggered Section Reveal & Scrubbed Progress (`onScroll`)
+## 4. Recipe B: 15% Viewport Scroll-Reveal & Scrubbed Progress (`onScroll` + `atlas-scenes.mjs`)
+
+- **Important `onScroll` Parameter Order:** In Anime.js v4, string thresholds take **`'<container> <target>'`**!
+  - `enter: 'bottom-=15% top'` fires when the section's `top` crosses `15%` into the viewport from the bottom edge.
+  - `leave: 'top bottom'` means scrolling stops when the target leaves the top edge.
+  - Use a deliberate, unhurried entrance (`duration: 850–1050`, `stagger(95)`, `ease: 'outExpo'`) starting from unmistakable motion (`y: [36, 0]`, `opacity: [0.14, 1]`, `scale: [0.975, 1]`) so users clearly perceive every reveal—never invisible `[0.88, 1]` micro-nudges!
 
 ```ts
 import { animate, createScope, onScroll, stagger } from 'animejs';
@@ -79,17 +84,20 @@ export function initScrollSection(sectionEl: HTMLElement) {
   }).add((self) => {
     if (self.matches.reduceMotion) return;
 
-    // 1. Trigger once when entering viewport
+    // 1. Trigger once when 15% visible in viewport
     animate('[data-step-item]', {
-      y: [20, 0],
-      opacity: [0, 1],
-      duration: 520,
-      delay: stagger(65),
-      ease: 'outQuart',
+      y: [36, 0],
+      opacity: [0.14, 1],
+      scale: [0.975, 1],
+      duration: 920,
+      delay: stagger(95),
+      ease: 'outExpo',
       autoplay: onScroll({
         target: sectionEl,
-        enter: 'bottom-=12% top',
+        enter: 'bottom-=15% top',
         leave: 'top bottom',
+        sync: 'play none',
+        repeat: false,
       }),
     });
 
@@ -107,6 +115,30 @@ export function initScrollSection(sectionEl: HTMLElement) {
   });
 }
 ```
+
+## 4b. Recipe F: Plain HTML / Vanilla JS Setup + Signature Scroll Scenes (`atlas-scenes.mjs`)
+
+For plain HTML/CSS/vanilla JS projects without a bundler, load Anime.js v4 from **`https://cdn.jsdelivr.net/npm/animejs@4/+esm`** (verified ESM export; never use `/dist/bundles/anime.esm.min.js` on `4.0.2` as it returns 404), and reuse Atlas's modular [atlas-scenes.mjs](../templates/atlas-scenes.mjs) + [atlas-scenes.css](../templates/atlas-scenes.css):
+
+```js
+import { animate, createTimeline, createScope, onScroll, stagger, utils } from 'https://cdn.jsdelivr.net/npm/animejs@4/+esm';
+import { initAtlasMotion } from './atlas-scenes.mjs';
+
+document.addEventListener('DOMContentLoaded', () => {
+  initAtlasMotion({
+    root: document.body,
+    anime: { animate, createTimeline, createScope, onScroll, stagger, utils },
+    threshold: 0.15,
+    revealDuration: 920
+  });
+});
+```
+
+Add **at most 1 continuous Signature Scroll Scene** per page using `data-atlas-scene`:
+- `window-reveal`: Twin shutter panels (`atlas-scene__shutter--left` / `--right`) part smoothly on scroll to reveal full-bleed media.
+- `mask-zoom`: Aperture `clip-path` expands cleanly (`inset(14% 16%)` -> `0%`) as the reader scrolls through.
+- `type-parting`: Oversized display word pairs (`atlas-scene__half--left` / `--right`) separate smoothly around a centerpiece.
+- `parallax-depth`: Continuous depth scrubbing (`atlas-scene__media` + `atlas-scene__copy`) without forcing `100svh` onto ordinary sections.
 
 ## 5. Recipe C: Seamless Filter / Tab / Bento FLIP Transition (`createLayout`)
 

@@ -40,9 +40,9 @@ Execute every phase automatically in sequence—**always run the visual checker 
    - Embed the generated or downloaded local images (`assets/images/...` or `assets/photos/photo-01.jpg`) with explicit `width`, `height`, `aspect-ratio`, and descriptive `alt` text (plus 1-line footer attribution from `assets/photos/credits.json` when using Wikimedia photos).
 4. **Phase 3 — Visual System, Typography & Surface Cadence ([atlas-design](../atlas-design/SKILL.md)):**
    Read [composition-selection.md](../../references/composition-selection.md), [composition.md](../../references/composition.md), and [typography.md](../../references/typography.md). Alternate `>= 3` surface polarity tokens (`--color-bg`, `--color-surface`, `--color-surface-elevated`, `--color-blueprint`), enforce `max-width: 65ch` on body copy (`main p, main li`), and ensure `min-height: 2.75rem` (`44px`) on all interactive controls and navigation links (`header a, nav a, footer a`).
-5. **Phase 4 — Clean Code, 5-State UI & Anime.js v4 Motion:**
-   Read [atlas-lean-code](../atlas-lean-code/SKILL.md), [atlas-ui-architecture](../atlas-ui-architecture/SKILL.md), [atlas-fullstack-contracts](../atlas-fullstack-contracts/SKILL.md), [atlas-anti-slop](../atlas-anti-slop/SKILL.md), and [atlas-motion-animejs](../atlas-motion-animejs/SKILL.md). Use authentic Anime.js v4 named imports (`animate`, `createTimeline`, `createScope`, `stagger`, `onScroll`, `spring`) with `(prefers-reduced-motion: reduce)` support and never hide initial content with static `opacity: 0`.
-6. **Phase 5 — Mandatory Quality Gates & Real Browser Screenshot Inspection ([atlas-checker](../atlas-checker/SKILL.md)):**
+5. **Phase 4 — Clean Code, 5-State UI & Visible Anime.js v4 Motion (`15%` Scroll + Signature Scene):**
+   Read [atlas-lean-code](../atlas-lean-code/SKILL.md), [atlas-ui-architecture](../atlas-ui-architecture/SKILL.md), [atlas-fullstack-contracts](../atlas-fullstack-contracts/SKILL.md), [atlas-anti-slop](../atlas-anti-slop/SKILL.md), and [atlas-motion-animejs](../atlas-motion-animejs/SKILL.md). Use [atlas-scenes.mjs](../../templates/atlas-scenes.mjs) + [atlas-scenes.css](../../templates/atlas-scenes.css) with Anime.js v4 (`animate`, `createScope`, `stagger`, `onScroll`, `spring`; in plain HTML/JS import from `https://cdn.jsdelivr.net/npm/animejs@4/+esm`) so below-the-fold sections animate noticeably (`850–1050ms`) when **15%** enters view alongside up to 1 continuous `data-atlas-scene` scroll scene, with `(prefers-reduced-motion: reduce)` support and zero static `opacity: 0` traps.
+6. **Phase 5 — Mandatory Quality Gates & Real Browser Screenshot Inspection (`0 Error, 0 Warning`):**
    - Run all 5 deterministic gates + multi-viewport screenshot renderer:
      ```sh
      node <atlas>/scripts/run-gates.mjs <root> --mode full --strict --visual <entry-html-or-url> --shots-dir <root>/maintenance/screenshots
@@ -51,6 +51,6 @@ Execute every phase automatically in sequence—**always run the visual checker 
      ```sh
      node <atlas>/skills/atlas-checker/scripts/quick-check.mjs <url-or-local-server> --shots <root>/maintenance/browser
      ```
-   - **Mandatory Vision Check:** Open the rendered PNG screenshots (`desktop_1440_top.png`, `desktop_1440_mid.png`, `desktop_1440_low.png`, `mobile_375x667_top.png`) using your image/file viewer tool (`read_file` / `view_file`) to inspect real visual quality. If any gate or visual check reports errors, warnings, or awkward layout, fix the code and re-run Phase 5 until `0 FAIL, 0 WARN`.
+   - **Mandatory Vision & Zero-Warning Check:** Open the rendered PNG screenshots (`desktop_1440_top.png`, `desktop_1440_mid.png`, `desktop_1440_low.png`, `mobile_375x667_top.png`) using your image/file viewer tool (`read_file` / `view_file`) to inspect real visual quality. Fix **both errors AND warnings** (such as `body-font-too-small` `< 16px` and `repeated-card-grid`) and re-run Phase 5 until `0 FAIL, 0 WARN`.
 7. **Phase 6 — Structured 7-Axis Design Critique ([atlas-critic](../atlas-critic/SKILL.md)):**
    Evaluate the final rendered screenshots against [critical-review.md](../../references/critical-review.md) (`>= 88/100` required for `PASS`).

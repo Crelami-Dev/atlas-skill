@@ -45,7 +45,7 @@ Read [atlas-anti-slop](../skills/atlas-anti-slop/SKILL.md), [atlas-motion-animej
 
 1. **Real Visual Proof:** Include authentic visual proof (`<img>`, `<picture>`, `<canvas>`, `<video>`, `<svg data-viz>`, or `[data-atlas-proof]`) on landing pages so visitors grasp the subject rapidly. For pure documentation or typography pages, opt out via `<!-- atlas-proof: not-applicable -->`.
 2. **Avoid Crude Wireframe Box or Floorplan SVGs:** Never draw raw box/polygon `<svg>` diagrams or `<rect>` table + `<circle>` chair schematics (`crude-floorplan-svg`) as a substitute for real photography or UI.
-3. **Anime.js v4 Syntax & Initial Visibility:** Use Anime.js v4 named imports inside `createScope({ root, mediaQueries })` and never hide initial content with `opacity: 0` in static CSS, as slow JS or SSR will render a blank screen.
+3. **Anime.js v4 Syntax, `15%` Scroll Reveals, & Signature Scenes:** Copy [atlas-scenes.mjs](../templates/atlas-scenes.mjs) + [atlas-scenes.css](../templates/atlas-scenes.css) and import Anime.js v4 named APIs (`animate`, `createScope`, `onScroll`, `stagger`, `utils`; or `https://cdn.jsdelivr.net/npm/animejs@4/+esm` in plain HTML). Trigger `[data-reveal]` sections at **`15%` viewport visibility (`threshold: 0.15` / `enter: 'bottom-=15% top'`)** with deliberate `850–1050ms` timing, optionally pair **1 `data-atlas-scene` continuous scroll-scrubbed section** (`window-reveal`, `mask-zoom`, `type-parting`, or `parallax-depth`), and never hide initial content with static `opacity: 0`.
 4. **Lock Mobile Grid Widths (`min-width: 0`):** Use `minmax(0, 1fr)` and `min-width: 0` on CSS Grid children so wide tables or code specimens never overflow horizontally on `320px–375px` phones.
 
 ## Phase 5 — Gate Checks & Screenshot Inspection (`atlas-checker`)
@@ -56,11 +56,11 @@ Run unified verification:
 ```sh
 node <atlas>/scripts/run-gates.mjs <project-root> --mode full --strict --visual <entry-html-or-url> --shots-dir maintenance/screenshots
 ```
-Open the resulting PNG screenshots (`1440x900` and `375x667`) directly using your image viewer whenever available, as static checks alone cannot spot clipped text, broken alignment, or poor visual contrast in a live browser.
+Open the resulting PNG screenshots (`1440x900`, `820x1180`, and `375x667`) directly using your image viewer, and resolve **all errors AND all warnings (`0 FAIL, 0 WARN`)** before proceeding.
 
 ## Phase 6 — Rubric Evaluation (`atlas-critic`)
 
-Read [atlas-critic](../skills/atlas-critic/SKILL.md) and [critical-review.md](critical-review.md). Score the result across all 7 axes and issue `PASS` if the total reaches at least `88/100` with zero major functional/visual defects, or `FIX` with concrete, testable diffs.
+Read [atlas-critic](../skills/atlas-critic/SKILL.md) and [critical-review.md](critical-review.md). Score the result across all 7 axes and issue `PASS` only if the total reaches at least `88/100` with **`0` errors, `0` warnings**, and verified visual/motion craft, or `FIX` with concrete, testable diffs.
 
 ## Phase 7 — Automatic Bug Hunter, Security/CVE Audit & Immediate Fix (`/atlas-skill` Only)
 

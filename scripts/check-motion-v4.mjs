@@ -47,11 +47,12 @@ for (const file of walk(root)) {
   }
 
   if (codeExts.has(ext)) {
-    const fileImportsAnime = /from\s+['"]animejs(?:\/[^'"]*)?['"]|require\(\s*['"]animejs['"]\s*\)/.test(text);
+    const fileImportsAnime =
+      /from\s+['"](?:[^'"]*\/)?animejs(?:@[^/'"]+)?(?:\/[^'"]*)?['"]|import\(\s*['"](?:[^'"]*\/)?animejs(?:@[^/'"]+)?(?:\/[^'"]*)?['"]\s*\)|require\(\s*['"]animejs['"]\s*\)/.test(text);
     if (fileImportsAnime) usesAnimeJs = true;
 
     // 1. Block v3 default or namespace import: import anime from 'animejs' or import * as anime from 'animejs'
-    for (const m of text.matchAll(/import\s+(?:anime|\*\s+as\s+\w+)\s*(?:,|\s+from)\s*['"]animejs['"]|const\s+anime\s*=\s*require\(\s*['"]animejs['"]\s*\)/g)) {
+    for (const m of text.matchAll(/\bimport\s+(?:anime|\*\s+as\s+\w+)\s*(?:,|\s+from)\s*['"](?:[^'"]*\/)?animejs(?:@[^/'"]+)?(?:\/[^'"]*)?['"]|const\s+anime\s*=\s*require\(\s*['"]animejs['"]\s*\)/g)) {
       usesAnimeJs = true;
       addFinding('error', 'anime-v3-default-import', file, m.index, text,
         "Anime.js v4 does not expose a default/namespace 'anime' export. Use named imports: import { animate, createTimeline, createScope, stagger, spring, onScroll } from 'animejs'.");

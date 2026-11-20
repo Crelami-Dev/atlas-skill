@@ -19,5 +19,5 @@ Review the rendered screenshots from [atlas-checker](../atlas-checker/SKILL.md) 
 
 ## Verdict Rules
 
-- **`PASS` (`>= 88/100` with zero major functional/visual defects):** Ready for delivery alongside honest verification scope and any remaining limits.
-- **`FIX` (`< 88/100` or visible screenshot defects):** Fix up to 3 highest-impact defects, re-capture screenshots, and re-verify (max 3 rounds).
+- **`PASS` (`>= 88/100` with `0` errors, `0` warnings in `run-gates.mjs` / `visual_dom_inspector.py`, and visible Anime.js v4 motion when applicable):** Ready for delivery alongside honest verification scope and any remaining limits.
+- **`FIX` (`< 88/100`, any remaining warning/slop pattern, or visible screenshot defects):** Fix all defects and warnings (up to 3 highest-impact rounds), re-capture screenshots, and re-verify until `0 FAIL, 0 WARN`.

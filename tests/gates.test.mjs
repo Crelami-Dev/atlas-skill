@@ -138,6 +138,25 @@ test('deterministic quality gates', async t => {
     );
     const goodRes = runNode('scripts/check-motion-v4.mjs', [goodDir]);
     assert.equal(goodRes.status, 0, goodRes.stdout + goodRes.stderr);
+
+    // CDN ESM dynamic/static Anime.js v4 imports (vanilla HTML mode) + atlas-scenes template pass with 0 errors
+    const vanillaMotionDir = path.join(tmp, 'motion-vanilla-esm');
+    fs.mkdirSync(vanillaMotionDir);
+    fs.copyFileSync(path.join(root, 'templates/design-tokens.css'), path.join(vanillaMotionDir, 'design-tokens.css'));
+    fs.copyFileSync(path.join(root, 'templates/atlas-scenes.mjs'), path.join(vanillaMotionDir, 'atlas-scenes.mjs'));
+    fs.copyFileSync(path.join(root, 'templates/atlas-scenes.css'), path.join(vanillaMotionDir, 'atlas-scenes.css'));
+    fs.writeFileSync(
+      path.join(vanillaMotionDir, 'app.js'),
+      "import { animate, createTimeline, createScope, onScroll, stagger, utils } from 'https://cdn.jsdelivr.net/npm/animejs@4/+esm';\nimport { initAtlasMotion } from './atlas-scenes.mjs';\ninitAtlasMotion({ root: document.body, anime: { animate, createTimeline, createScope, onScroll, stagger, utils }, threshold: 0.15 });\n"
+    );
+    const vanillaRes = runNode('scripts/check-motion-v4.mjs', [vanillaMotionDir]);
+    assert.equal(vanillaRes.status, 0, vanillaRes.stdout + vanillaRes.stderr);
+    const vanillaJson = JSON.parse(vanillaRes.stdout.slice(0, vanillaRes.stdout.lastIndexOf('}') + 1));
+    assert.equal(vanillaJson.usesAnimeJs, true);
+    assert.equal(vanillaJson.warnings, 0);
+
+    const tokScenesRes = runNode('scripts/check-tokens.mjs', [vanillaMotionDir, '--tokens', path.join(vanillaMotionDir, 'design-tokens.css')]);
+    assert.equal(tokScenesRes.status, 0, tokScenesRes.stdout + tokScenesRes.stderr);
   });
 
   await t.test('check-visual-proof and slop-scan catch wireframe SVG, debug switchers, and backticks', () => {

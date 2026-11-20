@@ -5,9 +5,12 @@ description: "Use when designing or implementing web animations, FLIP layout tra
 
 # Atlas Motion Engine — Anime.js v4 Choreography
 
-Use **Anime.js v4 (`animejs@^4.0.0`)** when an interface needs staggered entrance choreography, spring physics, FLIP layout transitions, scroll-linked motion, or SVG path drawing. For single-property hover changes, use standard CSS `transition` rules to keep bundle weight minimal.
+Use **Anime.js v4 (`animejs@^4.0.0`)** when an interface needs deliberate **15%-viewport scroll reveals (`850–1050ms`)**, continuous **Signature Scroll Scenes (`atlas-scenes.mjs`)**, spring physics, FLIP layout transitions, or SVG path drawing. For single-property hover changes, use standard CSS `transition` rules.
 
-Read the [Anime.js v4 Playbook](../../references/animejs-v4-playbook.md) and [Scope Helper Template](../../templates/animejs-v4-scope.ts) before writing animation code.
+Read the [Anime.js v4 Playbook](../../references/animejs-v4-playbook.md), [Scope Helper Template](../../templates/animejs-v4-scope.ts), and **Signature Scroll Scene Engine** ([atlas-scenes.mjs](../../templates/atlas-scenes.mjs) + [atlas-scenes.css](../../templates/atlas-scenes.css)) before writing animation code.
+
+- **Plain HTML / No-Bundler Projects:** Copy `templates/atlas-scenes.mjs` + `templates/atlas-scenes.css` alongside your site and import Anime.js v4 from **`https://cdn.jsdelivr.net/npm/animejs@4/+esm`** (never leave a landing page static/un-animated unless reduced motion is active).
+- **Signature Scroll Scenes (`data-atlas-scene`):** Use **at most 1 continuous scroll-scrubbed scene per page** (`window-reveal`, `mask-zoom`, `type-parting`, or `parallax-depth`) driven via `onScroll({ enter: 'top top', leave: 'bottom bottom', sync: 0.3 })`. It automatically switches to crisp static `.is-rest` on `< 768px` mobile and `prefers-reduced-motion: reduce` without forcing `100svh` voids on ordinary sections.
 
 ## 1. Anime.js v4 Syntax vs Legacy v3
 
@@ -22,7 +25,7 @@ Never mix Anime.js v3 syntax into a v4 codebase, as module exports and option ke
 | Timeline | `anime.timeline({ ... })` | `createTimeline({ defaults: { ease: 'outQuart' } })` |
 | Stagger | `delay: anime.stagger(60)` | `delay: stagger(60, { from: 'first' })` |
 | Alternation | `direction: 'alternate'` | `alternate: true` or `reversed: true` |
-| Scroll Trigger | Manual IntersectionObserver | `autoplay: onScroll({ container, enter: 'bottom-=12% top' })` |
+| Scroll Trigger (15% In-View) | Manual IntersectionObserver without cleanup | `autoplay: onScroll({ target, enter: 'bottom-=15% top', leave: 'top bottom', sync: 'play none', repeat: false })` or `initAtlasMotion({ threshold: 0.15 })` |
 | Text Splitting | Third-party SplitType | `splitText(el, { lines: { wrap: 'clip' }, words: true })` |
 | SVG Line Drawing | `strokeDashoffset: [anime.setDashoffset, 0]` | `animate(svg.createDrawable('path.route'), { draw: ['0 0', '0 1'] })` |
 | FLIP Layout Transitions | Manual bounding-box diffs | `const layout = createLayout(root); layout.record(); updateDOM(); layout.animate();` |
@@ -62,7 +65,8 @@ export function HeroShowcase() {
 
 - **Never Hide Content in Static CSS:** Never write `[data-reveal] { opacity: 0; }` in global CSS, or SSR, slow networks, and disabled-JS browsers will show a blank page. Leave elements visible by default and pass `opacity: [0, 1]` keyframes inside `animate()`.
 - **Animate GPU-Composited Properties:** Animate `x`, `y`, `scale`, `scaleX`, `scaleY`, `rotate`, or `opacity`, avoiding `top`, `left`, `width`, or `height` which trigger per-frame layout reflows.
-- **Duration Cap:** Keep entrance sequences under `1500ms` so motion never blocks reading or primary actions.
+- **Make Motion Clearly Visible:** Trigger section reveals once **15%** enters the viewport (`threshold: 0.15` / `enter: 'bottom-=15% top'`) using deliberate durations (`850–1050ms`) and real travel (`y: [36, 0], opacity: [0.14, 1], scale: [0.975, 1]`, keeping total chain `< 1500ms`)—never tiny imperceptible `opacity: [0.85, 1]` micro-nudges.
+- **Duration Cap:** Keep single entrance sequences under `1500ms` (`850–1050ms` ideal) so motion feels luxurious without delaying interaction.
 
 ## Verification Command
 

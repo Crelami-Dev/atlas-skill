@@ -1,0 +1,166 @@
+/* Atlas Signature Scroll Scenes v7.1 — Lean, Mobile-Safe, Zero-100svh-Bloat */
+
+.atlas-scene {
+  position: relative;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.atlas-scene__stage {
+  position: relative;
+  display: grid;
+  gap: var(--space-6);
+  width: min(100% - var(--space-8), 72rem);
+  margin-inline: auto;
+  padding-block: var(--space-12);
+}
+
+/* Live desktop sticky scroll track — falls back automatically to natural height in .is-rest */
+.atlas-scene.is-live {
+  min-height: 145vh;
+  padding-block: 0;
+}
+
+.atlas-scene.is-live .atlas-scene__stage {
+  position: sticky;
+  top: var(--space-6);
+  min-height: 78vh;
+  align-content: center;
+  padding-block: var(--space-6);
+}
+
+/* Shared visual stage container */
+.atlas-scene__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-elevated);
+  min-height: 52vh;
+}
+
+.atlas-scene__backdrop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 52vh;
+  overflow: hidden;
+}
+
+.atlas-scene__backdrop img {
+  width: 100%;
+  height: 100%;
+  min-height: 52vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* Preset 1: Window Reveal Framing Panels (center 56% of photo always visible at p=0; opens to 100% on scroll) */
+.atlas-scene__shutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22%;
+  background-color: var(--color-surface);
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.atlas-scene__shutter--left {
+  left: 0;
+  border-right: 1px solid var(--color-border);
+}
+
+.atlas-scene__shutter--right {
+  right: 0;
+  border-left: 1px solid var(--color-border);
+}
+
+.atlas-scene.is-rest .atlas-scene__shutter {
+  display: none;
+}
+
+/* Preset 3: Giant Type Parting */
+.atlas-scene__typewall {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  text-align: center;
+}
+
+.atlas-scene__line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.atlas-scene__half {
+  display: inline-block;
+  will-change: transform;
+}
+
+.atlas-scene__centerpiece {
+  position: relative;
+  margin-block: var(--space-4);
+  max-width: 100%;
+  will-change: transform, opacity;
+}
+
+/* Preset 4: Parallax Depth */
+.atlas-scene--parallax {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.atlas-scene__media {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.atlas-scene__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.atlas-scene__caption,
+.atlas-scene__copy {
+  position: relative;
+  z-index: 3;
+  max-width: 65ch;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .atlas-scene,
+  .atlas-scene.is-live {
+    min-height: 0;
+  }
+
+  .atlas-scene .atlas-scene__stage,
+  .atlas-scene.is-live .atlas-scene__stage {
+    position: static;
+    min-height: 0;
+    padding-block: var(--space-10);
+  }
+
+  .atlas-scene__shutter {
+    display: none;
+  }
+
+  .atlas-scene--parallax {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
