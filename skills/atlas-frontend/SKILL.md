@@ -32,12 +32,12 @@ Execute every phase automatically in sequence—**always run the visual checker 
    Locks a domain-specific structural archetype (`macroLayout`), 2 proportional fonts (+ 1 optional monospace), and WCAG AA color tokens (`design-tokens.css`).
 2. **Phase 1 — Design Brief & Content Inventory ([atlas-plan](../atlas-plan/SKILL.md)):**
    Draft `design-brief.md` using [design-brief.en.md](../../templates/design-brief.en.md) (or [design-brief.md](../../templates/design-brief.md)) with real visitor tasks, honest content (zero fabricated stats or fake quotes), 3 composition alternatives, and `## Image plan`. Validate with `node <atlas>/scripts/check-brief.mjs <root>/design-brief.md`.
-3. **Phase 2 — Domain Research & Real Licensed Photography ([atlas-research](../atlas-research/SKILL.md) + `fetch-photos.mjs`):**
-   - Read [imagery.md](../../references/imagery.md). Whenever building a visual-domain site (café, restaurant, hospitality, portfolio, real estate, e-commerce, travel, fashion, wedding, event) without user-provided photos, fetch real high-resolution CC0/CC-BY/Public-Domain photography from Wikimedia Commons:
+3. **Phase 2 — Domain Research & Real/Generated Imagery ([atlas-research](../atlas-research/SKILL.md) + `image-generator` / `fetch-photos.mjs`):**
+   - Read [imagery.md](../../references/imagery.md). Whenever building a visual-domain site (café, restaurant, hospitality, portfolio, real estate, e-commerce, travel, fashion, wedding, event) without user-provided photos, never draw manual `<svg>` scenes—either **generate bespoke images** using `image-generator` / `generate_image` into `<root>/assets/images/` or fetch real high-resolution CC0/CC-BY/Public-Domain photography from Wikimedia Commons:
      ```sh
      node <atlas>/scripts/fetch-photos.mjs --query "<subject 1>|<subject 2>|<subject 3>|<subject 4>" --out <root>/assets/photos --count 4
      ```
-   - Embed the downloaded local photos (`assets/photos/photo-01.jpg`, etc.) with explicit `width`, `height`, `aspect-ratio`, and descriptive `alt` text, and cite the 1-line attribution from `assets/photos/credits.json` in the footer.
+   - Embed the generated or downloaded local images (`assets/images/...` or `assets/photos/photo-01.jpg`) with explicit `width`, `height`, `aspect-ratio`, and descriptive `alt` text (plus 1-line footer attribution from `assets/photos/credits.json` when using Wikimedia photos).
 4. **Phase 3 — Visual System, Typography & Surface Cadence ([atlas-design](../atlas-design/SKILL.md)):**
    Read [composition-selection.md](../../references/composition-selection.md), [composition.md](../../references/composition.md), and [typography.md](../../references/typography.md). Alternate `>= 3` surface polarity tokens (`--color-bg`, `--color-surface`, `--color-surface-elevated`, `--color-blueprint`), enforce `max-width: 65ch` on body copy (`main p, main li`), and ensure `min-height: 2.75rem` (`44px`) on all interactive controls and navigation links (`header a, nav a, footer a`).
 5. **Phase 4 — Clean Code, 5-State UI & Anime.js v4 Motion:**

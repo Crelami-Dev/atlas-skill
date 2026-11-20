@@ -10,7 +10,7 @@ List factual copy, real figures, available media assets, and honesty boundaries 
 
 ## Image plan
 
-State the visual asset strategy: (a) use user-provided photography/media, or (b) build domain-specific editorial/technical specimen plates (`data-photo-slot` + `data-atlas-proof`) with fixed aspect ratios and zero visitor-visible `"Replace with photo"` instructions, then ask for real photos in the closing chat message. Never use generic hill-and-sun silhouettes.
+State the visual asset strategy: (a) use user-provided photography/media, or (b) generate bespoke domain imagery (`image-generator` / `generate_image` into `assets/images/`) or fetch real licensed photography (`scripts/fetch-photos.mjs` into `assets/photos/`), marked silently via `data-photo-slot` + `data-atlas-proof` with fixed aspect ratios and zero visitor-visible `"Replace with photo"` instructions. Never draw manual SVG scenes/floorplans or generic hill-and-sun silhouettes as a substitute for photos.
 
 ## Three composition alternatives
 

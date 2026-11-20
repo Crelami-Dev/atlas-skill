@@ -8,7 +8,7 @@ alwaysApply: true
 
 1. **All-in-One Full Stack + Auto Bug Hunter (`/atlas-skill`):**
    - Read and follow `.agents/skills/atlas-skill/SKILL.md` (or `.cursor/skills/atlas-skill/SKILL.md`).
-   - Run `deal-direction.mjs`, fetch real licensed photography on visual domains (`scripts/fetch-photos.mjs`), enforce WCAG AA contrast, `65ch` measure, `>= 44px` tap targets, and Anime.js v4 motion (`createScope`), verify with `run-gates.mjs --visual` + `quick-check.mjs` + screenshot inspection, and **automatically run Bug Hunter + Security/CVE scan with immediate auto-remediation (`project-fix-and-verify`)**.
+   - Run `deal-direction.mjs`, generate bespoke images (`image-generator` / `generate_image`) or fetch real licensed photography (`scripts/fetch-photos.mjs`) on visual domains (never manual SVG scenes), enforce WCAG AA contrast, `65ch` measure, `>= 44px` tap targets, and Anime.js v4 motion (`createScope`), verify with `run-gates.mjs --visual` + `quick-check.mjs` + screenshot inspection, and **automatically run Bug Hunter + Security/CVE scan with immediate auto-remediation (`project-fix-and-verify`)**.
 
 2. **Frontend-Only Orchestrator (`/atlas-frontend`):**
    - Read and follow `.cursor/skills/atlas-frontend/SKILL.md` when the user wants full frontend design, real photography, Anime.js v4 motion, and visual browser verification without running the Bug Hunter / Security CVE suite.

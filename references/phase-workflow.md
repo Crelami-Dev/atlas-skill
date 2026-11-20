@@ -20,11 +20,11 @@ Read [atlas-plan](../skills/atlas-plan/SKILL.md), [design-brief.en.md](../templa
 - **Compact Track (for concise/clear prompts):** Add `<!-- atlas-brief: light -->` at the top of `design-brief.md` (or run `check-brief.mjs --light`) to document visitor job, real content, chosen layout, and verification plan without drafting 3 full alternatives.
 - **Content Honesty:** Never fabricate customer counts or fake testimonials; fabricated data harms credibility and fails anti-slop checks.
 
-## Phase 2 — Domain Research & Real Licensed Photography (`atlas-research` + `fetch-photos.mjs`)
+## Phase 2 — Domain Research & Real/Generated Imagery (`atlas-research` + `image-generator` / `fetch-photos.mjs`)
 
 Read [atlas-research](../skills/atlas-research/SKILL.md), [imagery.md](imagery.md), [research-template.md](research-template.md), and [domain-reasoning.md](domain-reasoning.md).
 
-- **Real Licensed Photography on Visual Domains:** Whenever building for a visual domain (cafés, restaurants, hospitality, portfolios, real estate, e-commerce, travel, fashion, weddings, events) without user-provided photography, download real CC0/CC-BY/Public-Domain photos from Wikimedia Commons:
+- **Generated or Real Photography on Visual Domains:** Whenever building for a visual domain (cafés, restaurants, hospitality, portfolios, real estate, e-commerce, travel, fashion, weddings, events) without user-provided photography, never draw manual `<svg>` scenes—either **generate bespoke images** (`image-generator` / `generate_image` into `<project-root>/assets/images/`) or download real CC0/CC-BY/Public-Domain photos from Wikimedia Commons:
   ```sh
   node <atlas>/scripts/fetch-photos.mjs --query "<subject 1>|<subject 2>|<subject 3>|<subject 4>" --out <project-root>/assets/photos --count 4
   ```
