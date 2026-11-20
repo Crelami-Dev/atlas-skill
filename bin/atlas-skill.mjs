@@ -5,6 +5,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { createInterface } from 'node:readline/promises';
+import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { packageFiles } from '../scripts/package-files.mjs';
 
@@ -80,35 +81,218 @@ function options(argv) {
   return result;
 }
 
+const AGENT_MENU_ITEMS = [
+  {
+    id: 'claude',
+    name: 'Claude Code',
+    badge: 'RECOMMENDED',
+    dest: '.claude/skills',
+    desc: 'Pasang ke Claude Code (.claude/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter})'
+  },
+  {
+    id: 'antigravity',
+    name: 'Antigravity / Codex',
+    badge: 'STANDALONE',
+    dest: '.agents/skills',
+    desc: 'Pasang ke Antigravity & OpenAI Codex (.agents/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter})'
+  },
+  {
+    id: 'cursor',
+    name: 'Cursor IDE',
+    badge: 'IDE',
+    dest: '.cursor/skills',
+    desc: 'Pasang ke Cursor AI (.cursor/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter})'
+  },
+  {
+    id: 'windsurf',
+    name: 'Windsurf (Codeium)',
+    badge: 'IDE',
+    dest: '.windsurf/skills',
+    desc: 'Pasang ke Windsurf IDE (.windsurf/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter})'
+  },
+  {
+    id: 'cline',
+    name: 'Cline / Roo Code',
+    badge: 'EXT',
+    dest: '.clinerules/skills',
+    desc: 'Pasang ke Cline & Roo Code (.clinerules/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter})'
+  },
+  {
+    id: 'copilot',
+    name: 'GitHub Copilot',
+    badge: 'WORKSPACE',
+    dest: '.github/skills',
+    desc: 'Pasang ke GitHub Copilot instructions & skills'
+  },
+  {
+    id: 'all',
+    name: 'Semua Agent Sekaligus',
+    badge: 'ALL-IN-ONE',
+    dest: '.claude + .agents + .cursor',
+    desc: 'Pasang otomatis ke Claude Code, Antigravity/Codex, dan Cursor IDE'
+  }
+];
+
+const PROFILE_MENU_ITEMS = [
+  {
+    id: 'standard',
+    name: 'Standar (Direkomendasikan)',
+    badge: 'RECOMMENDED',
+    dest: '3 Core Skills + Native Rule Gates',
+    desc: 'Memasang atlas-skill, atlas-frontend, atlas-bug-hunter & rule gates',
+    withRules: true,
+    withQa: false
+  },
+  {
+    id: 'minimal',
+    name: 'Minimal (Skills Saja)',
+    badge: 'LEAN',
+    dest: '3 Core Skills tanpa rule files',
+    desc: 'Hanya memasang skills ke folder agent tanpa menambahkan file rule',
+    withRules: false,
+    withQa: false
+  },
+  {
+    id: 'full',
+    name: 'Lengkap (Full Suite + QA & Security)',
+    badge: 'ENTERPRISE',
+    desc: 'Termasuk Project QA & Security Python suite (CVE audit, inventory, DOM scanner)',
+    withRules: true,
+    withQa: true
+  }
+];
+
+function interactiveMenu({ banner, promptText, items, defaultIndex = 0 }) {
+  return new Promise((resolve) => {
+    let selectedIndex = defaultIndex;
+    let linesRendered = 0;
+
+    const render = () => {
+      if (linesRendered > 0) {
+        process.stdout.write(`\x1b[${linesRendered}A\x1b[0J`);
+      }
+
+      const out = [];
+      if (banner) out.push(banner);
+      out.push(promptText);
+      out.push('');
+
+      items.forEach((item, idx) => {
+        const isSelected = idx === selectedIndex;
+        const pointer = isSelected ? '\x1b[36m\x1b[1m❯\x1b[0m' : ' ';
+        const bullet = isSelected ? '\x1b[36m\x1b[1m●\x1b[0m' : '\x1b[90m○\x1b[0m';
+        const name = isSelected ? `\x1b[36m\x1b[1m${item.name}\x1b[0m` : `\x1b[37m${item.name}\x1b[0m`;
+        const dest = `\x1b[90m[${item.dest}]\x1b[0m`;
+        const badge = item.badge ? ` \x1b[33m\x1b[1m${item.badge}\x1b[0m` : '';
+
+        out.push(`  ${pointer} ${bullet} ${name.padEnd(30)} ${dest.padEnd(28)}${badge}`);
+        if (item.desc) {
+          const descColor = isSelected ? '\x1b[36m' : '\x1b[90m';
+          out.push(`       ${descColor}${item.desc}\x1b[0m`);
+        }
+      });
+
+      out.push('');
+      out.push(`  \x1b[90m[↑/↓ / j/k] Geser Pilihan   [Enter] Pilih   [Ctrl+C] Batal\x1b[0m`);
+
+      const text = out.join('\n');
+      linesRendered = text.split('\n').length;
+      process.stdout.write(text + '\n');
+    };
+
+    readline.emitKeypressEvents(process.stdin);
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true);
+    }
+    process.stdin.resume();
+    process.stdout.write('\x1b[?25l');
+
+    render();
+
+    const cleanup = () => {
+      process.stdout.write('\x1b[?25h');
+      process.stdin.removeListener('keypress', onKeypress);
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(false);
+      }
+      process.stdin.pause();
+    };
+
+    const onKeypress = (str, key) => {
+      if (!key) return;
+
+      if ((key.ctrl && key.name === 'c') || key.name === 'escape') {
+        cleanup();
+        console.log('\n\x1b[33mInstalasi dibatalkan.\x1b[0m\n');
+        process.exit(130);
+      }
+
+      if (key.name === 'up' || key.name === 'k') {
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        render();
+      } else if (key.name === 'down' || key.name === 'j') {
+        selectedIndex = (selectedIndex + 1) % items.length;
+        render();
+      } else if (key.name === 'return' || key.name === 'enter') {
+        cleanup();
+        resolve(items[selectedIndex]);
+      } else if (key.name && /^[1-9]$/.test(key.name)) {
+        const num = parseInt(key.name, 10) - 1;
+        if (num < items.length) {
+          selectedIndex = num;
+          render();
+        }
+      }
+    };
+
+    process.stdin.on('keypress', onKeypress);
+  });
+}
+
 async function chooseTarget(config) {
   if (config.agent) return;
   if (config.dir) { config.agent = 'agents'; return; }
   if (!process.stdin.isTTY || !process.stdout.isTTY) {
     fail('Choose a target with --agent <agents|antigravity|codex|claude|cursor|windsurf|cline|copilot|all> or --dir <PATH> when running without an interactive terminal.', 2);
   }
-  const prompt = createInterface({ input: process.stdin, output: process.stdout });
-  let answered = false;
-  prompt.on('SIGINT', () => { prompt.close(); });
-  prompt.on('close', () => { if (!answered) process.exitCode = 130; });
-  console.log(`\nAtlas Skill v${manifest.version} — ${config.global ? 'global' : 'project-local'} ${config.command}\nBase: ${config.global ? os.homedir() : process.cwd()}\n\n  1. Antigravity / Codex / Agents — .agents/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter}\n  2. Claude Code                  — .claude/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter}\n  3. Cursor                       — .cursor/skills/{atlas-skill,atlas-frontend,atlas-bug-hunter}\n  4. All Major Agents             — .agents + .claude + .cursor\n\nCtrl+C to cancel.\n`);
+
+  const cwdPath = config.global ? os.homedir() : process.cwd();
+  const banner = [
+    '',
+    '\x1b[36m\x1b[1m  ╭─────────────────────────────────────────────────────────────╮\x1b[0m',
+    `\x1b[36m\x1b[1m  │   ▲ T L ▲ S   F R O N T E N D   E N G I N E   v${manifest.version.padEnd(8)}   │\x1b[0m`,
+    '\x1b[36m\x1b[1m  │   Design System, Gates & Anime.js v4 Scenes Installer       │\x1b[0m',
+    '\x1b[36m\x1b[1m  ╰─────────────────────────────────────────────────────────────╯\x1b[0m',
+    `  \x1b[37m📁 Target Workspace:\x1b[0m \x1b[32m${cwdPath}\x1b[0m`,
+    ''
+  ].join('\n');
+
   try {
-    while (!config.agent) {
-      const answer = (await prompt.question('Choose [1-4]: ')).trim().toLowerCase();
-      if (['1', 'agents', 'antigravity', 'codex'].includes(answer)) config.agent = 'antigravity';
-      else if (['2', 'claude'].includes(answer)) config.agent = 'claude';
-      else if (['3', 'cursor'].includes(answer)) config.agent = 'cursor';
-      else if (['4', 'all'].includes(answer)) config.agent = 'all';
-      else console.log('Enter 1, 2, 3, or 4.');
-    }
+    const selectedAgent = await interactiveMenu({
+      banner,
+      promptText: '\x1b[1mPilih Agent Target yang ingin dipasang:\x1b[0m',
+      items: AGENT_MENU_ITEMS,
+      defaultIndex: 0
+    });
+
+    config.agent = selectedAgent.id;
+    console.log(`\n\x1b[32m✔ Target terpilih:\x1b[0m \x1b[1m${selectedAgent.name}\x1b[0m \x1b[90m(${selectedAgent.dest})\x1b[0m\n`);
+
     if (config.command === 'install' || config.command === 'update') {
-      const qaAnswer = (await prompt.question('Include Project QA & Security Suite (--with-qa)? [Y/n]: ')).trim().toLowerCase();
-      if (qaAnswer === '' || qaAnswer === 'y' || qaAnswer === 'yes') config.withQa = true;
-      const rulesAnswer = (await prompt.question('Install native rule gates (--with-rules)? [Y/n]: ')).trim().toLowerCase();
-      if (rulesAnswer === '' || rulesAnswer === 'y' || rulesAnswer === 'yes') config.withRules = true;
+      const selectedProfile = await interactiveMenu({
+        banner: null,
+        promptText: '\x1b[1mPilih Profil Instalasi:\x1b[0m',
+        items: PROFILE_MENU_ITEMS,
+        defaultIndex: 0
+      });
+
+      config.withRules = selectedProfile.withRules;
+      config.withQa = selectedProfile.withQa;
+      console.log(`\n\x1b[32m✔ Profil terpilih:\x1b[0m \x1b[1m${selectedProfile.name}\x1b[0m \x1b[90m(${selectedProfile.dest})\x1b[0m\n`);
     }
-    answered = true;
-  } catch { fail('Installation cancelled. No files were changed.', 130); }
-  finally { prompt.close(); }
+  } catch {
+    fail('Installation cancelled. No files were changed.', 130);
+  }
 }
 
 function resolveTargets(config) {
