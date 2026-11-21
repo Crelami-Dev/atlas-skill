@@ -19,7 +19,22 @@ const bad = good
   .replace('</main>', '<section style="width:1800px"><h2 style="color:color(srgb 0.94 0.94 0.94)">Low contrast fixture</h2><img src="missing.png" width="200" height="100" alt="Intentionally broken image"></section></main>');
 const paths = {};
 const minimal = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>No smoke controls</title><link rel="icon" href="data:">${good.match(/<style>[\s\S]*?<\/style>/)[0]}</head><body><main><section data-hero><h1>No applicable smoke controls</h1><a data-primary href="#target">Visible primary action</a></section><section id="target">End</section></main></body></html>`;
-for (const [name, content] of [['good', good], ['bad', bad], ['read-only', good], ['no-controls', minimal]]) {
+const navGap = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nav and dead space</title><link rel="icon" href="data:"><style>body{margin:0;font:16px/1.5 sans-serif}header{display:flex;justify-content:space-between;align-items:center;padding:8px 16px}nav a{display:inline-block;min-height:44px;padding:10px}.cta{display:inline-block;min-height:44px;padding:10px}@media(max-width:820px){nav a{display:none}}section{padding:32px 16px}.gap{min-height:900px}</style></head><body><header><span>Brand</span><nav><a href="#a">One</a><a href="#b">Two</a><a href="#c">Three</a></nav><a class="cta" href="#contact">Book</a></header><main><section data-hero id="a"><h1>Nav and dead space</h1><a data-primary class="cta" href="#b">Action</a></section><section class="gap" id="b"><h2>Mostly empty</h2><p>Only a short paragraph sits at the top of a very tall section.</p></section><section id="c"><h2>End</h2></section></main></body></html>`;
+// Separate mobile markup: desktop links hidden, a visible mobile nav reaches the same destinations.
+const navDup = navGap
+  .replace('</style>', '.m{display:none}@media(max-width:820px){.m{display:block}.m a{display:inline-block}}</style>')
+  .replace('</header>', '<nav class="m" aria-label="Mobile"><a href="#a">One</a><a href="#b">Two</a><a href="#c">Three</a></nav></header>');
+// An unrelated visible button must not mask the missing menu.
+const navTheme = navGap.replace('<a class="cta" href="#contact">Book</a>', '<a class="cta" href="#contact">Book</a><button type="button" id="theme" style="min-height:44px">Theme</button>');
+// A drawer parked off-canvas with a transform keeps a positive size; it must not count as reachable.
+const navDrawer = navGap.replace('@media(max-width:820px){nav a{display:none}}', '@media(max-width:820px){nav{position:fixed;top:0;left:0;transform:translateX(-100%)}}');
+// Stacked CTAs: ragged (different widths) vs equal-width stacking.
+const ctaPage = (css) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CTA</title><link rel="icon" href="data:"><style>body{margin:0;font:16px/1.5 sans-serif}main{padding:16px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:1px solid #333}.row{display:flex;flex-direction:column;gap:12px}${css}</style></head><body><main><section data-hero><h1>CTA fixture</h1><div class="row"><a data-primary class="btn" href="#a">Hitung estimasi biaya</a><a class="btn" href="#b">Jadwalkan konsultasi</a></div></section></main></body></html>`;
+const ctaRagged = ctaPage('.row{align-items:flex-start}.btn:last-child{padding:0 40px}');
+const ctaEqual = ctaPage('.row{align-items:stretch}');
+// Equal width but narrow and left-aligned: the stack does not fill the row.
+const ctaNarrow = ctaPage('.row{align-items:flex-start}.btn{width:12rem}');
+for (const [name, content] of [['good', good], ['bad', bad], ['read-only', good], ['no-controls', minimal], ['nav-gap', navGap], ['nav-dup', navDup], ['nav-theme', navTheme], ['nav-drawer', navDrawer], ['cta-ragged', ctaRagged], ['cta-narrow', ctaNarrow], ['cta-equal', ctaEqual]]) {
   paths[name] = path.join(root, `${name}.html`);
   fs.writeFileSync(paths[name], content);
 }
@@ -44,7 +59,9 @@ function audit(name, clickArgs = ['--click-test']) {
 
 const cases = [];
 function verify(name, fn) { fn(); cases.push({ name, status: 'PASS' }); }
-const [positive, negative, readOnly, noControls] = await Promise.all([audit('good'), audit('bad'), audit('read-only', []), audit('no-controls')]);
+const [positive, negative, readOnly, noControls, navGapRun, navDupRun, navThemeRun, navDrawerRun, ctaRaggedRun, ctaNarrowRun, ctaEqualRun] = await Promise.all([audit('good'), audit('bad'), audit('read-only', []), audit('no-controls'), audit('nav-gap', []), audit('nav-dup', []), audit('nav-theme', []), audit('nav-drawer', []), audit('cta-ragged', []), audit('cta-narrow', []), audit('cta-equal', [])]);
+const phoneWarns = (run, prefix) => run.report.results.filter(r => r.viewport.width <= 540).flatMap(r => r.warns).filter(w => w.startsWith(prefix));
+const mobileNavFails = (run) => run.report.results.filter(r => r.viewport.width <= 820).flatMap(r => r.fails).filter(f => f.startsWith('mobile-nav-missing:'));
 verify('Known-good page exits zero with no failures', () => { assert.equal(positive.status, 0); assert.equal(positive.report.totalFails, 0); });
 verify('Short phone viewports are actually present', () => {
   for (const height of [568, 667]) assert.ok(positive.report.results.some(result => result.viewport.height === height));
@@ -81,9 +98,28 @@ verify('Opt-in smoke with zero applicable controls is skipped, not passed', () =
   assert.equal(noControls.report.interactive.status, 'skipped');
   assert.equal(noControls.report.interactive.checks.length, 0);
 });
-for (const args of [['--unknown'], ['--shots'], ['page.html', '--hero', '#hero']]) {
+verify('Hidden mobile navigation links without a menu control are rejected', () => {
+  const mobileFails = navGapRun.report.results.filter(r => r.viewport.width <= 820).flatMap(r => r.fails);
+  assert.ok(mobileFails.some(f => f.startsWith('mobile-nav-missing:')));
+  assert.equal(positive.report.results.flatMap(r => r.fails).filter(f => f.startsWith('mobile-nav-missing:')).length, 0);
+});
+verify('Separate visible mobile navigation reaching the same destinations passes', () => assert.equal(mobileNavFails(navDupRun).length, 0));
+verify('An off-canvas drawer without a menu control does not count as reachable navigation', () => assert.ok(mobileNavFails(navDrawerRun).length > 0));
+verify('Stacked buttons of different widths are flagged on phones', () => assert.ok(phoneWarns(ctaRaggedRun, 'cta-width-mismatch:').length > 0));
+verify('Equal-width stacked buttons that do not fill the row are flagged', () => assert.ok(phoneWarns(ctaNarrowRun, 'cta-not-full-width:').length > 0));
+verify('Full-width equal stacked buttons pass', () => {
+  assert.equal(phoneWarns(ctaEqualRun, 'cta-width-mismatch:').length, 0);
+  assert.equal(phoneWarns(ctaEqualRun, 'cta-not-full-width:').length, 0);
+});
+verify('An unrelated visible button does not mask a missing mobile menu', () => assert.ok(mobileNavFails(navThemeRun).length > 0));
+verify('Tall section with empty trailing space is flagged on desktop only', () => {
+  const desktopWarns = navGapRun.report.results.filter(r => r.viewport.width >= 1200).flatMap(r => r.warns);
+  assert.ok(desktopWarns.some(w => w.startsWith('dead-space:')));
+  assert.equal(navGapRun.report.results.filter(r => r.viewport.width < 1200).flatMap(r => r.warns).filter(w => w.startsWith('dead-space:')).length, 0);
+});
+for (const args of [['--unknown'],['--shots'], ['page.html', '--hero', '#hero']]) {
   verify(`Invalid usage rejects ${args.join(' ')}`, () => assert.equal(spawnSync(process.execPath, [checker, ...args], { encoding: 'utf8' }).status, 2));
 }
 verify('Help exits successfully', () => assert.equal(spawnSync(process.execPath, [checker, '--help'], { encoding: 'utf8' }).status, 0));
-fs.writeFileSync(path.join(root, 'self-test-report.json'), JSON.stringify({ cases, total: cases.length, positive: positive.report, negative: negative.report, readOnly: readOnly.report, noControls: noControls.report, limitations: 'Controlled regression fixtures verify selected mechanics, not the visual quality or complete accessibility of arbitrary sites.' }, null, 2));
+fs.writeFileSync(path.join(root, 'self-test-report.json'), JSON.stringify({ cases, total: cases.length, positive: positive.report, negative: negative.report, readOnly: readOnly.report, noControls: noControls.report, navGap: navGapRun.report, ctaRagged: ctaRaggedRun.report, limitations: 'Controlled regression fixtures verify selected mechanics, not the visual quality or complete accessibility of arbitrary sites.' }, null, 2));
 console.log(`PASS ${cases.length} checker regression cases. Evidence: ${root}`);

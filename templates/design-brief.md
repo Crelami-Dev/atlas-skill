@@ -12,6 +12,10 @@ List factual copy, real figures, available media assets, and honesty boundaries 
 
 State the visual asset strategy: (a) use user-provided photography/media, or (b) generate bespoke domain imagery (`image-generator` / `generate_image` into `assets/images/`) or fetch real licensed photography (`scripts/fetch-photos.mjs` into `assets/photos/`), marked silently via `data-photo-slot` + `data-atlas-proof` with fixed aspect ratios and zero visitor-visible `"Replace with photo"` instructions. Never draw manual SVG scenes/floorplans or generic hill-and-sun silhouettes as a substitute for photos.
 
+## Signature idea
+
+One distinctive move that comes from the subject (see `references/creative-direction.md`): the physical truth, the move, `scene: <id from templates/scene-catalog.json | none>`, and why it serves the visitor. Keep everything else calm.
+
 ## Three composition alternatives
 
 ### Alternative 1

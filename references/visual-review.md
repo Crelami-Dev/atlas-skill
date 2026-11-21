@@ -12,6 +12,18 @@ Inspect navigation plus hero at short heights, not only a tall desktop. If conte
 
 For a requested one-screen mobile hero, inspect 320x568 and 375x667 as well as a larger phone. Confirm the actual action is visible and nonzero. Never use clipping or a hidden link's bounds as proof.
 
+Also confirm the first image is the business's own subject (building, product, dish, space) and not generic scenery. See [imagery.md](imagery.md) section 1b.
+
+## Navigation on every width
+
+At 375 and 820 px, open the header: every top-level destination visible on desktop must remain reachable. A header that shows only a call-to-action while Studio / Material / Estimate vanish fails; add a menu control or keep the links. `quick-check.mjs` reports `mobile-nav-missing`.
+
+## Empty space and reveal state
+
+Look for sections whose content ends far above the section's bottom edge (`dead-space`). Fix it by tightening the section, adding the missing content, or raising the next section's start; do not add filler.
+
+Screenshots taken while a reveal is still running look washed out. Wait for the animation, then judge. If the element is still translucent two seconds later, that is a defect (`partial-opacity`), not a capture artifact.
+
 ## Typography
 
 Inspect real phrases, not just font attractiveness:

@@ -6,6 +6,7 @@
  *   2. Design Tokens Gate (check-tokens)
  *   3. Anime.js v4 Motion & Lifecycle Gate (check-motion-v4)
  *   4. Anti-Slop Scanner (slop-scan)
+ *   4b. Concise Copy Gate (check-copy): word budgets, verb-led buttons, concrete first screen
  *   5. Visual Proof, Surface Cadence & Anti-Wireframe Gate (check-visual-proof)
  *   6. [Optional --visual <html-or-url>] Multi-Viewport Screenshot Capture & DOM Geometry Audit
  */
@@ -55,6 +56,7 @@ if (fs.existsSync(tokensPath) || mode === 'full') {
 }
 steps.push({ name: '3. Anime.js v4 Motion Gate', cmd: process.execPath, args: [path.join(atlasRoot, `scripts/check-motion-v4${ext}`), projectRoot] });
 steps.push({ name: '4. Anti-Slop Gate', cmd: process.execPath, args: [path.join(atlasRoot, `skills/atlas-checker/scripts/slop-scan${ext}`), projectRoot] });
+steps.push({ name: '4b. Concise Copy Gate', cmd: process.execPath, args: [path.join(atlasRoot, `scripts/check-copy${ext}`), projectRoot, ...(strict ? ['--strict'] : [])] });
 steps.push({ name: '5. Visual Proof & Anti-Wireframe Gate', cmd: process.execPath, args: [path.join(atlasRoot, `scripts/check-visual-proof${ext}`), projectRoot, ...(strict ? ['--strict'] : [])] });
 
 function resolvePython() {

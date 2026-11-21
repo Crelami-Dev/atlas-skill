@@ -66,5 +66,22 @@ if (!fs.existsSync(file)) {
     }
   }
 
+  // Optional but recommended: one distinctive move per page. When present it must name a real scene (or "none").
+  const sigMatch = text.match(/^##\s+(?:Signature idea|Ide tanda tangan)\s*\n([\s\S]*?)(?=^##\s|(?![\s\S]))/mi);
+  if (!sigMatch && !isLightBrief) {
+    console.log('NOTE: no "## Signature idea" section. Add one distinctive move that comes from the subject (see references/creative-direction.md).');
+  } else if (sigMatch) {
+    const sigBody = sigMatch[1].replace(/<!--[\s\S]*?-->/g, '').trim();
+    if (sigBody.length < 12) fail('Signature idea section is empty');
+    const sceneRef = sigBody.match(/\bscene\s*[:=]\s*`?([a-z-]+)`?/i);
+    if (sceneRef && sceneRef[1].toLowerCase() !== 'none') {
+      try {
+        const catalogPath = new URL('../templates/scene-catalog.json', import.meta.url);
+        const known = JSON.parse(fs.readFileSync(catalogPath, 'utf8')).scenes.map((s) => s.id);
+        if (!known.includes(sceneRef[1].toLowerCase())) fail(`Signature idea names an unknown scene "${sceneRef[1]}". Known: ${known.join(', ')}, or "none"`);
+      } catch { /* catalog unavailable in a stripped export: skip the id check */ }
+    }
+  }
+
   if (!process.exitCode) console.log('PASS: complete brief');
 }

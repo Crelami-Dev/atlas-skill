@@ -21,6 +21,18 @@ This guide governs visual media decisions for photography-dependent and visually
 3. **Condition C — Data-, Code-, or Typography-First Domains:**
    - For operational dashboards, API documentation, or research dossiers, lead with structured tables, live calculators, terminal/code specimens, or measured charts (`<svg data-viz>`) instead of forcing decorative photos.
 
+## 1b. Photo Relevance & Hero Subject (a licence is not enough)
+
+A photo passes only when it also fits the business. Judge every image before it enters the page:
+
+1. **The hero shows the thing being sold.** An architecture studio shows a building or interior, a café shows the room or the plate, a product page shows the product. A landscape, texture or mood image can support the story below the fold but must not be the first image unless the business sells that place.
+2. **Local context matches.** A photo from another country, climate or building tradition (e.g. an African beam or a US cliff on a Bali studio page) is allowed only when the page says openly that it is a material or technique study and the caption names the origin. Prefer a local match; otherwise do not use it.
+3. **Query for the subject, not the mood, in 2-3 words.** In `fetch-photos.mjs --query`, write `<place> <subject>` (`Bali villa`, `Ubud resort`, `Bali temple wall`, `joglo teak house Java`), not `rammed earth` alone. Longer phrases (5+ words such as `Bali villa interior bamboo roof`) usually return nothing from Wikimedia. Run one query per slot and a second pass with different wording when the first result set is off-topic. Titles often hide the real subject (a "Bali temple wall" query also returns Indian terracotta panels), so open every candidate before using it.
+4. **Resolution and crop.** Hero >= 1600px wide and no visible compression artifacts at its rendered size. Reject images with watermarks, people's faces in identifiable close-up (unless the user supplied them), or heavy tourist crowds.
+5. **Mixed quality is visible.** In a gallery, drop the weakest frame rather than fill a slot. Four strong images beat six uneven ones; reuse is better than a poor fit.
+6. **Evidence panels get context.** A result panel, summary card or configurator that shows an important number may carry one small relevant photo to anchor it; skip it when no fitting photo exists.
+7. **Record the decision.** In `## Image plan`, add one line per image: why it fits, what it stands for, and its origin when it is not local.
+
 ## 2. Proper `<svg>` Usage Rules
 
 - **Allowed `<svg>` usage:** Small UI icons (`<= 32px`), crisp brand logomarks, and real data-driven charts/graphs (`<svg data-viz>` with real axes, scales, or plotted values).

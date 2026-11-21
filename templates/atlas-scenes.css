@@ -1,4 +1,4 @@
-/* Atlas Signature Scroll Scenes v7.1 — Lean, Mobile-Safe, Zero-100svh-Bloat */
+/* Atlas Scenes v7.2 — 6 heavy + 4 light scroll scenes. Token-only, mobile-safe, complete rest state. */
 
 .atlas-scene {
   position: relative;
@@ -15,7 +15,7 @@
   padding-block: var(--space-12);
 }
 
-/* Live desktop sticky scroll track — falls back automatically to natural height in .is-rest */
+/* HEAVY live track: sticky stage inside a taller section. Falls back to natural height when not .is-live. */
 .atlas-scene.is-live {
   min-height: 145vh;
   padding-block: 0;
@@ -27,6 +27,17 @@
   min-height: 78vh;
   align-content: center;
   padding-block: var(--space-6);
+}
+
+/* LIGHT scenes never pin the page. */
+.atlas-scene--light.is-live {
+  min-height: 0;
+}
+
+.atlas-scene--light.is-live .atlas-scene__stage {
+  position: static;
+  min-height: 0;
+  padding-block: var(--space-12);
 }
 
 /* Shared visual stage container */
@@ -55,7 +66,7 @@
   display: block;
 }
 
-/* Preset 1: Window Reveal Framing Panels (center 56% of photo always visible at p=0; opens to 100% on scroll) */
+/* window-reveal: shutters part to reveal full-bleed media */
 .atlas-scene__shutter {
   position: absolute;
   top: 0;
@@ -81,7 +92,7 @@
   display: none;
 }
 
-/* Preset 3: Giant Type Parting */
+/* type-parting: giant word pairs separate around a centerpiece */
 .atlas-scene__typewall {
   display: grid;
   gap: var(--space-3);
@@ -113,7 +124,7 @@
   will-change: transform, opacity;
 }
 
-/* Preset 4: Parallax Depth */
+/* parallax-depth (light) */
 .atlas-scene--parallax {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -143,6 +154,256 @@
   will-change: transform, opacity;
 }
 
+/* pull-back: tight crop pulls back to the whole; two captions swap in one grid cell */
+.atlas-scene__captions {
+  display: grid;
+}
+
+.atlas-scene__captions > * {
+  grid-area: 1 / 1;
+  margin: 0;
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__caption--from {
+  display: none;
+}
+
+/* split-wipe: before/after divider travels left to right */
+.atlas-scene__compare {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-elevated);
+}
+
+.atlas-scene__after-wrap,
+.atlas-scene__before-clip {
+  position: absolute;
+  inset: 0;
+}
+
+.atlas-scene__before-clip {
+  will-change: clip-path;
+}
+
+.atlas-scene__compare img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.atlas-scene__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: var(--space-1);
+  margin-left: calc(var(--space-1) / -2);
+  background-color: var(--color-surface-elevated);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+.atlas-scene__tag {
+  position: absolute;
+  top: var(--space-3);
+  z-index: 3;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.atlas-scene__tag--after {
+  left: var(--space-3);
+}
+
+.atlas-scene__tag--before {
+  right: var(--space-3);
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  aspect-ratio: auto;
+  overflow: visible;
+  border: 0;
+  background: none;
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__after-wrap,
+.atlas-scene:not(.is-live) .atlas-scene__before-clip {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__before-clip {
+  order: -1;
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__divider {
+  display: none;
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__tag--before {
+  right: auto;
+  left: var(--space-3);
+}
+
+/* horizontal-rail: vertical scroll drives a horizontal strip; phones get a native snap row */
+.atlas-scene__head {
+  max-width: 42rem;
+}
+
+.atlas-scene__rail {
+  overflow: hidden;
+}
+
+.atlas-scene__track {
+  display: flex;
+  gap: var(--space-6);
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+.atlas-scene__plate {
+  flex: 0 0 min(72vw, 28rem);
+}
+
+.atlas-scene__plate figure {
+  margin: 0;
+}
+
+.atlas-scene__plate img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.atlas-scene__plate figcaption {
+  margin-top: var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.atlas-scene[data-atlas-scene='horizontal-rail'].is-live .atlas-scene__stage {
+  top: 0;
+  min-height: 100svh;
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__rail {
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.atlas-scene:not(.is-live) .atlas-scene__plate {
+  scroll-snap-align: start;
+}
+
+/* word-light (light): a statement lights up word by word */
+.atlas-scene__statement {
+  max-width: 24ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+.atlas-scene:not(.is-live) .atlas-word {
+  opacity: 1;
+}
+
+/* step-assemble (light): steps settle into a row while a line draws */
+.atlas-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: atlas-step;
+}
+
+.atlas-step {
+  position: relative;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-elevated);
+  counter-increment: atlas-step;
+  will-change: transform, opacity;
+}
+
+.atlas-step::before {
+  content: counter(atlas-step, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+}
+
+.atlas-step h3 {
+  margin: 0 0 var(--space-2);
+}
+
+.atlas-step p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.atlas-scene__line--h {
+  display: block;
+  height: var(--space-1);
+  margin-bottom: var(--space-5);
+  background-color: var(--color-accent);
+  transform-origin: left center;
+}
+
+/* drift-type (light): two lines of giant type drift in opposite directions */
+.atlas-drift {
+  overflow: hidden;
+  padding-block: var(--space-8);
+}
+
+.atlas-drift__row {
+  width: max-content;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: calc(var(--text-3xl) * 2.6);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.atlas-drift__row--rev {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-text);
+}
+
 @media (max-width: 767px), (prefers-reduced-motion: reduce) {
   .atlas-scene,
   .atlas-scene.is-live {
@@ -161,6 +422,10 @@
   }
 
   .atlas-scene--parallax {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-scene:not(.is-live) .atlas-scene__compare {
     grid-template-columns: minmax(0, 1fr);
   }
 }

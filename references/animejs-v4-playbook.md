@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-Add **at most 1 continuous Signature Scroll Scene** per page using `data-atlas-scene`:
+Add scroll scenes with `data-atlas-scene`: **one heavy plus at most two light** per page, chosen with `scripts/deal-scene.mjs`. The engine drives a paused `createTimeline()` with `timeline.seek()` from scroll progress. Full catalogue, markup and rules: [scenes.md](scenes.md). The original four:
 - `window-reveal`: Twin shutter panels (`atlas-scene__shutter--left` / `--right`) part smoothly on scroll to reveal full-bleed media.
 - `mask-zoom`: Aperture `clip-path` expands cleanly (`inset(14% 16%)` -> `0%`) as the reader scrolls through.
 - `type-parting`: Oversized display word pairs (`atlas-scene__half--left` / `--right`) separate smoothly around a centerpiece.

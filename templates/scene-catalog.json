@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "rule": "One heavy scene per page (desktop only, phones get the finished composition) plus at most two light scenes from different families. Pick by what the subject needs to show, never by novelty. A page may use none.",
+  "fits": ["place", "product", "process", "proof", "portfolio", "statement", "event", "software", "docs"],
+  "scenes": [
+    {
+      "id": "pull-back",
+      "mode": "heavy",
+      "family": "camera",
+      "fits": ["place", "product", "portfolio"],
+      "look": "A tight crop of one detail pulls back until the whole subject is in frame; the caption changes from the detail's line to the whole's line.",
+      "needs": "One photo whose whole and a recognisable detail both read, at least zoom x displayed width in pixels (about 2300 px for the default 1.8 zoom); a 4-8 word detail line and a 6-12 word whole line.",
+      "never": "Photos too small for the zoom (they turn soft); subjects with no interesting detail; as the hero.",
+      "rest": "The whole photo with the whole's caption.",
+      "cost": "low"
+    },
+    {
+      "id": "split-wipe",
+      "mode": "heavy",
+      "family": "compare",
+      "fits": ["proof", "place"],
+      "look": "A divider travels across one frame and the second state of the same place takes over (before/after, day/night, raw/finished).",
+      "needs": "Two photos of the same subject from the same angle; honest labels.",
+      "never": "Two unrelated photos; invented before-states; subjects with no real change.",
+      "rest": "Both states side by side (stacked on phones), each labelled.",
+      "cost": "low"
+    },
+    {
+      "id": "horizontal-rail",
+      "mode": "heavy",
+      "family": "gallery",
+      "fits": ["portfolio", "product", "place", "event"],
+      "look": "Vertical scroll drives a horizontal strip of 4-7 numbered plates, one idea per plate.",
+      "needs": "4-7 plates of equal importance, each with a short caption.",
+      "never": "More than 7 plates; plates that depend on being read in order without numbering; text-heavy cards.",
+      "rest": "A native horizontal scroll-snap row.",
+      "cost": "medium"
+    },
+    {
+      "id": "window-reveal",
+      "mode": "heavy",
+      "family": "camera",
+      "fits": ["place", "event"],
+      "look": "Twin panels in the page's ground colour part to open a full-bleed photograph.",
+      "needs": "One strong wide photo and one caption line.",
+      "never": "Dark moody sites where the panels would look like a curtain stuck to the page.",
+      "rest": "The photo with its caption, no panels.",
+      "cost": "low"
+    },
+    {
+      "id": "mask-zoom",
+      "mode": "heavy",
+      "family": "camera",
+      "fits": ["product", "event", "portfolio"],
+      "look": "A rounded aperture grows from a small window to the whole frame while the photo settles.",
+      "needs": "One photo with a clear centre of interest.",
+      "never": "Photos with the subject near the edge (the aperture crops it away at the start).",
+      "rest": "The full-frame photo.",
+      "cost": "low"
+    },
+    {
+      "id": "type-parting",
+      "mode": "heavy",
+      "family": "type",
+      "fits": ["statement", "event"],
+      "look": "Two giant word pairs separate around a centerpiece image.",
+      "needs": "Two short phrases (2 words each) and one small image or object.",
+      "never": "Long phrases; pages that already use giant type elsewhere.",
+      "rest": "Phrases stacked around the centerpiece.",
+      "cost": "low"
+    },
+    {
+      "id": "parallax-depth",
+      "mode": "light",
+      "family": "depth",
+      "fits": ["place", "portfolio", "product", "docs"],
+      "look": "Media and copy drift at different speeds beside each other; the page scrolls normally.",
+      "needs": "One image and a short copy block.",
+      "never": "Stacked more than once per page.",
+      "rest": "Two columns (one on phones).",
+      "cost": "low"
+    },
+    {
+      "id": "word-light",
+      "mode": "light",
+      "family": "type",
+      "fits": ["statement", "process", "place", "docs"],
+      "look": "A one-sentence statement lights up word by word as it crosses the screen.",
+      "needs": "One plain-text sentence of 10-20 words that carries the page's belief or promise.",
+      "never": "Anything with inline markup, links or numbers the visitor must find quickly.",
+      "rest": "All words at full strength.",
+      "cost": "low"
+    },
+    {
+      "id": "step-assemble",
+      "mode": "light",
+      "family": "process",
+      "fits": ["process", "software", "event"],
+      "look": "Three to five steps start scattered and settle into a row while a line draws across them.",
+      "needs": "3-5 steps, each a verb plus a result in under 12 words.",
+      "never": "More than 5 steps; steps that are really features.",
+      "rest": "A neat grid of numbered steps.",
+      "cost": "low"
+    },
+    {
+      "id": "drift-type",
+      "mode": "light",
+      "family": "type",
+      "fits": ["statement", "event", "product"],
+      "look": "Two lines of giant type (one solid, one outlined) drift in opposite directions.",
+      "needs": "A list of 4-6 real nouns from the subject (materials, menu items, services).",
+      "never": "Filler words; marketing adjectives; pages where the two lines would be the only copy.",
+      "rest": "The two lines, static and clipped by the page edge.",
+      "cost": "low"
+    }
+  ]
+}

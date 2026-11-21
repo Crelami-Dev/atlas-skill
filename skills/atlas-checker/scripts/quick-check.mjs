@@ -6,6 +6,8 @@
  * - Post-scroll reveal check (ensures zero visible sections/cards stuck at opacity: 0)
  * - Limited flat-background contrast on headings, paragraphs, buttons & links
  * - Unintentional sibling overlap + line-length measure (>78ch) + mobile tap targets
+ * - Mobile navigation completeness (links hidden with no menu control), dead space inside sections,
+ *   and elements stuck translucent after their reveal should have finished
  * - Optional visible menu/tab smoke checks, with explicit skipped state
  * - Full-resolution 1:1 captures for top, mid-scroll, low-scroll & full-page folds
  */
@@ -107,7 +109,26 @@ function startStaticServer(targetPath) {
   });
 }
 
+// Elements fully inside the viewport that stay translucent after their reveal should have finished.
+// Catches reveals that never complete (washed-out sections in screenshots and for visitors).
+async function settledOpacityProbe(page) {
+  return page.evaluate(() => {
+    const out = [];
+    const sel = "main h1, main h2, main h3, main p, main figure, main img, main form, [data-reveal]";
+    for (const el of document.querySelectorAll(sel)) {
+      if (el.closest("[data-atlas-scene]")) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 8 || r.height < 8 || r.top < 0 || r.bottom > innerHeight) continue;
+      let o = 1;
+      for (let n = el; n; n = n.parentElement) o *= parseFloat(getComputedStyle(n).opacity);
+      if (o > 0.05 && o < 0.8) out.push(`${el.tagName.toLowerCase()}("${(el.innerText || el.alt || "").trim().slice(0, 18)}")=${o.toFixed(2)}`);
+    }
+    return out;
+  });
+}
+
 async function scrollSweepAndCapture(page, vp, shotsDir) {
+  const sweepWarns = [];
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(700);
@@ -129,12 +150,22 @@ async function scrollSweepAndCapture(page, vp, shotsDir) {
   if (maxScroll > 120) {
     await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), midY);
     await page.waitForTimeout(680);
+    if (vp.folds) {
+      await page.waitForTimeout(1300);
+      const stuck = await settledOpacityProbe(page);
+      if (stuck.length) sweepWarns.push(`partial-opacity: ${stuck.length} elements still translucent 2s after reveal at mid-scroll (${stuck.slice(0, 3).join(", ")})`);
+    }
     if (shotsDir && vp.folds) {
       await page.screenshot({ path: path.join(shotsDir, `${vp.name}-mid.png`), fullPage: false });
     }
 
     await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), lowY);
     await page.waitForTimeout(680);
+    if (vp.folds) {
+      await page.waitForTimeout(1300);
+      const stuck = await settledOpacityProbe(page);
+      if (stuck.length) sweepWarns.push(`partial-opacity: ${stuck.length} elements still translucent 2s after reveal at low-scroll (${stuck.slice(0, 3).join(", ")})`);
+    }
     if (shotsDir && vp.folds) {
       await page.screenshot({ path: path.join(shotsDir, `${vp.name}-low.png`), fullPage: false });
     }
@@ -145,15 +176,16 @@ async function scrollSweepAndCapture(page, vp, shotsDir) {
     await page.waitForTimeout(200);
     await page.screenshot({ path: path.join(shotsDir, `${vp.name}-full.png`), fullPage: true });
   }
+  return sweepWarns;
 }
 
 async function auditViewport(page, vp, shotsDir, slopPhrases, options) {
   await page.setViewportSize({ width: vp.width, height: vp.height });
-  await scrollSweepAndCapture(page, vp, shotsDir);
+  const sweepWarns = await scrollSweepAndCapture(page, vp, shotsDir);
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await page.waitForTimeout(100);
 
-  return page.evaluate(({ vpWidth, slopList, heroSelector, heroActionSelector, fitHeroUnder }) => {
+  const audit = await page.evaluate(({ vpWidth, slopList, heroSelector, heroActionSelector, fitHeroUnder }) => {
     const fails = [];
     const warns = [];
 
@@ -225,6 +257,101 @@ async function auditViewport(page, vp, shotsDir, slopPhrases, options) {
     });
     if (tinyButtons.length > 0 && vpWidth <= 420) {
       warns.push(`small-tap-target: ${tinyButtons.length} controls under Atlas comfort target 44px (not a WCAG conformance verdict) (${tinyButtons.slice(0, 3).map((e) => e.textContent.trim().slice(0, 20) || e.tagName).join(", ")})`);
+    }
+
+    // Mobile navigation completeness: section links must not vanish without a menu control.
+    if (vpWidth <= 820) {
+      const header = document.querySelector("header");
+      if (header) {
+        // Visible means on screen and opaque: a drawer parked off-canvas with a transform keeps a positive
+        // size, so geometry alone would wrongly count its links as reachable.
+        const shown = (el) => {
+          const r = el.getBoundingClientRect();
+          const s = getComputedStyle(el);
+          if (r.width <= 0 || r.height <= 0 || s.display === "none" || s.visibility === "hidden") return false;
+          if (r.right <= 0 || r.left >= innerWidth || r.bottom <= 0 || r.top >= innerHeight) return false;
+          let opacity = 1;
+          for (let n = el; n; n = n.parentElement) opacity *= parseFloat(getComputedStyle(n).opacity);
+          return opacity > 0.05;
+        };
+        const navLinks = [...header.querySelectorAll("a[href]")].filter((a) => a.closest("nav") || /^\/?#./.test(a.getAttribute("href") || ""));
+        const hiddenAll = navLinks.filter((a) => !shown(a));
+        const destination = (a) => (a.getAttribute("href") || "").replace(/^\/(?=#)/, "").replace(/\/$/, "");
+        const visibleDestinations = new Set(navLinks.filter(shown).map(destination));
+        // Separate desktop and mobile markup is fine when a visible link reaches the same destination.
+        const hiddenLinks = hiddenAll.filter((a) => !visibleDestinations.has(destination(a)));
+        // A control only counts when it plausibly operates the hidden navigation, so an unrelated
+        // button (theme switch, search) cannot mask a missing menu.
+        const operatesNav = (control) => {
+          const id = control.getAttribute("aria-controls");
+          if (id) {
+            const target = document.getElementById(id);
+            return Boolean(target && hiddenAll.some((a) => target.contains(a) || a.contains(target)));
+          }
+          return control.hasAttribute("aria-expanded");
+        };
+        const hasToggle =
+          [...header.querySelectorAll("button, [role=button]")].some((b) => shown(b) && operatesNav(b)) ||
+          [...header.querySelectorAll("summary")].some((sm) => shown(sm) && hiddenAll.some((a) => sm.parentElement?.contains(a))) ||
+          [...header.querySelectorAll("label[for]")].some((l) => shown(l) && /^(checkbox|radio)$/.test(document.getElementById(l.getAttribute("for"))?.type || ""));
+        if (hiddenLinks.length >= 3 && !hasToggle) {
+          fails.push(`mobile-nav-missing: ${hiddenLinks.length} header links are hidden at ${vpWidth}px with no visible menu control (${hiddenLinks.slice(0, 3).map((a) => a.textContent.trim().slice(0, 14)).join(", ")})`);
+        } else if (hiddenLinks.length === 2 && !hasToggle) {
+          warns.push("mobile-nav-missing: 2 header links are hidden on mobile with no menu control; confirm the content stays reachable");
+        }
+      }
+    }
+
+    // Unintentional dead space: a tall section whose content ends far above its own bottom edge.
+    if (vpWidth >= 1200) {
+      for (const sec of document.querySelectorAll("main section")) {
+        const sr = sec.getBoundingClientRect();
+        if (sr.height < innerHeight * 0.6 || sec.closest("[data-atlas-scene]") || sec.matches("[data-atlas-scene]")) continue;
+        const all = [...sec.querySelectorAll("*")];
+        if (all.some((c) => ["sticky", "fixed"].includes(getComputedStyle(c).position))) continue;
+        let bottom = sr.top;
+        for (const c of all) {
+          const cs = getComputedStyle(c);
+          if (cs.display === "none" || cs.visibility === "hidden" || cs.position === "absolute") continue;
+          const cr = c.getBoundingClientRect();
+          if (cr.width > 0 && cr.height > 0) bottom = Math.max(bottom, cr.bottom);
+        }
+        const trailing = sr.bottom - (parseFloat(getComputedStyle(sec).paddingBottom) || 0) - bottom;
+        if (trailing > Math.max(160, innerHeight * 0.2)) {
+          warns.push(`dead-space: section "${(sec.querySelector("h1, h2, h3")?.textContent || sec.id || "section").trim().slice(0, 24)}" ends ${Math.round(trailing)}px of empty space below its content`);
+        }
+      }
+    }
+
+    // Stacked calls to action on phones must share one width and left edge. Two buttons of different
+    // widths, or a lone narrow button under a wide one, is the "odd CTA" that looks broken on mobile.
+    if (vpWidth <= 540) {
+      const groups = new Map();
+      for (const el of document.querySelectorAll("main a, main button")) {
+        if (!/(?:^|[\s_-])(?:btn|button|cta)/i.test(el.className) && !el.hasAttribute("data-cta-primary")) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width <= 0 || r.height <= 0 || getComputedStyle(el).display === "none") continue;
+        const key = el.parentElement;
+        groups.set(key, [...(groups.get(key) || []), el]);
+      }
+      for (const kids of groups.values()) {
+        if (kids.length < 2) continue;
+        const rects = kids.map((k) => k.getBoundingClientRect());
+        const stackedPairs = rects.slice(1).map((r, i) => ({ a: rects[i], b: r })).filter(({ a, b }) => b.top >= a.bottom - 2);
+        const names = kids.map((k) => k.textContent.trim().slice(0, 16)).join('" / "');
+        const ragged = stackedPairs.some(({ a, b }) => Math.abs(a.width - b.width) > 3 || Math.abs(a.left - b.left) > 3);
+        if (ragged) {
+          warns.push(`cta-width-mismatch: stacked buttons "${names}" differ in width or alignment on mobile; use .atlas-cta-row for equal-width stacking`);
+        } else if (stackedPairs.length) {
+          // Equal but narrow, left-aligned buttons leave a ragged gap on the right: fill the row.
+          const parent = kids[0].parentElement;
+          const cs = getComputedStyle(parent);
+          const inner = parent.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+          if (inner > 0 && Math.min(...rects.map((r) => r.width)) < inner * 0.9) {
+            warns.push(`cta-not-full-width: stacked buttons "${names}" do not fill the row on mobile; use .atlas-cta-row so they span the content width`);
+          }
+        }
+      }
     }
 
     // Paired CTA stagger check
@@ -359,6 +486,8 @@ async function auditViewport(page, vp, shotsDir, slopPhrases, options) {
 
     return { fails, warns, metrics };
   }, { vpWidth: vp.width, slopList: slopPhrases, heroSelector: options.heroSelector, heroActionSelector: options.heroActionSelector, fitHeroUnder: options.fitHeroUnder });
+  audit.warns.push(...sweepWarns);
+  return audit;
 }
 
 async function runInteractiveSmoke(page) {

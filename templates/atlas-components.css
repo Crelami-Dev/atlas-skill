@@ -1,0 +1,163 @@
+:root {
+  --atlas-safe-bottom: env(safe-area-inset-bottom);
+}
+
+/* Atlas Components v7.2 — CTA row, results strip, arrow link, phone action bar. Token-only. */
+
+/* ───── CTA row ─────
+   Desktop: buttons sit in one row. Phones: equal-width stack, primary first, never two different
+   widths or a lone orphan. Rule: at most two actions; put the primary first in the DOM.
+   <div class="atlas-cta-row" data-cta-row>
+     <a class="btn-primary" href="#x" data-cta-primary>Book a visit</a>
+     <a class="btn-secondary" href="#y">See the work</a>
+   </div> */
+.atlas-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.atlas-cta-row--center {
+  justify-content: center;
+}
+
+.atlas-cta-row > a,
+.atlas-cta-row > button {
+  min-height: 3rem;
+  padding-inline: var(--space-6);
+  white-space: nowrap;
+}
+
+@media (max-width: 539px) {
+  .atlas-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .atlas-cta-row > a,
+  .atlas-cta-row > button {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* ───── Arrow link: a quiet secondary action with a drawn underline ───── */
+.atlas-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.atlas-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-2);
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0.35);
+  transform-origin: left center;
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.atlas-link:hover::after,
+.atlas-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ───── Results strip: the outcome, in figures the visitor can verify ─────
+   <dl class="atlas-stats">
+     <div><dt>Projects handed over</dt><dd data-count="48">48</dd></div> ...
+   Real numbers only. The markup carries the final value, so it reads correctly without JS. */
+.atlas-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: var(--space-6) var(--space-8);
+  margin: 0;
+  padding: 0;
+}
+
+.atlas-stats > div {
+  display: grid;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.atlas-stats dd {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+.atlas-stats dt {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 539px) {
+  .atlas-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ───── Phone action bar: shows the primary action once the hero's own button has scrolled away ─────
+   <div class="atlas-mobile-bar" data-mobile-bar hidden><a class="btn-primary" href="#book">Book a visit</a></div>
+   Pair with data-cta-primary on the hero button; atlas-interact.mjs toggles `hidden`. */
+.atlas-mobile-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: none;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+/* Keeps the button clear of the home indicator on notched phones. */
+.atlas-mobile-bar::after {
+  content: '';
+  display: block;
+  height: var(--atlas-safe-bottom);
+}
+
+.atlas-mobile-bar > a,
+.atlas-mobile-bar > button {
+  width: 100%;
+  min-height: 3rem;
+}
+
+@media (max-width: 767px) {
+  .atlas-mobile-bar:not([hidden]) {
+    display: block;
+  }
+}
+
+/* ───── Magnetic and tilt targets (behaviour in atlas-interact.mjs) ───── */
+[data-magnetic],
+[data-tilt] {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-magnetic],
+  [data-tilt] {
+    transform: none !important;
+  }
+}
