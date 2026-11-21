@@ -1,0 +1,196 @@
+/* Atlas Register Theme Overrides for Astro Starlight
+   All values reference CSS tokens defined in tokens.css (zero raw values). */
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+.site-title {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: var(--weight-bold);
+}
+
+.site-title::before {
+  content: '';
+  flex: none;
+  width: var(--space-3);
+  height: var(--space-3);
+  border-top: var(--line-register) solid var(--color-accent);
+  border-left: var(--line-register) solid var(--color-accent);
+}
+
+/* Registration mark on main hero title */
+.hero h1 {
+  position: relative;
+  padding-top: var(--space-5);
+}
+
+.hero h1::before {
+  content: '';
+  position: absolute;
+  top: var(--space-0);
+  left: var(--space-0);
+  width: var(--register-mark);
+  height: var(--line-register);
+  background-color: var(--color-accent);
+}
+
+/* Atlas precision callout block */
+.atlas-callout {
+  position: relative;
+  margin-block: var(--space-6);
+  padding: var(--space-5);
+  border: var(--line-hair) solid var(--color-border-strong);
+  border-top: var(--line-register) solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
+.atlas-callout__label {
+  display: inline-block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.atlas-callout pre {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  overflow-x: auto;
+  border: var(--line-hair) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-ink-bg);
+  color: var(--color-ink-text);
+}
+
+/* Comfortable reading measure and body copy size */
+.sl-markdown-content p,
+.sl-markdown-content li {
+  max-width: var(--layout-measure);
+  font-size: var(--text-base);
+}
+
+.sl-markdown-content th,
+.sl-markdown-content td {
+  font-size: var(--text-sm);
+  border-color: var(--color-border);
+}
+
+/* Prevent wide code blocks and Markdown tables from overflowing 375px viewports */
+.sl-markdown-content pre,
+.expressive-code pre {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-xs);
+}
+
+.sl-markdown-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.sl-markdown-content blockquote {
+  border-inline-start: var(--line-register) solid var(--color-accent);
+  background-color: var(--color-surface);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xs);
+}
+
+/* Ensure >= 44px touch targets on interactive controls, navigation, and mobile drawer */
+header button,
+header a,
+header select,
+.sidebar-content a,
+.sl-link-card,
+.action,
+starlight-menu-button button,
+starlight-toc a,
+.sl-markdown-content summary {
+  min-height: var(--control-min);
+}
+
+starlight-menu-button button {
+  align-items: center;
+  justify-content: center;
+  min-width: var(--control-min);
+  min-height: var(--control-min);
+  border: var(--line-hair) solid var(--color-border-strong);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text);
+  box-shadow: none;
+}
+
+starlight-menu-button button:hover,
+starlight-menu-button[aria-expanded='true'] button {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+starlight-tabs [role='tablist'] {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+starlight-tabs [role='tab'] {
+  min-height: var(--control-min);
+  white-space: nowrap;
+}
+
+a,
+button,
+select,
+summary,
+[tabindex] {
+  transition: color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+:focus-visible {
+  outline: var(--line-focus) solid var(--color-accent);
+  outline-offset: var(--line-focus);
+}
+
+/* Sharp register card geometry without gradients */
+.sl-link-card {
+  border-radius: var(--radius-sm);
+  border-color: var(--color-border);
+  background-color: var(--color-surface-elevated);
+}
+
+.sl-link-card:hover {
+  border-color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: var(--duration-fast);
+    animation: none;
+    scroll-behavior: auto;
+  }
+}

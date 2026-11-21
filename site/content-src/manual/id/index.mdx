@@ -1,0 +1,98 @@
+---
+title: Atlas-skill v{{VERSION}}
+description: Suite desain frontend, token CSS, animasi Anime.js v4, gate browser multi-viewport, dan QA & keamanan untuk 7 agen AI coding.
+template: splash
+hero:
+  tagline: Membekali OpenAI Codex, Google Antigravity, Claude Code, Cursor, Windsurf, Cline, dan GitHub Copilot dengan sistem desain terverifikasi gate deterministik.
+  actions:
+    - text: Mulai dalam 5 menit
+      link: /atlas-skill/id/getting-started/quick-start/
+      icon: right-arrow
+    - text: Kamus Kode Temuan
+      link: /atlas-skill/id/checks/findings-dictionary/
+      icon: open-book
+      variant: minimal
+---
+
+import { CardGrid, LinkCard, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Pasang dalam satu perintah
+
+Atlas-skill `v{{VERSION}}` berjalan dengan **Node.js 18+** dan **nol dependensi npm runtime** untuk penginstal serta pemeriksaan statisnya. Pilih agen Anda atau pasang untuk seluruh folder agen sekaligus:
+
+<Tabs>
+  <TabItem label="Semua Agen">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent all --with-rules
+    ```
+  </TabItem>
+  <TabItem label="Antigravity">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent antigravity --global --with-rules
+    ```
+  </TabItem>
+  <TabItem label="Claude Code">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent claude
+    ```
+  </TabItem>
+  <TabItem label="Codex + QA">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent codex --with-rules --with-qa
+    ```
+  </TabItem>
+</Tabs>
+
+<div class="atlas-callout atlas-callout--register">
+  <span class="atlas-callout__label">Perintah Pertama di Sesi Agen</span>
+  <p>Setelah skill terpasang, buka sesi agen baru di direktori proyek Anda dan jalankan instruksi pertama seperti:</p>
+  <pre><code>/atlas-frontend Bangun landing studio arsitektur dengan token CSS terukur, animasi Anime.js v4, dan verifikasi screenshot 375/768/1440 px.</code></pre>
+</div>
+
+## Jelajahi Dokumentasi Terhubung ke Repo
+
+<CardGrid>
+  <LinkCard
+    title="Mulai Cepat 5 Menit"
+    description="Instalasi CLI, perintah pertama ke agen, dan berkas keluaran yang dihasilkan."
+    href="/atlas-skill/id/getting-started/quick-start/"
+  />
+  <LinkCard
+    title="Pasang per Agen"
+    description="Daftar 7 agen AI, path lokal vs --global, flag --with-qa, update, dan doctor."
+    href="/atlas-skill/id/getting-started/install-by-agent/"
+  />
+  <LinkCard
+    title="Instruksi Prompt Siap Pakai"
+    description="Template prompt /atlas-skill, /atlas-frontend, /atlas-bug-hunter, dan Redesign 2 Tahap."
+    href="/atlas-skill/id/guides/prompt-instructions/"
+  />
+  <LinkCard
+    title="Arsitektur & 10 Modul"
+    description="3 skill utama, 10 modul internal otomatis, dan 3 skill Suite QA dari manifest."
+    href="/atlas-skill/id/concepts/architecture/"
+  />
+  <LinkCard
+    title="10 Scene & Gerak"
+    description="Mode scrub/play/soft/rest, aturan 15% viewport, dan katalog scene otomatis."
+    href="/atlas-skill/id/scenes/"
+  />
+  <LinkCard
+    title="Gate & Kamus Kode Temuan"
+    description="Cara kerja run-gates.mjs serta daftar otomatis seluruh 26 kode temuan quick-check."
+    href="/atlas-skill/id/checks/findings-dictionary/"
+  />
+  <LinkCard
+    title="Evaluasi Empiris & Batasan"
+    description="Hasil benchmark blind A/B v6.1.0, konteks perbaikan di v7.0.0, dan batas klaim."
+    href="/atlas-skill/id/evaluation/blind-ab/"
+  />
+</CardGrid>
+
+## Referensi Bantuan CLI (`node bin/atlas-skill.mjs --help`)
+
+Blok berikut dihasilkan langsung dari keluaran CLI `v{{VERSION}}` saat build dokumentasi:
+
+```text
+{{CLI_HELP}}
+```

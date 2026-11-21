@@ -101,7 +101,9 @@ When Playwright + Chromium are available in the project or via `ATLAS_PLAYWRIGHT
 node skills/atlas-checker/scripts/quick-check.mjs http://127.0.0.1:3000 --shots ./maintenance/browser --click-test
 ```
 
-See [installation & multi-agent setup](docs/INSTALLATION.md), [Anime.js v4 playbook](references/animejs-v4-playbook.md), and [18 slop patterns](references/slop-patterns.md) for complete documentation.
+See [installation & multi-agent setup](docs/INSTALLATION.md), [prompt instructions guide](docs/PROMPTS.md), [Anime.js v4 playbook](references/animejs-v4-playbook.md), and [18 slop patterns](references/slop-patterns.md) for complete documentation.
+
+Documentation site (Indonesian & English): https://crelami-dev.github.io/atlas-skill/
 
 ## Empirical Evaluation Status (Independent Blind A/B Benchmark)
 

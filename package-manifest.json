@@ -80,6 +80,7 @@
     "research/2026-11-13/README.md",
     "research/2026-11-13/sources.json",
     "docs/INSTALLATION.md",
+    "docs/PROMPTS.md",
     "docs/REPO-METADATA.md",
     "suites/project-qa",
     "evals/compare.mjs",

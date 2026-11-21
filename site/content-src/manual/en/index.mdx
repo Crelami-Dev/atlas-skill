@@ -1,0 +1,98 @@
+---
+title: Atlas-skill v{{VERSION}}
+description: Frontend design suite, CSS token system, Anime.js v4 motion, multi-viewport browser gates, and QA & Security checks for 7 AI coding agents.
+template: splash
+hero:
+  tagline: Equips OpenAI Codex, Google Antigravity, Claude Code, Cursor, Windsurf, Cline, and GitHub Copilot with deterministic design and browser gates.
+  actions:
+    - text: Quick Start in 5 Minutes
+      link: /atlas-skill/en/getting-started/quick-start/
+      icon: right-arrow
+    - text: Findings Dictionary
+      link: /atlas-skill/en/checks/findings-dictionary/
+      icon: open-book
+      variant: minimal
+---
+
+import { CardGrid, LinkCard, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Install in one command
+
+Atlas-skill `v{{VERSION}}` requires **Node.js 18+** with **zero runtime npm dependencies** for its installer and static phase gates. Choose your agent or install into every project agent directory at once:
+
+<Tabs>
+  <TabItem label="All Agents">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent all --with-rules
+    ```
+  </TabItem>
+  <TabItem label="Antigravity">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent antigravity --global --with-rules
+    ```
+  </TabItem>
+  <TabItem label="Claude Code">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent claude
+    ```
+  </TabItem>
+  <TabItem label="Codex + QA">
+    ```sh
+    npx --yes github:Crelami-Dev/atlas-skill install --agent codex --with-rules --with-qa
+    ```
+  </TabItem>
+</Tabs>
+
+<div class="atlas-callout atlas-callout--register">
+  <span class="atlas-callout__label">First Prompt in Your Agent Session</span>
+  <p>Once installed, open a fresh agent session in your project root and run a prompt such as:</p>
+  <pre><code>/atlas-frontend Build a light-mode architecture studio landing page using measured CSS tokens, Anime.js v4 motion, and verified 375/768/1440 px screenshots.</code></pre>
+</div>
+
+## Explore Repo-Linked Documentation
+
+<CardGrid>
+  <LinkCard
+    title="5-Minute Quick Start"
+    description="CLI installation, your first agent prompt, and expected output files."
+    href="/atlas-skill/en/getting-started/quick-start/"
+  />
+  <LinkCard
+    title="Install by Agent"
+    description="Supported 7 AI coding agents, local vs --global paths, --with-qa, update, and doctor."
+    href="/atlas-skill/en/getting-started/install-by-agent/"
+  />
+  <LinkCard
+    title="Ready-to-Use Prompt Instructions"
+    description="Prompt templates for /atlas-skill, /atlas-frontend, /atlas-bug-hunter, and 2-Stage Redesign."
+    href="/atlas-skill/en/guides/prompt-instructions/"
+  />
+  <LinkCard
+    title="Architecture & 10 Modules"
+    description="3 top-level skills, 10 internal modules, and 3 QA skills extracted from manifests."
+    href="/atlas-skill/en/concepts/architecture/"
+  />
+  <LinkCard
+    title="10 Scenes & Motion"
+    description="scrub/play/soft/rest modes, 15% visibility trigger, and automated scene catalog."
+    href="/atlas-skill/en/scenes/"
+  />
+  <LinkCard
+    title="Gates & Findings Dictionary"
+    description="Deterministic run-gates.mjs checks plus all 26 quick-check browser finding codes."
+    href="/atlas-skill/en/checks/findings-dictionary/"
+  />
+  <LinkCard
+    title="Empirical Evaluation & Limits"
+    description="Blind A/B round 3 benchmark on v6.1.0, v7.0.0 fixes, and explicit claim scope."
+    href="/atlas-skill/en/evaluation/blind-ab/"
+  />
+</CardGrid>
+
+## Live CLI Help Reference (`node bin/atlas-skill.mjs --help`)
+
+This block is captured directly from the `v{{VERSION}}` CLI during documentation generation:
+
+```text
+{{CLI_HELP}}
+```

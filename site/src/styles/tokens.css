@@ -1,0 +1,170 @@
+/* Atlas Register Tokens for Astro Starlight Docs
+   Single source of visual values aligned with atlas-landing/design-tokens.css.
+   No decorative gradients; one petrol accent; self-hosted local fonts. */
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/atlas-skill/fonts/manrope-latin-wght-normal.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/atlas-skill/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/atlas-skill/fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/atlas-skill/fonts/fira-code-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/atlas-skill/fonts/fira-code-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, monospace;
+
+  /* Light theme — Atlas Register */
+  --color-bg: #f7f8f5;
+  --color-surface: #edf0eb;
+  --color-surface-elevated: #ffffff;
+  --color-surface-tint: #e7eeea;
+  --color-text: #1b2927;
+  --color-muted: #4b5b55;
+  --color-accent: #006654;
+  --color-accent-hover: #004b3d;
+  --color-accent-soft: #dcece4;
+  --color-accent-contrast: #ffffff;
+  --color-border: #c9d3cc;
+  --color-border-strong: #788e83;
+  --color-ink-bg: #172522;
+  --color-ink-text: #f1f5ef;
+
+  /* Spacing & geometry tokens */
+  --space-0: 0rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+
+  --radius-none: 0;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+
+  --line-hair: 1px;
+  --line-focus: 2px;
+  --line-register: 3px;
+
+  --control-min: 2.75rem;
+  --layout-measure: 65ch;
+  --register-mark: 1.125rem;
+  --sl-menu-button-size: var(--control-min);
+  --sl-shadow-md: none;
+
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --tracking-tight: -0.03em;
+  --tracking-wide: 0.08em;
+  --leading-tight: 1.12;
+  --leading-body: 1.65;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-2xs: 0.75rem;
+
+  --duration-fast: 180ms;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Map Atlas tokens onto Starlight light-mode variables */
+  --sl-font: var(--font-sans);
+  --sl-font-mono: var(--font-mono);
+  --sl-text-base: var(--text-base);
+  --sl-color-bg: var(--color-bg);
+  --sl-color-bg-nav: var(--color-bg);
+  --sl-color-bg-sidebar: var(--color-surface);
+  --sl-color-bg-inline-code: var(--color-surface);
+  --sl-color-hairline: var(--color-border);
+  --sl-color-hairline-light: var(--color-border);
+  --sl-color-hairline-shade: var(--color-border-strong);
+  --sl-color-white: var(--color-text);
+  --sl-color-gray-1: var(--color-text);
+  --sl-color-gray-2: var(--color-text);
+  --sl-color-gray-3: var(--color-muted);
+  --sl-color-gray-4: var(--color-border-strong);
+  --sl-color-gray-5: var(--color-border);
+  --sl-color-gray-6: var(--color-surface);
+  --sl-color-black: var(--color-surface-elevated);
+  --sl-color-accent-low: var(--color-accent-soft);
+  --sl-color-accent: var(--color-accent);
+  --sl-color-accent-high: var(--color-accent-hover);
+  --sl-color-text-accent: var(--color-accent);
+  --sl-color-text-invert: var(--color-accent-contrast);
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #111816;
+  --color-surface: #17221f;
+  --color-surface-elevated: #1d2b27;
+  --color-surface-tint: #22352f;
+  --color-text: #eef3ef;
+  --color-muted: #b5c6be;
+  --color-accent: #3dc4a4;
+  --color-accent-hover: #6adbc0;
+  --color-accent-soft: #1a3b33;
+  --color-accent-contrast: #0c1714;
+  --color-border: #2e423b;
+  --color-border-strong: #4e6b60;
+  --color-ink-bg: #0c1311;
+  --color-ink-text: #eef3ef;
+
+  --sl-color-bg: var(--color-bg);
+  --sl-color-bg-nav: var(--color-bg);
+  --sl-color-bg-sidebar: var(--color-surface);
+  --sl-color-bg-inline-code: var(--color-surface-elevated);
+  --sl-color-hairline: var(--color-border);
+  --sl-color-hairline-light: var(--color-border);
+  --sl-color-hairline-shade: var(--color-border-strong);
+  --sl-color-white: var(--color-text);
+  --sl-color-gray-1: var(--color-text);
+  --sl-color-gray-2: var(--color-text);
+  --sl-color-gray-3: var(--color-muted);
+  --sl-color-gray-4: var(--color-border-strong);
+  --sl-color-gray-5: var(--color-border);
+  --sl-color-gray-6: var(--color-surface);
+  --sl-color-black: var(--color-bg);
+  --sl-color-accent-low: var(--color-accent-soft);
+  --sl-color-accent: var(--color-accent);
+  --sl-color-accent-high: var(--color-accent-hover);
+  --sl-color-text-accent: var(--color-accent);
+  --sl-color-text-invert: var(--color-accent-contrast);
+}

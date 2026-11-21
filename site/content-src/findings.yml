@@ -1,0 +1,233 @@
+- code: partial-opacity
+  severity: WARN
+  meaning_id: "Elemen yang seharusnya selesai melakukan animasi masuk masih tampak setengah transparan (opacity antara 0.05 dan 0.8) dua detik setelah digulir ke tengah atau bawah halaman."
+  cause_id: "Scroll terlalu cepat melompati ambang trigger 15%, animasi Anime.js dibatalkan di tengah jalan, atau durasi lebih lama dari waktu tunggu pembaca."
+  fix_id: "Gunakan atlas-scenes.mjs / initAtlasMotion() dengan callback revert()/complete yang memulihkan opacity: 1 saat elemen sudah melewati viewport, dan pastikan CSS dasar elemen tidak memakai opacity: 0 statis."
+  meaning_en: "An element expected to finish its entrance reveal remains translucent (opacity between 0.05 and 0.8) two seconds after scrolling to mid or low folds."
+  cause_en: "Scrolling jumped past the 15% intersection threshold, an Anime.js reveal was interrupted mid-flight, or the animation never settled back to full opacity."
+  fix_en: "Use atlas-scenes.mjs / initAtlasMotion() with cleanup/settle handlers restoring opacity: 1 once triggered, and never rely on static opacity: 0 in base CSS."
+
+- code: hero-selectors
+  severity: FAIL
+  meaning_id: "Pemilih --hero atau --hero-action yang diberikan ke quick-check.mjs tidak cocok dengan tepat satu elemen di DOM."
+  cause_id: "Selektor hilang, duplikat (0 atau >1 kecocokan), atau halaman berubah tanpa memperbarui argumen --hero dan --hero-action."
+  fix_id: "Pastikan selektor CSS menunjuk tepat satu kontainer hero dan satu tombol CTA utama yang terlihat."
+  meaning_en: "The --hero or --hero-action selector passed to quick-check.mjs did not match exactly one DOM element."
+  cause_en: "The selector matches zero or multiple nodes, or the markup changed without updating CLI selector arguments."
+  fix_en: "Point --hero and --hero-action to unique CSS selectors that resolve to exactly one hero section and one primary action."
+
+- code: hero-visibility
+  severity: FAIL
+  meaning_id: "Kontainer hero atau tombol aksi utama (--hero-action) tersembunyi, berukuran nol, atau memiliki opacity <= 0.05 di viewport awal."
+  cause_id: "Elemen disembunyikan via display: none, visibility: hidden, hidden attribute, atau animasi awal yang menahan opacity di 0."
+  fix_id: "Tampilkan konten hero dan tombol aksi utama langsung pada render awal (opacity: 1 statis) agar terbaca dan terklik sejak detik pertama."
+  meaning_en: "The hero section or its primary action (--hero-action) is hidden, zero-sized, or effectively transparent (opacity <= 0.05) on load."
+  cause_en: "An ancestor or element sets display: none, visibility: hidden, hidden attribute, or static opacity: 0 before JS runs."
+  fix_en: "Keep the hero container and primary action visible in static CSS on initial load without hiding them behind JS-only reveals."
+
+- code: hero-fit
+  severity: FAIL
+  meaning_id: "Gabungan header dan bagian hero melampaui tinggi viewport mobile pendek (lewat batas --fit-hero-under)."
+  cause_id: "Tipografi display hero terlalu besar, padding vertikal berlebih, atau terlalu banyak elemen bertumpuk sebelum aksi utama di layar sempit."
+  fix_id: "Ringkas copy layar pertama sesuai anggaran <= 55 kata, kecilkan skala clamp() judul di layar kecil, dan kurangi jarak vertikal hero pada mobile."
+  meaning_en: "The header plus hero section extends beyond the bottom edge of a compact mobile viewport (under --fit-hero-under)."
+  cause_en: "Oversized hero typography, generous vertical padding, or too many stacked blocks push the hero fold past innerHeight."
+  fix_en: "Trim first-screen copy under 55 words, tighten mobile display heading scale with clamp(), and reduce vertical padding on small screens."
+
+- code: hero-action-fit
+  severity: FAIL
+  meaning_id: "Tombol CTA utama pada hero terpotong, berada di bawah lipatan layar (below fold), atau tingginya kurang dari 44 px di layar mobile pendek."
+  cause_id: "Elemen pendahulu terlalu tinggi mendorong CTA keluar layar atau tombol tidak memakai min-height: 44px (--control-min)."
+  fix_id: "Terapkan min-height: 44px pada CTA dan pastikan CTA berada di dalam layar pertama (top >= 0 dan bottom <= innerHeight) pada viewport mobile."
+  meaning_en: "The hero primary action is clipped, pushed below the initial mobile fold, or shorter than the 44px tap target height."
+  cause_en: "Stacked hero elements push the CTA off-screen or button styles omit min-height: 44px (--control-min)."
+  fix_en: "Enforce min-height: 44px on buttons and tighten vertical spacing so the primary CTA sits completely inside the initial viewport."
+
+- code: overflow
+  severity: FAIL
+  meaning_id: "Lebar konten horizontal halaman (scrollWidth) melampaui lebar viewport sehingga muncul guliran horizontal tak terduga."
+  cause_id: "Anak CSS Grid/Flex kekurangan min-width: 0, elemen memakai lebar piksel tetap yang lebih lebar dari 320px, atau tabel/blok `<pre>` tidak dibungkus overflow-x: auto."
+  fix_id: "Tambahkan min-width: 0 pada kolom Grid/Flex, gunakan max-width: 100%, dan bungkus tabel atau blok kode lebar dengan overflow-x: auto."
+  meaning_en: "Document horizontal scrollWidth exceeds window.innerWidth, causing unwanted horizontal page scrolling."
+  cause_en: "CSS Grid or Flex children lack min-width: 0, fixed pixel widths overflow narrow viewports, or wide code/table blocks are not scrollable."
+  fix_en: "Add min-width: 0 to Grid/Flex items, replace fixed widths with responsive sizing, and wrap wide tables or code blocks in overflow-x: auto."
+
+- code: broken-images
+  severity: FAIL
+  meaning_id: "Terdapat elemen `<img>` yang terlihat di halaman tetapi gagal dimuat (naturalWidth === 0 atau belum selesai)."
+  cause_id: "Path berkas salah, aset gambar belum disalin ke folder distribusi, atau URL eksternal mati/terblokir."
+  fix_id: "Gunakan jalur lokal yang valid atau unduh aset ke repositori proyek memakai fetch-photos.mjs, lalu verifikasi berkas ikut tersalin saat build."
+  meaning_en: "One or more visible `<img>` elements failed to load (naturalWidth === 0 or incomplete)."
+  cause_en: "Incorrect relative/base path, missing asset in the build output, or unreachable external URL."
+  fix_en: "Use verified local image assets (or fetch-photos.mjs) with matching base paths so every image resolves with non-zero dimensions."
+
+- code: placeholder-residue
+  severity: FAIL
+  meaning_id: "Teks yang terlihat pengunjung masih menyisakan sisa pengembangan seperti TODO:, Lorem ipsum, [Company], atau TBD."
+  cause_id: "Copy draft dari template awal belum diganti dengan konten nyata sebelum rilis."
+  fix_id: "Ganti seluruh teks placeholder dengan informasi nyata dari repositori atau brief proyek."
+  meaning_en: "Visible page text still contains unfinished draft markers such as TODO:, Lorem ipsum, [Company], or TBD."
+  cause_en: "Draft template copy was left in HTML or Markdown without being replaced by real content."
+  fix_en: "Replace all draft markers with real domain copy grounded in project facts."
+
+- code: leaked-photo-placeholder-ui
+  severity: FAIL
+  meaning_id: "Instruksi developer untuk mengganti gambar (seperti 'Ganti dengan foto asli', 'Replace with photo', atau 'PHOTO SLOT 01') tampil langsung di UI pengunjung."
+  cause_id: "Label internal template media dirender sebagai teks terlihat di halaman, bukan di atribut teknis senyap."
+  fix_id: "Hapus teks instruksi pengganti foto dari DOM dan aria-label; gunakan foto nyata/aset SVG teknis atau atribut senyap data-photo-slot."
+  meaning_en: "Developer media instructions (such as 'Replace with photo', 'Ganti dengan foto asli', or 'PHOTO SLOT 01') leaked into visible visitor UI."
+  cause_en: "Placeholder swap instructions intended for the developer were rendered as visible badges or text labels."
+  fix_en: "Remove all placeholder instructions from visible text and aria-label; provide real assets or silent data-photo-slot attributes."
+
+- code: stuck-opacity
+  severity: FAIL
+  meaning_id: "Section, heading, atau elemen [data-reveal] berukuran > 8x8 px tetap tidak terlihat (opacity <= 0.05) setelah halaman digulir penuh dari atas ke bawah."
+  cause_id: "Elemen diset opacity: 0 di CSS statis tetapi script reveal/Anime.js gagal berjalan, diblokir, atau terlewat observer-nya."
+  fix_id: "Hapus opacity: 0 pada CSS dasar dan animasikan hanya di dalam blok JS setelah Anime.js tersedia, agar konten tetap tampil di HTML statis maupun setelah scroll."
+  meaning_en: "A non-empty section, heading, or [data-reveal] block remains effectively invisible (opacity <= 0.05) after sweeping the full page."
+  cause_en: "Base CSS hid the element with opacity: 0 and the scroll reveal script failed or never triggered."
+  fix_en: "Never set opacity: 0 in static CSS; animate reveals strictly from JS fromTo keyframes and restore opacity: 1 if animation skips."
+
+- code: small-tap-target
+  severity: WARN
+  meaning_id: "Pada viewport <= 420 px, terdapat tautan, tombol, input, atau summary yang lebar atau tingginya di bawah 44 px (target kenyamanan Atlas)."
+  cause_id: "Kontrol ikon, tombol panah/dot, atau link navigasi footer/inline kekurangan min-height: 44px dan min-width: 44px."
+  fix_id: "Tambahkan min-height: var(--control-min) (44px) dan padding yang memadai pada tombol, link navigasi, input, serta dots carousel."
+  meaning_en: "On viewports <= 420 px, an interactive control (a, button, input, select, summary) has rendered width or height below 44 px."
+  cause_en: "Compact icon buttons, pagination dots, or bare inline text links lack a 44 px minimum touch box."
+  fix_en: "Apply min-height: 2.75rem (44 px) and adequate min-width/padding to interactive controls, especially on small screens."
+
+- code: mobile-nav-missing
+  severity: FAIL/WARN
+  meaning_id: "Pada layar <= 820 px, >= 3 link navigasi header disembunyikan tanpa kontrol menu yang terlihat (FAIL), atau 2 link tersembunyi tanpa tombol menu (WARN)."
+  cause_id: "CSS menyembunyikan .nav-links di mobile tetapi tidak menyediakan tombol menu dengan aria-controls/aria-expanded atau markup navigasi mobile yang setara."
+  fix_id: "Sediakan tombol menu terlihat pada <= 820 px dengan atribut aria-expanded dan aria-controls yang mengontrol container tautan tersembunyi."
+  meaning_en: "At <= 820 px, three or more header links are hidden without a visible menu toggle controlling them (FAIL), or two links are hidden (WARN)."
+  cause_en: "Responsive CSS hides desktop header links on mobile without rendering a connected toggle button (aria-controls / aria-expanded) or mobile nav mirror."
+  fix_en: "Ensure every hidden header link remains reachable on mobile via a visible toggle button wired with aria-expanded and aria-controls."
+
+- code: dead-space
+  severity: WARN
+  meaning_id: "Pada desktop (>= 1200 px), konten di dalam sebuah section selesai jauh sebelum batas bawah section (ruang kosong > 160 px atau > 20% viewport)."
+  cause_id: "Penggunaan min-height: 100vh/80vh yang dipaksakan secara manual pada section non-scene atau padding bawah berlebihan."
+  fix_id: "Hapus min-height tetap yang terlalu besar pada section non-scene dan gunakan padding token vertikal (--space-section) sesuai tinggi konten nyata."
+  meaning_en: "On desktop (>= 1200 px), a non-scene section's visible content ends more than 160 px (or 20% of viewport height) above the section's bottom edge."
+  cause_en: "Excessive hardcoded min-height or oversized bottom padding leaves unintentional empty canvas below content."
+  fix_en: "Remove inflated min-height declarations on regular sections and let vertical flow size naturally with tokenized padding."
+
+- code: cta-width-mismatch
+  severity: WARN
+  meaning_id: "Pada layar sempit (<= 540 px), dua tombol CTA yang bertumpuk vertikal memiliki lebar atau tepi kiri yang berbeda (> 3 px)."
+  cause_id: "Kontainer tombol hanya memakai display: flex dengan align-items: flex-start sehingga lebar tombol mengikuti panjang teksnya masing-masing."
+  fix_id: "Gunakan pola .atlas-cta-row dari templates/atlas-components.css agar tombol CTA bertumpuk dengan lebar sama dan penuh di ponsel."
+  meaning_en: "On mobile viewports (<= 540 px), stacked CTA buttons differ in width or left alignment by more than 3 px."
+  cause_en: "Button containers stack shrink-wrapped inline buttons rather than stretching both actions uniformly."
+  fix_en: "Wrap paired actions in .atlas-cta-row (from templates/atlas-components.css) so stacked mobile CTAs share identical full width."
+
+- code: cta-not-full-width
+  severity: WARN
+  meaning_id: "Tombol CTA bertumpuk pada <= 540 px memang sama lebar, tetapi lebarnya kurang dari 90% lebar baris konten sehingga menyisakan celah di kanan."
+  cause_id: "Pembungkus CTA membatasi max-width atau memakai width: fit-content saat tombol ditumpuk di ponsel."
+  fix_id: "Atur lebar tombol bertumpuk di ponsel menjadi width: 100% melalui .atlas-cta-row agar mengisi penuh ruang baca."
+  meaning_en: "Stacked mobile CTAs (<= 540 px) share the same width but span less than 90% of their parent row, leaving a ragged gap."
+  cause_en: "The parent layout or button rule restricts button width instead of stretching across the mobile container."
+  fix_en: "Apply .atlas-cta-row rules so stacked buttons expand to fill 100% of the inner column width on phones."
+
+- code: mobile-long-stack
+  severity: WARN
+  meaning_id: "Pada <= 820 px, terdapat >= 3 kartu bergambar yang menumpuk vertikal memanjang melebihi 1.8 kali tinggi layar."
+  cause_id: "Grid kartu desktop jatuh lurus ke 1 kolom di ponsel tanpa diubah menjadi carousel geser atau bento kompak."
+  fix_id: "Ubah daftar kartu bergambar pada mobile menjadi .atlas-carousel (geser horizontal dengan peek) atau .atlas-bento 2 kolom."
+  meaning_en: "At <= 820 px, three or more media cards stack vertically past 1.8x the viewport height."
+  cause_en: "A desktop multi-column card grid collapsed straight into a single tall vertical column on mobile."
+  fix_en: "Convert multi-card media sections into a swipeable .atlas-carousel on phones or a compact 2-column .atlas-bento."
+
+- code: half-empty-row
+  severity: WARN
+  meaning_id: "Pada tablet potret (600–1023 px), sebuah gambar (40%–86% lebar baris) berdiri sendiri tanpa teks atau gambar pendamping di sisi kanannya."
+  cause_id: "Grid 3 kolom berubah menjadi 2 kolom dan menyisakan elemen ke-3 (atau ke-5) sendirian di separuh kolom terakhir."
+  fix_id: "Bentangkan kartu/gambar ganjil agar mengisi penuh 1 baris (grid-column: 1 / -1 atau layout horizontal) atau padukan dengan blok teks."
+  meaning_en: "On portrait tablets (600–1023 px), a standalone picture spanning 40%–86% of row width sits next to empty space."
+  cause_en: "An odd item count in a 2-column tablet grid left the final image occupying half a row alone."
+  fix_en: "Span odd trailing items across the full row or arrange them as horizontal cards paired with text beside them."
+
+- code: loop-no-pause
+  severity: WARN
+  meaning_id: "Terdapat elemen animasi mandiri (>5 detik) seperti loop demo, rotator teks, marquee, atau .atlas-fx tanpa tombol jeda (WCAG 2.2.2)."
+  cause_id: "Komponen animasi dipasang manual atau autoToggle dimatikan tanpa menyediakan tombol [data-loops-toggle] maupun .atlas-pause."
+  fix_id: "Gunakan atlas-loops.mjs (yang otomatis membuat tombol jeda 44 px) atau tambahkan satu tombol halaman [data-loops-toggle]."
+  meaning_en: "Self-moving elements (>5s continuous motion such as loops, rotating words, marquees, or ambient effects) have no visible pause control."
+  cause_en: "Custom continuous animation or disabled autoToggle omitted both per-component .atlas-pause and page-level [data-loops-toggle]."
+  fix_en: "Initialize loops with atlas-loops.mjs or provide a visible 44px [data-loops-toggle] button (WCAG 2.2.2 Pause, Stop, Hide)."
+
+- code: cta-stagger
+  severity: WARN
+  meaning_id: "Dua tombol CTA berpasangan di [data-cta-row] bertumpuk ke dua baris pada <= 390 px padahal lebarnya cukup untuk bersebelahan dalam 1 baris."
+  cause_id: "Flexbox gap atau padding terlalu ketat membuat tombol kedua jatuh ke baris baru saat masih ada cukup ruang horizontal."
+  fix_id: "Gunakan .atlas-cta-row yang konsisten: jadikan penuh dua baris rapi di ponsel atau kurangi padding/teks tombol bila memang dimaksudkan berdampingan."
+  meaning_en: "Paired CTA buttons inside [data-cta-row] wrapped onto two lines at <= 390 px despite having enough combined width to sit side by side."
+  cause_en: "Gap, padding, or container constraints caused awkward unintended wrapping right on narrow 390px screens."
+  fix_en: "Apply .atlas-cta-row so paired CTAs stack cleanly at 100% width below breakpoints or fit comfortably on one line."
+
+- code: overlap
+  severity: WARN
+  meaning_id: "Elemen saudara (siblings) di dalam header nav, [data-cta-row], atau [data-audit-group] saling bertabrakan/tumpang tindih > 2x2 px."
+  cause_id: "Margin negatif berlebih, lebar kontainer tidak cukup tanpa flex-wrap, atau posisi manual yang saling menimpa."
+  fix_id: "Aktifkan flex-wrap atau grid gap memadai pada pembungkus kontrol dan hapus margin negatif yang membuat elemen bertabrakan."
+  meaning_en: "Visible direct sibling elements inside header nav, [data-cta-row], or [data-audit-group] overlap by more than 2x2 px."
+  cause_en: "Negative margins, missing flex-wrap, or constrained container heights forced siblings to collide."
+  fix_en: "Use explicit token gaps, flex-wrap where appropriate, and remove overlapping negative offsets."
+
+- code: contrast
+  severity: FAIL
+  meaning_id: "Rasio kontras teks aktual terhadap latar efektifnya berada di bawah standar WCAG AA (< 4.5:1 teks normal, < 3.0:1 teks besar >= 24px atau >= 18.66px tebal)."
+  cause_id: "Warna teks muted terlalu pucat, teks diletakkan di atas permukaan berwarna mirip, atau transparansi menurunkan kontras efektif."
+  fix_id: "Sesuaikan pasangan --color-text/--color-muted dan --color-bg/--color-surface agar memenuhi rasio >= 4.5:1 di seluruh komponen."
+  meaning_en: "Rendered text contrast against its composited background falls below WCAG AA minimums (4.5:1 normal, 3.0:1 large text)."
+  cause_en: "Overly pale muted grays, mismatched surface tokens, or translucent layers degraded contrast ratio."
+  fix_en: "Use contrast-verified token pairs in design-tokens.css so every text role achieves >= 4.5:1 (>= 3.0:1 for large display)."
+
+- code: tiny-body
+  severity: WARN
+  meaning_id: "Ukuran font dasar body pada desktop (>= 1200 px) tercatat lebih kecil dari 15 px."
+  cause_id: "Properti font-size pada body diset ke 14px atau di bawahnya."
+  fix_id: "Tetapkan ukuran font dasar body dan teks bacaan utama ke minimal 16 px (1rem / var(--text-base))."
+  meaning_en: "Computed base body font-size on desktop (>= 1200 px) is smaller than 15 px."
+  cause_en: "Body stylesheet sets font-size below 1rem (15–16px)."
+  fix_en: "Set body copy font-size to at least 16px (1rem via --text-base) for comfortable sustained reading."
+
+- code: wide-measure
+  severity: WARN
+  meaning_id: "Lebar kolom paragraf panjang pada desktop melampaui ~84 karakter per baris sehingga mata mudah lelah saat berpindah baris."
+  cause_id: "Paragraf `<p>` di `<main>` tidak dibatasi max-width: 65ch (--layout-measure)."
+  fix_id: "Terapkan max-width: var(--layout-measure) (65ch) pada paragraf narasi di dalam `main`."
+  meaning_en: "A long narrative paragraph on desktop spans wider than ~84 estimated characters per line."
+  cause_en: "Paragraphs inside `<main>` expand to full wide-container width without a character measure limit."
+  fix_en: "Cap narrative paragraph elements at max-width: 65ch (--layout-measure)."
+
+- code: radius-drift
+  severity: WARN
+  meaning_id: "Ditemukan lebih dari 3 nilai border-radius berbeda pada kartu, tombol, dan input di dalam halaman."
+  cause_id: "Komponen memakai nilai piksel campur-aduk (mis. 6px, 10px, 14px, 20px) secara acak alih-alih mengikuti token."
+  fix_id: "Seragamkan semua sudut komponen pada 2–3 token radius terukur (--radius-xs, --radius-sm, --radius-md)."
+  meaning_en: "More than three distinct border-radius values appear across cards, sections, buttons, and inputs."
+  cause_en: "Arbitrary one-off border-radius pixel values drifted from the design system's radius scale."
+  fix_en: "Restrict component corners strictly to your design system's radius tokens (e.g. --radius-xs, --radius-sm)."
+
+- code: twin-cards
+  severity: WARN
+  meaning_id: "Terdapat dua atau lebih grid 3-kartu identik berturut-turut dengan tinggi seragam yang mengesankan pola template SaaS generik."
+  cause_id: "Beberapa section berturut-turut memakai pola layout 3 kartu sejajar yang sama tanpa variasi ritme visual."
+  fix_id: "Bedakan pola tata letak antar-section: gunakan tabel, layout asimetris 2 kolom, rail horizontal, atau daftar bernomor."
+  meaning_en: "Two or more uniform 3-card grids with nearly identical card heights appear on the same page."
+  cause_en: "Multiple sections repeated the exact same 3-column symmetric card template pattern."
+  fix_en: "Alternate section compositions using asymmetric splits, ledgers, numbered specs, or curated bento layouts."
+
+- code: slop-words
+  severity: WARN
+  meaning_id: "Teks yang terlihat mengandung frasa klise AI marketing (seperti 'era digital', 'solusi komprehensif', 'transformasi bisnis', atau 'game-changing')."
+  cause_id: "Copy halaman memakai jargon promosional generik tanpa menyebut fakta mekanisme yang konkret."
+  fix_id: "Ganti frasa klise dengan kata benda konkret, angka faktual yang terverifikasi, dan penjelasan langkah nyata."
+  meaning_en: "Visible page copy contains generic AI marketing buzzwords (e.g., 'next-gen', 'game-changing', 'elevate your', 'seamlessly')."
+  cause_en: "Filler marketing copy slipped into headings or cards instead of specific factual claims."
+  fix_en: "Replace buzzwords with concrete nouns, measurable behaviors, and verified technical details."

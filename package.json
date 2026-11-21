@@ -30,6 +30,7 @@
     "package-manifest.json",
     "plugin.json",
     "docs/INSTALLATION.md",
+    "docs/PROMPTS.md",
     "docs/REPO-METADATA.md",
     "evals/compare.mjs",
     "evals/prepare-blind-eval.mjs",
