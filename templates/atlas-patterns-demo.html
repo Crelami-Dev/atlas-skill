@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas patterns: small-screen demo</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="design-tokens.css">
+  <link rel="stylesheet" href="atlas-scenes.css">
+  <link rel="stylesheet" href="atlas-components.css">
+  <link rel="stylesheet" href="atlas-backgrounds.css">
+  <style>
+    body { margin: 0; font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
+    .wrap { width: min(100% - var(--space-8), 72rem); margin-inline: auto; padding-block: var(--space-12); }
+    .wrap h1, .wrap h2 { margin: 0 0 var(--space-3); font-family: var(--font-display); line-height: var(--leading-tight); }
+    .wrap h1 { font-size: var(--text-3xl); }
+    .wrap h2 { font-size: var(--text-2xl); }
+    .wrap > p { max-width: 48ch; margin: 0 0 var(--space-6); color: var(--color-muted); }
+  </style>
+</head>
+<body>
+  <header class="wrap atlas-bg-contour" data-reveal>
+    <h1 data-reveal-item>Small screens, done on purpose.</h1>
+    <p data-reveal-item>Cards swipe on phones and become a grid on tablets. Galleries become a mosaic. Motion plays once when 15% of a section is on screen, on every device.</p>
+    <div class="atlas-cta-row" data-cta-row data-reveal-item>
+      <a class="btn-primary" href="#cards" data-cta-primary>See the patterns</a>
+      <a class="btn-secondary" href="#bento">Open the gallery</a>
+    </div>
+  </header>
+
+  <section class="wrap" id="cards" data-reveal>
+    <h2 data-reveal-item>Cards: swipe, then grid</h2>
+    <p data-reveal-item>Three project types. Phones: a swipe row with the next card peeking. Tablet portrait: two columns, the odd card spans the row. Desktop: three columns.</p>
+    <div class="atlas-carousel atlas-carousel--grid-up" data-carousel data-reveal-item aria-label="Project types">
+      <ul class="atlas-carousel__track">
+        <li class="atlas-carousel__slide"><article class="atlas-card atlas-card--media atlas-card--lift"><div class="atlas-card__media"><img data-plate="Villa|20" width="800" height="600" alt="Placeholder plate"></div><div class="atlas-card__body"><h3>Private Villa</h3><p>Low mass, inner courtyard, thick earth walls.</p></div></article></li>
+        <li class="atlas-carousel__slide"><article class="atlas-card atlas-card--media atlas-card--lift"><div class="atlas-card__media"><img data-plate="Pavilion|140" width="800" height="600" alt="Placeholder plate"></div><div class="atlas-card__body"><h3>Hospitality Pavilion</h3><p>Wide roofs and cross ventilation for resorts.</p></div></article></li>
+        <li class="atlas-carousel__slide"><article class="atlas-card atlas-card--media atlas-card--lift"><div class="atlas-card__media"><img data-plate="Heritage|260" width="800" height="600" alt="Placeholder plate"></div><div class="atlas-card__body"><h3>Heritage Restoration</h3><p>Old buildings kept, hand marks left visible.</p></div></article></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap" id="rail">
+    <h2>Gallery as a carousel</h2>
+    <p>Six plates, always a carousel (dots, arrows, keyboard).</p>
+    <div class="atlas-carousel atlas-carousel--always atlas-carousel--wide" data-carousel aria-label="Plates">
+      <ul class="atlas-carousel__track">
+        <li class="atlas-carousel__slide"><figure style="margin:0"><img data-plate="A|10" width="800" height="600" alt="Plate A" style="width:100%;border-radius:var(--radius-md);display:block"></figure></li>
+        <li class="atlas-carousel__slide"><figure style="margin:0"><img data-plate="B|70" width="800" height="600" alt="Plate B" style="width:100%;border-radius:var(--radius-md);display:block"></figure></li>
+        <li class="atlas-carousel__slide"><figure style="margin:0"><img data-plate="C|130" width="800" height="600" alt="Plate C" style="width:100%;border-radius:var(--radius-md);display:block"></figure></li>
+        <li class="atlas-carousel__slide"><figure style="margin:0"><img data-plate="D|190" width="800" height="600" alt="Plate D" style="width:100%;border-radius:var(--radius-md);display:block"></figure></li>
+        <li class="atlas-carousel__slide"><figure style="margin:0"><img data-plate="E|250" width="800" height="600" alt="Plate E" style="width:100%;border-radius:var(--radius-md);display:block"></figure></li>
+        <li class="atlas-carousel__slide"><figure style="margin:0"><img data-plate="F|310" width="800" height="600" alt="Plate F" style="width:100%;border-radius:var(--radius-md);display:block"></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap" id="bento" data-reveal>
+    <h2 data-reveal-item>Gallery as a mosaic</h2>
+    <p data-reveal-item>Two columns on phones and tablet portrait, four on desktop. Photo tiles hold only the photo; text and figure tiles carry the words.</p>
+    <div class="atlas-bento" data-reveal-item>
+      <figure class="atlas-bento__item atlas-bento__item--feature"><img data-plate="Feature|30" width="1200" height="900" alt="Placeholder plate"></figure>
+      <figure class="atlas-bento__item"><img data-plate="Two|100" width="600" height="600" alt="Placeholder plate"></figure>
+      <div class="atlas-bento__item atlas-bento__item--text atlas-bento__item--accent"><p class="atlas-bento__figure">14 weeks</p><p>From first visit to keys.</p></div>
+      <figure class="atlas-bento__item atlas-bento__item--tall"><img data-plate="Tall|170" width="600" height="1200" alt="Placeholder plate"></figure>
+      <figure class="atlas-bento__item"><img data-plate="Four|240" width="600" height="600" alt="Placeholder plate"></figure>
+      <div class="atlas-bento__item atlas-bento__item--text"><p class="atlas-bento__figure">3</p><p>Materials: earth, teak, basalt.</p></div>
+      <figure class="atlas-bento__item atlas-bento__item--wide"><img data-plate="Wide|300" width="1200" height="600" alt="Placeholder plate"></figure>
+    </div>
+  </section>
+
+  <section class="atlas-scene" data-atlas-scene="pull-back" data-zoom="1.6" data-origin="30% 60%">
+    <div class="atlas-scene__stage">
+      <div class="atlas-scene__frame"><div class="atlas-scene__backdrop"><img data-plate="Whole|28" width="2400" height="1350" alt="Placeholder plate"></div></div>
+      <div class="atlas-scene__captions">
+        <p class="atlas-scene__caption atlas-scene__caption--from">A joint, cut by hand.</p>
+        <p class="atlas-scene__caption atlas-scene__caption--to">Four hundred of them hold the roof.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="atlas-scene" data-atlas-scene="word-light">
+    <div class="atlas-scene__stage"><p class="atlas-scene__statement">We start with the ground, then the timber, then the stone that stays cold underfoot.</p></div>
+  </section>
+
+  <section class="atlas-scene" data-atlas-scene="step-assemble">
+    <div class="atlas-scene__stage">
+      <span class="atlas-scene__line atlas-scene__line--h"></span>
+      <ol class="atlas-steps">
+        <li class="atlas-step"><h3>Visit</h3><p>We walk the site together.</p></li>
+        <li class="atlas-step"><h3>Sketch</h3><p>Three directions in one week.</p></li>
+        <li class="atlas-step"><h3>Build</h3><p>Crews you can meet on site.</p></li>
+        <li class="atlas-step"><h3>Hand over</h3><p>Keys, drawings, a care guide.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <dl class="atlas-stats">
+      <div><dt>Projects handed over</dt><dd data-count="48">48</dd></div>
+      <div><dt>Weeks, typical build</dt><dd data-count="14">14</dd></div>
+      <div><dt>Materials</dt><dd data-count="3">3</dd></div>
+    </dl>
+  </section>
+
+  <script type="module">
+    const plate = (label, hue) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${hue} 55% 38%)"/><stop offset="1" stop-color="hsl(${(Number(hue) + 50) % 360} 60% 62%)"/></linearGradient></defs><rect width="1600" height="1000" fill="url(#g)"/><g stroke="rgba(255,255,255,.28)" stroke-width="3">${Array.from({ length: 15 }, (_, i) => `<path d="M${i * 120} 0V1000M0 ${i * 120}H1600"/>`).join('')}</g><circle cx="480" cy="620" r="150" fill="rgba(255,255,255,.35)"/><text x="800" y="560" font-family="Georgia,serif" font-size="220" fill="#fff" text-anchor="middle">${label}</text></svg>`;
+      return 'data:image/svg+xml,' + encodeURIComponent(svg);
+    };
+    document.querySelectorAll('img[data-plate]').forEach((img) => {
+      const [label, hue] = img.dataset.plate.split('|');
+      img.src = plate(label, hue);
+    });
+    const { initAtlasMotion } = await import('./atlas-scenes.mjs');
+    const { initAtlasInteract } = await import('./atlas-interact.mjs');
+    initAtlasInteract();
+    window.__atlas = await initAtlasMotion({ anime: await import('https://cdn.jsdelivr.net/npm/animejs@4/+esm').catch(() => null) });
+  </script>
+</body>
+</html>

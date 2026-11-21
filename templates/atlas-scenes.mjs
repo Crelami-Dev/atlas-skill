@@ -2,10 +2,11 @@
  * Atlas v7.2 — Scene engine: 15%-threshold reveals + a registry of scroll-scrubbed scenes.
  * Built for Anime.js v4 (`animate`, `createTimeline`, `createScope`, `stagger`, `utils`).
  * Safe progressive enhancement: every scene keeps a complete, readable "rest" composition
- * without JS, on phones (heavy scenes) and under prefers-reduced-motion.
+ * without JS, when Anime.js is unavailable, and under prefers-reduced-motion.
  *
- * Scenes are either HEAVY (sticky, ~1.45 viewport tall; at most ONE per page, desktop only) or
- * LIGHT (no sticky track; at most TWO per page; cheap enough for phones).
+ * Scenes are either HEAVY (sticky, ~1.45 viewport tall; at most ONE pinned per page, >= 1024px) or
+ * LIGHT (no sticky track; at most TWO scroll-scrubbed per page). Below 1024px (tablet portrait, phones)
+ * every scene instead PLAYS ONCE, smoothly, when 15% of it is on screen, so nothing sits still.
  *
  *   heavy: window-reveal  mask-zoom  type-parting  pull-back  split-wipe  horizontal-rail
  *   light: parallax-depth  word-light  step-assemble  drift-type
@@ -17,6 +18,7 @@
 const ANIME_CDN_ESM = 'https://cdn.jsdelivr.net/npm/animejs@4/+esm';
 const MAX_HEAVY = 1;
 const MAX_LIGHT = 2;
+const PLAY_MS = 1700; // total time of a play-once scene on tablets and phones
 
 async function resolveAnime(passedLib) {
   if (passedLib && typeof passedLib.animate === 'function') return passedLib;
@@ -47,6 +49,9 @@ function effective15PercentThreshold(el, requested = 0.15) {
   const minRatio = (window.innerHeight * requested) / Math.max(rect.height, 1);
   return Math.max(0.04, Math.min(requested, minRatio));
 }
+
+/** True once at least the requested share of the element is on screen (the first callback may fire for a sliver). */
+const reachedThreshold = (entry, threshold) => entry.isIntersecting && entry.intersectionRatio >= threshold - 0.01;
 
 function playEntrance(animate, stagger, targets, opts) {
   return animate(targets, {
@@ -167,10 +172,15 @@ const PRESETS = {
   // Vertical scroll drives a horizontal strip of plates. Phones get a native scroll-snap row.
   'horizontal-rail': {
     mode: 'heavy',
-    build(sc) {
+    build(sc, { tl, mode }) {
       const rail = sc.querySelector('.atlas-scene__rail');
       const track = sc.querySelector('.atlas-scene__track');
       if (!rail || !track) return {};
+      if (mode === 'play') {
+        // Phones and tablets keep a native swipe row; the plates glide in one after another.
+        [...sc.querySelectorAll('.atlas-scene__plate')].forEach((plate, i) => tl.add(plate, { x: [56, 0], opacity: [0, 1], duration: 800 }, i * 150));
+        return { tl };
+      }
       let distance = 0;
       const measure = () => {
         distance = Math.max(0, track.scrollWidth - rail.clientWidth);
@@ -291,7 +301,14 @@ function bindScroll(sc, mode, result) {
 }
 
 /**
- * Initializes 15%-threshold section reveals and the scene registry.
+ * Initializes 15%-threshold reveals and the scene registry.
+ *
+ * Motion modes (written to <html data-atlas-motion="...">, handy when debugging a device):
+ *   scrub  >= 1024px: heavy scenes pin and follow scroll (one per page); light scenes follow scroll (two).
+ *   play   <  1024px (tablet portrait, phones): every scene plays ONCE, smoothly, when 15% of it is on screen.
+ *   soft   prefers-reduced-motion: opacity-only fades at 15%; scenes show their finished composition.
+ *   rest   Anime.js unavailable: everything stays visible and still.
+ * The 15% rule is the same on every device: a section starts when 15% of the SCREEN height of it is visible.
  * @returns {Promise<{ destroy: () => void, anime: object | null }>}
  */
 export async function initAtlasMotion(options = {}) {
@@ -300,20 +317,17 @@ export async function initAtlasMotion(options = {}) {
 
   const sceneEls = [...root.querySelectorAll('[data-atlas-scene]')];
   const revealGroups = [...root.querySelectorAll('[data-reveal], [data-scroll-section]')];
+  const setMode = (mode) => { document.documentElement.dataset.atlasMotion = mode; };
 
   const setRest = (sc) => {
-    sc.classList.remove('is-live');
+    sc.classList.remove('is-live', 'is-play');
     sc.classList.add('is-rest');
   };
   const markAllRest = () => {
     sceneEls.forEach(setRest);
     for (const el of revealGroups) el.dataset.atlasRevealed = 'true';
+    setMode('rest');
   };
-
-  if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    markAllRest();
-    return { destroy() {}, anime: null };
-  }
 
   const anime = await resolveAnime(options.anime);
   if (!anime || typeof anime.createScope !== 'function' || typeof anime.animate !== 'function') {
@@ -325,105 +339,141 @@ export async function initAtlasMotion(options = {}) {
   const observers = [];
   const cfg = {
     threshold: options.threshold ?? 0.15,
-    heroDuration: options.heroDuration ?? 900,
-    duration: options.revealDuration ?? 920,
-    staggerMs: options.revealStagger ?? 95,
+    heroDuration: options.heroDuration ?? 1100,
+    duration: options.revealDuration ?? 1250,
+    staggerMs: options.revealStagger ?? 110,
     distance: options.revealDistance ?? 36,
     startOpacity: options.startOpacity ?? 0.14,
     startScale: options.startScale ?? 0.975,
-    ease: options.ease ?? 'outExpo'
+    ease: options.ease ?? 'outQuart',
+    sceneMs: options.sceneDuration ?? PLAY_MS
   };
 
   const scope = createScope({
     root,
     mediaQueries: {
       reduceMotion: '(prefers-reduced-motion: reduce)',
-      isMobile: '(max-width: 767px)'
+      isScrub: '(min-width: 1024px)'
     }
   }).add((self) => {
-    if (self?.matches?.reduceMotion) {
-      markAllRest();
-      return;
-    }
+    const soft = Boolean(self?.matches?.reduceMotion);
+    const scrub = Boolean(self?.matches?.isScrub);
+    setMode(soft ? 'soft' : scrub ? 'scrub' : 'play');
+
+    // Soft mode keeps the 15% trigger but only fades: no travel, no scale.
+    const enter = (targets, overrides = {}) => (soft
+      ? animate(targets, { opacity: [0, 1], duration: 700, delay: stagger(60), ease: 'outQuad' })
+      : playEntrance(animate, stagger, targets, { ...cfg, ...overrides }));
+    const primeHidden = (targets) => {
+      if (!utils || typeof utils.set !== 'function') return;
+      utils.set(targets, soft ? { opacity: 0 } : { y: cfg.distance, opacity: cfg.startOpacity, scale: cfg.startScale });
+    };
 
     // 1. Hero above-the-fold choreography
     const heroTargets = root.querySelectorAll('[data-hero-reveal], [data-hero-item], [data-hero-title]');
-    if (heroTargets.length) {
-      playEntrance(animate, stagger, heroTargets, {
-        ...cfg,
-        duration: cfg.heroDuration,
-        distance: 28,
-        startOpacity: 0.18,
-        startScale: 0.985
-      });
-    }
+    if (heroTargets.length) enter(heroTargets, { duration: cfg.heroDuration, distance: 28, startOpacity: 0.18, startScale: 0.985 });
 
     // 2. 15% viewport threshold scroll-reveal for sections/cards below the fold
     for (const group of revealGroups) {
       const items = group.querySelectorAll('[data-reveal-item], [data-scroll-item]');
       const targets = items.length ? [...items] : [group];
       const rect = group.getBoundingClientRect();
-      const alreadyInView = rect.top < window.innerHeight * 0.85;
+      const alreadyInView = rect.top < window.innerHeight * (1 - cfg.threshold);
 
       if (alreadyInView) {
         group.dataset.atlasRevealed = 'true';
-        playEntrance(animate, stagger, targets, cfg);
+        enter(targets);
         continue;
       }
 
-      if (utils && typeof utils.set === 'function') {
-        utils.set(targets, { y: cfg.distance, opacity: cfg.startOpacity, scale: cfg.startScale });
-      }
+      primeHidden(targets);
 
       if (typeof IntersectionObserver !== 'function') {
         group.dataset.atlasRevealed = 'true';
-        playEntrance(animate, stagger, targets, cfg);
+        enter(targets);
         continue;
       }
 
+      const groupThreshold = effective15PercentThreshold(group, cfg.threshold);
       const io = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
+            if (!reachedThreshold(entry, groupThreshold)) continue;
             group.dataset.atlasRevealed = 'true';
-            playEntrance(animate, stagger, targets, cfg);
+            enter(targets);
             io.unobserve(group);
             break;
           }
         },
-        { threshold: effective15PercentThreshold(group, cfg.threshold) }
+        { threshold: groupThreshold }
       );
       io.observe(group);
       observers.push(io);
     }
 
-    // 3. Scenes: at most MAX_HEAVY heavy (desktop only) and MAX_LIGHT light, in document order.
+    // 3. Scenes.
     const disposers = [];
     const timelines = [];
-    let heavy = 0;
-    let light = 0;
-    for (const sc of sceneEls) {
-      const preset = PRESETS[sc.getAttribute('data-atlas-scene')];
-      if (!preset || typeof createTimeline !== 'function') { setRest(sc); continue; }
-      const isHeavy = preset.mode === 'heavy';
-      const allowed = isHeavy ? !self?.matches?.isMobile && heavy < MAX_HEAVY : light < MAX_LIGHT;
-      if (!allowed) { setRest(sc); continue; }
-      isHeavy ? heavy++ : light++;
 
-      sc.classList.remove('is-rest');
+    const mountScrub = (sc, preset) => {
+      const isHeavy = preset.mode === 'heavy';
+      sc.classList.remove('is-rest', 'is-play');
       sc.classList.add('is-live');
       sc.classList.toggle('atlas-scene--light', !isHeavy);
       const tl = createTimeline({ autoplay: false, defaults: { duration: 1000, ease: 'linear' } });
-      const result = preset.build(sc, { tl, anime }) || {};
+      const result = preset.build(sc, { tl, anime, mode: 'scrub' }) || {};
       result.tl = result.tl || (tl.duration > 0 ? tl : null);
       timelines.push(tl);
       disposers.push(bindScroll(sc, preset.mode, result));
       if (result.cleanup) disposers.push(result.cleanup);
+    };
+
+    // Play once, smoothly, when 15% of the scene is on screen. Works the same on every device.
+    const mountPlay = (sc, preset) => {
+      sc.classList.remove('is-rest', 'is-live');
+      sc.classList.add('is-play');
+      const tl = createTimeline({ autoplay: false, defaults: { duration: 1000, ease: cfg.ease } });
+      const result = preset.build(sc, { tl, anime, mode: 'play' }) || {};
+      const timeline = result.tl || tl;
+      timelines.push(timeline);
+      if (!(timeline.duration > 0)) return;
+      const target = Number(sc.dataset.motionMs) || cfg.sceneMs;
+      timeline.speed = Math.max(0.2, timeline.duration / target);
+      timeline.seek(0); // apply the start state now so nothing flashes at its final pose first
+      if (typeof IntersectionObserver !== 'function') { timeline.play(); return; }
+      const sceneThreshold = effective15PercentThreshold(sc, cfg.threshold);
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => reachedThreshold(entry, sceneThreshold))) return;
+          io.disconnect();
+          timeline.play();
+        },
+        { threshold: sceneThreshold }
+      );
+      io.observe(sc);
+      observers.push(io);
+      disposers.push(() => io.disconnect());
+    };
+
+    let heavy = 0;
+    let light = 0;
+    for (const sc of sceneEls) {
+      const preset = PRESETS[sc.getAttribute('data-atlas-scene')];
+      if (!preset || typeof createTimeline !== 'function' || soft) { setRest(sc); continue; }
+      const isHeavy = preset.mode === 'heavy';
+      // Pinned (scrub) scenes are capped per page; any extra scene still plays once instead of sitting still.
+      const canScrub = scrub && (isHeavy ? heavy < MAX_HEAVY : light < MAX_LIGHT);
+      if (canScrub) {
+        isHeavy ? heavy++ : light++;
+        mountScrub(sc, preset);
+      } else {
+        mountPlay(sc, preset);
+      }
     }
 
     return () => {
       disposers.forEach((dispose) => dispose());
-      timelines.forEach((tl) => tl.revert?.());
+      timelines.forEach((timeline) => timeline.revert?.());
       sceneEls.forEach(setRest);
     };
   });

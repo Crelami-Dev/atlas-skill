@@ -2,7 +2,7 @@
 
 A scene is one choreographed section tied to scroll. Atlas ships ten, in two weights, and a dealer that picks by what the subject has to show. The point is variety with a reason: a villa studio and a coffee roaster should not get the same moment.
 
-**Budget per page:** at most **one heavy** scene (desktop; phones get the finished composition) and at most **two light** scenes from different families. A page may use none: documents, legal text and plain brochures usually should.
+**Budget per page:** at most **one heavy** scene pinned to scroll (desktop) and at most **two light** scenes from different families. Below 1024 px every scene plays once at 15% visible instead (see [mobile-and-tablet.md](mobile-and-tablet.md)). A page may use none: documents, legal text and plain brochures usually should.
 
 ## Choosing
 
@@ -25,7 +25,7 @@ Record the choice in the brief under `## Signature idea` as `scene: <id>` (or `s
 </script>
 ```
 
-Without JS, on phones (heavy scenes) and under `prefers-reduced-motion` every scene shows a complete, readable composition. Never write `opacity: 0` in static CSS for scene content. `templates/atlas-scenes-demo.html` shows all ten with working markup; open it with `?scene=<id>` to isolate one.
+Three states per scene: `.is-live` (>= 1024 px, scroll-driven), `.is-play` (below 1024 px, plays once at 15% visible, about 1.7 s, `data-motion-ms` overrides), and the finished rest composition (no JS, Anime.js blocked, `prefers-reduced-motion`; reveals then only fade). Never write `opacity: 0` in static CSS for scene content. `templates/atlas-scenes-demo.html` shows all ten with working markup; open it with `?scene=<id>` to isolate one.
 
 ## Heavy scenes (sticky, ~1.45 viewports; one per page)
 
@@ -54,7 +54,7 @@ A divider travels across one frame and the second state of the same place takes 
   <span class="atlas-scene__divider"></span>
 </div>
 ```
-Rest state: both images side by side (stacked on phones), each labelled.
+Rest state: both images side by side (stacked on phones), each labelled. On phones and tablets the divider sweeps once.
 
 ### horizontal-rail
 Vertical scroll drives a strip of 4-7 numbered plates. Fits portfolio, product, place, event. Never more than seven plates or text-heavy cards. Rest state: a native scroll-snap row.

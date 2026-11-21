@@ -23,6 +23,8 @@ const VIEWPORTS = [
   { name: "360", width: 360, height: 800, folds: true },
   { name: "375", width: 375, height: 812, folds: false },
   { name: "390", width: 390, height: 844, folds: false },
+  { name: "600", width: 600, height: 960, folds: false },
+  { name: "768", width: 768, height: 1024, folds: false },
   { name: "820", width: 820, height: 1180, folds: false },
   { name: "1366", width: 1366, height: 768, folds: true },
   { name: "1440", width: 1440, height: 900, folds: true },
@@ -350,6 +352,51 @@ async function auditViewport(page, vp, shotsDir, slopPhrases, options) {
           if (inner > 0 && Math.min(...rects.map((r) => r.width)) < inner * 0.9) {
             warns.push(`cta-not-full-width: stacked buttons "${names}" do not fill the row on mobile; use .atlas-cta-row so they span the content width`);
           }
+        }
+      }
+    }
+
+    // Small screens: a long single column of media cards should be a carousel (phones) or a grid/bento (tablets).
+    if (vpWidth <= 820) {
+      for (const parent of document.querySelectorAll("main ul, main ol, main div, main section")) {
+        if (getComputedStyle(parent).overflowX !== "visible") continue;
+        if (parent.closest("[data-carousel], .atlas-carousel, .atlas-bento, [data-atlas-scene]")) continue;
+        const kids = [...parent.children].filter((k) => {
+          const r = k.getBoundingClientRect();
+          return r.width > 0 && r.height > 120 && k.querySelector("img, picture");
+        });
+        if (kids.length < 3) continue;
+        const rects = kids.map((k) => k.getBoundingClientRect());
+        const stacked = rects.every((r, i) => i === 0 || r.top >= rects[i - 1].bottom - 2);
+        const total = rects[rects.length - 1].bottom - rects[0].top;
+        if (stacked && total > innerHeight * 1.8) {
+          warns.push(`mobile-long-stack: ${kids.length} media cards stack into ${(total / innerHeight).toFixed(1)} screens at ${vpWidth}px; use .atlas-carousel (swipe on phones, grid on tablets) or .atlas-bento for galleries`);
+          break;
+        }
+      }
+    }
+
+    // Tablet portrait: a picture that fills only part of its row with nothing beside it reads as a mistake.
+    if (vpWidth >= 600 && vpWidth <= 1023) {
+      for (const img of document.querySelectorAll("main img")) {
+        const ir = img.getBoundingClientRect();
+        if (ir.width < 240 || ir.height < 120) continue;
+        if (img.closest("[data-carousel], .atlas-carousel, .atlas-bento, [data-atlas-scene], .atlas-card, header, nav")) continue;
+        const block = img.closest("figure") || img;
+        const parent = block.parentElement;
+        if (!parent) continue;
+        const cs = getComputedStyle(parent);
+        const inner = parent.getBoundingClientRect().width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        const br = block.getBoundingClientRect();
+        if (inner < 360 || br.width > inner * 0.86 || br.width < inner * 0.4) continue;
+        const neighbour = [...parent.children].some((c) => {
+          if (c === block || getComputedStyle(c).position === "absolute") return false;
+          const r = c.getBoundingClientRect();
+          return r.width > 0 && r.left >= br.right - 2 && r.top < br.bottom && r.bottom > br.top;
+        });
+        if (!neighbour) {
+          warns.push(`half-empty-row: a ${Math.round(br.width)}px picture fills ${Math.round((br.width / inner) * 100)}% of its row at ${vpWidth}px with nothing beside it; make it full width, pair it with text or a second picture, or use .atlas-bento`);
+          break;
         }
       }
     }

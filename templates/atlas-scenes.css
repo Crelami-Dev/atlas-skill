@@ -1,4 +1,7 @@
-/* Atlas Scenes v7.2 — 6 heavy + 4 light scroll scenes. Token-only, mobile-safe, complete rest state. */
+/* Atlas Scenes v7.3 — 6 heavy + 4 light scenes. Token-only. Three states per scene:
+   .is-live (>= 1024px)  pinned and scroll-driven (heavy: sticky track)
+   .is-play (< 1024px)   the same layout, not pinned, plays once at 15% visible
+   no class / .is-rest   a complete, readable finished composition (no JS, reduced motion) */
 
 .atlas-scene {
   position: relative;
@@ -88,7 +91,7 @@
   border-left: 1px solid var(--color-border);
 }
 
-.atlas-scene.is-rest .atlas-scene__shutter {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__shutter {
   display: none;
 }
 
@@ -164,7 +167,7 @@
   margin: 0;
 }
 
-.atlas-scene:not(.is-live) .atlas-scene__caption--from {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__caption--from {
   display: none;
 }
 
@@ -230,7 +233,7 @@
   right: var(--space-3);
 }
 
-.atlas-scene:not(.is-live) .atlas-scene__compare {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__compare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
@@ -240,23 +243,23 @@
   background: none;
 }
 
-.atlas-scene:not(.is-live) .atlas-scene__after-wrap,
-.atlas-scene:not(.is-live) .atlas-scene__before-clip {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__after-wrap,
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__before-clip {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--radius-md);
 }
 
-.atlas-scene:not(.is-live) .atlas-scene__before-clip {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__before-clip {
   order: -1;
 }
 
-.atlas-scene:not(.is-live) .atlas-scene__divider {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__divider {
   display: none;
 }
 
-.atlas-scene:not(.is-live) .atlas-scene__tag--before {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-scene__tag--before {
   right: auto;
   left: var(--space-3);
 }
@@ -330,7 +333,7 @@
   text-wrap: balance;
 }
 
-.atlas-scene:not(.is-live) .atlas-word {
+.atlas-scene:not(.is-live):not(.is-play) .atlas-word {
   opacity: 1;
 }
 
@@ -417,15 +420,11 @@
     padding-block: var(--space-10);
   }
 
-  .atlas-scene__shutter {
-    display: none;
-  }
-
   .atlas-scene--parallax {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .atlas-scene:not(.is-live) .atlas-scene__compare {
+  .atlas-scene:not(.is-live):not(.is-play) .atlas-scene__compare {
     grid-template-columns: minmax(0, 1fr);
   }
 }

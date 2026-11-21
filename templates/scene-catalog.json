@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "rule": "One heavy scene per page (desktop only, phones get the finished composition) plus at most two light scenes from different families. Pick by what the subject needs to show, never by novelty. A page may use none.",
+  "rule": "One heavy scene pinned to scroll per page (>= 1024 px) plus at most two light scenes from different families; below 1024 px every scene plays once when 15% visible. Pick by what the subject needs to show, never by novelty. A page may use none.",
   "fits": ["place", "product", "process", "proof", "portfolio", "statement", "event", "software", "docs"],
   "scenes": [
     {

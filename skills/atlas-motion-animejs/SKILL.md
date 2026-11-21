@@ -5,12 +5,12 @@ description: "Use when designing or implementing web animations, FLIP layout tra
 
 # Atlas Motion Engine — Anime.js v4 Choreography
 
-Use **Anime.js v4 (`animejs@^4.0.0`)** when an interface needs deliberate **15%-viewport scroll reveals (`850–1050ms`)**, continuous **Signature Scroll Scenes (`atlas-scenes.mjs`)**, spring physics, FLIP layout transitions, or SVG path drawing. For single-property hover changes, use standard CSS `transition` rules.
+Use **Anime.js v4 (`animejs@^4.0.0`)** when an interface needs deliberate **15%-viewport scroll reveals (`1100–1600ms`, smooth `outQuart`, same on every device)**, continuous **Signature Scroll Scenes (`atlas-scenes.mjs`)**, spring physics, FLIP layout transitions, or SVG path drawing. For single-property hover changes, use standard CSS `transition` rules.
 
 Read the [Anime.js v4 Playbook](../../references/animejs-v4-playbook.md), [Scope Helper Template](../../templates/animejs-v4-scope.ts), and **Signature Scroll Scene Engine** ([atlas-scenes.mjs](../../templates/atlas-scenes.mjs) + [atlas-scenes.css](../../templates/atlas-scenes.css)) before writing animation code.
 
 - **Plain HTML / No-Bundler Projects:** Copy `templates/atlas-scenes.mjs` + `templates/atlas-scenes.css` alongside your site and import Anime.js v4 from **`https://cdn.jsdelivr.net/npm/animejs@4/+esm`** (never leave a landing page static/un-animated unless reduced motion is active).
-- **Signature Scroll Scenes (`data-atlas-scene`):** Use **one heavy plus at most two light scenes per page** from the ten in [scenes.md](../../references/scenes.md) (heavy: `window-reveal`, `mask-zoom`, `type-parting`, `pull-back`, `split-wipe`, `horizontal-rail`; light: `parallax-depth`, `word-light`, `step-assemble`, `drift-type`), chosen with `node <atlas>/scripts/deal-scene.mjs` so pages do not all get the same moment. Heavy scenes switch to a finished static `.is-rest` composition on `< 768px` and under `prefers-reduced-motion: reduce`; light scenes stay cheap on phones. Interactions (`data-magnetic`, `data-tilt`, `data-count`, `data-spotlight`, phone action bar) live in `templates/atlas-interact.mjs`.
+- **Signature Scroll Scenes (`data-atlas-scene`):** Use **one heavy plus at most two light scenes per page** from the ten in [scenes.md](../../references/scenes.md) (heavy: `window-reveal`, `mask-zoom`, `type-parting`, `pull-back`, `split-wipe`, `horizontal-rail`; light: `parallax-depth`, `word-light`, `step-assemble`, `drift-type`), chosen with `node <atlas>/scripts/deal-scene.mjs` so pages do not all get the same moment. At `>= 1024px` heavy scenes pin and follow scroll; below that (tablet portrait, phones) **every scene plays once, smoothly, when 15% of it is on screen** (`.is-play`, about 1.7 s) so nothing sits still. Under `prefers-reduced-motion: reduce` reveals become opacity-only fades and scenes show the finished `.is-rest` composition. `<html data-atlas-motion="scrub|play|soft|rest">` reports the mode. Interactions (`data-magnetic`, `data-tilt`, `data-count`, `data-spotlight`, phone action bar) live in `templates/atlas-interact.mjs`.
 
 ## 1. Anime.js v4 Syntax vs Legacy v3
 
@@ -65,8 +65,8 @@ export function HeroShowcase() {
 
 - **Never Hide Content in Static CSS:** Never write `[data-reveal] { opacity: 0; }` in global CSS, or SSR, slow networks, and disabled-JS browsers will show a blank page. Leave elements visible by default and pass `opacity: [0, 1]` keyframes inside `animate()`.
 - **Animate GPU-Composited Properties:** Animate `x`, `y`, `scale`, `scaleX`, `scaleY`, `rotate`, or `opacity`, avoiding `top`, `left`, `width`, or `height` which trigger per-frame layout reflows.
-- **Make Motion Clearly Visible:** Trigger section reveals once **15%** enters the viewport (`threshold: 0.15` / `enter: 'bottom-=15% top'`) using deliberate durations (`850–1050ms`) and real travel (`y: [36, 0], opacity: [0.14, 1], scale: [0.975, 1]`, keeping total chain `< 1500ms`)—never tiny imperceptible `opacity: [0.85, 1]` micro-nudges.
-- **Duration Cap:** Keep single entrance sequences under `1500ms` (`850–1050ms` ideal) so motion feels luxurious without delaying interaction.
+- **Make Motion Clearly Visible:** Trigger section reveals once **15%** enters the viewport (`threshold: 0.15` / `enter: 'bottom-=15% top'`) using smooth, slightly slow durations (`1100–1600ms`, `ease: 'outQuart'`) and real travel (`y: [36, 0], opacity: [0.14, 1], scale: [0.975, 1]`, keeping total chain `< 2000ms`)—never tiny imperceptible `opacity: [0.85, 1]` micro-nudges.
+- **Duration Cap:** Keep single entrance sequences under `2000ms` (`1100–1600ms` ideal) so motion feels luxurious without delaying interaction.
 
 ## Verification Command
 

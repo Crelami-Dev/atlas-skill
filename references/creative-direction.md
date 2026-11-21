@@ -53,11 +53,11 @@ Bold never means more things at once. It means one thing louder.
 
 - **Backgrounds** (`templates/atlas-backgrounds.css`): `mesh`, `grain`, `contour`, `blueprint`, `spotlight`, `paper`. One per section, texture only, built from the page's own tokens. Match the subject: `contour` for terrain and craft, `blueprint` for studios, `paper` for hospitality.
 - **Interaction** (`templates/atlas-interact.mjs`): `data-magnetic` on the main CTA, `data-tilt` on a feature card, `data-spotlight` with `atlas-bg-spotlight`, `data-count` for real figures, and `data-mobile-bar` for a phone action bar. All are opt-in and off under reduced motion.
-- **Components** (`templates/atlas-components.css`): `.atlas-cta-row` (equal-width stacking on phones), `.atlas-link`, `.atlas-stats`, `.atlas-mobile-bar`.
+- **Components** (`templates/atlas-components.css`): `.atlas-cta-row` (equal-width stacking on phones), `.atlas-card`, `.atlas-carousel`, `.atlas-bento`, `.atlas-link`, `.atlas-stats`, `.atlas-mobile-bar`.
 
 ## Responsive behaviour is part of the design
 
-- Heavy scenes become a finished composition on phones; light scenes stay cheap.
+- Below 1024 px every scene plays once at 15% visible, so phones and tablets get the motion too; cards swipe, galleries become a mosaic ([mobile-and-tablet.md](mobile-and-tablet.md)).
 - Calls to action stack at equal width, primary first (`.atlas-cta-row`); the checker flags `cta-width-mismatch`.
 - Every desktop destination stays reachable on a phone (`mobile-nav-missing`).
 - Check 320, 375, 390, 820, 1366 and 1440 px, and look at the screenshots.

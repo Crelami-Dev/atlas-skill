@@ -11,7 +11,7 @@ Use this module whenever building applications with multi-view navigation, dynam
 
 Match navigation chrome to the user's primary task so screen space is never wasted on unnecessary framing:
 
-| Project Type | Desktop App Shell | Mobile Adaptation (`<= 767px`) |
+| Project Type | Desktop App Shell | Mobile Adaptation (`<= 767px`; tablet portrait 600-1023 px: see [mobile-and-tablet.md](../../references/mobile-and-tablet.md)) |
 |---|---|---|
 | Editorial / Service Site | Focused top nav bar + primary CTA + footer index | Compact top bar + full-height drawer supporting `Escape` |
 | Dashboard / SaaS App | Collapsible left sidebar (`240px` / `64px`) + main workbench | Bottom bar (max 4–5 items) or slide-over drawer with zero overflow |

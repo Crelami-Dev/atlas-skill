@@ -8,6 +8,7 @@
  *   data-spotlight       sets --mx / --my on the element (pairs with .atlas-bg-spotlight)
  *   data-count="48"      counts up to the number when it scrolls into view (markup keeps the real value)
  *   data-cta-primary     hero action; with [data-mobile-bar] a phone action bar appears once it scrolls away
+ *   data-carousel        builds arrows, dots and keyboard support for an .atlas-carousel (see atlas-components.css)
  */
 
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -88,5 +89,133 @@ export function initAtlasInteract(options = {}) {
     cleanups.push(() => io.disconnect());
   }
 
+  cleanups.push(initAtlasCarousels(root).destroy);
+
+  return { destroy: () => cleanups.splice(0).forEach((fn) => fn()) };
+}
+
+/**
+ * Carousels: arrows, dots (or a counter past 5 slides), keyboard and screen-reader roles for every
+ * [data-carousel]. Works without Anime.js. Motion-safe: smooth scrolling is dropped under reduced motion.
+ */
+export function initAtlasCarousels(root = document) {
+  const cleanups = [];
+  const isId = /^id\b/i.test(document.documentElement.lang || '');
+  const text = isId
+    ? { prev: 'Sebelumnya', next: 'Berikutnya', of: 'dari', go: 'Ke slide' }
+    : { prev: 'Previous', next: 'Next', of: 'of', go: 'Go to slide' };
+
+  for (const el of root.querySelectorAll('[data-carousel]')) {
+    const track = el.querySelector('.atlas-carousel__track');
+    const slides = track ? [...track.children] : [];
+    if (slides.length < 2 || el.dataset.carouselReady) continue;
+    el.dataset.carouselReady = 'true';
+
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-roledescription', 'carousel');
+    track.tabIndex = 0;
+    slides.forEach((slide, i) => {
+      slide.setAttribute('role', 'group');
+      slide.setAttribute('aria-roledescription', 'slide');
+      slide.setAttribute('aria-label', `${i + 1} ${text.of} ${slides.length}`);
+    });
+
+    let controls = el.querySelector('.atlas-carousel__controls');
+    if (!controls) {
+      controls = document.createElement('div');
+      controls.className = 'atlas-carousel__controls';
+      el.append(controls);
+    }
+    controls.textContent = '';
+    const button = (label, glyph, onClick) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'atlas-carousel__btn';
+      b.setAttribute('aria-label', label);
+      b.textContent = glyph;
+      b.addEventListener('click', onClick);
+      return b;
+    };
+
+    const behavior = () => (reduced() ? 'auto' : 'smooth');
+    // The track is the slides' offsetParent (position: relative), so offsetLeft is already track-relative.
+    const leftOf = (slide) => slide.offsetLeft;
+    const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+    const scrollToLeft = (left) => track.scrollTo({ left: Math.max(0, Math.min(maxScroll(), left)), behavior: behavior() });
+    const go = (index) => scrollToLeft(leftOf(slides[Math.max(0, Math.min(slides.length - 1, index))]));
+    // One step by position, not by index: with several slides visible the last ones cannot reach the left
+    // edge, so stepping from "the active index" would leave previous stuck at the end of the track.
+    const step = (direction) => {
+      const here = track.scrollLeft;
+      if (direction > 0) {
+        const target = slides.find((slide) => leftOf(slide) > here + 2);
+        if (target) scrollToLeft(leftOf(target));
+      } else {
+        const target = [...slides].reverse().find((slide) => leftOf(slide) < here - 2);
+        scrollToLeft(target ? leftOf(target) : 0);
+      }
+    };
+    const activeIndex = () => {
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 2) return slides.length - 1;
+      let best = 0;
+      let bestDistance = Infinity;
+      slides.forEach((slide, i) => {
+        const distance = Math.abs(leftOf(slide) - track.scrollLeft);
+        if (distance < bestDistance) { bestDistance = distance; best = i; }
+      });
+      return best;
+    };
+
+    const prev = button(text.prev, '‹', () => step(-1));
+    const next = button(text.next, '›', () => step(1));
+    const middle = document.createElement('div');
+    let dots = [];
+    let count = null;
+    if (slides.length <= 5) {
+      middle.className = 'atlas-carousel__dots';
+      dots = slides.map((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'atlas-carousel__dot';
+        dot.setAttribute('aria-label', `${text.go} ${i + 1}`);
+        dot.addEventListener('click', () => go(i));
+        middle.append(dot);
+        return dot;
+      });
+    } else {
+      middle.className = 'atlas-carousel__count';
+      count = middle;
+    }
+    controls.append(prev, middle, next);
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const i = activeIndex();
+      dots.forEach((dot, n) => dot.setAttribute('aria-current', String(n === i)));
+      if (count) count.textContent = `${i + 1} / ${slides.length}`;
+      prev.disabled = i <= 0;
+      next.disabled = i >= slides.length - 1;
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(update); };
+    track.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'Home') { e.preventDefault(); scrollToLeft(0); }
+      else if (e.key === 'End') { e.preventDefault(); scrollToLeft(maxScroll()); }
+    };
+    track.addEventListener('keydown', onKey);
+    update();
+    cleanups.push(() => {
+      track.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      track.removeEventListener('keydown', onKey);
+      if (raf) cancelAnimationFrame(raf);
+      controls.textContent = ''; // drops the buttons and their handlers so a later init starts clean
+      delete el.dataset.carouselReady;
+    });
+  }
   return { destroy: () => cleanups.splice(0).forEach((fn) => fn()) };
 }

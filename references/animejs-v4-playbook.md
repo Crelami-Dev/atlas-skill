@@ -72,7 +72,7 @@ export function initEditorialHeading(rootEl: HTMLElement) {
 - **Important `onScroll` Parameter Order:** In Anime.js v4, string thresholds take **`'<container> <target>'`**!
   - `enter: 'bottom-=15% top'` fires when the section's `top` crosses `15%` into the viewport from the bottom edge.
   - `leave: 'top bottom'` means scrolling stops when the target leaves the top edge.
-  - Use a deliberate, unhurried entrance (`duration: 850–1050`, `stagger(95)`, `ease: 'outExpo'`) starting from unmistakable motion (`y: [36, 0]`, `opacity: [0.14, 1]`, `scale: [0.975, 1]`) so users clearly perceive every reveal—never invisible `[0.88, 1]` micro-nudges!
+  - Use a deliberate, unhurried entrance (`duration: 1100–1500`, `stagger(110)`, `ease: 'outQuart'`) starting from unmistakable motion (`y: [36, 0]`, `opacity: [0.14, 1]`, `scale: [0.975, 1]`) so users clearly perceive every reveal—never invisible `[0.88, 1]` micro-nudges!
 
 ```ts
 import { animate, createScope, onScroll, stagger } from 'animejs';
@@ -89,9 +89,9 @@ export function initScrollSection(sectionEl: HTMLElement) {
       y: [36, 0],
       opacity: [0.14, 1],
       scale: [0.975, 1],
-      duration: 920,
-      delay: stagger(95),
-      ease: 'outExpo',
+      duration: 1250,
+      delay: stagger(110),
+      ease: 'outQuart',
       autoplay: onScroll({
         target: sectionEl,
         enter: 'bottom-=15% top',
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     root: document.body,
     anime: { animate, createTimeline, createScope, onScroll, stagger, utils },
     threshold: 0.15,
-    revealDuration: 920
+    revealDuration: 1250
   });
 });
 ```

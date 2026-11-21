@@ -76,6 +76,8 @@ Hover is only one state. Inspect focus, pressed/selected, pending/error and touc
 
 ## Mobile and tablet
 
+Use the patterns in [mobile-and-tablet.md](mobile-and-tablet.md): cards as a carousel or 2-column grid, galleries as a mosaic, no lone half-width pictures and no long single-column stacks. Check 375, 600, 768 and 820 px and open the screenshots; `mobile-long-stack` and `half-empty-row` are prompts to look, not the whole review. Confirm motion actually runs on a phone-sized viewport (`html[data-atlas-motion]` is `play`) and that it starts at 15% visible.
+
 Treat mobile as a composition, not a compressed desktop. Inspect order, action visibility, crops, labels, controls and keyboard-related form behavior.
 
 Tablet often reveals the weakest layout: a needlessly huge phone stack or cramped columns. Check it independently and at intermediate widths where content changes.
