@@ -401,6 +401,19 @@ async function auditViewport(page, vp, shotsDir, slopPhrases, options) {
       }
     }
 
+    // Anything that moves on its own for more than 5 seconds needs a way to pause it (WCAG 2.2.2):
+    // a pause button on the component, or one page-level toggle. Checked at two widths to avoid repeats.
+    if (vpWidth === 1440 || vpWidth === 375) {
+      const movers = [...document.querySelectorAll("[data-loop], [data-marquee], [data-rotate], .atlas-loop, .atlas-marquee, .atlas-fx, .atlas-float")]
+        .filter((el) => el.dataset.loopState !== "static" && el.getBoundingClientRect().width > 0 && el.dataset.pause !== "none");
+      const hasToggle = Boolean(document.querySelector("[data-loops-toggle]"));
+      // Ambient layers and rotators have no button of their own, so they rely on the page-level toggle.
+      const unpausable = movers.filter((el) => el.matches(".atlas-fx, .atlas-float, [data-rotate]") || !el.querySelector(".atlas-pause"));
+      if (unpausable.length && !hasToggle) {
+        warns.push(`loop-no-pause: ${unpausable.length} self-moving element(s) have no pause control; add a pause button (atlas-loops.mjs builds one) or a [data-loops-toggle] button`);
+      }
+    }
+
     // Paired CTA stagger check
     for (const group of document.querySelectorAll("[data-cta-row]")) {
       const children = [...group.querySelectorAll("a, button")].filter((e) => e.offsetParent !== null);

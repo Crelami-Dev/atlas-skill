@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas loops: demo</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="design-tokens.css">
+  <link rel="stylesheet" href="atlas-components.css">
+  <link rel="stylesheet" href="atlas-loops.css">
+  <style>
+    body { margin: 0; font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
+    .wrap { width: min(100% - var(--space-8), 72rem); margin-inline: auto; padding-block: var(--space-10); }
+    h1 { margin: 0 0 var(--space-4); font-family: var(--font-display); font-size: var(--text-3xl); line-height: var(--leading-tight); }
+    h2 { margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-2xl); }
+    p.lede { max-width: 48ch; margin: 0 0 var(--space-6); color: var(--color-muted); }
+    .stage { position: relative; display: grid; place-items: center; padding: var(--space-8) var(--space-4); border-radius: var(--radius-lg); background-color: var(--color-surface); overflow: hidden; }
+    .stage .atlas-loop { position: relative; z-index: 1; width: min(100%, 30rem); }
+    .gap { height: 110vh; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <button class="atlas-pause" type="button" data-loops-toggle aria-pressed="false">&#10074;&#10074;</button>
+    <h1><span class="sr-only">Build tidy, fast, responsive UI.</span><span aria-hidden="true">Build <span class="atlas-rotator" id="rotator" data-rotate="2200"><span>tidy</span><span>interactive</span><span>responsive</span></span> UI</span></h1>
+    <p class="lede">Words that swap in place, a ticker that never jumps, and demos that play themselves and start over.</p>
+    <div class="atlas-marquee" id="ticker" data-marquee data-speed="60">
+      <div class="atlas-marquee__track">
+        <ul class="atlas-marquee__group">
+          <li><a href="#codex" id="tick-link">Codex</a></li><li>Antigravity</li><li>Claude Code</li><li>Cursor</li><li>Windsurf</li><li>Cline</li><li>Copilot</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="gap" aria-hidden="true"></div>
+
+  <section class="wrap">
+    <h2>A demo that plays itself</h2>
+    <div class="stage">
+      <div class="atlas-fx" id="fx" aria-hidden="true"><i class="atlas-fx__glow"></i><i class="atlas-fx__ring"></i><i class="atlas-fx__ring atlas-fx__ring--2"></i><i class="atlas-fx__mark"></i></div>
+      <div class="atlas-loop" id="demo" data-loop data-loop-hold="1600" role="img" aria-label="A search runs and three licensed results are saved with credits.">
+        <div class="atlas-loop__bar"><span>assets.mjs</span><code>--license safe</code></div>
+        <div class="atlas-loop__field"><span id="typed" data-loop-type="roasted coffee beans">roasted coffee beans</span><i class="atlas-loop__caret"></i></div>
+        <i class="atlas-loop__progress" data-loop-progress></i>
+        <ul class="atlas-loop__rows">
+          <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__text"><span class="atlas-loop__title">Green coffee</span><span class="atlas-loop__meta">Wikimedia</span></span><span class="atlas-loop__chip" data-loop-chip>CC BY-SA<i class="atlas-loop__ring" data-loop-ring></i></span></li>
+          <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__text"><span class="atlas-loop__title">Cinnamon roast</span><span class="atlas-loop__meta">Wikimedia</span></span><span class="atlas-loop__chip" data-loop-chip>CC BY-SA<i class="atlas-loop__ring" data-loop-ring></i></span></li>
+          <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__text"><span class="atlas-loop__title">Full city roast</span><span class="atlas-loop__meta">Wikimedia</span></span><span class="atlas-loop__chip" data-loop-chip>CC BY-SA<i class="atlas-loop__ring" data-loop-ring></i></span></li>
+        </ul>
+        <div class="atlas-loop__foot" data-loop-foot><span>3 saved to assets/</span><span>credits recorded</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>A terminal that types and starts over</h2>
+    <div class="atlas-loop atlas-loop--terminal" id="terminal" data-loop data-loop-hold="1400" role="img" aria-label="run-gates runs six gates and all pass.">
+      <div class="atlas-loop__bar"><span>terminal</span><code>strict</code></div>
+      <div class="atlas-loop__field"><span id="cmd" data-loop-type="node scripts/run-gates.mjs . --mode full --strict">node scripts/run-gates.mjs . --mode full --strict</span><i class="atlas-loop__caret"></i></div>
+      <ul class="atlas-loop__rows">
+        <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__title">1. Brief Gate</span><span class="atlas-loop__chip" data-loop-chip>PASS</span></li>
+        <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__title">2. Tokens Gate</span><span class="atlas-loop__chip" data-loop-chip>PASS</span></li>
+        <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__title">4b. Concise Copy Gate</span><span class="atlas-loop__chip" data-loop-chip>PASS</span></li>
+      </ul>
+      <div class="atlas-loop__foot" data-loop-foot><span>illustration of the command</span></div>
+    </div>
+  </section>
+
+  <div class="gap" aria-hidden="true"></div>
+
+  <script type="module">
+    // ?bare removes the page-level toggle, to show the one added automatically.
+    if (new URLSearchParams(location.search).has('bare')) document.querySelector('[data-loops-toggle]')?.remove();
+    const { initAtlasLoops } = await import('./atlas-loops.mjs');
+    window.__loops = await initAtlasLoops({ anime: await import('https://cdn.jsdelivr.net/npm/animejs@4/+esm').catch(() => null) });
+  </script>
+</body>
+</html>

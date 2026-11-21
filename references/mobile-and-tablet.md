@@ -82,6 +82,10 @@ Defaults in `initAtlasMotion`: reveal 1250 ms, hero 1100 ms, stagger 110 ms, sce
 
 Why a phone can look static: the system "reduce motion" or battery-saver setting is on (soft mode: fades only), Anime.js failed to load (rest), or the page used an old `atlas-scenes.mjs` that left heavy scenes still below 768 px. Update the template and read `data-atlas-motion`.
 
+## Loops on small screens
+
+Self-playing demos, rotators and tickers (see [loops.md](loops.md)) work the same on phones: they start at 15% visible, pause off screen, show a 44 px pause button, and stand still under reduced motion. Keep one demo card playing per screen; on a phone a card should be at most one screen tall, and long typed lines wrap instead of overflowing.
+
 ## Checks
 
 `quick-check.mjs` adds, for small screens: `mobile-nav-missing`, `cta-width-mismatch`, `cta-not-full-width`, `mobile-long-stack`, `half-empty-row`, plus the existing overflow and tap-target checks at 320-820 px. Open the screenshots; a green log does not prove the layout is calm.

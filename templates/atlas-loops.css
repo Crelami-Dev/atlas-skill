@@ -1,0 +1,416 @@
+/* Atlas Loops v7.4: self-playing demo cards, rotating words, tickers, ambient layers. Token-only.
+   Every component is complete without JS (a finished frame, a first word, a wrapping list) and
+   stands still under prefers-reduced-motion. Behaviour lives in atlas-loops.mjs. */
+
+/* ───── Pause control ───── */
+.atlas-pause {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  line-height: 1;
+  cursor: pointer;
+}
+
+[data-loop-state='static'] > .atlas-pause {
+  display: none;
+}
+
+/* Added automatically when something moves without a pause button of its own and the page has no toggle. */
+.atlas-pause--floating {
+  position: fixed;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: 30;
+  box-shadow: var(--shadow-md);
+}
+
+/* ───── Replayable demo card ─────
+   <div class="atlas-loop" data-loop data-loop-hold="1800" role="img" aria-label="What this shows">
+     <div class="atlas-loop__bar"><span>assets.mjs</span><code>--license safe</code></div>
+     <div class="atlas-loop__field"><span data-loop-type="roasted coffee beans">roasted coffee beans</span><i class="atlas-loop__caret"></i></div>
+     <i class="atlas-loop__progress" data-loop-progress></i>
+     <ul class="atlas-loop__rows">
+       <li class="atlas-loop__row" data-loop-row><span class="atlas-loop__text"><span class="atlas-loop__title">Title</span><span class="atlas-loop__meta">Source</span></span><span class="atlas-loop__chip" data-loop-chip>PASS<i class="atlas-loop__ring" data-loop-ring></i></span></li>
+     </ul>
+     <div class="atlas-loop__foot" data-loop-foot><span>3 saved</span><span>credits recorded</span></div>
+   </div> */
+.atlas-loop {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-elevated);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  overflow: hidden;
+}
+
+.atlas-loop > .atlas-pause {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 2;
+}
+
+.atlas-loop__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-inline-end: var(--space-12);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.atlas-loop__bar code {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  font-family: inherit;
+}
+
+.atlas-loop__field {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: center;
+  align-items: start;
+  column-gap: var(--space-1);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  overflow-wrap: anywhere;
+}
+
+/* The typed text and an invisible copy of the finished line share one cell, so the field never changes height. */
+.atlas-loop__field > [data-loop-type],
+.atlas-loop__ghost {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.atlas-loop__ghost {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.atlas-loop__caret {
+  grid-area: 1 / 2;
+  align-self: end;
+  width: 2px;
+  height: 1.1em;
+  background-color: var(--color-accent);
+  opacity: 0;
+}
+
+[data-loop-phase='type'] .atlas-loop__caret {
+  opacity: 1;
+  animation: atlas-caret 0.9s steps(1) infinite;
+}
+
+.atlas-loop__progress {
+  display: block;
+  height: var(--space-1);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  opacity: 0;
+  transform-origin: left center;
+}
+
+.atlas-loop__rows {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.atlas-loop__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
+.atlas-loop__text {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.atlas-loop__title {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.atlas-loop__meta {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.atlas-loop__chip {
+  position: relative;
+  flex: none;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: color-mix(in oklab, var(--color-success) 14%, transparent);
+  color: var(--color-success);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.atlas-loop__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  opacity: 0;
+}
+
+.atlas-loop__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+/* Terminal variant: an inverted card whose rows read as output lines. */
+.atlas-loop--terminal {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.atlas-loop--terminal .atlas-loop__bar,
+.atlas-loop--terminal .atlas-loop__meta,
+.atlas-loop--terminal .atlas-loop__foot {
+  color: color-mix(in oklab, var(--color-bg) 65%, transparent);
+}
+
+.atlas-loop--terminal .atlas-loop__field,
+.atlas-loop--terminal .atlas-loop__row,
+.atlas-loop--terminal .atlas-loop__bar code {
+  border-color: color-mix(in oklab, var(--color-bg) 18%, transparent);
+  background-color: color-mix(in oklab, var(--color-bg) 8%, transparent);
+}
+
+[data-loop-state='paused'] .atlas-loop__caret,
+[data-loop-state='user-paused'] .atlas-loop__caret {
+  animation-play-state: paused;
+}
+
+@keyframes atlas-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ───── Rotating words ─────
+   Put a static sentence for screen readers beside it. All words share one grid cell, so the widest word
+   fixes the width and nothing around it moves.
+   Build the <h1> text as: Build <span class="atlas-rotator" data-rotate="2600"><span>tidy</span><span>fast</span></span> UI */
+.atlas-rotator {
+  display: inline-grid;
+  vertical-align: baseline;
+}
+
+.atlas-rotator > * {
+  grid-area: 1 / 1;
+  opacity: 0;
+}
+
+.atlas-rotator > :first-child {
+  opacity: 1;
+}
+
+/* ───── Ticker ─────
+   <div class="atlas-marquee" data-marquee data-speed="40"><div class="atlas-marquee__track">
+     <ul class="atlas-marquee__group"><li>Codex</li><li>Cursor</li> …</ul></div></div> */
+.atlas-marquee {
+  position: relative;
+  overflow: hidden;
+}
+
+.atlas-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: atlas-marquee-scroll var(--atlas-marquee-duration, 30s) linear infinite;
+  mask-image: linear-gradient(90deg, transparent, var(--color-text) 8%, var(--color-text) 92%, transparent);
+}
+
+.atlas-marquee[data-direction='right'] .atlas-marquee__track {
+  animation-direction: reverse;
+}
+
+.atlas-marquee__track.is-paused {
+  animation-play-state: paused;
+}
+
+.atlas-marquee__group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  padding-inline-end: var(--space-8);
+  list-style: none;
+  white-space: nowrap;
+}
+
+.atlas-marquee > .atlas-pause {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+/* Without the script the ticker is a plain wrapping row. */
+.atlas-marquee:not([data-loop-state]) .atlas-marquee__track {
+  width: auto;
+  animation: none;
+  mask-image: none;
+}
+
+.atlas-marquee:not([data-loop-state]) .atlas-marquee__group {
+  flex-wrap: wrap;
+}
+
+@keyframes atlas-marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ───── Ambient layers (CSS only) ─────
+   <div class="atlas-fx" aria-hidden="true"><i class="atlas-fx__glow"></i><i class="atlas-fx__ring"></i>
+   <i class="atlas-fx__ring atlas-fx__ring--2"></i><i class="atlas-fx__mark"></i></div>
+   Place inside a positioned, overflow-hidden parent. One per section. */
+.atlas-fx {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.atlas-fx__glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent);
+  animation: atlas-fx-glow 7s ease-in-out infinite;
+}
+
+.atlas-fx__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--color-accent) 35%, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  animation: atlas-fx-ring 8s ease-out infinite;
+}
+
+.atlas-fx__ring--2 {
+  animation-delay: -4s;
+}
+
+.atlas-fx__mark {
+  position: absolute;
+  top: 18%;
+  left: 14%;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: 50%;
+  background-color: color-mix(in oklab, var(--color-accent) 55%, transparent);
+  animation: atlas-fx-drift 9s ease-in-out infinite;
+}
+
+.atlas-fx.is-paused *,
+.atlas-float.is-paused {
+  animation-play-state: paused;
+}
+
+/* A gentle float for a card that sits above an ambient layer. */
+.atlas-float {
+  animation: atlas-fx-drift 6s ease-in-out infinite;
+}
+
+@keyframes atlas-fx-glow {
+  50% {
+    opacity: 0.55;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes atlas-fx-ring {
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+@keyframes atlas-fx-drift {
+  50% {
+    transform: translateY(calc(var(--space-2) * -1));
+  }
+}
+
+/* ───── Reduced motion: everything stands still and stays readable ───── */
+@media (prefers-reduced-motion: reduce) {
+  .atlas-fx *,
+  .atlas-float,
+  .atlas-loop__caret {
+    animation: none;
+  }
+
+  .atlas-marquee {
+    overflow-x: auto;
+  }
+
+  .atlas-marquee__track {
+    width: auto;
+    animation: none;
+    mask-image: none;
+  }
+
+  .atlas-marquee__group {
+    flex-wrap: wrap;
+  }
+
+  .atlas-marquee__group[aria-hidden='true'],
+  .atlas-pause {
+    display: none;
+  }
+}
+
+/* The pause button on an inverted terminal card follows the card, not the page. */
+.atlas-loop--terminal > .atlas-pause {
+  border-color: color-mix(in oklab, var(--color-bg) 25%, transparent);
+  background-color: transparent;
+  color: var(--color-bg);
+}

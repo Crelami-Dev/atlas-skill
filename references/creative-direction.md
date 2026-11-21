@@ -52,6 +52,7 @@ Bold never means more things at once. It means one thing louder.
 ## Ambient surfaces and interaction
 
 - **Backgrounds** (`templates/atlas-backgrounds.css`): `mesh`, `grain`, `contour`, `blueprint`, `spotlight`, `paper`. One per section, texture only, built from the page's own tokens. Match the subject: `contour` for terrain and craft, `blueprint` for studios, `paper` for hospitality.
+- **Loops** (`templates/atlas-loops.mjs`, [loops.md](loops.md)): a demo card that types, runs, shows a result and replays; rotating words; a ticker; an ambient glow. Use them to show a product doing something, with true content, one demo per screen.
 - **Interaction** (`templates/atlas-interact.mjs`): `data-magnetic` on the main CTA, `data-tilt` on a feature card, `data-spotlight` with `atlas-bg-spotlight`, `data-count` for real figures, and `data-mobile-bar` for a phone action bar. All are opt-in and off under reduced motion.
 - **Components** (`templates/atlas-components.css`): `.atlas-cta-row` (equal-width stacking on phones), `.atlas-card`, `.atlas-carousel`, `.atlas-bento`, `.atlas-link`, `.atlas-stats`, `.atlas-mobile-bar`.
 
